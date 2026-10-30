@@ -1,56 +1,87 @@
-# ADR 0002 — Source selection and reuse gate
+# ADR 0002 — Source reuse and original-code licensing
 
-Date: 2026-10-30. Status: accepted design; **source import blocked**.
-Owner for rights resolution: repository owner. Due: before M2 import (M2-A1).
-Requirements: R02, R14–R17, R21. [Source evidence](../source-assessment.md).
+Date: 2026-10-30. Status: **direct upstream application reuse not cleared;
+independent implementation recommended, awaiting owner selection**.
+Supersedes the conditional S01 adoption recommendation from M1; no application
+implementation is authorized by this assessment. Owner: repository owner.
+Requirements: R02, R14–R17, R21. Primary evidence and limitations:
+[current source assessment](../source-assessment.md#bounded-m2-source-reuse-and-licensing-assessment).
 
-## Context and decision
+## Evidence and decision
 
-Select `Azure-Samples/octocat-supply` commit
-`65299c9df87fc466be28a6eec56d53ea1e4fa915` as the **conditional** reference source.
-It matches the required React/TypeScript/API/SQLite workload. Do not copy it yet.
-Reinspection of its complete tree found no LICENSE/NOTICE/COPYING/COPYRIGHT-named
-file. Its [API manifest](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/api/package.json)
-declares MIT; the frontend manifest does not. This does not resolve all code,
-images, branding, prompts or documentation rights. The event starter has the same
-whole-tree license-file gap. GitHub documents the difference between public access
-and licensed reuse in its [licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+Current public `Azure-Samples/octocat-supply` main still resolves to
+`65299c9df87fc466be28a6eec56d53ea1e4fa915`. Its complete tree has no named license or
+notice file; metadata reports no repository license. The API manifest declares
+MIT, a meaningful package-specific statement, but no frontend grant was located.
+The frontend contains a copyright/all-rights-reserved footer. Artwork and designs
+have no separately established reuse terms. AI authorship statements are not a
+license grant or a reliable ownership/public-domain determination.
 
-The owner must record applicable permission/license evidence identifying intended
-files, revision and redistribution scope. An upstream license addition must be
-checked for coverage of the intended revision; do not assume retroactive coverage.
-If a different licensed revision is selected, reassess compatibility and update
-the register and M2 scope. Do not silently substitute another application or infer
-rights from forks. An independently authored workload is an alternative scope
-decision, not an approved workaround.
+**Do not copy/adapt/distribute the complete application or its assets merely with
+attribution. Permission has not been established for that use.** Do not describe
+this as a finding that the API is unlicensed: its declared MIT terms may permit
+selective reuse within their actual scope, with applicable copyright and license
+notices. That scope/provenance does not establish rights for frontend/artwork;
+partial reuse adds complexity and is not the recommended path.
 
-For permitted material, import only API/frontend and necessary tests/seeds/build
-files under `apps/octocat-supply/`. Record upstream paths, full revision, local
-paths, notices, permitted use and modifications in an import manifest. Exclude
-active upstream `.github`, agents/hooks/MCP settings, credentials, deployment
-configuration and unnecessary visual assets. Use plain text/original placeholders
-for excluded art. Removing art alone does not resolve code rights.
+Recommend independently writing the existing catalogue/search/cart/pricing and
+synthetic persistence behaviours from our own requirements, including original
+UI, data, tests, migrations, configuration and simple visuals. Retain the two-app
+architecture and candidate `apps/octocat-supply/` directory for continuity; the
+path is an internal reference label, not a claim to distribute the upstream app.
+Use a neutral original display identity such as `Supply Demo`. Acknowledge the
+OctoCAT reference with a factual source link without copying its code, prose,
+layout, logos or images. Do not ask agents to translate/paraphrase upstream code.
+This is independent authorship, **not a certified clean-room process**; references
+have already been inspected. No implementation has begun.
 
-## Attribution and original license
+## Private repository and public portfolio
 
-Retain applicable copyright/license text and relevant NOTICE content at import.
-MIT reuse requires retained copyright and permission notices; Apache-2.0 reuse
-requires its license, relevant notices/NOTICE content and marked modifications.
-Neither grants all branding rights. Record package/container transitive licenses
-at M2/M3; top-level notices alone are insufficient.
+Private development does not supply missing copy/adapt rights. Legitimately
+MIT-covered components can be used privately and distributed with required
+notices; MIT does not require publication of our own source. GitHub's public
+viewing/service-fork rights are not a blanket external reuse license. See the
+primary sources linked in the assessment, including
+[GitHub licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+and [MIT terms](https://opensource.org/license/mit).
 
-**Original project license is unresolved**: MIT is the recommendation for the
-owner's original material, but no blanket license or rights grant is issued in
-M1. Owner decides before M2 distribution/import integration. Do not relicense
-upstream material. Rights evidence and original-license selection are distinct.
-These are explicit M2 blockers; they do not prevent completing a design review.
+For eventual public publication, review source/history, images/frontend bundles,
+container layers, documentation and video/screenshots. Keep unknown-rights content
+out of all history made public, not just the final tree. Prefer recordings of our
+own implementation with original visuals. Treat brand use separately and avoid
+implied Microsoft/GitHub endorsement. No visibility change is authorized here.
 
-## Alternatives and consequences
+## Original license and retained obligations
 
-- Wholesale copy: rejected while rights are unresolved and inherited automation
-  could activate unwanted workflows.
-- Another fork/starter: not selected; public visibility does not fix rights.
-- Independent implementation: requires a new scoped ADR and owner direction.
+Recommend **MIT** for original project code, using the actual rights holder/year.
+It fits a simple permissive portfolio with private development and optional public
+publication. It does not require making the repository public. Owner selection
+and addition of a proper LICENSE are future steps; no license is issued by this
+ADR and no employer/contributor ownership is assumed.
+MIT grants recipients redistribution rights; private repository access controls
+do not impose a private-only license on copies legitimately received under MIT.
 
-M1 can be complete while M2 remains blocked at import. Nothing in this ADR claims
-permission, legal ownership, runtime compatibility or a working baseline.
+Third-party material keeps its own terms. At adoption, record exact package/base
+versions, provenance, license/notice files and any modifications; preserve MIT
+copyright/permission notices, and applicable Apache-2.0 license/NOTICE content and
+modification notices. Review other licenses independently rather than assuming
+that an MIT root license covers everything. Apache-2.0 for original code remains
+an alternative if explicit patent licensing is required; MIT is simpler for the
+current need. No dependency/asset selection or license audit is complete yet.
+
+## Alternatives, gates and consequences
+
+| Path | Disposition and gate |
+| --- | --- |
+| Complete upstream application/assets | Not cleared; obtain permission from actual rights holders or a clearly licensed revision covering intended files/assets and distribution. Attribution is insufficient |
+| API-only MIT reuse plus new frontend | Potentially permitted within the declared package grant, subject to provenance/notice/scope review; not selected because it does not simplify the small workload enough |
+| Independent synthetic functionality | Recommended; owner must select it and the original-code license before M2 implementation; third-party dependency/asset checks still apply |
+| Another fork/starter | Not a rights shortcut; requires its own scope/provenance/license review |
+
+Choosing the independent route removes the need to obtain permission for upstream
+material **we do not copy**; it does not declare that material reusable or erase
+future dependency obligations. If later selecting direct reuse, retain its rights
+gate and update this ADR before import. Current owner decisions are strategy and
+original license; there is no further permission we can infer from public access.
+The [M2 handoff](../milestones/m2-scope.md) carries the recommended route and gates.
+Stop after this assessment: no import, app implementation, deployment, commit or push.

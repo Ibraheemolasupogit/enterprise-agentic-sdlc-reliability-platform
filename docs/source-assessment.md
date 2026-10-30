@@ -8,11 +8,18 @@ read-only; documentation tooling, if used, stays outside the repository. Revisio
 dependencies or recommended package versions. Recheck rights and compatibility at
 adoption time.
 
+Latest bounded M2 assessment: **direct OctoCAT application reuse is not cleared;
+independent implementation of the synthetic commerce requirements is recommended**.
+See [current licensing decision](#bounded-m2-source-reuse-and-licensing-assessment)
+and [ADR 0002](decisions/0002-source-reuse.md). M0/M1 findings below remain historical
+snapshots; this recommendation does not authorize implementation or change any
+repository visibility.
+
 ## Relevant upstream repositories
 
 | ID | Repository and assessed revision | Role | Rights finding and disposition |
 | --- | --- | --- | --- |
-| S01 | [Azure-Samples/octocat-supply](https://github.com/Azure-Samples/octocat-supply/tree/65299c9df87fc466be28a6eec56d53ea1e4fa915) — `65299c9df87fc466be28a6eec56d53ea1e4fa915` | Preferred application assessment candidate: Azure-oriented demo, API/UI, tests, workflows and Bicep examples | No LICENSE/NOTICE/COPYING/COPYRIGHT-named file found in complete tree; API package declares MIT; repository license metadata is null. Full application/assets rights unresolved; reference only in M0 |
+| S01 | [Azure-Samples/octocat-supply](https://github.com/Azure-Samples/octocat-supply/tree/65299c9df87fc466be28a6eec56d53ea1e4fa915) — `65299c9df87fc466be28a6eec56d53ea1e4fa915` | Preferred application assessment candidate: Azure-oriented demo, API/UI, tests, workflows and Bicep examples | No LICENSE/NOTICE/COPYING/COPYRIGHT-named file found in complete tree; API package declares MIT; repository license metadata is null. Full application/assets rights unresolved; Reference only; see current M2 assessment below |
 | S02 | [octodemo/octocat_supply](https://github.com/octodemo/octocat_supply/tree/616536c69052141d5cd32e5c422099e0fa73d83c) — `616536c69052141d5cd32e5c422099e0fa73d83c` | Alternative application reference with API/UI, docs and lockfiles | No LICENSE/NOTICE/COPYING/COPYRIGHT-named file found in complete tree; repository license metadata is null. Assess separately; do not assume shared rights or exact equivalence with S01 |
 | S03 | [microsoft/agent-framework](https://github.com/microsoft/agent-framework/tree/4d4e2168fe57ee20903e152928a61cf276372d29) — `4d4e2168fe57ee20903e152928a61cf276372d29` | Candidate for later agent architecture evaluation | [MIT license](https://github.com/microsoft/agent-framework/blob/4d4e2168fe57ee20903e152928a61cf276372d29/LICENSE) inspected; preserve copyright and permission notice for copies/substantial reuse; no framework selected |
 | S04 | [microsoft/mcp](https://github.com/microsoft/mcp/tree/286a2b8b6ec0e2fe1d388ad45963a3fe8bf5a3b5) — `286a2b8b6ec0e2fe1d388ad45963a3fe8bf5a3b5` | Candidate Azure tool integration reference | [MIT license](https://github.com/microsoft/mcp/blob/286a2b8b6ec0e2fe1d388ad45963a3fe8bf5a3b5/LICENSE) inspected; retain notices; Azure identity, tool scope and service costs require separate design |
@@ -40,7 +47,7 @@ register in M10 and whenever an adoption decision changes.
 
 | Source | Relevance and adoption decision/rationale | Dependencies and verification still required | Contribution opportunity/status | Walkthrough relevance |
 | --- | --- | --- | --- | --- |
-| S01 | First workload candidate for M1 design/M2 adoption; rights unresolved | File/asset permissions, runtime, native SQLite, local/container journey tests | No submission; investigate reproducible defect after rights/compatibility assessment | Explain reference selection and baseline |
+| S01 | Reference only; direct reuse not cleared; independent synthetic implementation now recommended | File/asset permissions, runtime, native SQLite, local/container journey tests | No submission; investigate reproducible defect after rights/compatibility assessment | Explain reference selection and baseline |
 | S02 | Alternative reference only; avoid parallel baseline | Independent rights and ancestry/compatibility check | No submission; none selected | Explain alternatives if relevant |
 | S03 | Defer SDK choice; custom orchestration needs a requirement | Role/tool contracts, complexity, authentication and evaluation | No submission; none selected | Only if actually adopted |
 | S04 | Optional Azure tool reference; no integration selected | Scoped identity, supported operations, tool bounds and service cost | No submission; none selected | Identity boundaries if demonstrated |
@@ -159,3 +166,106 @@ container bases and transitive licenses need their own records before adoption.
 See the [M1 review](evidence/m1-design-review.md) and
 [M2 implementation handoff](milestones/m2-scope.md). Upstream read/inspection status
 is not current capability execution evidence.
+
+## Bounded M2 source-reuse and licensing assessment
+
+Assessed: **2026-10-30**, read-only. Working repository was clean at owner-created
+commit `5289623202c73e4e3699d3ba7e8b5a2fc3eb3999`. Only this assessment,
+ADR 0002, notices and the M2 handoff are updated. No source/asset/package import,
+installation, application execution, author contact, deployment, commit or push was
+performed. This is a decision from documented grants, not a legal clearance of
+unknown ownership, jurisdiction-specific exceptions, patents or trademarks.
+
+### Current upstream and primary evidence
+
+| Evidence | Verified finding and scope |
+| --- | --- |
+| [Repository metadata](https://api.github.com/repos/Azure-Samples/octocat-supply), [current main commit](https://api.github.com/repos/Azure-Samples/octocat-supply/commits/main) | Public `Azure-Samples/octocat-supply`, default branch `main`, repository license metadata `null`; main resolves to `65299c9df87fc466be28a6eec56d53ea1e4fa915`, the same revision assessed in M1 |
+| [Complete pinned tree](https://api.github.com/repos/Azure-Samples/octocat-supply/git/trees/65299c9df87fc466be28a6eec56d53ea1e4fa915?recursive=1) | `truncated=false`, 324 tree entries/270 blobs; no path named for LICENSE, NOTICE, COPYING or COPYRIGHT. A filename search alone cannot rule out a grant embedded in other files |
+| [API package.json](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/api/package.json) | Declares `license: MIT`. Treat this as meaningful package-specific licensing evidence, not as no license merely because a LICENSE file is absent. It does not establish repository-wide or artwork coverage |
+| [Frontend package.json](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/frontend/package.json), [frontend README](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/frontend/README.md) | No frontend license grant identified. `private: true` prevents npm publishing; it is not itself a copyright license or a prohibition on all reuse, per [npm documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#license) |
+| [Frontend Footer.tsx](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/frontend/src/components/Footer.tsx) | Displays “Copyright © 2025 OctoCAT Supply. All Rights Reserved”. This is an actual notice to record, not a verified legal identity of the rights holder and not a grant of reuse permission |
+| [Root README](https://github.com/Azure-Samples/octocat-supply/blob/65299c9df87fc466be28a6eec56d53ea1e4fa915/README.md), [public artwork](https://github.com/Azure-Samples/octocat-supply/tree/65299c9df87fc466be28a6eec56d53ea1e4fa915/frontend/public), [design images](https://github.com/Azure-Samples/octocat-supply/tree/65299c9df87fc466be28a6eec56d53ea1e4fa915/docs/design) | README describes AI/Copilot creation including the hero image. No blanket grant for product/hero art, UI copies, designs or branding identified; AI provenance is not a public-domain dedication or proof of ownership |
+
+Targeted upstream code searches for copyright/license and the linked files were
+read. Dependency lockfiles contain package license metadata, which does not license
+the surrounding application. No exhaustive per-file ownership or dependency audit
+was performed. The connector rejected the `/license` API endpoint as unsupported;
+that was **not** a GitHub 404 or proof of an absent license. Conclusions use the
+accessible metadata, complete tree and actual file declarations instead.
+
+### Copy, modify and distribute: component decisions
+
+| Material | Assessment / project decision |
+| --- | --- |
+| API package | MIT is declared. For material actually covered by that declaration, [MIT terms](https://opensource.org/license/mit) permit copying/modification/distribution with retained copyright and permission notices. Confirm package boundaries, provenance and applicable existing notices before any selective reuse; do not invent a Microsoft copyright notice. API reuse is not selected for this project |
+| Frontend, shared application docs, tests, migrations and seed content outside a confirmed grant | No adequate grant located for the proposed complete workload. **Not cleared for copy/modify/redistribute with attribution alone**. This is a lack-of-established-permission finding, not a claim that no right could exist under any agreement/exception |
+| Hero/product/design images, logos and copied demo screenshots | No adequate asset-specific grant established. Exclude from implementation and published portfolio unless separately cleared. GitHub [brand rules](https://brand.github.com/foundations/logo) are separate from software licensing; do not imply endorsement |
+| Independently licensed packages, frameworks and container bases | Reusable under each applicable license once selected/versioned and reviewed. Obtain from their own authoritative distribution, not by assuming the OctoCAT license covers them |
+| Our independently authored code, original synthetic data, text and simple original visuals | Recommended implementation route, subject to normal ownership/dependency checks. High-level catalogue/search/cart/pricing behaviour is the target, not copied source, schema, tests, prose, visual layout or data |
+
+[GitHub's licensing guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+and [Terms section D.5](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#5-license-grant-to-other-users)
+distinguish public viewing/service forking from additional license rights. Neither
+attribution nor private visibility supplies a missing general permission. The
+[UK IPO overview](https://www.gov.uk/copyright) covers automatic protection and
+restricted copying/adaptation/publication. The [US Copyright Office's computer-program guidance](https://www.copyright.gov/circs/circ61.pdf)
+distinguishes protected expression from functionality; it supports the functional
+reimplementation approach, not copying expressive code or a jurisdiction-wide
+non-infringement guarantee. No formal clean-room process is claimed: upstream
+material has already been inspected during source assessment.
+
+### Private development and eventual publication
+
+| Context | Compatibility decision |
+| --- | --- |
+| Current private working repository | Our own original implementation can remain private. Legitimately MIT-covered components can be used privately with required notices; MIT does not force publication, but recipients receive redistribution rights. Repository access control does not revoke those rights or cure missing rights for other copied content |
+| Eventual public source release | Publish original code under the selected project license, retaining third-party terms/notices. Unresolved upstream content must be absent from files **and any history made public**; review before changing visibility, not after |
+| Images, frontend bundles, container images, screenshots and video walkthroughs | Review embedded/copied content and shipped dependency notices, not just source folders. Prefer recording our own independently implemented UI with original visuals; reference upstream with a factual link rather than copying its artwork or demo screenshots |
+| Adding MIT to our repository | Does not change repository visibility or require a public release. It grants rights only in material we have authority to license, and cannot clear unlicensed third-party content |
+
+### Recommended compliant strategy and original license
+
+**Recommend an independently authored synthetic commerce workload** using the
+existing J01–J06/NF requirements, neutral original UI, original 12-product fixture
+and independently written tests/migrations/configuration. Retain OctoCAT Supply as
+an acknowledged reference; do not describe the implementation as an upstream fork,
+formal clean-room product, or licensed OctoCAT distribution. Do not feed upstream
+source/images to a coding agent for translation/paraphrasing. Existing framework
+APIs and separately licensed dependencies may be used under their own terms.
+
+This route avoids needing permission for application content we do not copy;
+permission remains necessary if we later elect to copy it. The owner still must
+select this strategy before M2 functionality begins. The current task authorizes
+recommendation and document updates only; no independent substitute is implemented.
+
+Recommend **MIT for original project code**: simple permissive private/public
+reuse, copyright/permission notice retention, no requirement to publish our own
+source. Apache-2.0 is an alternative when an explicit patent grant is a requirement,
+with additional [notice/modification obligations](https://www.apache.org/licenses/LICENSE-2.0).
+MIT is the simpler fit here; use the actual rights holder/year, preserve third-party
+licenses and avoid claiming exclusive ownership of third-party or uncertain material.
+No LICENSE file or blanket grant is created in this bounded assessment.
+
+Remaining gates: owner confirms independent implementation and original-license
+choice; M2 records actual dependency/container/asset versions and terms before
+adoption, plus provenance/originality review before public release. If direct
+OctoCAT reuse is chosen instead, obtain rights-holder permission or a clearly
+licensed revision covering the intended paths/assets and redistribution, then
+update this decision. Attribution alone does not clear that route. M1 review and
+other project-wide status documents are left as historical/design records under
+the four-document edit boundary; reconcile their conditional-source language when
+the implementation strategy is accepted.
+
+### Assessment validation
+
+| Check | Result / scope |
+| --- | --- |
+| `python3 scripts/check_repository.py` | PASS: 26 text files, 23 Markdown files, 125 local file/anchor links; all 13 roadmap titles and M1 catalogue references resolve |
+| `git diff --check` | PASS: no whitespace diagnostics in the four modified tracked documents |
+| Edit boundary and Git review | PASS: exactly source assessment, ADR 0002, notices and M2 handoff changed; no untracked/staged files, implementation, new LICENSE, commit/push or visibility change; HEAD unchanged |
+| Decision/handoff consistency | PASS: all four documents retain the same source pin and independent/MIT recommendations; all ten M2 acceptance criteria retained |
+
+Current upstream evidence was read directly; the local checker does not verify all
+external URL availability. No dependency/asset ownership audit or application/
+integration test was run. This bounded task stops after the recommendation.
