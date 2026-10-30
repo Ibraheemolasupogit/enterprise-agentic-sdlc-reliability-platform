@@ -1,8 +1,9 @@
 # Project charter
 
-Date: 2026-10-30. Owner: repository owner. Stage: M0.
+Date: 2026-10-30. Owner: repository owner. Stage: M1 — Product and architecture foundation (Design only).
 Authority: [master brief](project/master-brief.md), particularly sections 1–4,
-16–17. This M0 charter is an input to M1 refinement, not evidence M1 is complete.
+16–17. M0 history remains in its assessment; M1 completion is assessed against
+[the eight acceptance criteria](milestones/m1-scope.md).
 
 ## Purpose and intended outcome
 
@@ -30,12 +31,13 @@ has its own history, requirements, and validation record.
 | Collaboration and presentation | Verified upstream register, focused contribution where appropriate, and reproducible walkthrough/video |
 
 No availability, recovery-time, security-compliance, or AI-accuracy result is claimed
-in M0. Later milestones must define measurement windows and pass thresholds before
-running demonstrations.
+by design documents. The validation strategy defines measurement windows and pass
+thresholds for later demonstrations; those targets still need execution evidence.
 
 ## Boundaries and delivery principles
 
-- M0 produces documentation, source assessment, and lightweight repository checks.
+- M1 refines the product and architecture, threat model, ADRs, validation strategy
+  and M2 handoff. No runtime or platform capability is promoted by design alone.
 - No application, agent, CI workflow, cloud infrastructure, credentials, deployment,
   paid cloud access, commit, or push is authorized in this task.
 - Claims Processing remains a separate project, including its data and backlog.
@@ -52,13 +54,38 @@ running demonstrations.
 - Measure improvements against recorded baselines; static homepage health does not
   prove dependency health, and sampled recovery does not prove full availability.
 
-## Assumptions and decisions still open
+## Product scope and decision baseline
 
-The master brief is available and governs the roadmap. Historical source/run links
-are now recorded, but the lab repository returned 404 through the current connection;
-its artifacts have not been independently recovered. The unavailable personal
-rehearsal assets remain unverified. Persistence/durability, hosting, service and
-agent permission boundaries, supported inference authentication, Bicep reuse,
-budget/region, numerical SLOs and license/asset rights need M1 decisions or explicit
-deferrals. See the
-[gap register](evidence/m0-assessment.md) and [M1 entry gates](milestones/m1-scope.md).
+The fictional engineering team supports product catalogue/search, synthetic carts
+and authoritative GBP pricing. These critical journeys, error criteria and
+functional/non-functional requirements are defined once in
+[requirements](requirements.md); tests/SLOs and proof live in the
+[validation strategy](validation-strategy.md). Real checkout, payments, discounts,
+customer PII and inventory reservation are outside the M2 slice.
+
+Select a two-container React/Nginx → TypeScript API → repository design, local
+SQLite for M2, Azure Container Apps with internal API and Azure SQL for the cloud
+target. Use GitHub Actions/images/Bicep and scoped OIDC, existing assistant/gh-aw/
+SRE surfaces with separate permissions, and journey-driven Azure Monitor telemetry.
+These are design decisions in [ADRs 0002–0006](decisions/0002-source-reuse.md), not
+implemented integrations. The architecture avoids an extra agent service, custom
+multi-agent framework, duplicate CI pipeline or mandatory multi-cloud component.
+
+Delivery success means reproducible tests/review/release and a verified incident
+handoff/recovery loop, not a collection of tools. Record baseline investigation
+minutes, manual steps, failures and recovery times before assessing improvement.
+Do not invent percentage gains. M1 exits with reviewed design and a gated M2
+handoff; a runnable baseline remains M2 work.
+
+## Remaining blockers and decision owners
+
+The master brief governs the roadmap. The personal rehearsal remains unavailable;
+lab references are historical, not current reuse evidence. The repository owner
+must resolve workload code/asset rights and original-work licensing **before M2
+import**. Other design choices are selected; actual runtime patch/base digests
+are pinned and tested at M2 setup, while Azure SKU/region/private network cost,
+actual OIDC subject/roles and protection entitlement are verified before M3/M4
+execution. gh-aw supported engine/auth/spend ceiling is decided before M5 and
+SRE/issue/assignment integration support before M7/M8. No secret, paid inference,
+resource or scheduled monitoring change is authorized here. See the
+[M1 review and decision register](evidence/m1-design-review.md).

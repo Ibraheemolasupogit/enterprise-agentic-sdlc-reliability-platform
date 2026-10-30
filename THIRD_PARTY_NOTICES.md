@@ -1,6 +1,6 @@
 # Third-party references and import register
 
-M0 status: no third-party application source, agent definitions, workflows,
+M1 status: no third-party application source, agent definitions, workflows,
 infrastructure, assets, packages, or license text has been imported. This file is
 a reference acknowledgement and future import register, not a grant of rights.
 
@@ -29,3 +29,11 @@ copyright holder, governing license, retained license/NOTICE locations, permissi
 evidence where needed, and modifications. Preserve upstream notices as required;
 do not replace them with this table. The owner has not yet selected a license for
 this repository's original work.
+
+M1 rechecked S01/S07 complete pinned trees and S08/S09/S10 license texts using
+upstream GitHub sources. API-only MIT metadata does not settle whole-workload or
+asset rights. [ADR 0002](docs/decisions/0002-source-reuse.md) records the no-import
+gate, proposed layout and original-license decision still owned by the repository
+owner. The M2 handoff remains blocked for source adoption until permission evidence
+covers the selected revision/paths. Documentation design and source links are not
+an import of application code, assets or upstream license text.

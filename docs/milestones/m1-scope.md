@@ -1,7 +1,8 @@
-# M1 proposal — Product and architecture foundation
+# M1 scope — Product and architecture foundation
 
 Authority: [master brief](../project/master-brief.md), sections 7–17, especially
-section 16. Status: proposed only; no M1 work is implemented or authorized by M0.
+section 16. Status: M1 design work authorized by the owner; execution evidence and
+remaining source gates are recorded in the [M1 review](../evidence/m1-design-review.md).
 Requirement coverage: R18, R24 and the design portions of R02–R17, R19–R25.
 
 Outcome: a reviewable product, architecture and security design for a small
@@ -10,7 +11,7 @@ M2 implementation handoff. Existing M0 drafts are preserved and refined.
 
 ## Included work and expected files
 
-| Work | Expected files in M1 (not created by M0 closure) |
+| Work | M1 files (design artifacts) |
 | --- | --- |
 | Refine fictional team problem, scope, critical product/search/cart/pricing journeys and measurable acceptance criteria | Update `docs/project-charter.md`, `docs/requirements.md`, `docs/capability-status.md` |
 | Define React frontend, TypeScript API, repository/data layer, local/container and Azure target boundaries, internal API access and configuration/dependency paths | Create `docs/architecture.md` with context/component/data-flow diagrams and trust boundaries |
@@ -66,4 +67,4 @@ criteria. Close decisions required by M2 before starting its implementation.
 M1 ends with reviewed design, decisions and an implementable M2 scope. Source import,
 application setup/build/tests, container execution and fault reproduction belong to
 M2. CI/image/IaC implementation belongs to M3; Azure deployment to M4; successful
-agentic maintenance/inference to M5. M0 closure creates this proposal only.
+agentic maintenance/inference to M5. This authorization stops after M1; M2 source import/implementation is not authorized.

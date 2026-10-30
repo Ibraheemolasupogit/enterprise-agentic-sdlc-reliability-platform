@@ -1,10 +1,11 @@
 # Milestone roadmap M0–M12
 
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
-replaces the initial M0 proposal and the event challenge sequence. Only M0 closure
-is authorized now; all later milestones remain planned. Security and evidence
-apply throughout. Earlier M0 charter/requirements drafts are inputs to M1, not
-proof that M1 has been completed.
+replaces the initial M0 proposal and the event challenge sequence. Current authority
+is M1 product/architecture design only; M2 and later execution remain planned.
+Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
+records design evidence and the blocked source-import gate, without promoting any
+runtime capability.
 
 | Milestone | Scope | Exit evidence |
 | --- | --- | --- |

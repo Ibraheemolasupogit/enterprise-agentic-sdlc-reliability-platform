@@ -1,7 +1,8 @@
-# Initial requirements
+# Product and engineering requirements
 
-Authority: [master brief](project/master-brief.md). Status: M0 requirements baseline,
-aligned during closure; M1 will refine product/architecture acceptance criteria.
+Authority: [master brief](project/master-brief.md). Status: M1 **Design only**.
+R01–R25 remain the lifecycle requirements; the functional journeys and non-functional
+contracts below refine their acceptance criteria. No runtime result is asserted.
 Existing R-IDs are retained. Targets identify where evidence belongs, not completed
 implementation. Agent-assisted work and security apply across milestones.
 
@@ -23,7 +24,7 @@ implementation. Agent-assisted work and security apply across milestones.
 | R14 | Preserve provenance, notices and third-party obligations | M0–M12 | Source assessment now; file-level import/change register and retained licenses before reuse |
 | R15 | Separate historical validation from current verification | M0–M12 | C1–C6 historical status retained; C7 inference unverified until execution evidence exists |
 | R16 | Keep Claims Processing independent | All | No Claims Processing application, data, shared deployment or required runtime integration |
-| R17 | Protect credentials, scope and owner-controlled Git operations | All | No embedded secrets; M0 has no cloud execution; commits/pushes performed by owner |
+| R17 | Protect credentials, scope and owner-controlled Git operations | All | No embedded secrets; M0/M1 have no cloud or paid-inference execution; commits/pushes performed by owner |
 | R18 | Establish product and architecture foundation | M1 | Refined charter/requirements/capability matrix, architecture, threat model, ADRs, validation strategy and bounded M2 handoff; design only |
 | R19 | Close the historical C7 gap with working agentic maintenance | M5 | Supported genuine inference and useful repository output, distinct inference/write permissions, least privilege and safe authorization failure |
 | R20 | Demonstrate wider operational assurance | M9 | Backup/restore against objectives, performance/capacity measurements, drift/dependency maintenance, runbook/toil and cost hygiene evidence |
@@ -48,7 +49,50 @@ implementation. Agent-assisted work and security apply across milestones.
   remediation, recovery, or safe inference. Record observable outcomes separately.
 - Native dependencies, images, npm packages, action versions and transitive licenses
   require review at adoption time. No dependency install or runtime verification
-  occurred during M0.
+  occurred for the application during M0/M1.
 - Persistence decisions cover durability, concurrency, migrations, replacement,
   backup/restore and rollback integrity. Static `/` health does not prove dependency
   health. Do not claim measured gains without recorded baselines.
+
+## Functional requirements and critical journeys
+
+The [architecture](architecture.md) defines the proposed API contracts; these are
+personal implementation targets, not a claim that the upstream already supplies
+them. Validation IDs are in the [validation strategy](validation-strategy.md).
+
+| Journey / functional ID | User behaviour and acceptance criteria | Errors / evidence |
+| --- | --- | --- |
+| J01 / FR01 — Catalogue | Show 12 synthetic products; known product detail and stable IDs; default page 20, maximum 100; explicit loading/empty states | Unknown ID 404, malformed ID/query 400; UI error is visible; V01/V06 |
+| J02 / FR02 — Search | Trimmed case-insensitive name search; empty query restores catalogue; no match shows empty state; allowlisted name/price sort with ID tie-break and pagination | Search >100 chars, invalid sort, negative offset or limit outside 1–100 rejected with 400; V02/V06 |
+| J03 / FR03 — Cart | Create isolated opaque cart; add/set quantities 1–99, update without duplicate lines, remove/re-remove idempotently; refresh retains cart reference and API restart retains rows | Invalid quantities 400; unknown cart/product 404; empty cart total zero; no cross-cart leakage; V03/V04/V06 |
+| J04 / FR04 — Pricing | Server computes GBP integer-minor-unit line/subtotals from canonical product prices; 2 units at 12999 plus 3 at 1999 totals 31995; reject client price override | No discount/tax/shipping/checkout in M2; accessible display agrees with API, including zero/one/multiple lines; V03/V06 |
+| J05 / FR05 — Dependency failure | Wrong frontend API port produces a visible API-backed journey error and failed dependency readiness, even when static `/` returns 200 | 2-second frontend readiness bound; safe error/request ID; restore port and independently confirm journey; V07 |
+| J06 / FR06 — Data lifecycle | Explicit migration/seed/reset; repeat reset yields same 12 IDs/data; restart and container replacement retain data when volume retained | Changed migration checksum rejected; reset cannot escape designated local path or reach cloud; V05/V18 |
+
+Product DTO: positive integer `id`, bounded `name` (1–120 chars), nonnegative integer
+`unitPriceMinor` and `currency=GBP`. Cart requests contain product IDs and absolute
+quantities; responses contain canonical price, line totals, cart total and request
+ID. Set maximum 100 distinct lines/cart, reject excess with a stable 400 error.
+Cart transactions return authoritative results; UI reconciles optimistic state on
+failure. Product mutation needed by local fixture tests is not a public admin API.
+Synthetic anonymous carts are not a real identity/payment/commerce system.
+
+## Non-functional requirements
+
+| ID | Contract / selected target | Verification and milestone |
+| --- | --- | --- |
+| NF01 reproducibility | Node.js 24 major, exact patched Node and bundled npm versions recorded before install; lockfiles and immutable container base digests; local Linux containers, one API process | M2 clean setup twice; install no app dependencies in M1; V18 |
+| NF02 validation/integrity | Parameterized queries, atomic cart updates, server prices, foreign keys, changed migrations refused; isolated test databases | M2 V01–V05/V08; Azure SQL contract suite separately in M4 |
+| NF03 safe local exposure | Publish loopback only; same-origin proxy; body <=16 KiB; safe errors; no credentials/PII, real payments or external image calls | M2 V06–V08/V18; cloud Entra/private API/SQL required before M4 writes |
+| NF04 reliability | Per-journey availability >=99.5% over declared rolling 28 days; read latency 95% <=500 ms and cart latency 95% <=1000 ms; missing probes bad | M6 measurement rules in validation strategy; short portfolio run cannot claim a 28-day pass |
+| NF05 recovery | Local retained-volume restart/replacement retains rows; cloud RPO <=1 hour and RTO <=60 minutes are design targets requiring measured restore | M2 V05; M9 V16; ADR 0003 defines time/data boundaries |
+| NF06 usable UI | Catalogue/search/cart keyboard operable, labelled controls and status/error messaging; useful loading/empty/failure states | M2 component/Playwright tests plus focused manual review; no full accessibility conformance claim |
+| NF07 governance | Read/propose/execute/inference/write separated; task bounds 10 minutes/20 calls/<=2 read retries/one output; single-use target-bound approval expires in 15 minutes | ADR 0004; M5/M7/M8 V10–V13; paid spend cap must be separately approved |
+| NF08 release integrity | Reviewed SHA/digests/schema, protected gate, least privilege/OIDC, fail-closed scan/smoke checks and compatible rollback | M3/M4 V09/V14/V18; no automated merge/deploy by inference output |
+| NF09 evidence/privacy | Correlation and release/config IDs, redaction, no high-cardinality metric IDs; diagnostic retention 30 days, aggregate summaries 90 days subject to provider cost/limits | M6 V15/V18; ADR 0006; all statuses distinguish design/simulated/historical/executed |
+| NF10 cost/scope | Owner-approved explicit execution scope, estimate, usage ceiling and teardown before paid/cloud actions; no AWS/GCP core dependency or custom framework without need | M3–M11 entry review; budget alerts are not caps |
+
+Node 24 is selected from the reference CI direction and current
+[Node release guidance](https://nodejs.org/en/about/previous-releases); M2 must pin
+and test an exact supported patch/npm pair. The M1 host's Node 22.17.1 is not a
+verified M2 baseline. No numerical target above is an observed performance result.

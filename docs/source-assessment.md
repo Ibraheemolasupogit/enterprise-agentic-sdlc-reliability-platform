@@ -2,8 +2,9 @@
 
 Authority: [master brief](project/master-brief.md), sections 5–6 and 14.
 Assessed: 2026-10-30 through read-only public GitHub metadata, file trees and source
-reads. No clone, fork, source import, dependency install, workflow execution or
-cloud access was performed. Revisions below are assessment snapshots, not adopted
+reads. No clone, fork, application source import, application dependency install, workflow
+execution or cloud access was performed. M1 rechecked the pinned rights evidence
+read-only; documentation tooling, if used, stays outside the repository. Revisions below are assessment snapshots, not adopted
 dependencies or recommended package versions. Recheck rights and compatibility at
 adoption time.
 
@@ -106,23 +107,55 @@ approval semantics, API limits and costs. No C7 inference test is part of M1; ge
    separately. Do not imply GitHub/Microsoft endorsement or assume image/trademark
    rights follow an API package declaration.
 4. Choose the owner's license for original work separately. No repository-wide
-   LICENSE is added in M0; it would not resolve third-party rights.
+   LICENSE is added in M0/M1; it would not resolve third-party rights.
 5. Update the [third-party register](../THIRD_PARTY_NOTICES.md) when anything is
    actually imported. Current entries acknowledge references only.
 
-Recommendation: S01 is the first M1 design/M2 adoption candidate because its assessed tree covers the
+M1 decision: S01 is the conditional M2 workload source (ADR 0002) because its assessed tree covers the
 reference application and Azure engineering examples. **Do not import it until
 rights are resolved.** If permitted reuse cannot be established, record an ADR for
 an independently authored sample informed by the high-level domain and reconcile
 that scope with the owner before substituting it.
 
-## Unresolved architecture and attribution decisions
+## M1 authoritative rights recheck and adoption decision
 
-M1 must decide or record bounded deferrals for workload revision/layout, complete
-file/asset rights and notice retention, original project license, local versus
-cloud persistence/durability, migration/concurrency/restore/rollback integrity,
-Azure hosting/internal API and OIDC/runtime identities, narrower deployment roles,
-Bicep reuse, agent responsibility/tool boundaries, supported gh-aw inference versus
-repository-write access, dependency health/SLI/SLO/error budgets and costs/teardown.
-No source adoption, agent framework, live SRE integration or federation design is
-selected by this M0 register. See [M1 acceptance criteria](milestones/m1-scope.md).
+On 2026-10-30 M1 re-read the complete pinned S01 and S07 trees (`truncated=false`),
+S01 API/frontend manifests, current repository license metadata, and pinned S08,
+S09 and S10 license texts. Findings:
+
+| Source | Authoritative evidence inspected | M1 conclusion / owner and gate |
+| --- | --- | --- |
+| S01 OctoCAT Supply | [Pinned tree](https://api.github.com/repos/Azure-Samples/octocat-supply/git/trees/65299c9df87fc466be28a6eec56d53ea1e4fa915?recursive=1), linked manifests above; repository metadata license null | No license/notice/copying/copyright-named file anywhere in inspected tree; API says MIT, frontend does not declare license. Whole workload/asset rights unresolved. Owner must resolve before M2 import |
+| S07 microhack | [Pinned tree](https://api.github.com/repos/markharrison/microhack-sdlc/git/trees/ab5380ef37a5761413721f94334bff3127e75aa3?recursive=1), repository metadata license null | Same full-tree license-file gap; not an alternative rights shortcut. Reference/lessons only |
+| S08 SRE resources | [MIT LICENSE](https://github.com/microsoft/sre-agent/blob/f3dccc6bae8c932ff4f21e6d4117e14285da4db3/LICENSE), Microsoft copyright | Retain notice/license for future copied material; not commercial product source/access permission |
+| S09 Copilot labs | [MIT LICENSE.md](https://github.com/Azure-Samples/github-copilot-hands-on/blob/6a9682ed3e06364bbe0c8e5dc1ed88c6235e7466/LICENSE.md), Microsoft copyright | Retain notice/license and check asset-specific terms/contribution CLA before actual use |
+| S10 gh-aw | [MIT LICENSE](https://github.com/github/gh-aw/blob/c8152951950bbaf0d6205e02c51efd9ac5ab0b1a/LICENSE), GitHub copyright | Retain notice/license; supported execution/auth and output controls still need M5 verification |
+
+S02–S06 remain M0-inspected optional references, not newly adopted dependencies.
+No inference can establish missing permission. The
+[GitHub licensing guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+explains default copyright versus public viewing/forking. An API package declaration
+is evidence about that package, not a blanket rights finding for unrelated assets.
+Record actual file-level license/permission coverage before copying/distributing.
+No upstream author was contacted, issue/PR opened or permission fabricated.
+
+[ADR 0002](decisions/0002-source-reuse.md) selects S01 conditionally and the minimal
+`apps/octocat-supply/` layout. Ownership of a public personal repo does not grant
+ownership of source. Recommend MIT for original work, but the repository owner must
+select it explicitly; no new LICENSE or blanket grant is issued in M1. This and
+source/asset permission remain M2 entry blockers. Images/brands, npm dependencies,
+container bases and transitive licenses need their own records before adoption.
+
+## M1 architecture decisions and remaining gates
+
+| Topic | Selected design / ADR | Deferred verification and owner |
+| --- | --- | --- |
+| Source/reuse | S01 pinned conditional candidate and minimal import, [0002](decisions/0002-source-reuse.md) | Owner before M2: rights, assets, original license; blocked until evidence exists |
+| Persistence | Local SQLite, cloud Azure SQL, [0003](decisions/0003-persistence.md) | Owner/M2 pins native-compatible runtime; owner/M3–M4 costs SKU/private connectivity/migrations; owner/M9 measures restore |
+| Agent execution | Existing assistant + gh-aw + actual SRE Agent, separate role/tool authority, [0004](decisions/0004-agent-execution-permissions.md) | Owner before M5 engine/auth/usage cap; M7/M8 service/read/connector support; no custom framework selected |
+| Azure delivery | ACA external frontend/internal API, ACR/Bicep/Actions/OIDC, [0005](decisions/0005-delivery-identity.md) | Owner before M3/M4 verifies actual immutable subject, exact roles, protection entitlement, Entra API auth and costs/teardown |
+| Observability | Journey-driven logs/metrics and justified traces with Azure Monitor target, [0006](decisions/0006-observability.md) | Owner before M6 validates SDK versions, retention/cost/alerts; SLOs are unmeasured targets |
+
+See the [M1 review](evidence/m1-design-review.md) and
+[M2 implementation handoff](milestones/m2-scope.md). Upstream read/inspection status
+is not current capability execution evidence.
