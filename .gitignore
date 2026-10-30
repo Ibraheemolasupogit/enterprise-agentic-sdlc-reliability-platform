@@ -1,0 +1,31 @@
+# Local OS and editor state
+.DS_Store
+.idea/
+.vscode/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.azure/
+.aws/
+.secrets/
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Generated development artifacts
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+dist/
+coverage/
+*.log
+
+# Future infrastructure state; no infrastructure exists in M0
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
