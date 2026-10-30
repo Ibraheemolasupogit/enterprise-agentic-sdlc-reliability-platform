@@ -1,6 +1,8 @@
 # Validation, reliability and evidence strategy
 
-Status: **Design only**, M1, 2026-10-30. Authority: master brief sections 9–13/17.
+Status: M1 validation strategy with M2 V01–V08 local execution and V18 local
+provenance/setup evidence recorded in [M2 results](evidence/m2-baseline.md). Later
+cloud/agent evaluations remain planned. Authority: master brief sections 9–13/17.
 All numerical thresholds are selected project targets, not measured achievements
 or Azure guarantees. [Requirements](requirements.md) owns functional/non-functional
 contracts; this file owns tests, gates, measurements and evidence. See
@@ -38,7 +40,7 @@ useful permitted upstream tests; report actual results rather than test-count go
 Agent evaluations use synthetic fixtures and mocks initially, labelled **Simulated**.
 They do not prove inference success. M5 additionally requires one genuine supported
 inference run and useful inspected repository output after separately authorized
-paid-use/identity planning. No such run occurred in M1. Every critical safety case
+paid-use/identity planning. No such run occurred in M1 or M2. Every critical safety case
 must pass; no average score can mask an unauthorized mutation/exfiltration.
 
 ## Reliability objectives
@@ -122,6 +124,17 @@ commands/run links, expected/actual result, failures, actor/approval, limitation
 and sanitized artifacts. Separate tests actually run from planned cases. Store
 reviewed summaries in `docs/evidence/`; never commit DBs, raw tokens or sensitive
 logs. A screenshot supplements raw counts/queries; it cannot replace them.
+
+## M2 executed boundary
+
+The M2 unit/integration/component and browser checks exercise V01–V08 on synthetic
+local data. A deterministic container test replaces the API container with its
+volume retained and reproduces/restores the frontend wrong-port fault. V18 has
+local license/source/setup evidence; full supply-chain scanning/protected release
+validation remains M3. Actual versions/results, not this plan, determine capability
+status. The later owner request added an automatic 10% discount at >=30000p, floor
+rounding; threshold/rounding/tampered-price cases and UI totals are tested. No agents,
+real inference, Azure, cloud restore or 28-day objective was executed.
 
 ## Required demonstration traceability
 

@@ -29,3 +29,8 @@ coverage/
 *.tfstate
 *.tfstate.*
 *.tfplan
+
+# M2 local demo data and generated browser evidence
+apps/octocat-supply/data/
+apps/octocat-supply/test-results/
+apps/octocat-supply/playwright-report/

@@ -1,6 +1,6 @@
 # ADR 0003 — Local SQLite and cloud relational durability
 
-Date: 2026-10-30. Status: accepted design; implementation unverified.
+Date: 2026-10-30. Status: local SQLite implementation Locally tested in M2; cloud design unverified.
 Requirements: R02, R06, R11, R20. Owner: repository owner.
 
 ## Decision and reasons
@@ -63,3 +63,15 @@ requirement; Azure SQL is selected for the Azure/Entra demonstration. A managed
 database costs more than ephemeral storage and introduces adapter/private-network
 work in M4. If the authorized budget cannot support it, keep cloud deployment
 blocked or revise this ADR; do not quietly claim ephemeral storage is durable.
+
+## M2 driver and local evidence
+
+Use the SQLite driver bundled with Node 24.22.2 rather than a separate native
+addon. This avoids a package-specific compilation toolchain while keeping one
+writer and the same parameterized repository contracts. The Node documentation
+labels this driver release-candidate API; pinning/testing this runtime is required
+and no production/cloud driver stability is claimed. M2 proves checksummed
+migrations, explicit seed/reset, foreign keys, cart transactions, safe local paths,
+fresh-connection persistence and API-container replacement with retained volume.
+Cloud SQL adapter, backups/PITR, RPO/RTO and concurrency at scale remain untested.
+See [M2 evidence](../evidence/m2-baseline.md).

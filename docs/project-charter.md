@@ -1,6 +1,6 @@
 # Project charter
 
-Date: 2026-10-30. Owner: repository owner. Stage: M1 — Product and architecture foundation (Design only).
+Date: 2026-10-30. Owner: repository owner. Stage: M2 — Reproducible local application baseline.
 Authority: [master brief](project/master-brief.md), particularly sections 1–4,
 16–17. M0 history remains in its assessment; M1 completion is assessed against
 [the eight acceptance criteria](milestones/m1-scope.md).
@@ -38,8 +38,9 @@ thresholds for later demonstrations; those targets still need execution evidence
 
 - M1 refines the product and architecture, threat model, ADRs, validation strategy
   and M2 handoff. No runtime or platform capability is promoted by design alone.
-- No application, agent, CI workflow, cloud infrastructure, credentials, deployment,
-  paid cloud access, commit, or push is authorized in this task.
+- M2 authorizes the independent local application/tests/containers and MIT only. No
+  agents, CI workflow, cloud infrastructure, credentials, deployment, paid services,
+  commits or pushes are authorized.
 - Claims Processing remains a separate project, including its data and backlog.
 - Use synthetic supply-chain data; require explicit evidence for capability claims.
 - Prefer small local slices before cloud integrations. Introduce dependencies only
@@ -60,15 +61,15 @@ The fictional engineering team supports product catalogue/search, synthetic cart
 and authoritative GBP pricing. These critical journeys, error criteria and
 functional/non-functional requirements are defined once in
 [requirements](requirements.md); tests/SLOs and proof live in the
-[validation strategy](validation-strategy.md). Real checkout, payments, discounts,
-customer PII and inventory reservation are outside the M2 slice.
+[validation strategy](validation-strategy.md). The later M2 request adds deterministic automatic basket discounts. Real checkout,
+payments, customer PII and inventory reservation remain outside the M2 slice.
 
 Select a two-container React/Nginx → TypeScript API → repository design, local
 SQLite for M2, Azure Container Apps with internal API and Azure SQL for the cloud
 target. Use GitHub Actions/images/Bicep and scoped OIDC, existing assistant/gh-aw/
 SRE surfaces with separate permissions, and journey-driven Azure Monitor telemetry.
-These are design decisions in [ADRs 0002–0006](decisions/0002-source-reuse.md), not
-implemented integrations. The architecture avoids an extra agent service, custom
+These decisions are in [ADRs 0002–0006](decisions/0002-source-reuse.md). The local
+application is tested in M2; cloud/agent integrations remain Design only. The architecture avoids an extra agent service, custom
 multi-agent framework, duplicate CI pipeline or mandatory multi-cloud component.
 
 Delivery success means reproducible tests/review/release and a verified incident
@@ -81,10 +82,11 @@ handoff; a runnable baseline remains M2 work.
 
 The master brief governs the roadmap. The personal rehearsal remains unavailable;
 lab references are historical, not current reuse evidence. The repository owner
-must resolve workload code/asset rights and original-work licensing **before M2
-import**. Other design choices are selected; actual runtime patch/base digests
-are pinned and tested at M2 setup, while Azure SKU/region/private network cost,
-actual OIDC subject/roles and protection entitlement are verified before M3/M4
+selected independent implementation and MIT, closing the original-code/source
+strategy gates without copying upstream material. Direct OctoCAT reuse remains
+not cleared. M2 uses Node 24.22.2/npm 11.19.1 with exact locks and pinned local
+container bases; local evidence is separate from Azure design. Cloud SKU/region,
+private network cost, actual OIDC subject/roles and protection entitlement are verified before M3/M4
 execution. gh-aw supported engine/auth/spend ceiling is decided before M5 and
 SRE/issue/assignment integration support before M7/M8. No secret, paid inference,
 resource or scheduled monitoring change is authorized here. See the

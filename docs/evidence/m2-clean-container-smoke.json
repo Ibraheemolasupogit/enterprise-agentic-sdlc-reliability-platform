@@ -1,0 +1,27 @@
+{
+  "started": "2026-10-30T22:31:25.450Z",
+  "project": "morrow-supply-m2-clean",
+  "checks": [
+    "frontend → API → SQLite / 12 fixtures / pricing and discount passed",
+    "API container replacement retained cart/items/pricing in named volume; API is unpublished",
+    "actual wrong-port fault: static route healthy, API journey/readiness failed safely",
+    "configuration restored; fresh request verified recovery; only test cart removed"
+  ],
+  "fault": {
+    "actor": "local deterministic test script",
+    "observedAt": "2026-10-30T22:31:27.631Z",
+    "requestId": "04875ca025e5f0d2b6d6a12e92c678de",
+    "correctPort": 3000,
+    "wrongPort": 3001,
+    "staticStatus": 200,
+    "journeyStatus": 503,
+    "readinessStatus": 503
+  },
+  "recovery": {
+    "verifiedAt": "2026-10-30T22:31:28.582Z",
+    "requestId": "3d311792-4db3-40b9-aeac-302a664d0788",
+    "status": 200,
+    "totalMinor": 28796
+  },
+  "finished": "2026-10-30T22:31:28.592Z"
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js migrate",
+    "expectedExit": 0,
+    "actualExit": 0,
+    "output": "migrate: complete"
+  },
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js seed",
+    "expectedExit": 0,
+    "actualExit": 0,
+    "output": "seed: complete"
+  },
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js seed",
+    "expectedExit": 0,
+    "actualExit": 0,
+    "output": "seed: complete"
+  },
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js reset",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "output": "Use migrate, seed, or reset --confirm-demo-reset. Reset affects only the named local demo database."
+  },
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 0,
+    "actualExit": 0,
+    "output": "reset: complete"
+  },
+  {
+    "command": "DB_PATH=data/e2e.sqlite node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 0,
+    "actualExit": 0,
+    "output": "reset: complete"
+  },
+  {
+    "DB_PATH": "/tmp/unrelated.sqlite",
+    "command": "node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "output": "DB_PATH must name a relative local demo database."
+  },
+  {
+    "DB_PATH": "../unrelated.sqlite",
+    "command": "node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "output": "DB_PATH must name a relative local demo database."
+  },
+  {
+    "DB_PATH": "https://example.test/db",
+    "command": "node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "output": "DB_PATH must name a relative local demo database."
+  },
+  {
+    "DB_PATH": "data/unrelated.sqlite",
+    "command": "node api/dist/database-cli.js reset --confirm-demo-reset",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "output": "DB_PATH must be data/demo.sqlite or data/e2e.sqlite."
+  }
+]

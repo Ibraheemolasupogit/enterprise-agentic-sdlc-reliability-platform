@@ -1,0 +1,44 @@
+{
+  "started": "2026-10-30T22:31:08.486127+00:00",
+  "project": "morrow-supply-m2-clean",
+  "commands": [
+    {
+      "command": "docker compose -p morrow-supply-m2 stop",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2-clean build --quiet",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2-clean run --rm api node api/dist/database-cli.js migrate",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2-clean run --rm api node api/dist/database-cli.js seed",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2-clean up -d --wait --wait-timeout 40",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:containers",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2-clean down --volumes",
+      "exitCode": 0
+    },
+    {
+      "command": "docker compose -p morrow-supply-m2 up -d --wait --wait-timeout 40",
+      "exitCode": 0
+    }
+  ],
+  "result": "PASS",
+  "finished": "2026-10-30T22:31:40.501039+00:00"
+}

@@ -1,0 +1,9 @@
+node_modules
+data
+**/dist
+test-results
+playwright-report
+**/*.test.ts
+**/*.test.tsx
+e2e
+.env

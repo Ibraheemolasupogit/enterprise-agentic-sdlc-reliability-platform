@@ -2,16 +2,17 @@
 
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
 replaces the initial M0 proposal and the event challenge sequence. Current authority
-is M1 product/architecture design only; M2 and later execution remain planned.
+is M2 local application implementation only; M3 and later execution remain planned.
 Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
-records design evidence and the blocked source-import gate, without promoting any
-runtime capability.
+records historical design/source gates. The owner selected independent code/MIT;
+[M2 evidence](evidence/m2-baseline.md) records local execution without promoting
+cloud or agent capabilities.
 
 | Milestone | Scope | Exit evidence |
 | --- | --- | --- |
 | M0 — Assess and preserve | Inventory this fresh repository, preserve historical references, assess sources and gaps, select the source of truth | Master brief linked, reusable/retired material identified, capability matrix, corrected roadmap, precise M1 proposal and closure checks |
 | M1 — Product and architecture foundation | Refine charter, requirements and capability matrix; define architecture, threat model and ADRs | Traceable journeys/requirements, trust and service boundaries, persistence/identity/source decisions, evaluation plan and bounded M2 handoff; design only |
-| M2 — Reproducible application baseline | Establish the permitted OctoCAT Supply reference workload with synthetic data and containerised local execution | Fresh setup, functioning product/search/cart/pricing journeys, meaningful tests, documented persistence/migrations and local/container fault reproduction |
+| M2 — Reproducible application baseline | Independently implement Morrow Supply using synthetic data and containerised local execution; OctoCAT remains a factual reference | Fresh setup, functioning product/search/cart/pricing journeys, meaningful tests, documented persistence/migrations and local/container fault reproduction |
 | M3 — Secure delivery | GitHub Actions CI, security checks, container image build, Azure IaC validation, scoped identities and release controls | Passing/failing gates, image provenance, threat-model checks, validated IaC and authorized identity/release design; no implicit deployment approval |
 | M4 — Personal Azure deployment | Deploy the personal workload when separately authorized, with an internal API boundary and an explicit durability decision | Deployment evidence, smoke checks, migration/data integrity checks, recovery procedure, cost and teardown record |
 | M5 — Working agentic maintenance | Use a supported workflow execution/authentication model with separate inference and repository-write permissions | Genuine successful inference, useful actual repository output, least-privilege and failure-path evidence; closes C7 only after these pass |
@@ -38,4 +39,5 @@ optional extensions. All cloud resources and paid inference need explicit scope,
 identity, cost estimate and teardown planning before execution. Budget alerts are
 not spending caps. The owner performs commits and pushes manually.
 
-Detailed next step: [M1 scope and acceptance criteria](milestones/m1-scope.md).
+Current exit review: [M2 scope and acceptance criteria](milestones/m2-scope.md) and
+[M2 results](evidence/m2-baseline.md). Stop after M2; M3 needs separate direction.

@@ -4,15 +4,18 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current milestone: M1 — Product and architecture foundation (Design only).** This is a fresh
-repository. M1 provides reviewed design documents and a local repository checker.
-OctoCAT Supply is the reference application; no upstream application, agents,
-workflows, or cloud infrastructure have been imported or implemented.
+**Current milestone: M2 — Reproducible application baseline.** Morrow Supply is
+an independently implemented React/TypeScript, TypeScript API and local SQLite
+demo with original synthetic data and illustrations. OctoCAT Supply is the
+conceptual reference; no upstream application source or assets were copied.
+Agents, CI/CD, Azure and cloud capabilities remain planned.
 
 ## Project documents
 
 | Document | Purpose |
 | --- | --- |
+| [Run the local app](apps/octocat-supply/README.md) | Exact setup, localhost:8080 containers, tests, data/reset and teardown |
+| [M2 verification](docs/evidence/m2-baseline.md) | Executed checks, versions, provenance, outcomes, limits and exit status |
 | [Authoritative master brief](docs/project/master-brief.md) | Project specification; governs the documents below |
 | [Charter](docs/project-charter.md) | Direction, success measures, boundaries, and assumptions |
 | [Requirements](docs/requirements.md) | Lifecycle requirements, critical journeys and measurable functional/non-functional contracts |
@@ -22,7 +25,7 @@ workflows, or cloud infrastructure have been imported or implemented.
 | [Source assessment](docs/source-assessment.md) | Upstream candidates, pinned references, and integration constraints |
 | [Historical reuse](docs/historical-reuse.md) | C1–C7 status and conditional reuse opportunities |
 | [M1 scope](docs/milestones/m1-scope.md) | Product and architecture foundation; documentation and design only |
-| [M2 handoff](docs/milestones/m2-scope.md) | Precise local UI/API/data/container/test scope; source import gate remains blocked |
+| [M2 scope](docs/milestones/m2-scope.md) | Independent local implementation and acceptance criteria |
 | [Architecture](docs/architecture.md) | Application, agent SDLC, delivery, Azure, observability and incident-to-PR diagrams |
 | [STRIDE threat model](docs/threat-model.md) | Application/agent threats, trust boundaries, permissions and approvals |
 | [Validation strategy](docs/validation-strategy.md) | Application/agent evaluations, SLIs/SLOs, release gates and evidence |
@@ -46,8 +49,9 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. M1 authorizes design only; M2 is not started. Credentials,
-paid cloud access, deployments, commits, and pushes are outside this task.
+delivery dependency here. Current authorization stops at M2 local implementation.
+Agents, paid services, cloud provisioning/deployment, commits and pushes are outside
+this task.
 The owner performs Git commits and pushes manually.
 
 The [master brief](docs/project/master-brief.md) is the authoritative specification.
@@ -55,7 +59,8 @@ Its event challenge sequence is suspended as an implementation plan. The owner's
 fresh-start instruction resolves its conditional repository-reuse guidance: the
 original personal repository is unavailable, so this repository is the implementation
 home. M1 defines the product and architecture; M2 establishes the working application.
-No project-wide distribution license has been selected yet. The conditional OctoCAT
-source revision has unresolved whole-workload/asset rights; see
-[ADR 0002](docs/decisions/0002-source-reuse.md). M2 application import remains blocked.
-All runtime, cloud and agent capabilities remain planned/unverified.
+Original code uses [MIT](LICENSE). Third-party packages/base images retain their
+[own terms and notices](THIRD_PARTY_NOTICES.md). The owner selected independent
+implementation; the upstream copying restriction in
+[ADR 0002](docs/decisions/0002-source-reuse.md) remains in force. No cloud/agent
+verification or production-readiness claim follows from local M2 results.

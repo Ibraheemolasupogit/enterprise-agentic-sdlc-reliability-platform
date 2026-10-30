@@ -1,0 +1,59 @@
+{
+  "name": "morrow-supply",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": "24.22.2",
+    "npm": "11.19.1"
+  },
+  "packageManager": "npm@11.19.1",
+  "scripts": {
+    "dev:api": "tsx watch api/src/server.ts",
+    "dev:web": "vite --config frontend/vite.config.ts",
+    "build:api": "tsc -p api/tsconfig.json",
+    "build:web": "vite build --config frontend/vite.config.ts",
+    "build": "npm run build:api && npm run build:web",
+    "typecheck": "tsc -p api/tsconfig.json --noEmit && tsc -p frontend/tsconfig.json && tsc -p tsconfig.tests.json",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "test:api": "vitest run --project api",
+    "test:web": "vitest run --project web",
+    "test:e2e": "playwright test",
+    "db:migrate": "tsx api/src/database-cli.ts migrate",
+    "db:seed": "tsx api/src/database-cli.ts seed",
+    "db:reset": "tsx api/src/database-cli.ts reset --confirm-demo-reset",
+    "start:api": "node api/dist/server.js",
+    "licenses": "node scripts/licenses.mjs",
+    "test:containers": "node scripts/container-smoke.mjs",
+    "format:check": "prettier --check api frontend/src frontend/test frontend/index.html frontend/vite.config.ts e2e scripts *.json *.ts *.mjs"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/supertest": "7.2.1",
+    "@vitejs/plugin-react": "6.1.2",
+    "eslint": "10.14.0",
+    "jsdom": "30.1.3",
+    "prettier": "3.9.10",
+    "supertest": "7.3.1",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,22 +1,22 @@
 # M2 handoff — Reproducible application baseline
 
-Status: **Planned; independent implementation recommended; upstream copying not
-cleared**. Bounded source assessment updated 2026-10-30; functionality remains
-unimplemented and unauthorized by this assessment.
+Status: M2 independent implementation authorized by the owner's latest request;
+original code is MIT. Execution/exit results are recorded in
+[M2 evidence](../evidence/m2-baseline.md). Direct upstream copying remains not
+cleared and is not used. No later milestone is authorized.
 Authority: [master brief](../project/master-brief.md), section 16. M1 design is in
 [architecture](../architecture.md), [requirements](../requirements.md),
 [threat model](../threat-model.md) and [validation strategy](../validation-strategy.md).
-No source was imported or app setup executed while writing this handoff.
+The original handoff was design-only; M2 now independently implements these
+contracts. No upstream application source/assets were imported.
 Coverage: R02–R03, R14–R17, R23/R25; J01–J06, NF01–NF03/NF05/NF06.
 
 ## Entry gates and source decision
 
-1. Owner selects the recommended **independently authored synthetic implementation**
-   and original-code license (MIT recommended), as
-   [ADR 0002](../decisions/0002-source-reuse.md) records. Use our own J01–J06/NF
-   contracts, original UI/data/tests/migrations and separately licensed dependencies.
-   No OctoCAT source/assets are needed on this route. This assessment is a
-   recommendation, not permission to start implementation.
+1. **Closed by explicit owner decision:** independently authored synthetic code,
+   original UI/data/assets and MIT. [ADR 0002](../decisions/0002-source-reuse.md)
+   records this selection; original source is in this repository and no permission
+   for upstream application material is needed because it is not copied.
 2. Direct upstream reuse remains an alternative **not cleared for the full app**.
    Current reference only: `Azure-Samples/octocat-supply` commit
    `65299c9df87fc466be28a6eec56d53ea1e4fa915`, unchanged from M1. API declares MIT,
@@ -24,22 +24,23 @@ Coverage: R02–R03, R14–R17, R23/R25; J01–J06, NF01–NF03/NF05/NF06.
    If owner chooses reuse instead, record the actual grant, scope, holder/notices
    and redistribution conditions before import. Attribution or private visibility
    is not a substitute. Review M1 decisions and start M2 only when requested.
-3. Select Node.js **24** major. Before installing app dependencies, record one exact
-   supported patched Node version, its bundled npm version, OS/architecture and
-   container base digest. Existing M1 host Node 22.17.1 is not baseline evidence.
-   Verify native `better-sqlite3` support; do not bypass install failures silently.
+3. **Pinned/tested:** Node.js 24.22.2/npm 11.19.1, Darwin arm64 and local Linux
+   arm64 containers, with immutable base digests in Dockerfiles. Bundled
+   `node:sqlite` replaces a separately compiled native addon; its release-candidate
+   status is an explicit local-only trade-off. One application package/lockfile
+   serves both API/frontend, without a workspace manager.
 4. Review independently chosen dependency licenses/scripts; generate fresh
    project manifests/lockfiles, isolate local data and
    confirm loopback-only ports. No Azure/GitHub login or paid service is needed.
 
-## Expected implementation paths (create in M2 only)
+## M2 implementation paths
 
 | Path | Purpose |
 | --- | --- |
 | `apps/octocat-supply/api/` | Original TypeScript/Express routes, domain/repositories, SQLite migrations/seeds, unit/integration tests and API Dockerfile |
 | `apps/octocat-supply/frontend/` | Original React/Vite UI, component/Playwright tests, static build, Nginx config and frontend Dockerfile |
 | `apps/octocat-supply/compose.yaml` | One API container and one frontend, isolated local volume, health/config contracts; publish only loopback frontend 8080 |
-| `apps/octocat-supply/.node-version` and freshly generated per-package lockfiles | Exact runtime and repeatable package installs; avoid adding a second package manager or unnecessary root workspace |
+| `apps/octocat-supply/.node-version`, `package.json` and `package-lock.json` | Exact runtime and repeatable package installs; avoid adding a second package manager or unnecessary root workspace |
 | `apps/octocat-supply/README.md` | Real setup/start/stop/migrate/seed/reset/test commands; runtime versions, known limitations and local fault exercise |
 | `docs/evidence/m2-baseline.md` | Actual command results, clean setup reproduction, journey/data/fault evidence, limitations and compatibility findings |
 | `docs/source-assessment.md`, `THIRD_PARTY_NOTICES.md`, provenance/dependency register and retained license/NOTICE files | Record original authorship and exact adopted dependency/asset terms; add file-level import manifest only if later selecting permitted source reuse |
@@ -47,8 +48,7 @@ Coverage: R02–R03, R14–R17, R23/R25; J01–J06, NF01–NF03/NF05/NF06.
 Do not copy active upstream `.github`, hooks, agents, MCP configs, cloud identities,
 resource IDs, deployment scripts or unneeded images. On the recommended independent
 route, copy no upstream application files at all. Source exclusion alone would not
-establish rights for any remaining imported files. Use original text placeholders
-for art; no remote image/CDN/telemetry dependency in local journeys. Extend the existing
+establish rights for any remaining imported files. Use original synthetic art; no remote image/CDN/telemetry dependency in local journeys. Extend the existing
 repo ignore rules for local DB/WAL/SHM/generated evidence without hiding migrations.
 
 ## Behaviour and fixture contract
@@ -76,10 +76,12 @@ delete another cloud principal's cart when cloud auth is introduced in M4.
 
 Cart totals are server-authoritative integer minor units; quantity 1–99, maximum
 100 distinct lines/cart. Setting the same quantity twice is idempotent. Two feeder
-units and three toy units cost 31995 minor units. Refresh recovers cart reference;
+units and three toy units have subtotal 31995 minor units. Refresh recovers cart reference;
 API/container replacement preserves data with retained volume. A stale reference
-after explicit reset displays a clear recovery choice. Discounts, tax, shipping,
-checkout, payments and real customer authentication are excluded from M2.
+after explicit reset displays a clear recovery choice. The later owner request extends M2 with an automatic 10% discount when subtotal
+>=30000p, rounded down to pence, with no coupons/stacking. Thus the example is
+31995p subtotal, 3199p discount and 28796p total. Tax, shipping, checkout, payments
+and real customer authentication remain excluded.
 
 Migrations run explicitly in tracked order with checksums; seed/reset are explicit
 and repeatable, not destructive startup side effects. Tests use temporary DBs;
@@ -132,17 +134,13 @@ Do not implement CI/IaC (M3), cloud auth/SQL/deployment (M4), maintenance infere
 (M5), Azure telemetry/alerts (M6) or live SRE/PR integrations (M7/M8). Existing coding
 assistance may prepare scoped local changes/tests, but the owner commits/pushes.
 
-The implementation design and test handoff are specified. **Recommended next path:
-independently author the equivalent synthetic commerce baseline**, retaining the
-existing architecture/journeys/tests and original visuals. The owner must select
-that strategy and original-code license before implementation; separately licensed
-packages/container bases still need adoption review. Direct OctoCAT copying stays
-not cleared unless an adequate grant is recorded. Private development and eventual
-public publication are compatible with the independent/MIT recommendation, but
-privacy does not cure copied-content rights. Review files and all history intended
-for publication, plus distributed bundles/images/screenshots/video.
+The owner-selected independent/MIT path is implemented. No OctoCAT code, schema,
+fixtures, tests, images or branded assets are copied. Standard licensed dependencies
+are versioned in the application inventory and browser/runtime notices are retained.
+Read the [M2 evidence](../evidence/m2-baseline.md) for actual pass/fail outcomes and
+residual limits; the scope table alone does not establish execution.
 
-No application code is imported or implemented in this assessment. This handoff
-does not change visibility, authorize M2 functionality, deploy, commit or push.
-M1 review/source-gate statements remain historical design records; reconcile wider
-status documents in the next authorized implementation task after strategy selection.
+M2 stops at the locally tested baseline. No CI/agent/Azure/paid/cloud implementation,
+commit, push or repository-visibility change is performed. Historical M1 assessment
+records retain their original conditional source status; this owner decision closes
+the independent strategy/original-license gates, not upstream reuse permissions.

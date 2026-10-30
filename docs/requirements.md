@@ -1,15 +1,16 @@
 # Product and engineering requirements
 
-Authority: [master brief](project/master-brief.md). Status: M1 **Design only**.
+Authority: [master brief](project/master-brief.md). Status: M2 local application contracts implemented/tested; later lifecycle
+requirements remain planned or Design only as the capability matrix states.
 R01–R25 remain the lifecycle requirements; the functional journeys and non-functional
-contracts below refine their acceptance criteria. No runtime result is asserted.
+contracts below refine their acceptance criteria. Actual results and limitations are in [M2 evidence](evidence/m2-baseline.md).
 Existing R-IDs are retained. Targets identify where evidence belongs, not completed
 implementation. Agent-assisted work and security apply across milestones.
 
 | ID | Requirement | Target | Acceptance evidence |
 | --- | --- | --- | --- |
 | R01 | Establish independent foundation and source assessment | M0 | Charter, ADR, source register, roadmap, checks |
-| R02 | Reconstruct a reproducible local supply-chain reference baseline | M2 | Permitted source, exact revision, clean container/local setup, journeys, meaningful tests and documented persistence |
+| R02 | Reconstruct a reproducible local supply-chain reference baseline | M2 | Independent original code/MIT, exact lock/runtime pins, clean container/local setup, journeys, meaningful tests and documented persistence |
 | R03 | Track agent-assisted engineering work from requirement to human review | M2–M3; M8 | Scoped task with plan, diff, tests and review; M8 completes the incident-to-PR lifecycle |
 | R04 | Automate build, test, dependency and security checks with least privilege | M3 | Passing and deliberately failing gate evidence; documented exceptions |
 | R05 | Define Azure deployment and identity boundaries, budget and teardown before cloud execution | M1 design; M3 validation | Architecture/threat model, validated IaC, scoped federation and release permissions; assess Bicep reuse and narrower roles than lab Owner |
@@ -48,8 +49,7 @@ implementation. Agent-assisted work and security apply across milestones.
 - A successful API call alone does not prove correct diagnosis, successful
   remediation, recovery, or safe inference. Record observable outcomes separately.
 - Native dependencies, images, npm packages, action versions and transitive licenses
-  require review at adoption time. No dependency install or runtime verification
-  occurred for the application during M0/M1.
+  require review at adoption time. M0/M1 had no application execution; M2 validation is recorded separately.
 - Persistence decisions cover durability, concurrency, migrations, replacement,
   backup/restore and rollback integrity. Static `/` health does not prove dependency
   health. Do not claim measured gains without recorded baselines.
@@ -63,17 +63,17 @@ them. Validation IDs are in the [validation strategy](validation-strategy.md).
 | Journey / functional ID | User behaviour and acceptance criteria | Errors / evidence |
 | --- | --- | --- |
 | J01 / FR01 — Catalogue | Show 12 synthetic products; known product detail and stable IDs; default page 20, maximum 100; explicit loading/empty states | Unknown ID 404, malformed ID/query 400; UI error is visible; V01/V06 |
-| J02 / FR02 — Search | Trimmed case-insensitive name search; empty query restores catalogue; no match shows empty state; allowlisted name/price sort with ID tie-break and pagination | Search >100 chars, invalid sort, negative offset or limit outside 1–100 rejected with 400; V02/V06 |
+| J02 / FR02 — Search | Trimmed case-insensitive name search; empty query restores catalogue; no match shows empty state; category filter all/feeding/play/everyday, allowlisted name/price sort with ID tie-break and pagination | Search >100 chars, invalid sort, negative offset or limit outside 1–100 rejected with 400; V02/V06 |
 | J03 / FR03 — Cart | Create isolated opaque cart; add/set quantities 1–99, update without duplicate lines, remove/re-remove idempotently; refresh retains cart reference and API restart retains rows | Invalid quantities 400; unknown cart/product 404; empty cart total zero; no cross-cart leakage; V03/V04/V06 |
-| J04 / FR04 — Pricing | Server computes GBP integer-minor-unit line/subtotals from canonical product prices; 2 units at 12999 plus 3 at 1999 totals 31995; reject client price override | No discount/tax/shipping/checkout in M2; accessible display agrees with API, including zero/one/multiple lines; V03/V06 |
+| J04 / FR04 — Pricing | Server computes GBP integer-minor-unit line/subtotals from canonical product prices; 2 units at 12999 plus 3 at 1999 subtotal is 31995, discount 3199 and total 28796; reject client price override | Owner-requested automatic 10% discount at >=30000p subtotal, rounding down; no coupons, stacking, tax, shipping or checkout; accessible display agrees with API, including zero/one/multiple lines; V03/V06 |
 | J05 / FR05 — Dependency failure | Wrong frontend API port produces a visible API-backed journey error and failed dependency readiness, even when static `/` returns 200 | 2-second frontend readiness bound; safe error/request ID; restore port and independently confirm journey; V07 |
 | J06 / FR06 — Data lifecycle | Explicit migration/seed/reset; repeat reset yields same 12 IDs/data; restart and container replacement retain data when volume retained | Changed migration checksum rejected; reset cannot escape designated local path or reach cloud; V05/V18 |
 
 Product DTO: positive integer `id`, bounded `name` (1–120 chars), nonnegative integer
 `unitPriceMinor` and `currency=GBP`. Cart requests contain product IDs and absolute
-quantities; responses contain canonical price, line totals, cart total and request
-ID. Set maximum 100 distinct lines/cart, reject excess with a stable 400 error.
-Cart transactions return authoritative results; UI reconciles optimistic state on
+quantities; responses contain canonical price, line/subtotals, discount, cart total and currency;
+request IDs are returned in response headers and JSON errors. Set maximum 100 distinct lines/cart, reject excess with a stable 400 error.
+Cart transactions return authoritative results; UI applies the authoritative response and preserves the current cart on
 failure. Product mutation needed by local fixture tests is not a public admin API.
 Synthetic anonymous carts are not a real identity/payment/commerce system.
 
@@ -81,7 +81,7 @@ Synthetic anonymous carts are not a real identity/payment/commerce system.
 
 | ID | Contract / selected target | Verification and milestone |
 | --- | --- | --- |
-| NF01 reproducibility | Node.js 24 major, exact patched Node and bundled npm versions recorded before install; lockfiles and immutable container base digests; local Linux containers, one API process | M2 clean setup twice; install no app dependencies in M1; V18 |
+| NF01 reproducibility | Node.js 24.22.2 / npm 11.19.1; lockfiles and immutable container base digests; local Linux containers, one API process | M2 clean setup twice; V18 |
 | NF02 validation/integrity | Parameterized queries, atomic cart updates, server prices, foreign keys, changed migrations refused; isolated test databases | M2 V01–V05/V08; Azure SQL contract suite separately in M4 |
 | NF03 safe local exposure | Publish loopback only; same-origin proxy; body <=16 KiB; safe errors; no credentials/PII, real payments or external image calls | M2 V06–V08/V18; cloud Entra/private API/SQL required before M4 writes |
 | NF04 reliability | Per-journey availability >=99.5% over declared rolling 28 days; read latency 95% <=500 ms and cart latency 95% <=1000 ms; missing probes bad | M6 measurement rules in validation strategy; short portfolio run cannot claim a 28-day pass |
@@ -92,7 +92,7 @@ Synthetic anonymous carts are not a real identity/payment/commerce system.
 | NF09 evidence/privacy | Correlation and release/config IDs, redaction, no high-cardinality metric IDs; diagnostic retention 30 days, aggregate summaries 90 days subject to provider cost/limits | M6 V15/V18; ADR 0006; all statuses distinguish design/simulated/historical/executed |
 | NF10 cost/scope | Owner-approved explicit execution scope, estimate, usage ceiling and teardown before paid/cloud actions; no AWS/GCP core dependency or custom framework without need | M3–M11 entry review; budget alerts are not caps |
 
-Node 24 is selected from the reference CI direction and current
-[Node release guidance](https://nodejs.org/en/about/previous-releases); M2 must pin
-and test an exact supported patch/npm pair. The M1 host's Node 22.17.1 is not a
-verified M2 baseline. No numerical target above is an observed performance result.
+M2 pins and tests Node 24.22.2/npm 11.19.1, using bundled SQLite instead of a
+separately compiled native addon. This choice and release-candidate driver status
+are recorded in M2 evidence. The original system Node 22 was not used as the
+application baseline. Cloud reliability/performance objectives remain unmeasured.

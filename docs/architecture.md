@@ -1,7 +1,8 @@
 # Architecture
 
-Status: **Design only**, M1, 2026-10-30. Authority: [master brief](project/master-brief.md).
-No component below exists as a running implementation. [Requirements](requirements.md)
+Status: M1 architecture with **Locally tested M2 application**; all agent, CI/CD,
+Azure and cloud-observability diagrams remain **Design only**. Authority: [master brief](project/master-brief.md).
+Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
 
 ## Application and local boundary — M2
@@ -20,7 +21,8 @@ flowchart LR
     B -->|"HTTP localhost:8080"| W
 ```
 
-Select `apps/octocat-supply/{api,frontend}` after the rights gate in
+Independently authored code lives in `apps/octocat-supply/{api,frontend}` under MIT,
+as explicitly selected by the owner; source strategy is in
 [ADR 0002](decisions/0002-source-reuse.md). Preserve a single reference workload;
 no Claims Processing, payment gateway, real orders or customer data. React handles
 presentation; API validates requests and computes authoritative cart prices;
@@ -35,30 +37,32 @@ on loopback explicitly. A non-container UI dev server may use 5173 and proxy `/a
 to localhost:3000. Do not use permissive cloud-domain CORS defaults. M2 is a local,
 synthetic, unauthenticated demonstration; do not expose its mutation routes publicly.
 
-### Proposed API contract
+### M2 local API contract
 
-These are **personal target contracts**, not claims about upstream endpoints.
-During M2, map upstream routes to these contracts with a documented adaptation;
-do not maintain competing APIs. JSON errors have stable `code`, safe `message`
+These are independently implemented personal contracts, not upstream endpoints.
+One application-level package/lockfile serves the API/frontend without a workspace
+manager. The driver is the bundled Node 24.22.2 `node:sqlite` release-candidate API;
+no separate native addon is installed. Exact pins/limits are in the app README. JSON errors have stable `code`, safe `message`
 and generated `requestId`; no SQL, stack trace, prompt or token in responses.
 
 | Contract | Behaviour and boundary |
 | --- | --- |
-| `GET /api/products?search=&sort=&limit=&offset=` | Case-insensitive trimmed name search; empty query lists all; deterministic `id` tie-break; sort allowlist `name`, `price`; limit 1–100/default 20, offset >=0; invalid values 400 |
+| `GET /api/products?search=&category=&sort=&limit=&offset=` | Case-insensitive trimmed name search; category all/feeding/play/everyday; empty query lists all; deterministic `id` tie-break; sort allowlist `name`, `price`; limit 1–100/default 20, offset >=0; invalid values 400 |
 | `GET /api/products/:id` | Known product 200; unknown valid ID 404; malformed ID 400 |
 | `POST /api/carts` | Create synthetic cart, return opaque ID with 201; no personal identity or checkout |
 | `GET /api/carts/:id` | Items, unit price, integer minor-unit totals and currency; unknown cart 404 |
 | `DELETE /api/carts/:id` | Delete that synthetic cart/lines for probe/fixture cleanup; 204 when removed, unknown cart 404; cloud owner authorization required |
 | `PUT /api/carts/:id/items/:productId` | Set absolute quantity 1–99, atomically recompute; zero/negative/fraction/non-number 400; unknown cart/product 404; repeat request does not duplicate quantity |
 | `DELETE /api/carts/:id/items/:productId` | Remove known line, 204; repeated removal 204 for existing cart; unknown cart 404 |
-| Product create/delete for automated fixture management | Preserve/validate upstream CRUD only if permitted; local test/operator use; no public anonymous administration |
 | `GET /health/live`, `GET /health/ready` on API | Live checks process only; ready makes bounded read of seeded DB/schema and returns 200 or 503; no mutation |
 | `GET /health/ready` on frontend | Proxy API readiness using the same upstream configuration as `/api`; dependency failure must fail this check even if static `/` is 200 |
 
 Quantity changes are atomic per cart, serialized for local SQLite; cap distinct
 lines at 100 per cart. Server accepts
 product IDs and quantities, never trusts submitted prices/totals. Currency is GBP;
-no discounts, tax, shipping, checkout or inventory reservation in M2. Pricing is a
+no tax, shipping, checkout or inventory reservation in M2. The later owner request
+adds one automatic discount: 10% of subtotal at >=30000p, rounded down to whole
+pence, no stacking/coupons. A 31995p subtotal yields 3199p off and 28796p total. Pricing is a
 display/cart calculation, not a financial transaction. Cart ID is not an auth
 mechanism. Browser refresh preserves cart reference locally; API restart preserves
 cart rows; clearing/resetting demo data invalidates old references visibly.

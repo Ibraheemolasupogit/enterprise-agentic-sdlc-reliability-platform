@@ -1,7 +1,10 @@
 # Upstream source assessment
 
 Authority: [master brief](project/master-brief.md), sections 5–6 and 14.
-Assessed: 2026-10-30 through read-only public GitHub metadata, file trees and source
+Current M2 status: the owner selected independent original code and MIT.
+[M2 provenance and execution](#m2-independent-implementation-and-adoption) closes
+those gates; the bounded licensing assessment below is retained as historical.
+Historical assessment: 2026-10-30 through read-only public GitHub metadata, file trees and source
 reads. No clone, fork, application source import, application dependency install, workflow
 execution or cloud access was performed. M1 rechecked the pinned rights evidence
 read-only; documentation tooling, if used, stays outside the repository. Revisions below are assessment snapshots, not adopted
@@ -269,3 +272,35 @@ the implementation strategy is accepted.
 Current upstream evidence was read directly; the local checker does not verify all
 external URL availability. No dependency/asset ownership audit or application/
 integration test was run. This bounded task stops after the recommendation.
+
+## M2 independent implementation and adoption
+
+The later owner request explicitly selects original independent commerce code,
+MIT, React/TypeScript, a TypeScript API and local SQLite. Morrow Supply implements
+J01–J06 with original UI, inline SVG art, twelve synthetic products, tests and SQL.
+No OctoCAT application code, schema, fixtures, tests, prose, logos or images were
+copied. The internal directory label preserves project continuity; the displayed
+identity is original. No formal clean-room or comprehensive ownership assurance
+is claimed. The historical upstream license findings above remain unchanged.
+
+Original source is covered by [root MIT](../LICENSE) and the application copy.
+[ADR 0002](decisions/0002-source-reuse.md) records the selected strategy. Exact npm
+versions, license identifiers, resolved sources and integrity hashes are in the
+[dependency register](../apps/octocat-supply/dependencies.json), generated from our
+fresh lockfile, not an upstream lockfile. Adopted packages are unmodified; original
+migrations, seed data and tests were written against this project's requirements.
+
+[Third-party notices](../THIRD_PARTY_NOTICES.md#m2-adopted-dependencies-and-distribution)
+records runtime notice placement, development-only licenses, immutable base images
+and distribution obligations. No external font, photo, CDN, analytics, inference
+or cloud dependency is used by the application. Browser screenshots in the M2
+record show our own UI and synthetic data. Event/lab and agent references remain
+reference-only, not dependencies. The prior assessment's four-file/no-install/no-
+implementation statements describe that historical task, not this implementation.
+
+See [M2 evidence](evidence/m2-baseline.md) for actual versions, source fingerprint,
+clean reproduction, tests and remaining limits. Private development and eventual
+public MIT publication of original work remain compatible with retained package/
+image obligations. Publication is not performed here; review source/history and
+bundled license coverage again when distribution changes. Direct OctoCAT copying
+remains not cleared; it is not an M2 blocker because that material is excluded.

@@ -1,0 +1,188 @@
+{
+  "algorithm": "SHA-256; aggregate over sorted sha256 + two spaces + repo-relative path + LF",
+  "baseHead": "5d912b3955edf2b2fc8ba51468ebd8dd5221a3a7",
+  "status": "uncommitted M2 application working tree; not a committed release",
+  "aggregate": "037b34be43c2ef5b791499c5e5e6b88566bc7667a5411f1d5426781dcd589f6a",
+  "files": [
+    {
+      "path": "apps/octocat-supply/.dockerignore",
+      "sha256": "bff2a5976307b8d15351d7fc26d89379d7c6fbfd884ba92d2d802d2eff453ae2"
+    },
+    {
+      "path": "apps/octocat-supply/.env.example",
+      "sha256": "c3ae46ca980e25c019aab25f77a742627454ff2678d36493141301b4285cf821"
+    },
+    {
+      "path": "apps/octocat-supply/.node-version",
+      "sha256": "9185b9f67843cabfa8054f65ce47ce0b52036b0bfe07ae5a6b834d97cc127140"
+    },
+    {
+      "path": "apps/octocat-supply/.npmrc",
+      "sha256": "994f7cb40cf8035ac70be35a65bf3cb51aa62e5b8fe94531d596b279f66740cb"
+    },
+    {
+      "path": "apps/octocat-supply/.prettierignore",
+      "sha256": "7dbe51fba7938967231c5016477977cf06ea3ae4c40557bf573dafd5145fa989"
+    },
+    {
+      "path": "apps/octocat-supply/LICENSE",
+      "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+    },
+    {
+      "path": "apps/octocat-supply/README.md",
+      "sha256": "3ea2d12d133a5ef30f9353868f7de916d3d1f90fd9b3c901b5087de1862b2841"
+    },
+    {
+      "path": "apps/octocat-supply/api/Dockerfile",
+      "sha256": "c948846d72b6262ac5adcb98c31f1e7e0f43812f5ebbf21d66fd0b1f15619f38"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/app.ts",
+      "sha256": "9270aa92e7a57b6301c2c9672b4bebade4c6905e3e9c21d392d937f1a8fada43"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/config.ts",
+      "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database-cli.ts",
+      "sha256": "b09fdc996fb8a77883dcb48a4876a12fa55707b0e26715171dab7e87a8295e3d"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database.ts",
+      "sha256": "ba7050bb4847df428cfc4a65553d2ca51504800378d641356aae4e956f16d41c"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/errors.ts",
+      "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/pricing.ts",
+      "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/server.ts",
+      "sha256": "142d79f0287b10e88d325453196187f079691fba8ec4a119e564728c8fe0f69c"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/app.test.ts",
+      "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/database.test.ts",
+      "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/pricing.test.ts",
+      "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4"
+    },
+    {
+      "path": "apps/octocat-supply/api/tsconfig.json",
+      "sha256": "c23a766f4ec826ffca64940c738d988442c91da75123e2473e744164087b2b3c"
+    },
+    {
+      "path": "apps/octocat-supply/compose.yaml",
+      "sha256": "e0506206f1ff67c8bc96f649e06ac9cbb7317c67e89870bdcd8c2e45b39f0a9d"
+    },
+    {
+      "path": "apps/octocat-supply/dependencies.json",
+      "sha256": "17d8972df853d90a6b6eebda4fac37f71f2e6f7d49fc1328c1f119d01bf4b40f"
+    },
+    {
+      "path": "apps/octocat-supply/e2e/shop.spec.ts",
+      "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f"
+    },
+    {
+      "path": "apps/octocat-supply/eslint.config.mjs",
+      "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/Dockerfile",
+      "sha256": "38738da005c4c68b7ab993fd78a3a926776e9133b07b6b90f80a9177ace26a79"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/default.conf.template",
+      "sha256": "b93403ba52ef074c8a50367c95bd2ba6358684b2b1abaf19da2876cfcb4cbf6c"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/index.html",
+      "sha256": "ae03ca56ff7bd79bd143e88e6bb9b283fe6f0c29c059959fb1015e2a84112047"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/nginx.conf",
+      "sha256": "37565129a2504558d240a6ee34ab6d75c0023d317f2797502f6240c7dbbcaef1"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/public/third-party-notices.txt",
+      "sha256": "b049887ac2b8018e23994f560940da6e661ff6a408fa0466e702ce0a5217ce1b"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/App.tsx",
+      "sha256": "2b18cf05385d04f03705f4a96e90413749922397d915b71ad55aae356630de41"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/api.ts",
+      "sha256": "20239b33154ee8afd614c77c8bcbf4815917430504b0dbf8244caa01795d56bd"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/main.tsx",
+      "sha256": "cae0540d8d93a09581b095dd6246cf5a5d91921e5d5a7d9642dfd026256d4191"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/styles.css",
+      "sha256": "33aa113f5215f3749e9beece641f34e12e8a823fbc1252d9ed45718bc159630a"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/start.sh",
+      "sha256": "2c6d89196353f67ab2f895bc26c63bea7cf7d359cd959c40c0f34da120b99c43"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+      "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/setup.ts",
+      "sha256": "8a48e3f3203adc47d858aeecf3ac11cb4c0eae0632f929fc897ecbd5a20e6099"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/tsconfig.json",
+      "sha256": "e721551f9284931c90ea08317c6b76faeea740967242cb0b882ed96b588c028e"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/vite.config.ts",
+      "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+    },
+    {
+      "path": "apps/octocat-supply/package-lock.json",
+      "sha256": "33dd1e3055609a7a326e490433da563b48bee106cfd6ee826a553fd2dbb67f4f"
+    },
+    {
+      "path": "apps/octocat-supply/package.json",
+      "sha256": "f5c572ed0cae34b50c6d9469e2574f1301e970ca13e33c5356f196d4126649ca"
+    },
+    {
+      "path": "apps/octocat-supply/playwright.config.ts",
+      "sha256": "04baa2c7d841645782c8d849ab56aaca437fe9f4b249411d552e8fd3e38207c9"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+      "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+      "sha256": "a117527460eb215c5057451c056257bfafc09bd39bcde8f2bb5c667517a107ed"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/licenses.mjs",
+      "sha256": "7ab2af7d1c8d97b7c3fff714d8b811009571443491501ec3a62b718d54f14706"
+    },
+    {
+      "path": "apps/octocat-supply/tsconfig.tests.json",
+      "sha256": "e5a4426edf56782d171a85ada5bf46ee5ee37d6452f32f882728fb317adfa6f5"
+    },
+    {
+      "path": "apps/octocat-supply/vitest.config.ts",
+      "sha256": "f322a3f72f80ade328370bca7456180d6a784e131685d41624bf72d14151bda2"
+    }
+  ]
+}
