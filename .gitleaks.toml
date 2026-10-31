@@ -1,0 +1,12 @@
+title = "Morrow Supply secret scanning"
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated installed packages, build/database and scanner outputs only; source/history stays scanned"
+paths = [
+  '''(^|/)node_modules/''',
+  '''^artifacts/''',
+  '''^apps/octocat-supply/(data|test-results|playwright-report)/''',
+  '''^apps/octocat-supply/(api|frontend)/dist/'''
+]

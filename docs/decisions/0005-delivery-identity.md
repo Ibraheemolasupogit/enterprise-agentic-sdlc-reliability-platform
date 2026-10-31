@@ -1,6 +1,7 @@
 # ADR 0005 — GitHub Actions, Azure OIDC and protected releases
 
-Date: 2026-10-30. Status: accepted design; no identities/workflows created.
+Date: 2026-10-30. Status: M3 workflow/IaC implemented and locally tested; no Azure identities,
+protected settings, hosted CI run or release created.
 Requirements: R04–R06, R10, R17. Owner: repository owner.
 
 ## Decision
@@ -64,3 +65,18 @@ Private SQL connectivity/Entra API authorization are in the
 [architecture](../architecture.md). Exact custom role actions, region/SKUs,
 protection entitlement, actual OIDC subject and network cost are deferred to M3
 with owner and are M4 entry blockers, not assumptions that the lab proves.
+
+## M3 implementation and remaining authorization proof
+
+[Delivery guidance](../delivery.md) and [M3 evidence](../evidence/m3-secure-delivery.md)
+record the read-only validation workflow, pinned tools/actions, fail-closed gates,
+source/image/SBOM evidence and separate Bicep boundaries. No publish/deploy/OIDC job
+exists. CodeQL is explicit opt-in on trusted main after entitlement review. The
+candidate updater role enumerates app operations at the two app scopes; environment
+read/join and identity assignment scopes need separate narrow grants and live tests.
+RBAC write cannot constrain ingress/image fields: reviewed diffs and appropriate
+Azure Policy are M4 prerequisites. Actual emitted subject, protected reviewers,
+federation/RBAC denial tests, SQL/private networking, cloud-ready images, cost and
+rollback/teardown remain unverified M4 entry gates. No token or credential was
+requested or created during M3. Current Bicep/compiler checks do not satisfy ARM
+what-if/authorization/policy validation, which would need cloud authentication.

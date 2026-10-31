@@ -2,7 +2,10 @@
 
 Status: M1 validation strategy with M2 V01–V08 local execution and V18 local
 provenance/setup evidence recorded in [M2 results](evidence/m2-baseline.md). Later
-cloud/agent evaluations remain planned. Authority: master brief sections 9–13/17.
+cloud/agent evaluations remain planned. M3 adds local secret/dependency/image/config
+scans, SBOM/provenance, actionlint and compiled policy mutation checks;
+[M3 evidence](evidence/m3-secure-delivery.md) records hosted/cloud limitations.
+Authority: master brief sections 9–13/17.
 All numerical thresholds are selected project targets, not measured achievements
 or Azure guarantees. [Requirements](requirements.md) owns functional/non-functional
 contracts; this file owns tests, gates, measurements and evidence. See
@@ -148,3 +151,17 @@ real inference, Azure, cloud restore or 28-day objective was executed.
 | Unsafe instruction in issue/log content | R25, V11–V13; M5/M8/M9; attempted instruction rejected with permissions preserved |
 | Durable recovery | R11/R20, V05/V16; M4/M9; local persistence is not cloud restore proof; measured objective and integrity result |
 | Performance or capacity problem | R20, V17; M9; same-load baseline, diagnosis, tested change and measured improvement |
+
+## M3 executed boundary
+
+[M3 delivery](delivery.md) defines fail-closed local/CI checks and configuration-only
+OIDC/release protections. V09 has local negative workflow/template tests; actual
+Azure federation/authorization denials remain M4. V14 has local failing gate and
+mutation evidence, not a deployed release/rollback. V18 includes full dependency
+audit, redacted history/tree secret scanning, final-image scans, SBOM/provenance
+and four-template Bicep/policy checks. Trivy's ARM rule coverage is limited and
+reported separately; custom tests check all compiled service/identity boundaries.
+CodeQL is optional until support/entitlement is verified and explicitly enabled;
+it has not executed. A skipped/unavailable tool is never described as a clean scan.
+Full M2 unit/component/API/browser tests remain required and unchanged. Hosted CI,
+branch/environment protection, image publishing and Azure runtime remain unverified.

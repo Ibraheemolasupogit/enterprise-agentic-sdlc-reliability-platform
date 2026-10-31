@@ -1,6 +1,6 @@
 # Third-party references and import register
 
-Current M2 status: independently authored **Morrow Supply**, original code under
+Current M3 status: independently authored **Morrow Supply**, original code under
 [root MIT](LICENSE). No upstream OctoCAT application source/assets or agent/cloud
 material was copied. Standard npm dependencies and container bases are adopted as
 recorded below. This register does not replace their own licenses or grant rights.
@@ -94,3 +94,32 @@ all installed on each host. No dependencies or base components were modified.
 No external artwork/fonts are adopted. [M2 evidence](docs/evidence/m2-baseline.md)
 records reproducibility, scope of the audit and limitations. The root MIT does
 not change repository visibility, supply upstream rights or license trademarks.
+
+## M3 tooling and packaging provenance
+
+No upstream application source/assets are adopted. Original pipeline/Bicep/security
+test code is MIT. [Pinned tool manifest](security/tools.json) records official
+release URLs, exact versions, SHA-256 asset digests and license identifiers for
+Bicep/actionlint (MIT), Gitleaks (MIT) and Trivy (Apache-2.0); downloaded tools are
+not committed or redistributed in application images. PyYAML 6.0.3 (MIT) is a
+local/CI-only dependency. Retain their actual license/NOTICE files if distributing
+these tools rather than just referencing/installing them. GitHub Actions are
+commit-pinned; their upstream terms remain applicable to their execution.
+
+The M2 Debian Node digest remains the build-stage base. M3 changes only the API
+runtime to official `node:24.22.2-alpine` index digest
+`sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85`,
+removing unused global npm/yarn entry points/code after installing unchanged
+locked production dependencies. Node/bundled-component and Alpine terms remain
+separate; existing base license layers/notices are retained. The frontend retains
+the pinned Nginx base and installs exact signed Alpine packages brotli-libs
+1.2.1-r0, curl/libcurl 8.23.0-r0; package copyright/license terms are not replaced
+by MIT. Generated CycloneDX SBOMs inventory installed components; image source,
+OS package availability and distribution/source-offer obligations must be reviewed
+again when publishing images. No third-party source file was modified. Existing
+React notices and application license remain shipped with the frontend.
+
+[M3 evidence](docs/evidence/m3-secure-delivery.md) records image hashes/scans and
+limits. The earlier M2 runtime image/table is historical; it does not establish
+the contents/security of the hardened M3 runtime. No container registry push or
+public distribution occurred during this task.

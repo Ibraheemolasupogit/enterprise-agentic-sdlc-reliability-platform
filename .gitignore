@@ -34,3 +34,6 @@ coverage/
 apps/octocat-supply/data/
 apps/octocat-supply/test-results/
 apps/octocat-supply/playwright-report/
+
+# M3 local compiled IaC, security reports, SBOMs and provenance
+artifacts/

@@ -1,6 +1,6 @@
 # Project charter
 
-Date: 2026-10-30. Owner: repository owner. Stage: M2 — Reproducible local application baseline.
+Date: 2026-10-30. Owner: repository owner. Stage: M3 — Secure delivery; local validation only.
 Authority: [master brief](project/master-brief.md), particularly sections 1–4,
 16–17. M0 history remains in its assessment; M1 completion is assessed against
 [the eight acceptance criteria](milestones/m1-scope.md).
@@ -38,9 +38,10 @@ thresholds for later demonstrations; those targets still need execution evidence
 
 - M1 refines the product and architecture, threat model, ADRs, validation strategy
   and M2 handoff. No runtime or platform capability is promoted by design alone.
-- M2 authorizes the independent local application/tests/containers and MIT only. No
-  agents, CI workflow, cloud infrastructure, credentials, deployment, paid services,
-  commits or pushes are authorized.
+- M2 established the independent local application/tests/containers under MIT. M3
+  authorizes one CI pipeline, local security/image checks and static Azure IaC. No
+  agent, cloud login/provisioning/deployment, credential creation, paid-service
+  execution, commit or push is authorized.
 - Claims Processing remains a separate project, including its data and backlog.
 - Use synthetic supply-chain data; require explicit evidence for capability claims.
 - Prefer small local slices before cloud integrations. Introduce dependencies only
@@ -91,3 +92,8 @@ execution. gh-aw supported engine/auth/spend ceiling is decided before M5 and
 SRE/issue/assignment integration support before M7/M8. No secret, paid inference,
 resource or scheduled monitoring change is authorized here. See the
 [M1 review and decision register](evidence/m1-design-review.md).
+
+M3 execution and outstanding M4 entry gates are recorded in
+[secure-delivery evidence](evidence/m3-secure-delivery.md). The planned Azure
+architecture is not runnable cloud functionality until M4 authentication, SQL,
+proxy/network, identity/cost and release prerequisites are closed.

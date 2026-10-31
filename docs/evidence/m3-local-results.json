@@ -1,0 +1,401 @@
+{
+  "verificationDatesUTC": [
+    "2026-10-30",
+    "2026-10-31"
+  ],
+  "baseHead": "8dca6c09278eedea20f8f6372007b8b44a8539a5",
+  "status": "Locally tested; hosted CI and Azure not executed",
+  "containerSmoke": {
+    "started": "2026-10-30T23:51:40.440822+00:00",
+    "project": "morrow-supply-m3-verify",
+    "actor": "deterministic local delivery verification",
+    "checks": [
+      "12 fixtures and authoritative discount total via built proxy",
+      "non-root/read-only/cap-drop; only loopback frontend published",
+      "cart persisted across API container replacement",
+      "all three unchanged M2 browser cases passed through production images"
+    ],
+    "result": "PASS",
+    "finished": "2026-10-30T23:51:57.843403+00:00"
+  },
+  "imageReports": {
+    "api": {
+      "artifact": "morrow-supply-api:m3-verify",
+      "imageId": "sha256:769e44c9ceacf5ff4b75c470203e2b813da51b6fdf266d9d1f59a9f58975cb55",
+      "os": {
+        "Family": "alpine",
+        "Name": "3.24.3"
+      },
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "dd51b67b994a6e35f2581bf3360018d575b7bfeb2285143130d163293b87031d",
+      "sbomSha256": "c3684c42bd01fe3869ea2936360d05c5c7b270b103e60c567dea12a9616d2e3f",
+      "sbomComponents": 90
+    },
+    "frontend": {
+      "artifact": "morrow-supply-web:m3-verify",
+      "imageId": "sha256:71203f89924206098547a56ba5946b8b05d11eba50f94171f62c3ff6f70571e6",
+      "os": {
+        "Family": "alpine",
+        "Name": "3.24.2"
+      },
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "8f2bfbf377c602478186ebd007e39863fda0d4635502a18b1e61fdf9a784421c",
+      "sbomSha256": "017802a4cf25e12a24dd9ca66970c490a2859383d9045f774963c06750eeee42",
+      "sbomComponents": 71
+    }
+  },
+  "configurationReports": {
+    "infra": {
+      "evaluatedTargets": [
+        "registry-access.json"
+      ],
+      "highCriticalFindings": 0,
+      "reportSha256": "1c9828aed8291b91a10e64291ba5a802519f24ddb71c2c0a57585fbe2357ecdb"
+    },
+    "api": {
+      "evaluatedTargets": [
+        "Dockerfile"
+      ],
+      "highCriticalFindings": 0,
+      "reportSha256": "5c04511033c109f1563d04889137462032f814dee7e7f04363aeb26e193ab67c"
+    },
+    "frontend": {
+      "evaluatedTargets": [
+        "Dockerfile"
+      ],
+      "highCriticalFindings": 0,
+      "reportSha256": "fcdff398a440d4c20df8c6c63afd88e16fae219bd1313955acbd16eca58d23b3"
+    }
+  },
+  "npmAudit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 69,
+        "dev": 279,
+        "optional": 53,
+        "peer": 11,
+        "peerOptional": 0,
+        "total": 347
+      }
+    }
+  },
+  "provenance": {
+    "created": "2026-10-31T00:18:17.976503+00:00",
+    "sourceHead": "8dca6c09278eedea20f8f6372007b8b44a8539a5",
+    "dirtyWorkingTree": true,
+    "githubRunId": null,
+    "releaseEligible": false,
+    "signedAttestation": false,
+    "images": {
+      "api": {
+        "localImageId": "sha256:769e44c9ceacf5ff4b75c470203e2b813da51b6fdf266d9d1f59a9f58975cb55",
+        "descriptorMediaType": "application/vnd.oci.image.index.v1+json",
+        "os": "linux",
+        "architecture": "arm64"
+      },
+      "frontend": {
+        "localImageId": "sha256:71203f89924206098547a56ba5946b8b05d11eba50f94171f62c3ff6f70571e6",
+        "descriptorMediaType": "application/vnd.oci.image.index.v1+json",
+        "os": "linux",
+        "architecture": "arm64"
+      }
+    },
+    "files": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "d861a2d8d87903786b72dee01ed982312fac1e54cc0f313c22bcdfa1c9c6e33c"
+      },
+      {
+        "path": "apps/octocat-supply/.dockerignore",
+        "sha256": "bff2a5976307b8d15351d7fc26d89379d7c6fbfd884ba92d2d802d2eff453ae2"
+      },
+      {
+        "path": "apps/octocat-supply/.env.example",
+        "sha256": "c3ae46ca980e25c019aab25f77a742627454ff2678d36493141301b4285cf821"
+      },
+      {
+        "path": "apps/octocat-supply/.node-version",
+        "sha256": "9185b9f67843cabfa8054f65ce47ce0b52036b0bfe07ae5a6b834d97cc127140"
+      },
+      {
+        "path": "apps/octocat-supply/.npmrc",
+        "sha256": "994f7cb40cf8035ac70be35a65bf3cb51aa62e5b8fe94531d596b279f66740cb"
+      },
+      {
+        "path": "apps/octocat-supply/.prettierignore",
+        "sha256": "7dbe51fba7938967231c5016477977cf06ea3ae4c40557bf573dafd5145fa989"
+      },
+      {
+        "path": "apps/octocat-supply/LICENSE",
+        "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+      },
+      {
+        "path": "apps/octocat-supply/README.md",
+        "sha256": "7632e67804f901735a9c37735627a83b141bbce8667efb5d83f6325c0f03b82c"
+      },
+      {
+        "path": "apps/octocat-supply/api/Dockerfile",
+        "sha256": "b665e48fe1fc90385dcf41c4d08995ed59edbfd259bb96309555da1d50437adc"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/app.ts",
+        "sha256": "9270aa92e7a57b6301c2c9672b4bebade4c6905e3e9c21d392d937f1a8fada43"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/config.ts",
+        "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database-cli.ts",
+        "sha256": "b09fdc996fb8a77883dcb48a4876a12fa55707b0e26715171dab7e87a8295e3d"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database.ts",
+        "sha256": "ba7050bb4847df428cfc4a65553d2ca51504800378d641356aae4e956f16d41c"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/errors.ts",
+        "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/pricing.ts",
+        "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/server.ts",
+        "sha256": "142d79f0287b10e88d325453196187f079691fba8ec4a119e564728c8fe0f69c"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/app.test.ts",
+        "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/database.test.ts",
+        "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/pricing.test.ts",
+        "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4"
+      },
+      {
+        "path": "apps/octocat-supply/api/tsconfig.json",
+        "sha256": "c23a766f4ec826ffca64940c738d988442c91da75123e2473e744164087b2b3c"
+      },
+      {
+        "path": "apps/octocat-supply/compose.yaml",
+        "sha256": "e0506206f1ff67c8bc96f649e06ac9cbb7317c67e89870bdcd8c2e45b39f0a9d"
+      },
+      {
+        "path": "apps/octocat-supply/dependencies.json",
+        "sha256": "17d8972df853d90a6b6eebda4fac37f71f2e6f7d49fc1328c1f119d01bf4b40f"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/shop.spec.ts",
+        "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f"
+      },
+      {
+        "path": "apps/octocat-supply/eslint.config.mjs",
+        "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/Dockerfile",
+        "sha256": "3d4a2d8b2e77c7630e7a92e3560b8bbb2ef6fcbc17ab8f388ac3d40122b78ea9"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/default.conf.template",
+        "sha256": "b93403ba52ef074c8a50367c95bd2ba6358684b2b1abaf19da2876cfcb4cbf6c"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/index.html",
+        "sha256": "ae03ca56ff7bd79bd143e88e6bb9b283fe6f0c29c059959fb1015e2a84112047"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/nginx.conf",
+        "sha256": "37565129a2504558d240a6ee34ab6d75c0023d317f2797502f6240c7dbbcaef1"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/public/third-party-notices.txt",
+        "sha256": "b049887ac2b8018e23994f560940da6e661ff6a408fa0466e702ce0a5217ce1b"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/App.tsx",
+        "sha256": "2b18cf05385d04f03705f4a96e90413749922397d915b71ad55aae356630de41"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/api.ts",
+        "sha256": "20239b33154ee8afd614c77c8bcbf4815917430504b0dbf8244caa01795d56bd"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/main.tsx",
+        "sha256": "cae0540d8d93a09581b095dd6246cf5a5d91921e5d5a7d9642dfd026256d4191"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/styles.css",
+        "sha256": "33aa113f5215f3749e9beece641f34e12e8a823fbc1252d9ed45718bc159630a"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/start.sh",
+        "sha256": "2c6d89196353f67ab2f895bc26c63bea7cf7d359cd959c40c0f34da120b99c43"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+        "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/setup.ts",
+        "sha256": "8a48e3f3203adc47d858aeecf3ac11cb4c0eae0632f929fc897ecbd5a20e6099"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/tsconfig.json",
+        "sha256": "e721551f9284931c90ea08317c6b76faeea740967242cb0b882ed96b588c028e"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/vite.config.ts",
+        "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+      },
+      {
+        "path": "apps/octocat-supply/package-lock.json",
+        "sha256": "33dd1e3055609a7a326e490433da563b48bee106cfd6ee826a553fd2dbb67f4f"
+      },
+      {
+        "path": "apps/octocat-supply/package.json",
+        "sha256": "f5c572ed0cae34b50c6d9469e2574f1301e970ca13e33c5356f196d4126649ca"
+      },
+      {
+        "path": "apps/octocat-supply/playwright.config.ts",
+        "sha256": "04baa2c7d841645782c8d849ab56aaca437fe9f4b249411d552e8fd3e38207c9"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+        "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+        "sha256": "a117527460eb215c5057451c056257bfafc09bd39bcde8f2bb5c667517a107ed"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/licenses.mjs",
+        "sha256": "7ab2af7d1c8d97b7c3fff714d8b811009571443491501ec3a62b718d54f14706"
+      },
+      {
+        "path": "apps/octocat-supply/tsconfig.tests.json",
+        "sha256": "e5a4426edf56782d171a85ada5bf46ee5ee37d6452f32f882728fb317adfa6f5"
+      },
+      {
+        "path": "apps/octocat-supply/vitest.config.ts",
+        "sha256": "f322a3f72f80ade328370bca7456180d6a784e131685d41624bf72d14151bda2"
+      },
+      {
+        "path": "infra/README.md",
+        "sha256": "496b81a0ece356d218190ab7e25ce4f8273e8d11f16a0b6b6604f79c79980f27"
+      },
+      {
+        "path": "infra/apps.bicep",
+        "sha256": "e3b914f3e1d04e2446e7958d740d7de8399511a0f16a281f799bfee189213c99"
+      },
+      {
+        "path": "infra/bicepconfig.json",
+        "sha256": "dcec22b04c210ea11f37175dc0ab5e2c35226f4ef6afb99f16ea105b5905850b"
+      },
+      {
+        "path": "infra/federation.bicep",
+        "sha256": "7ecba9eb94674a3fff87c5f684ea6a6f525f0ceaab16d7d8ebeb1b091fc0e3c6"
+      },
+      {
+        "path": "infra/foundation.bicep",
+        "sha256": "ead6dfcef15161702fc660bcdb1103e3795647ccd278b0cc3269fd42ec345c22"
+      },
+      {
+        "path": "infra/registry-access.bicep",
+        "sha256": "abde1ec130c03b41e65b23321781e2609b2ee4c936961dab6d0db1e4c77d5fae"
+      },
+      {
+        "path": "infra/release-role.example.json",
+        "sha256": "75b12bcad74b0b8d09f3ce546b9641952233fc857d55218399368f0820517fc3"
+      },
+      {
+        "path": "scripts/delivery/install_tools.py",
+        "sha256": "1b81aa2b840a85cb99b520cd4c92698d02e10c4615773b6e9eab14e6763c258f"
+      },
+      {
+        "path": "scripts/delivery/policy.py",
+        "sha256": "06b14efe4ff08c00146a8ef9e2af388f39ed48705ef6e298e84cf2cd6fd65a92"
+      },
+      {
+        "path": "scripts/delivery/provenance.py",
+        "sha256": "405fe93b1d04792a87bfcad50b10ec0f2aea7115a6d535d241c8af8b8b6fc467"
+      },
+      {
+        "path": "scripts/delivery/scan_config.py",
+        "sha256": "0fb93519a1271198649eb5eb531b8f1e759c5928b5d91863d0e12a0aecde592a"
+      },
+      {
+        "path": "scripts/delivery/scan_images.py",
+        "sha256": "827a9e9de64947312faab3f4fe500c210652d1ed1a60f976c048e68fe55bc211"
+      },
+      {
+        "path": "scripts/delivery/validate_infra.py",
+        "sha256": "a647350104701394b64598f5b2725f95b3fd45a32e409a2708c97ac3126440ab"
+      },
+      {
+        "path": "scripts/delivery/verify_containers.py",
+        "sha256": "8bfd7ab76fb3ff481866c839650d422464383896c8e3e7a77c4913a688848b8d"
+      },
+      {
+        "path": "security/compose.verify.yaml",
+        "sha256": "1394cc029c6b2483fbbc48f1b05be96cd763299418b99aaf0da6dbdda5090cc9"
+      },
+      {
+        "path": "security/exceptions.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "security/tools.json",
+        "sha256": "e386f5165c4463fe420b2c0ccd66b25905334fb837f1c1796985291a46b0c719"
+      },
+      {
+        "path": "tests/delivery/test_security.py",
+        "sha256": "5fc48f6407457cfb101eb06c381c0837fceedd99b84fa63f55d4c53de0824e5d"
+      },
+      {
+        "path": "requirements-delivery.txt",
+        "sha256": "0969da99a0bc2a1b71ed50584560f4588a37567ac63af3ddbaf3c4617ca5621a"
+      },
+      {
+        "path": "artifacts/m3/api-sbom.cdx.json",
+        "sha256": "c3684c42bd01fe3869ea2936360d05c5c7b270b103e60c567dea12a9616d2e3f"
+      },
+      {
+        "path": "artifacts/m3/frontend-sbom.cdx.json",
+        "sha256": "017802a4cf25e12a24dd9ca66970c490a2859383d9045f774963c06750eeee42"
+      },
+      {
+        "path": "artifacts/m3/api-vulnerabilities.json",
+        "sha256": "dd51b67b994a6e35f2581bf3360018d575b7bfeb2285143130d163293b87031d"
+      },
+      {
+        "path": "artifacts/m3/frontend-vulnerabilities.json",
+        "sha256": "8f2bfbf377c602478186ebd007e39863fda0d4635502a18b1e61fdf9a784421c"
+      }
+    ]
+  },
+  "acceptedSecurityExceptions": [],
+  "database": {
+    "schemaVersion": 2,
+    "updatedAt": "2026-10-30T19:07:50.773782Z",
+    "downloadedAt": "2026-10-30T23:22:07.821264Z",
+    "ruleBundleDigest": "sha256:b591e9190cff4aa4e385b1a25bccfd9ecf178d3c77fd194e1410b7ce7e1df058"
+  }
+}

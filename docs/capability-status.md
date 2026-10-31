@@ -3,7 +3,9 @@
 Authority: [master brief](project/master-brief.md), sections 9, 16–17. Assessed on
 2026-10-30. Use its states: **Planned, Implemented, Locally tested, Cloud verified,
 Simulated, Design only, Blocked, Retired**. Historical validation is a separate
-evidence classification, not current repository verification. M2 application execution is locally verified as recorded in
+evidence classification, not current repository verification. M3 delivery definitions and local security checks are recorded in
+[M3 evidence](evidence/m3-secure-delivery.md); hosted CI and Azure remain unverified.
+M2 application execution is locally verified as recorded in
 [M2 evidence](evidence/m2-baseline.md); agent/cloud execution remains unverified.
 M1 establishes design evidence only; the
 [design review](evidence/m1-design-review.md) records criteria and remaining gates.
@@ -14,7 +16,7 @@ M1 establishes design evidence only; the
 | Product/architecture/threat model/ADRs | Design only | [Architecture](architecture.md), [STRIDE model](threat-model.md), ADRs 0002–0006 and [M1 review](evidence/m1-design-review.md); no enforcement claim | M1 |
 | Independent Morrow Supply application/container baseline | Locally tested | [M2 evidence](evidence/m2-baseline.md): original React/API/SQLite, fixtures, pricing/discounts, unit/integration/component/browser and local container fault/persistence checks; upstream reuse remains not cleared | M2 |
 | Agent-assisted development/review | Planned | Requirement-to-change/tests/review evidence needed; no separate framework assumed | M2–M3; M8 |
-| Secure delivery, images and Azure IaC/identity | Planned | No CI workflows, trusted release images, automated scans or infrastructure validation; M2 local images are tested separately | M3 |
+| Secure delivery, images and Azure IaC/identity | Implemented; Locally tested checks | One read-only CI workflow, actionlint, dependency/history-secret/image/config scans, SBOM/provenance, four compiled Bicep templates and negative security tests; CodeQL gated/unexecuted; no hosted CI, registry publication, protected settings or Azure identity/runtime proof | M3 |
 | Personal Azure deployment/internal API/durability | Planned | No cloud deployment; ACA/internal API, Azure SQL and identity selected in design; no runtime proof | M4 |
 | Working agentic maintenance | Planned | C7 failure must be closed with real inference and useful output; not compilation alone | M5 |
 | Local dependency-aware health | Locally tested | Process liveness, DB/seed readiness, frontend API dependency path and wrong-port failure/recovery in M2 | M2 |
@@ -27,7 +29,7 @@ M1 establishes design evidence only; the
 | Performance/capacity and measured improvements | Planned | No measurements or baseline; no percentage savings claim | M9 |
 | Configuration drift/dependency/toil/runbook upkeep | Planned | Operational ownership, maintenance and measured toil evidence absent | M9 |
 | Cost/resource hygiene | Planned | Cost/teardown gates designed; actual estimate, approved spend and teardown proof deferred; budget alerts are not caps | M1 design; M3–M9 |
-| Application/agent security and evaluation | Locally tested application cases; Planned agent/cloud cases | M2 V01–V08 local input/error/data cases pass; STRIDE T01–T12 and V09–V18 broader agent/release/cloud evaluations remain planned | M1 design; M2–M9 |
+| Application/agent security and evaluation | Locally tested application cases; Planned agent/cloud cases | M2 V01–V08 local input/error/data cases pass; M3 adds pipeline/IaC mutation tests and real scanner gates; STRIDE T01–T12 and V09–V18 broader agent/release/cloud evaluations remain planned | M1 design; M2–M9 |
 | Upstream integration/contribution register | Design only; source assessment started | Owner selected independent/MIT, exact npm inventory and notices recorded; no upstream app copied or contribution submitted | M0; M10 |
 | Multi-cloud/alternative delivery modules | Planned; optional | No AWS/GCP core dependency; justify or defer after Azure core | M11 |
 | Portfolio/video walkthrough | Planned | No end-to-end verified demonstration or video | M12 |

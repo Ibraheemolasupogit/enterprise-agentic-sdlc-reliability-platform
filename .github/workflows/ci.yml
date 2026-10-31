@@ -1,0 +1,138 @@
+name: Secure delivery
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  application:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/octocat-supply
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: apps/octocat-supply/.node-version
+      - run: npm ci --ignore-scripts
+      - run: npm run licenses
+      - run: git diff --exit-code -- dependencies.json frontend/public/third-party-notices.txt
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm audit --audit-level=high
+      - run: npm exec -- playwright install --with-deps chromium
+      - run: npm run test:e2e
+
+  policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: python3 -m pip install --disable-pip-version-check -r requirements-delivery.txt
+      - run: python3 scripts/delivery/install_tools.py "$RUNNER_TEMP/morrow-tools"
+      - run: echo "$RUNNER_TEMP/morrow-tools" >> "$GITHUB_PATH"
+      - run: actionlint -shellcheck=""
+      - run: python3 scripts/delivery/validate_infra.py
+      - run: python3 -m unittest discover -s tests/delivery -v
+      - run: python3 scripts/check_repository.py
+      - run: git diff --check
+      - run: gitleaks git --redact --exit-code 1 --log-opts="--all" .
+      - run: gitleaks dir --redact --exit-code 1 .
+      - run: python3 scripts/delivery/scan_config.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: infrastructure-and-policy-${{ github.sha }}
+          path: artifacts/m3/
+          retention-days: 7
+          if-no-files-found: warn
+
+  containers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: application
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: apps/octocat-supply/.node-version
+      - run: npm ci --ignore-scripts
+        working-directory: apps/octocat-supply
+      - run: npm exec -- playwright install --with-deps chromium
+        working-directory: apps/octocat-supply
+      - run: python3 scripts/delivery/install_tools.py "$RUNNER_TEMP/morrow-tools" trivy
+      - run: echo "$RUNNER_TEMP/morrow-tools" >> "$GITHUB_PATH"
+      - run: python3 scripts/delivery/verify_containers.py
+      - run: python3 scripts/delivery/scan_images.py
+      - run: python3 scripts/delivery/provenance.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: local-images-and-security-${{ github.sha }}
+          path: artifacts/m3/
+          retention-days: 7
+          if-no-files-found: error
+
+  codeql:
+    # Explicit opt-in only after entitlement/cost review. PR code never receives write scopes.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.CODEQL_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4
+        with:
+          languages: javascript-typescript
+          build-mode: none
+      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4
+
+  required:
+    if: always()
+    needs: [application, policy, containers, codeql]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    env:
+      APPLICATION: ${{ needs.application.result }}
+      POLICY: ${{ needs.policy.result }}
+      CONTAINERS: ${{ needs.containers.result }}
+      CODEQL: ${{ needs.codeql.result }}
+      CODEQL_ENABLED: ${{ vars.CODEQL_ENABLED }}
+    steps:
+      - name: Fail closed on failed or cancelled validation
+        run: |
+          test "$APPLICATION" = success
+          test "$POLICY" = success
+          test "$CONTAINERS" = success
+          if [ "$CODEQL_ENABLED" = true ] && [ "$GITHUB_EVENT_NAME" != pull_request ]; then
+            test "$CODEQL" = success
+          elif [ "$CODEQL" != skipped ]; then
+            test "$CODEQL" = success
+          fi
+          echo "Validation only. CodeQL result: $CODEQL. No publish, OIDC or deployment job exists."

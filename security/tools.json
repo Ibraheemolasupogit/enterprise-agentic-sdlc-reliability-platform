@@ -1,0 +1,62 @@
+{
+  "bicep": {
+    "version": "0.48.1",
+    "license": "MIT",
+    "release": "https://github.com/Azure/bicep/releases/tag/v0.48.1",
+    "platforms": {
+      "Darwin-arm64": {
+        "url": "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-osx-arm64",
+        "sha256": "62cd5958c62fa1b738e9b69f24799fabddb90ed83fdb7d6d2563dde376ce479d"
+      },
+      "Linux-x86_64": {
+        "url": "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-x64",
+        "sha256": "b09ec25a9d376c1f8e33ede6ed22b587f915ad68488d5db77a6f9541748c7f6e"
+      }
+    }
+  },
+  "actionlint": {
+    "version": "1.7.12",
+    "license": "MIT",
+    "release": "https://github.com/rhysd/actionlint/releases/tag/v1.7.12",
+    "platforms": {
+      "Darwin-arm64": {
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_darwin_arm64.tar.gz",
+        "sha256": "aba9ced2dee8d27fecca3dc7feb1a7f9a52caefa1eb46f3271ea66b6e0e6953f"
+      },
+      "Linux-x86_64": {
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz",
+        "sha256": "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8"
+      }
+    }
+  },
+  "trivy": {
+    "version": "0.72.0",
+    "license": "Apache-2.0",
+    "release": "https://github.com/aquasecurity/trivy/releases/tag/v0.72.0",
+    "platforms": {
+      "Darwin-arm64": {
+        "url": "https://github.com/aquasecurity/trivy/releases/download/v0.72.0/trivy_0.72.0_macOS-ARM64.tar.gz",
+        "sha256": "88f208680dc05da2b459e19b4f5aa2b4dc7c2117892ba4aab2ae63baba330016"
+      },
+      "Linux-x86_64": {
+        "url": "https://github.com/aquasecurity/trivy/releases/download/v0.72.0/trivy_0.72.0_Linux-64bit.tar.gz",
+        "sha256": "bbb64b9695866ce4a7a8f5c9592002c5961cab378577fa3f8a040df362b9b2ea"
+      }
+    }
+  },
+  "gitleaks": {
+    "version": "8.30.1",
+    "license": "MIT",
+    "release": "https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1",
+    "platforms": {
+      "Darwin-arm64": {
+        "url": "https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_darwin_arm64.tar.gz",
+        "sha256": "b40ab0ae55c505963e365f271a8d3846efbc170aa17f2607f13df610a9aeb6a5"
+      },
+      "Linux-x86_64": {
+        "url": "https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz",
+        "sha256": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+      }
+    }
+  }
+}

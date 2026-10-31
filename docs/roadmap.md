@@ -2,7 +2,7 @@
 
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
 replaces the initial M0 proposal and the event challenge sequence. Current authority
-is M2 local application implementation only; M3 and later execution remain planned.
+is M3 secure delivery only; M4 and later execution remain planned.
 Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
 records historical design/source gates. The owner selected independent code/MIT;
 [M2 evidence](evidence/m2-baseline.md) records local execution without promoting
@@ -39,5 +39,5 @@ optional extensions. All cloud resources and paid inference need explicit scope,
 identity, cost estimate and teardown planning before execution. Budget alerts are
 not spending caps. The owner performs commits and pushes manually.
 
-Current exit review: [M2 scope and acceptance criteria](milestones/m2-scope.md) and
-[M2 results](evidence/m2-baseline.md). Stop after M2; M3 needs separate direction.
+Current exit review: [M3 scope](milestones/m3-scope.md) and
+[M3 results](evidence/m3-secure-delivery.md). Stop after M3; M4 needs separate direction.

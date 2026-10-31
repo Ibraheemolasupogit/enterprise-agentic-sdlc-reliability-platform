@@ -1,0 +1,10 @@
+# Compose >=2.24.4; replaces base port rather than also exposing 8080.
+services:
+  api:
+    image: morrow-supply-api:m3-verify
+    environment:
+      ALLOWED_ORIGINS: http://127.0.0.1:18080
+  frontend:
+    image: morrow-supply-web:m3-verify
+    ports: !override
+      - "127.0.0.1:18080:8080"

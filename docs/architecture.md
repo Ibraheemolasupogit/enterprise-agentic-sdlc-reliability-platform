@@ -1,7 +1,8 @@
 # Architecture
 
 Status: M1 architecture with **Locally tested M2 application**; all agent, CI/CD,
-Azure and cloud-observability diagrams remain **Design only**. Authority: [master brief](project/master-brief.md).
+Azure and cloud-observability runtime diagrams remain **Design only**. M3 CI/Bicep
+is implemented and locally validated; hosted CI/cloud execution is unverified. Authority: [master brief](project/master-brief.md).
 Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
 
@@ -98,6 +99,11 @@ See [ADR 0004](decisions/0004-agent-execution-permissions.md).
 
 ## Secure delivery — M3/M4
 
+[M3 delivery](delivery.md) implements one read-only validation workflow plus local
+image/security/IaC gates. The publish/release/OIDC arrows below remain M4 design;
+there is no deploy or OIDC-enabled job in the M3 workflow.
+
+
 ```mermaid
 flowchart TD
     P["Untrusted pull request"] --> T["Read-only lint / tests / security"]
@@ -120,6 +126,11 @@ release with identical evidence. [ADR 0005](decisions/0005-delivery-identity.md)
 separates build, deploy, bootstrap, database migration and runtime identities.
 
 ## Azure target — M4, subject to cost/identity gates
+
+M3 [Bicep definitions](../infra/README.md) compile the intended service/identity
+boundaries only. They omit M4 private SQL/network completion and application auth/
+proxy support. They must not deploy the M2 SQLite/unauthenticated images as-is.
+
 
 ```mermaid
 flowchart LR

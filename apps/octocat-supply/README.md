@@ -151,3 +151,17 @@ CI/CD and cloud telemetry remain later milestones.
 
 See [M2 evidence](../../docs/evidence/m2-baseline.md) for actual commands, outcomes,
 clean-copy reproduction, platform versions, source provenance and remaining gaps.
+
+## M3 packaging and delivery
+
+The application source, data and all M2 tests remain unchanged. M3 adds
+[secure delivery](../../docs/delivery.md) and an isolated container verification
+on 127.0.0.1:18080. The API runtime uses pinned Node 24.22.2 Alpine instead of
+Debian and excludes unused global package managers; build stages still use the
+pinned Debian toolchain. The frontend explicitly runs as UID 101 and pins security
+patch versions for brotli-libs/curl/libcurl. These are packaging fixes from actual
+scanner findings, not application feature changes. Images, SBOMs and scans are
+recorded in [M3 evidence](../../docs/evidence/m3-secure-delivery.md); local base tags
+are never release authorization. Cloud auth, durable SQL and ACA HTTPS proxy
+support remain M4 blockers. The original M2 demo on 8080 is independent of the
+isolated M3 verification project and retains its volume.

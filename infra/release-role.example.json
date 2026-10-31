@@ -1,0 +1,19 @@
+{
+  "Name": "Morrow approved application updater (candidate)",
+  "IsCustom": true,
+  "Description": "Update only the two pre-created apps; no delete, RBAC, credentials or resource bootstrap. Assign at each app resource, not subscription/RG. Validate permitted fields with policy/review.",
+  "Actions": [
+    "Microsoft.App/containerApps/read",
+    "Microsoft.App/containerApps/write",
+    "Microsoft.App/containerApps/revisions/read",
+    "Microsoft.App/containerApps/revisions/activate/action",
+    "Microsoft.App/containerApps/revisions/deactivate/action",
+    "Microsoft.App/containerApps/revisions/restart/action"
+  ],
+  "NotActions": [],
+  "DataActions": [],
+  "NotDataActions": [],
+  "AssignableScopes": [
+    "/subscriptions/REPLACE_SUBSCRIPTION/resourceGroups/REPLACE_DEDICATED_RG"
+  ]
+}
