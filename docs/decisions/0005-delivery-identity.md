@@ -92,3 +92,13 @@ not an enabled deploy path. Azure session/subscription/region/RBAC/quotas and ac
 OIDC subject are unverified; no sign-in or refresh was attempted. The
 [M4B handoff](../milestones/m4b-scope.md) and
 [cost/control proposal](../project/azure-cost-estimate.md) authorize no mutation.
+
+## M4B local-only update
+
+The owner subsequently authorized application/auth/SQL/HTTPS preparation and bounded
+workflow fixes. [Local evidence](../evidence/m4b-local-preparation.md) and
+[configuration](../delivery.md#m4b-local-configuration) record the Node 24 artifact
+action pin and TLS check added to the existing containers job. M4A's hosted success
+does not validate those edits. CodeQL remains conditional, skipped historically
+and unexecuted. No GitHub settings/entitlements/protections or Azure credentials,
+federation, resource or release were created. The deployment NO-GO remains.

@@ -1,4 +1,4 @@
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import AuthApp from "./AuthApp";
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<AuthApp />);

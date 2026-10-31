@@ -59,7 +59,7 @@ jobs:
       - run: gitleaks git --redact --exit-code 1 --log-opts="--all" .
       - run: gitleaks dir --redact --exit-code 1 .
       - run: python3 scripts/delivery/scan_config.py
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2 (Node 24)
         if: always()
         with:
           name: infrastructure-and-policy-${{ github.sha }}
@@ -85,13 +85,16 @@ jobs:
       - run: python3 scripts/delivery/install_tools.py "$RUNNER_TEMP/morrow-tools" trivy
       - run: echo "$RUNNER_TEMP/morrow-tools" >> "$GITHUB_PATH"
       - run: python3 scripts/delivery/verify_containers.py
+      - run: python3 scripts/delivery/verify_proxy.py
       - run: python3 scripts/delivery/scan_images.py
       - run: python3 scripts/delivery/provenance.py
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2 (Node 24)
         if: always()
         with:
           name: local-images-and-security-${{ github.sha }}
-          path: artifacts/m3/
+          path: |
+            artifacts/m3/
+            artifacts/m4b/
           retention-days: 7
           if-no-files-found: error
 
@@ -134,5 +137,8 @@ jobs:
             test "$CODEQL" = success
           elif [ "$CODEQL" != skipped ]; then
             test "$CODEQL" = success
+          fi
+          if [ "$CODEQL" = skipped ]; then
+            echo "::notice title=Security coverage gap::CodeQL did not execute; release remains subject to SAST and governance approval."
           fi
           echo "Validation only. CodeQL result: $CODEQL. No publish, OIDC or deployment job exists."

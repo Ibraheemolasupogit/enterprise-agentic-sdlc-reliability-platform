@@ -1,6 +1,7 @@
 # ADR 0003 — Local SQLite and cloud relational durability
 
-Date: 2026-10-30. Status: local SQLite implementation Locally tested in M2; cloud design unverified.
+Updated: 2026-10-31. Status: SQLite Locally tested; SQL adapter Implemented,
+recording-driver contracts Simulated; real SQL/Azure integration unverified.
 Requirements: R02, R06, R11, R20. Owner: repository owner.
 
 ## Decision and reasons
@@ -75,3 +76,44 @@ migrations, explicit seed/reset, foreign keys, cart transactions, safe local pat
 fresh-connection persistence and API-container replacement with retained volume.
 Cloud SQL adapter, backups/PITR, RPO/RTO and concurrency at scale remain untested.
 See [M2 evidence](../evidence/m2-baseline.md).
+
+## M4B bounded adapter decision
+
+Use `mssql` 12.7.13 (MIT), default pure-JavaScript Tedious driver, pinned with
+transitives in the application lock. The minimal asynchronous `Repository` boundary
+preserves existing SQLite calls/tests and domain totals. SQL selects an explicit
+user-assigned managed identity through Tedious `azure-active-directory-msi-app-service`
+with required client ID; no password, DefaultAzureCredential chain or SQLite fallback.
+TLS encryption/certificate verification are required. Pool max 4/min 0, idle 10s,
+acquire/connect/request timeouts 1s. Readiness has an aggregate one-second deadline,
+shares outstanding read work, and checks exact schema checksums and fixture rows.
+Timed-out reads can finish in the driver under its own bounds; readiness never DDLs.
+
+SQL queries bind bounded strings/numbers; sort column names use a fixed allowlist.
+SQL schema uses int minor units/quantity constraints, foreign keys and an owner
+column. Transactions are SERIALIZABLE, locking the owner/cart row before mutations;
+this simple low-throughput design trades concurrency for correctness. T-SQL has an
+independent checksummed migration history and transaction-scoped application lock.
+Explicit migration/seed use a different required managed identity. Seed inserts
+missing synthetic products and refuses drift; no SQL reset/down migration exists.
+Runtime rights are table-specific, as detailed in [delivery](../delivery.md#m4b-local-configuration).
+
+SQLite rows are not copied to SQL automatically. Start a new synthetic SQL database,
+explicitly migrate and seed, then verify identical journeys/contract behavior on a
+real engine before authorizing writes. Existing anonymous carts stay local; importing
+them as authenticated carts is forbidden. SQLite migration 3 is additive but the
+old M2 schema/readiness contract recognizes only migrations 1–2:
+do not roll back to M2 images against schema 3. SQL schema 1 has no previously
+cloud-verified image pair; record the first compatible pair before a future release.
+No generic down migration, reset or file-to-SQL portability claim is made.
+
+Recording-driver tests validate intended SQL/parameters, ownership, totals, history,
+drift/error paths and transaction callbacks. They **do not parse/execute T-SQL**,
+verify real driver binds/rollback/locking/collation, or establish managed identity,
+private DNS, Azure SQL durability/backup behavior. No compatible authenticated SQL
+test database was available under this no-credentials/no-cloud scope. Real-engine
+contract, migration replay/drift/rollback and concurrency tests remain release gates.
+Host is macOS arm64; do not assume a supported Linux SQL Server engine from emulation.
+See [driver docs](https://tediousjs.github.io/node-mssql/),
+[Tedious configuration](https://tediousjs.github.io/tedious/api-connection.html)
+and [local evidence](../evidence/m4b-local-preparation.md).

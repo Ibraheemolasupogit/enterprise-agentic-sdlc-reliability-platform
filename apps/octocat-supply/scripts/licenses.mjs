@@ -17,7 +17,13 @@ if (inventory.some((item) => item.license === "REVIEW_REQUIRED"))
 writeFileSync("dependencies.json", JSON.stringify(inventory, null, 2) + "\n");
 let notices =
   "Morrow Supply — browser runtime third-party notices\n\nOriginal application code is MIT; see LICENSE.\n\n";
-for (const name of ["react", "react-dom", "scheduler"]) {
+for (const name of [
+  "react",
+  "react-dom",
+  "scheduler",
+  "oidc-client-ts",
+  "jwt-decode",
+]) {
   const folder = join("node_modules", name);
   const pkg = JSON.parse(readFileSync(join(folder, "package.json"), "utf8"));
   const license = readdirSync(folder).find((file) =>
@@ -26,10 +32,14 @@ for (const name of ["react", "react-dom", "scheduler"]) {
   if (!license || !existsSync(join(folder, license)))
     throw new Error(`License text missing for ${name}`);
   notices += `=== ${name}@${pkg.version} (${pkg.license}) ===\n${readFileSync(join(folder, license), "utf8")}\n\n`;
+  for (const notice of readdirSync(folder).filter((file) =>
+    /^notice(?:\..*)?$/i.test(file),
+  ))
+    notices += readFileSync(join(folder, notice), "utf8") + "\n";
 }
 writeFileSync(
   "frontend/public/third-party-notices.txt",
-  notices.trimEnd() + "\n",
+  notices.replace(/[\t ]+$/gm, "").trimEnd() + "\n",
 );
 console.log(
   `Recorded ${inventory.length} exact locked packages and browser runtime license texts.`,

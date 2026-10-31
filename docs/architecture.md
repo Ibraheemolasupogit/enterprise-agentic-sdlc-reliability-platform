@@ -1,8 +1,9 @@
 # Architecture
 
-Status: M1 architecture with **Locally tested M2 application**; all agent, CI/CD,
-Azure and cloud-observability runtime diagrams remain **Design only**. M3 CI/Bicep
-is implemented and locally validated; hosted CI/cloud execution is unverified. Authority: [master brief](project/master-brief.md).
+Status: **Locally tested** M2 baseline and M4B authentication/proxy preparation;
+SQL contracts **Simulated**, actual SQL/Entra/Azure execution **Blocked**. M3 hosted
+CI was confirmed by M4A on the earlier committed baseline; no hosted M4B result.
+Agent/Azure/observability runtime diagrams remain **Design only**. Authority: [master brief](project/master-brief.md).
 Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
 
@@ -71,6 +72,27 @@ Set an initial 5-second API request deadline and no automatic mutation retries;
 health deadlines are tighter as specified in ADR 0006. Query/body/cart bounds
 prevent unbounded work; validate actual timeout enforcement in M2/M4.
 
+## M4B application preparation boundary
+
+```mermaid
+flowchart LR
+    B["Browser: code + PKCE / in-memory token"] -->|"Bearer via fixed HTTPS proxy"| A["API: signature + issuer + audience + role + scope"]
+    I["Configured OIDC provider — live flow unverified"] -.-> B
+    I -.->|"Pinned HTTPS JWKS"| A
+    A --> O["Owner = hash of issuer and access-token subject"]
+    O --> R["Repository contract / domain totals"]
+    R --> L[("Local SQLite: verified")]
+    R --> S[("SQL adapter: recording contracts simulated")]
+    M["Separate explicit migrator identity"] -.-> S
+```
+
+SQLite remains the default loopback demo. Cloud mode requires OIDC + SQL; neither
+identity nor database failures switch modes. SQL driver/engine/managed identity and
+provider sign-in remain unverified. The readiness endpoint verifies schema/data,
+not IdP availability or a complete authenticated journey. Full sign-in/journey
+probes remain release checks. [ADR 0007](decisions/0007-application-identity.md) and
+[persistence ADR](decisions/0003-persistence.md) define exact boundaries.
+
 ## Agent-assisted SDLC — M2 onward
 
 ```mermaid
@@ -128,8 +150,8 @@ separates build, deploy, bootstrap, database migration and runtime identities.
 ## Azure target — M4, subject to cost/identity gates
 
 M3 [Bicep definitions](../infra/README.md) compile the intended service/identity
-boundaries only. They omit M4 private SQL/network completion and application auth/
-proxy support. They must not deploy the M2 SQLite/unauthenticated images as-is.
+boundaries plus fail-closed M4B OIDC/SQL/HTTPS configuration. They still omit private
+SQL/network/Entra provisioning and are validation-only. Deployment remains NO-GO.
 
 
 ```mermaid
@@ -158,8 +180,10 @@ Nginx forwards Authorization; API validates issuer, API audience, expiry and an
 allowed demo role. Bind cloud carts to the validated tenant/subject and reject
 other principals' cart access; an opaque ID alone never grants access. Ignore
 user-supplied principal headers. No implicit trust in
-the proxy, cart ID or another container. M4 must implement/test these controls
-before cloud write access. Auth is deliberately absent from the isolated M2 demo.
+the proxy, cart ID or another container. M4B implements these controls locally as
+specified in [ADR 0007](decisions/0007-application-identity.md); actual tenant tokens,
+browser code exchange and Azure denials remain unverified. Anonymous local demo
+mode remains isolated from authenticated owners.
 
 SQL public access is explicitly disabled in the target design; a private endpoint
 alone does not disable public access. Use private endpoint/DNS with

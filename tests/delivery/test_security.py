@@ -47,7 +47,7 @@ class DeliverySecurityTests(unittest.TestCase):
         self.assertNotEqual(role["AssignableScopes"], ["/"])
 
     def test_workflow_rejects_oidc_and_privileged_pr_mutations(self):
-        for mutation in ("oidc", "trigger", "pin", "persist", "bypass", "gate", "codeql", "omit"):
+        for mutation in ("oidc", "trigger", "pin", "persist", "bypass", "gate", "codeql", "omit", "proxy"):
             with self.subTest(mutation=mutation):
                 workflow = copy.deepcopy(policy.load_workflow())
                 if mutation == "oidc":
@@ -64,6 +64,8 @@ class DeliverySecurityTests(unittest.TestCase):
                     workflow["jobs"]["required"]["if"] = "success()"
                 elif mutation == "codeql":
                     workflow["jobs"]["codeql"]["if"] = "always()"
+                elif mutation == "proxy":
+                    workflow["jobs"]["containers"]["steps"] = [s for s in workflow["jobs"]["containers"]["steps"] if s.get("run") != "python3 scripts/delivery/verify_proxy.py"]
                 else:
                     workflow["jobs"]["application"]["steps"] = [s for s in workflow["jobs"]["application"]["steps"] if s.get("run") != "npm audit --audit-level=high"]
                 with self.assertRaises(ValueError):
@@ -74,7 +76,7 @@ class DeliverySecurityTests(unittest.TestCase):
 
     def test_infrastructure_rejects_boundary_auth_and_trust_mutations(self):
         original = policy.load_templates()
-        for mutation in ("api", "tls", "admin", "anonymous", "role", "audience", "subject", "image", "pull"):
+        for mutation in ("api", "tls", "admin", "anonymous", "role", "audience", "subject", "image", "pull", "cloud-anonymous", "cloud-sqlite"):
             with self.subTest(mutation=mutation):
                 templates = copy.deepcopy(original)
                 resources = [r for t in templates.values() for r in t["resources"]]
@@ -97,10 +99,18 @@ class DeliverySecurityTests(unittest.TestCase):
                     federation["properties"]["subject"] = "repo:*"
                 elif mutation == "image":
                     api["properties"]["template"]["containers"][0]["image"] = "demo:latest"
+                elif mutation in ("cloud-anonymous", "cloud-sqlite"):
+                    key, value = ("AUTH_MODE", "anonymous") if mutation == "cloud-anonymous" else ("DATABASE_BACKEND", "sqlite")
+                    next(e for e in api["properties"]["template"]["containers"][0]["env"] if e["name"] == key)["value"] = value
                 else:
                     api["properties"]["configuration"]["identitySettings"][0]["lifecycle"] = "All"
                 with self.assertRaises(ValueError):
                     policy.infrastructure_policy(templates)
+
+    def test_artifact_upload_uses_reviewed_node24_pin(self):
+        uploads = [s["uses"] for j in policy.load_workflow()["jobs"].values() for s in j.get("steps", [])
+                   if s.get("uses", "").startswith("actions/upload-artifact@")]
+        self.assertEqual(uploads, ["actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9"] * 2)
 
     def test_secret_scanner_blocks_a_generated_non_live_canary(self):
         # Construct a deterministic dummy, never a credential or cloud authentication.

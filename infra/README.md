@@ -1,7 +1,7 @@
 # Azure candidate definitions — validate only
 
 These original Bicep files implement the planned Container Apps boundaries for
-M3 static validation. **Do not deploy them in M3.** They are not a complete M4
+static validation, with M4B fail-closed app settings. **Deployment remains NO-GO.** They are not a complete M4
 release and the M2 images must not be exposed as an authenticated durable cloud app.
 See [delivery/identity/release design](../docs/delivery.md) and
 [architecture](../docs/architecture.md).
@@ -42,13 +42,18 @@ diagnostics without claiming M6 dashboards or SLOs. Consumption/max-one bounds
 replicas, not spend; ACR/storage/network/database/log costs can continue at idle.
 
 M4 blockers: approved region/subnet/quotas/SKUs and cost ceiling; SQL private
-endpoint/DNS/public-access-disabled definitions, adapter and Entra users/migrator;
-cloud API token/role/cart-owner validation; frontend token forwarding and ACA
-HTTPS upstream support (`API_ORIGIN` is only a future interface here); registry
+endpoint/DNS/public-access-disabled definitions and Entra users/migrator;
+real engine/managed-identity and provider token/owner integration; actual ACA
+DNS/HTTPS routing; registry
 push/pull propagation, real OIDC/protected-environment/RBAC denial tests, schema
 compatibility, approved deployment/rollback and teardown plan. The current local
-Nginx uses Docker DNS/HTTP and deliberately strips Authorization. No configuration
-label here changes that behavior or permits deploying M2 as-is.
+demo Nginx uses Docker DNS/HTTP and strips Authorization. M4B's explicit HTTPS/OIDC
+mode verifies CA/host/SNI and forwards bearer tokens, tested against a local TLS
+fixture only. `apps.bicep` requires public origin, issuer/JWKS/audience/role/scope,
+SPA settings, resolver and SQL host/database, selecting the API runtime identity's
+client ID. It fixes cloud/OIDC/SQL modes and HTTPS trusted API host rather than
+defaulting to anonymous SQLite. No real parameter file, SQL/network/Entra resources,
+diagnostics or migrator job has been added. See [M4B evidence](../docs/evidence/m4b-local-preparation.md).
 
 Primary schemas: [Container Apps](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2025-07-01/containerapps),
 [managed environments](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2025-07-01/managedenvironments)

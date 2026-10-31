@@ -165,3 +165,23 @@ CodeQL is optional until support/entitlement is verified and explicitly enabled;
 it has not executed. A skipped/unavailable tool is never described as a clean scan.
 Full M2 unit/component/API/browser tests remain required and unchanged. Hosted CI,
 branch/environment protection, image publishing and Azure runtime remain unverified.
+
+## M4B local preparation evidence boundary
+
+[M4B results](evidence/m4b-local-preparation.md) retain all original M2 tests and
+add V05/V08/V09 cases for JWT signature/claims/JWKS rotation and failures, legacy
+anonymous migration, every owner-authorized cart operation, browser storage/token
+handling, fixed TLS proxy/CSP/headers and unsafe config. JWT cryptography, SQLite
+HTTP ownership and local TLS networking are executed. External OIDC/browser
+callback with a real provider is unverified. SQL recording-driver/fake-clock tests
+are **Simulated**: they do not execute T-SQL, exercise actual SQL driver parameter
+binding/locking/rollback, or prove managed identity/private networking.
+
+Before cloud release, execute shared product/search/cart/pricing/error contracts on
+an authorized supported real SQL engine, including migration replay/checksum drift,
+failed transaction rollback, concurrency, privilege denial and schema/image rollback
+compatibility. Rehearse actual provider PKCE/issuer/audience/scope/role/tenant denials
+and expired sessions. Verify internal API/private-only SQL, DB outage/recovery and
+managed pulls on Azure only after separate authorization. Preserve M4A NO-GO until
+those and SAST/protected-human-review/cost/teardown gates close. The broader M4B
+private network/SQL/diagnostics IaC row remains pending. No SLO/RPO/RTO success follows.

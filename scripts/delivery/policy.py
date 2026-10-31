@@ -45,6 +45,7 @@ def workflow_policy(workflow):
         require(command in application_commands, "Missing required application check: " + command)
     require(gate.get("if") == "always()", "Required gate must inspect failed/skipped dependencies")
     require(set(gate["needs"]) == {"application", "policy", "containers", "codeql"}, "Missing gate dependency")
+    require(any(s.get("run") == "python3 scripts/delivery/verify_proxy.py" for s in workflow["jobs"]["containers"]["steps"]), "Missing HTTPS proxy verification")
     text = json.dumps(gate)
     for check in ('test \\"$APPLICATION\\" = success', 'test \\"$POLICY\\" = success', 'test \\"$CONTAINERS\\" = success'):
         require(check in text, "Required gate permits failed validation")
@@ -58,6 +59,11 @@ def infrastructure_policy(templates):
     frontend = next(r for r in apps if "-frontend'" in r["name"])
     require(api["properties"]["configuration"]["ingress"]["external"] is False, "Public API ingress")
     require(frontend["properties"]["configuration"]["ingress"]["external"] is True, "Frontend boundary changed")
+    api_env = {e["name"]: e["value"] for e in api["properties"]["template"]["containers"][0].get("env", [])}
+    web_env = {e["name"]: e["value"] for e in frontend["properties"]["template"]["containers"][0].get("env", [])}
+    require(all(api_env.get(k) == v for k, v in {"APP_ENV": "cloud", "AUTH_MODE": "oidc", "DATABASE_BACKEND": "sql"}.items()), "Cloud identity/persistence fallback")
+    require(web_env.get("PROXY_MODE") == "https" and web_env.get("AUTH_MODE") == "oidc", "Cloud proxy/auth fallback")
+    require("SQL_CLIENT_ID" in api_env and "TRUSTED_API_HOST" in web_env and "DNS_RESOLVER" in web_env, "Missing explicit identity/proxy trust")
     for app in apps:
         config = app["properties"]["configuration"]
         require(config["ingress"]["allowInsecure"] is False, "Plaintext ingress")

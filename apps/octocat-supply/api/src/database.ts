@@ -4,6 +4,7 @@ import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { AppError, notFound } from "./errors.js";
 import { calculateTotals, validateQuantity } from "./pricing.js";
+import { anonymousOwner } from "./auth.js";
 
 export const migrations = [
   {
@@ -27,6 +28,10 @@ export const migrations = [
   {
     version: 2,
     sql: "CREATE INDEX products_name ON products(name COLLATE NOCASE);",
+  },
+  {
+    version: 3,
+    sql: "ALTER TABLE carts ADD COLUMN owner_key TEXT NOT NULL DEFAULT 'anonymous:v1';",
   },
 ];
 
@@ -202,14 +207,20 @@ export class Store {
     );
   }
 
-  createCart() {
+  createCart(owner = anonymousOwner) {
     const id = randomUUID();
-    this.db.prepare("INSERT INTO carts (id) VALUES (?)").run(id);
-    return this.cart(id);
+    this.db
+      .prepare("INSERT INTO carts (id, owner_key) VALUES (?, ?)")
+      .run(id, owner);
+    return this.cart(id, owner);
   }
 
-  cart(id: string) {
-    if (!this.db.prepare("SELECT id FROM carts WHERE id = ?").get(id))
+  cart(id: string, owner = anonymousOwner) {
+    if (
+      !this.db
+        .prepare("SELECT id FROM carts WHERE id = ? AND owner_key = ?")
+        .get(id, owner)
+    )
       notFound();
     const items = this.db
       .prepare(
@@ -227,10 +238,15 @@ export class Store {
     return { id, items, ...calculateTotals(items) };
   }
 
-  setQuantity(cartId: string, productId: number, quantity: number) {
+  setQuantity(
+    cartId: string,
+    productId: number,
+    quantity: number,
+    owner = anonymousOwner,
+  ) {
     validateQuantity(quantity);
     return this.transaction(() => {
-      const cart = this.cart(cartId);
+      const cart = this.cart(cartId, owner);
       this.product(productId);
       if (
         cart.items.length >= 100 &&
@@ -247,22 +263,22 @@ export class Store {
           "INSERT INTO cart_items VALUES (?, ?, ?) ON CONFLICT(cart_id, product_id) DO UPDATE SET quantity = excluded.quantity",
         )
         .run(cartId, productId, quantity);
-      return this.cart(cartId);
+      return this.cart(cartId, owner);
     });
   }
 
-  removeItem(cartId: string, productId: number) {
+  removeItem(cartId: string, productId: number, owner = anonymousOwner) {
     this.transaction(() => {
-      this.cart(cartId);
+      this.cart(cartId, owner);
       this.db
         .prepare("DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?")
         .run(cartId, productId);
     });
   }
 
-  deleteCart(id: string) {
+  deleteCart(id: string, owner = anonymousOwner) {
     this.transaction(() => {
-      this.cart(id);
+      this.cart(id, owner);
       this.db.prepare("DELETE FROM carts WHERE id = ?").run(id);
     });
   }

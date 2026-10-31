@@ -2,8 +2,8 @@
 
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
 replaces the initial M0 proposal and the event challenge sequence. Current authority
-is M4A read-only deployment preflight only; M4B implementation/deployment and
-later execution require new direction. M3 hosted CI has passed; CodeQL has not run.
+is M4B local preparation only; deployment and later execution require new direction.
+M4A's deployment NO-GO remains. M3 hosted CI has passed; CodeQL has not run.
 Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
 records historical design/source gates. The owner selected independent code/MIT;
 [M2 evidence](evidence/m2-baseline.md) records local execution without promoting
@@ -41,6 +41,7 @@ identity, cost estimate and teardown planning before execution. Budget alerts ar
 not spending caps. The owner performs commits and pushes manually.
 
 Current exit review: [M4A preflight](milestones/m4a-preflight.md),
-[cost/control plan](project/azure-cost-estimate.md) and [M4B proposal](milestones/m4b-scope.md).
+[cost/control plan](project/azure-cost-estimate.md), [M4B scope](milestones/m4b-scope.md)
+and [local evidence](evidence/m4b-local-preparation.md).
 M4A/M4B split the existing M4 stage; the thirteen master-brief milestones are unchanged.
-Stop after M4A. No deployment or M4B implementation is authorized.
+Stop after M4B local preparation. No deployment is authorized.

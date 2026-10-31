@@ -3,6 +3,13 @@ import { Store } from "./database.js";
 
 const command = process.argv[2];
 if (
+  (process.env.APP_ENV ?? "local") !== "local" ||
+  (process.env.DATABASE_BACKEND ?? "sqlite") !== "sqlite"
+) {
+  console.error("SQLite lifecycle commands are local-only.");
+  process.exit(1);
+}
+if (
   !["migrate", "seed", "reset"].includes(command) ||
   (command === "reset" && !process.argv.includes("--confirm-demo-reset"))
 ) {

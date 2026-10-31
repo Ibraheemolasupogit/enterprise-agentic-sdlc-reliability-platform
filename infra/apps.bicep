@@ -1,9 +1,34 @@
-// Validation-only M3 skeleton. Never deploy the unauthenticated SQLite M2 images.
+// Validation-only candidate. Private SQL/network/Entra bootstrap is still absent: NO-GO.
 targetScope = 'resourceGroup'
 param location string
 param prefix string
 param registryName string
 param ownerTag string
+@minLength(1)
+param publicOrigin string
+@minLength(1)
+param oidcIssuer string
+@minLength(1)
+param oidcJwksUri string
+@minLength(1)
+param oidcAudience string
+@minLength(1)
+param oidcRequiredRole string
+@minLength(1)
+param oidcRequiredScope string
+@minLength(1)
+param oidcSpaClientId string
+@minLength(1)
+param oidcSpaScopes string
+@minLength(1)
+param oidcConnectOrigin string
+@description('Reviewed resolver IP for the selected ACA network; never assume Docker DNS in Azure.')
+@minLength(1)
+param dnsResolver string
+@minLength(1)
+param sqlServer string
+@minLength(1)
+param sqlDatabase string
 @description('Approved M4-ready image SHA-256, including sha256: prefix; no tag/latest accepted.')
 @minLength(71)
 @maxLength(71)
@@ -42,6 +67,20 @@ resource api 'Microsoft.App/containerApps@2025-07-01' = {
       containers: [{
         name: 'api'
         image: '${registry.properties.loginServer}/morrow-api@${apiDigest}'
+        env: [
+          { name: 'APP_ENV', value: 'cloud' }
+          { name: 'AUTH_MODE', value: 'oidc' }
+          { name: 'DATABASE_BACKEND', value: 'sql' }
+          { name: 'ALLOWED_ORIGINS', value: publicOrigin }
+          { name: 'OIDC_ISSUER', value: oidcIssuer }
+          { name: 'OIDC_JWKS_URI', value: oidcJwksUri }
+          { name: 'OIDC_AUDIENCE', value: oidcAudience }
+          { name: 'OIDC_REQUIRED_ROLE', value: oidcRequiredRole }
+          { name: 'OIDC_REQUIRED_SCOPE', value: oidcRequiredScope }
+          { name: 'SQL_SERVER', value: sqlServer }
+          { name: 'SQL_DATABASE', value: sqlDatabase }
+          { name: 'SQL_CLIENT_ID', value: apiIdentity.properties.clientId }
+        ]
         resources: { cpu: json('0.25'), memory: '0.5Gi' }
         probes: [
           { type: 'Liveness', httpGet: { path: '/health/live', port: 3000 }, initialDelaySeconds: 5, periodSeconds: 10 }
@@ -71,7 +110,18 @@ resource frontend 'Microsoft.App/containerApps@2025-07-01' = {
       containers: [{
         name: 'frontend'
         image: '${registry.properties.loginServer}/morrow-frontend@${frontendDigest}'
-        env: [{ name: 'API_ORIGIN', value: 'https://${api.properties.configuration.ingress.fqdn}' }]
+        env: [
+          { name: 'AUTH_MODE', value: 'oidc' }
+          { name: 'PROXY_MODE', value: 'https' }
+          { name: 'API_ORIGIN', value: 'https://${api.properties.configuration.ingress.fqdn}' }
+          { name: 'TRUSTED_API_HOST', value: api.properties.configuration.ingress.fqdn }
+          { name: 'DNS_RESOLVER', value: dnsResolver }
+          { name: 'OIDC_ISSUER', value: oidcIssuer }
+          { name: 'OIDC_CLIENT_ID', value: oidcSpaClientId }
+          { name: 'OIDC_SCOPES', value: oidcSpaScopes }
+          { name: 'OIDC_CONNECT_ORIGIN', value: oidcConnectOrigin }
+          { name: 'PUBLIC_ORIGIN', value: publicOrigin }
+        ]
         resources: { cpu: json('0.25'), memory: '0.5Gi' }
         probes: [
           { type: 'Liveness', httpGet: { path: '/health/live', port: 8080 }, initialDelaySeconds: 5, periodSeconds: 10 }

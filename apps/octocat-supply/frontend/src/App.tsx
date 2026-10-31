@@ -9,15 +9,14 @@ import {
 } from "./api";
 import "./styles.css";
 
-const storageKey = "morrow-demo-cart";
-function savedCart() {
+function savedCart(storageKey: string) {
   try {
     return localStorage.getItem(storageKey);
   } catch {
     return null;
   }
 }
-function remember(id: string | null) {
+function remember(storageKey: string, id: string | null) {
   try {
     if (id) localStorage.setItem(storageKey, id);
     else localStorage.removeItem(storageKey);
@@ -147,7 +146,13 @@ function BasketLine({
   );
 }
 
-export default function App({ client = api }: { client?: Client }) {
+export default function App({
+  client = api,
+  storageKey = "morrow-demo-cart",
+}: {
+  client?: Client;
+  storageKey?: string;
+}) {
   const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
@@ -157,7 +162,9 @@ export default function App({ client = api }: { client?: Client }) {
   const [refresh, setRefresh] = useState(0);
   const [cart, setCart] = useState<Cart | null>(null);
   const [busy, setBusy] = useState(false);
-  const [cartLoading, setCartLoading] = useState(() => Boolean(savedCart()));
+  const [cartLoading, setCartLoading] = useState(() =>
+    Boolean(savedCart(storageKey)),
+  );
   const [restoreFailed, setRestoreFailed] = useState(false);
   const [stale, setStale] = useState(false);
   const [basketError, setBasketError] = useState("");
@@ -182,7 +189,7 @@ export default function App({ client = api }: { client?: Client }) {
   }, [client, search, category, sort, refresh]);
 
   useEffect(() => {
-    const id = savedCart();
+    const id = savedCart(storageKey);
     if (!id) return;
     let active = true;
     client
@@ -194,7 +201,7 @@ export default function App({ client = api }: { client?: Client }) {
         if (!active) return;
         if (error instanceof ApiError && [400, 404].includes(error.status)) {
           setStale(true);
-          remember(null);
+          remember(storageKey, null);
         } else {
           setRestoreFailed(true);
           setBasketError(errorText(error));
@@ -206,7 +213,7 @@ export default function App({ client = api }: { client?: Client }) {
     return () => {
       active = false;
     };
-  }, [client]);
+  }, [client, storageKey]);
 
   async function change(
     action: (current: Cart) => Promise<Cart>,
@@ -216,14 +223,14 @@ export default function App({ client = api }: { client?: Client }) {
     setBasketError("");
     try {
       const current = cart ?? (await client.createCart());
-      remember(current.id);
+      remember(storageKey, current.id);
       setCart(current);
       const updated = await action(current);
       setCart(updated);
       setAnnouncement(message);
     } catch (error) {
       if (error instanceof ApiError && error.status === 404) {
-        remember(null);
+        remember(storageKey, null);
         setCart(null);
         setStale(true);
       } else setBasketError(errorText(error));
@@ -232,7 +239,7 @@ export default function App({ client = api }: { client?: Client }) {
     }
   }
   async function retrySavedBasket() {
-    const id = savedCart();
+    const id = savedCart(storageKey);
     if (!id) return;
     setCartLoading(true);
     setBasketError("");
@@ -241,7 +248,7 @@ export default function App({ client = api }: { client?: Client }) {
       setRestoreFailed(false);
     } catch (error) {
       if (error instanceof ApiError && [400, 404].includes(error.status)) {
-        remember(null);
+        remember(storageKey, null);
         setStale(true);
         setRestoreFailed(false);
       } else setBasketError(errorText(error));

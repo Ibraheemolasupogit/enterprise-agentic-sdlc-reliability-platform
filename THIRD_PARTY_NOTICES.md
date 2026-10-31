@@ -1,6 +1,6 @@
 # Third-party references and import register
 
-Current M3 status: independently authored **Morrow Supply**, original code under
+Current M4B local-preparation status: independently authored **Morrow Supply**, original code under
 [root MIT](LICENSE). No upstream OctoCAT application source/assets or agent/cloud
 material was copied. Standard npm dependencies and container bases are adopted as
 recorded below. This register does not replace their own licenses or grant rights.
@@ -75,7 +75,7 @@ No upstream application attribution is substituted for a missing grant.
 | --- | --- | --- |
 | Express and its installed runtime dependencies | Express 5.3.0; exact transitive versions/integrity in our fresh npm lockfile | Package license/copyright files remain in installed runtime `node_modules`; preserve them when redistributing the API image/package. Express is MIT; transitive terms are individually inventoried |
 | React, ReactDOM, scheduler browser runtime | React/ReactDOM 19.3.1; scheduler exact version in inventory | MIT texts and copyright notices copied verbatim from installed package LICENSE files to [browser notices](apps/octocat-supply/frontend/public/third-party-notices.txt), served as `/third-party-notices.txt` and shipped with built assets; application MIT served at `/LICENSE` |
-| npm development/build/test dependencies | Exact [347 locked package records](apps/octocat-supply/dependencies.json), including optional platform variants | MIT, MIT-0, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, MPL-2.0, BlueOak-1.0.0 and CC0-1.0 metadata. Dependencies remain unmodified; installed license/NOTICE files are retained. This inventory is metadata, not replacement license text or proof of every obligation |
+| npm development/build/test dependencies | Exact [current locked package records](apps/octocat-supply/dependencies.json), including optional platform variants | MIT, MIT-0, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, MPL-2.0, BlueOak-1.0.0 and CC0-1.0 metadata. Dependencies remain unmodified; installed license/NOTICE files are retained. This inventory is metadata, not replacement license text or proof of every obligation |
 | Node official Debian slim image | `node:24.22.2-bookworm-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c` | Node/bundled components and Debian packages keep their distinct terms and shipped notices. Node MIT does not relicense the OS/image. `/usr/local/LICENSE` and Debian `/usr/share/doc/*/copyright` are retained; application MIT applies only to original additions |
 | Unprivileged Nginx Alpine image | `nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03` | Nginx BSD-2-Clause and bundled/Alpine component terms remain separate; retain base image notices, including `/usr/share/licenses/nginx/COPYRIGHT`. The base Dockerfile metadata declares Apache-2.0 separately. Tested runtime Nginx 1.30.6; mutable tag is constrained by immutable digest |
 
@@ -123,3 +123,27 @@ React notices and application license remain shipped with the frontend.
 limits. The earlier M2 runtime image/table is historical; it does not establish
 the contents/security of the hardened M3 runtime. No container registry push or
 public distribution occurred during this task.
+
+## M4B identity, SQL and test-vector adoption
+
+No OctoCAT application code/assets were imported. Original adapter/auth/proxy/tests
+remain MIT. Fresh exact lock metadata now records 417 package entries. The following
+unmodified packages are adopted; package tarball URLs/integrity and transitive terms
+are preserved in the lock/inventory, with installed license/NOTICE files retained.
+
+| Material | Provenance / terms | Distribution obligations |
+| --- | --- | --- |
+| jose 6.2.14 | [Official project](https://github.com/panva/jose); installed `LICENSE.md`, MIT | Retain copyright/permission text in API runtime node_modules; original project MIT cannot replace it |
+| mssql 12.7.13 and Tedious/managed-identity dependencies | [Official driver](https://github.com/tediousjs/node-mssql); installed `LICENSE.md`, MIT; transitive packages separately inventoried | Retain each installed runtime license/NOTICE, including Apache-2.0 Azure components; no driver source modified |
+| oidc-client-ts 3.5.0 | [Versioned license](https://github.com/authts/oidc-client-ts/blob/v3.5.0/LICENSE), Apache-2.0 | Full installed LICENSE copied into browser notices, retaining its copyright/attribution. No package NOTICE file was present; generator copies one if supplied. No source modifications |
+| jwt-decode 4.0.0 | Browser dependency of oidc-client-ts, MIT | Actual installed license/copyright copied into browser notices |
+| @types/mssql 12.3.0 | Development-only type definitions, MIT | Preserve installed license if redistributing tools/source dependencies |
+| RFC 7515 Appendix A.2.1 RSA JWK | [Primary RFC](https://www.rfc-editor.org/rfc/rfc7515#appendix-A.2.1); public non-live test vector | Imported only into [API test fixtures](apps/octocat-supply/api/fixtures/README.md); retained 2015 IETF Trust attribution/Simplified BSD terms there. Not copied into runtime images; never use as operational key |
+| Node v24.22.2 TLS fixtures | [Official files](https://github.com/nodejs/node/tree/v24.22.2/test/fixtures/keys); three checksum-pinned downloads | Temporary tests only; downloaded files are unmodified, not committed/shipped in application images. [Retained Node MIT notice](scripts/delivery/TLS_FIXTURE_NOTICE.txt) accompanies test tooling; do not redistribute vectors without that notice |
+
+`npm run licenses` copies actual browser runtime texts, including new OIDC/jwt-decode
+notices, and fails on missing license metadata/text. Apache-2.0 is preserved rather
+than relabelled MIT. Before any public package/image publication, retain these
+texts and all transitive/base obligations; scans/SBOMs are inventory evidence, not
+a legal clearance or a license for external identity/cloud services. The no-copy
+decision for upstream OctoCAT remains unchanged.

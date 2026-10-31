@@ -1,0 +1,177 @@
+{
+  "createdUTC": "2026-10-31T07:45:11.159028+00:00",
+  "baseHead": "0321efcdb5c189b9a39b45e6616b4784bf1d9a55",
+  "dirtyWorkingTree": true,
+  "committed": false,
+  "status": "Bounded requested local implementation complete; broader M4B Slice 1 and deployment exit NOT MET",
+  "deploymentDecision": "NO-GO",
+  "cloudVerified": false,
+  "codeqlExecuted": false,
+  "newHostedRun": false,
+  "tests": {
+    "application": {
+      "passed": 64,
+      "files": 7,
+      "originalM2TestsUnchanged": 39
+    },
+    "nativeBrowserPassed": 3,
+    "containerBrowserPassed": 3,
+    "deliverySecurityPassed": 8,
+    "tlsRejectedConfigs": 7
+  },
+  "npmAudit": {
+    "all": {
+      "info": 0,
+      "low": 0,
+      "moderate": 11,
+      "high": 0,
+      "critical": 0,
+      "total": 11
+    },
+    "production": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "openAdvisory": "GHSA-g3hv-75wg-m249; development minimatch 10.2.6; patch 11.0.1 outside current dependency range",
+    "thresholdChanged": false,
+    "acceptedExceptions": []
+  },
+  "containerSmoke": {
+    "started": "2026-10-31T07:44:05.772535+00:00",
+    "project": "morrow-supply-m3-verify",
+    "actor": "deterministic local delivery verification",
+    "checks": [
+      "12 fixtures and authoritative discount total via built proxy",
+      "non-root/read-only/cap-drop; only loopback frontend published",
+      "cart persisted across API container replacement",
+      "all three unchanged M2 browser cases passed through production images"
+    ],
+    "result": "PASS",
+    "finished": "2026-10-31T07:44:26.077567+00:00"
+  },
+  "tlsProxy": {
+    "started": "2026-10-31T07:44:26.224562+00:00",
+    "actor": "local deterministic TLS fixture test",
+    "checks": [
+      "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+      "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+      "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+    ],
+    "result": "PASS",
+    "finished": "2026-10-31T07:44:31.211561+00:00"
+  },
+  "imageReports": {
+    "api": {
+      "localImageId": "sha256:bdd06f1ec73cab9a1e864385265365bb9947162b69fadfed9cf750abaa8769c8",
+      "architecture": "arm64",
+      "createdAt": "2026-10-31T07:44:32.724487Z",
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "f8f5378a87591eda9e3f6d6c2f43004ac525fd98129dba43baac91a57ad74376",
+      "sbomSha256": "a92b99dfa39be7009c1ab940d17053dbbf1cb1f317cb6ef96adad1c5a66c3c97",
+      "sbomComponents": 178
+    },
+    "frontend": {
+      "localImageId": "sha256:c80b69b8839c25006b49bb5e692e1177444c1dbf83a88a1dbc7f5899a0bcc4f2",
+      "architecture": "arm64",
+      "createdAt": "2026-10-31T07:44:32.92028Z",
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "2846f26015e3ca31971badfcd159c181436df3c6242e22116bdc1df68056ce93",
+      "sbomSha256": "d5bd0deb8215b89cde02a366a4fe536d64969681a638754e48194ca31a637581",
+      "sbomComponents": 71
+    }
+  },
+  "sourceEvidence": {
+    "provenanceFile": "artifacts/m3/provenance.json",
+    "provenanceSha256": "667d6cc870c856b4a80bb62a65fcdfde10d6df08827b572d5e8d03e3c90e6f67",
+    "inputFileCount": 83,
+    "inputManifestSha256": "3940215bf83dc4eb7f2f838d6126ef0c885179fd863958e9c26d5bec60a35dae",
+    "signedAttestation": false,
+    "releaseEligible": false,
+    "registryPush": false
+  },
+  "simulationLimits": [
+    "SQL recording executor and fake-clock readiness only; no T-SQL engine or driver integration",
+    "No external OIDC code exchange or real tenant/role assignment",
+    "Published test keys/certificates only; no operational credential generated",
+    "Local Linux arm64 images; new hosted amd64 workflow unverified",
+    "No Azure SQL, managed identity, private DNS, ingress or effective permission tests"
+  ],
+  "remainingGates": [
+    "Real SQL contracts, migrations, rollback, concurrency and data-vs-DDL permissions",
+    "Real tenant-specific OIDC PKCE/CORS/CSP/claims/role/scope denials",
+    "Private SQL/network/Entra/migrator/diagnostics IaC completion",
+    "Supported SAST results and enforceable independent review/release route",
+    "Azure subscription/region/permissions/quotas and exact scope/cost/expiry/teardown approval"
+  ],
+  "validation": {
+    "format": "PASS",
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "actionlint": "PASS (shellcheck not run)",
+    "bicep": "PASS four local lint/build + policy; no ARM/what-if",
+    "trivyConfig": "PASS limited registry-access ARM and two Dockerfiles; custom policy covers four templates",
+    "documentation": "PASS 47 text files, 35 Markdown files, 273 relative links, anchors and all 13 milestone titles/catalogues",
+    "whitespace": "PASS git diff --check plus all 17 untracked text files",
+    "secrets": "PASS Gitleaks all six commits and working tree; no accepted exceptions"
+  },
+  "changedFiles": [
+    ".github/workflows/ci.yml",
+    "AGENTS.md",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md",
+    "apps/octocat-supply/.env.example",
+    "apps/octocat-supply/README.md",
+    "apps/octocat-supply/api/fixtures/README.md",
+    "apps/octocat-supply/api/fixtures/rfc7515-rsa.json",
+    "apps/octocat-supply/api/src/app.ts",
+    "apps/octocat-supply/api/src/auth.ts",
+    "apps/octocat-supply/api/src/database-cli.ts",
+    "apps/octocat-supply/api/src/database.ts",
+    "apps/octocat-supply/api/src/repository.ts",
+    "apps/octocat-supply/api/src/runtime.ts",
+    "apps/octocat-supply/api/src/server.ts",
+    "apps/octocat-supply/api/src/sql-cli.ts",
+    "apps/octocat-supply/api/src/sql.ts",
+    "apps/octocat-supply/api/test/auth.test.ts",
+    "apps/octocat-supply/api/test/sql.test.ts",
+    "apps/octocat-supply/dependencies.json",
+    "apps/octocat-supply/frontend/default.conf.template",
+    "apps/octocat-supply/frontend/public/auth-config.json",
+    "apps/octocat-supply/frontend/public/third-party-notices.txt",
+    "apps/octocat-supply/frontend/src/App.tsx",
+    "apps/octocat-supply/frontend/src/AuthApp.tsx",
+    "apps/octocat-supply/frontend/src/api.ts",
+    "apps/octocat-supply/frontend/src/main.tsx",
+    "apps/octocat-supply/frontend/start.sh",
+    "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+    "apps/octocat-supply/package-lock.json",
+    "apps/octocat-supply/package.json",
+    "apps/octocat-supply/scripts/licenses.mjs",
+    "docs/architecture.md",
+    "docs/capability-status.md",
+    "docs/decisions/0003-persistence.md",
+    "docs/decisions/0005-delivery-identity.md",
+    "docs/decisions/0007-application-identity.md",
+    "docs/delivery.md",
+    "docs/evidence/m4b-local-preparation.md",
+    "docs/evidence/m4b-local-results.json",
+    "docs/milestones/m4b-scope.md",
+    "docs/project-charter.md",
+    "docs/roadmap.md",
+    "docs/threat-model.md",
+    "docs/validation-strategy.md",
+    "infra/README.md",
+    "infra/apps.bicep",
+    "scripts/delivery/TLS_FIXTURE_NOTICE.txt",
+    "scripts/delivery/policy.py",
+    "scripts/delivery/verify_proxy.py",
+    "tests/delivery/test_security.py"
+  ]
+}

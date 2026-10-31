@@ -1,6 +1,6 @@
 # Project charter
 
-Date: 2026-10-30. Owner: repository owner. Stage: M3 — Secure delivery; local validation only.
+Updated: 2026-10-31. Owner: repository owner. Stage: M4B local preparation; deployment NO-GO.
 Authority: [master brief](project/master-brief.md), particularly sections 1–4,
 16–17. M0 history remains in its assessment; M1 completion is assessed against
 [the eight acceptance criteria](milestones/m1-scope.md).

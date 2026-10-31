@@ -1,9 +1,10 @@
 # Application and agent STRIDE threat model
 
-Status: **Design only**, M1, 2026-10-30. Authority: master brief sections 10–12.
+Status: M1 design updated 2026-10-31 with M2/M3/M4B local evidence; cloud/agent controls remain unverified. Authority: master brief sections 10–12.
 Scope: [architecture](architecture.md), [requirements](requirements.md),
-[ADRs 0002–0006](decisions/0002-source-reuse.md). All mitigations below are planned;
-none is claimed enforced. Repository owner owns each risk/approval until a named
+[ADRs](decisions/0002-source-reuse.md) and [application identity](decisions/0007-application-identity.md).
+The original assessment below is supplemented by the implementation status table.
+Repository owner owns each risk/approval until a named
 operator is assigned. Validation IDs refer to [validation strategy](validation-strategy.md).
 
 ## Assets, inputs and trust boundaries
@@ -69,9 +70,26 @@ tested. M3/M4 must prove identity, supply-chain and cloud-auth controls before
 deployment. M5–M9 test agent attacks and action/recovery boundaries with expected
 denials. Do not enable a control merely because its prompt describes it.
 
-Open blockers: source rights/original license (owner before M2), actual Entra/OIDC
+Source strategy is resolved as independent original MIT code, with no OctoCAT import.
+Open blockers: actual Entra/OIDC
 claims/roles/protection entitlement/private SQL costs (owner before M3/M4), supported
 inference identity and spend cap (owner before M5), SRE/connector capabilities and
 safe executor semantics (owner before M7/M8). Each is tracked in the
 [design review](evidence/m1-design-review.md). No production-readiness, compliance
 certification or universal prompt-injection immunity is claimed.
+
+## M4B application control evidence and residual risks
+
+| Existing threats | Implemented boundary / local evidence | Remaining risk and release gate |
+| --- | --- | --- |
+| T01 / T06 | Cryptographically verified RS256, exact issuer/audience, time/role/scope; hash issuer/subject owner on every cart method. Missing/other-owner carts both 404. Ignore identity headers. Migration keeps old anonymous rows separate | Real provider/tenant claims and browser code flow unverified; anonymous demo intentionally shared/local-only; no claim that internal ingress alone authorizes users |
+| T02 / T06 | SQLite transaction/ownership integration tested; SQL parameterized contract, owner-row locks, serializable callbacks, checksums and explicit separate DDL entrypoint simulated | Actual SQL binding/T-SQL/concurrency/transaction rollback and least-privilege SQL grants must be verified on supported real engine; no runtime DDL/reset fallback |
+| T04 | Memory-only browser tokens; per-subject cart references; no token/raw-owner logs; public non-secret config; safe 401/403/503; callback URL removed; actual browser/package license texts retained | XSS can still steal an active token; local sign-out neither revokes a bearer nor ends IdP SSO. Refresh requires sign-in. No real identity token captured/retained |
+| T01 / T04 | Fixed HTTPS host:443, CA/name/SNI verification, constrained resolver/config/CSP; bearer forwarded, spoofed principal/forwarding removed; API trust proxy false. Real local TLS success/name-denial tested | ACA routing/DNS and egress restrictions unverified. CSP allows one reviewed IdP connection origin. Config and trust store remain privileged inputs |
+| T05 | Pool max 4, 1s driver bounds, shared aggregate 1s SQL readiness; frontend 2s dependency check; DB failure fails access/readiness but not liveness | SQL timing test uses fake clock; actual cold start/performance and denial-of-service/rate limits unproven. Readiness does not exercise IdP/sign-in; separate journey probe required |
+| T08 / T09 | Compiled app config rejects cloud anonymous/SQLite fallback; eight delivery tests preserve read-only CI. CodeQL skip now visibly reported; Node 24 artifact pin locally validated | SAST has not run, GitHub protections unavailable/unverified and updated workflow not hosted-tested. No accepted security exception or release authority |
+
+Agents remain Planned; M4B adds no tools, inference rights or mutation authority.
+See [ADR 0007](decisions/0007-application-identity.md) and
+[M4B results](evidence/m4b-local-preparation.md) for exact scope and executed versus
+simulated evidence. Broad network/bootstrap/diagnostic work remains pending.

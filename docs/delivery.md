@@ -184,3 +184,86 @@ do not silently retry a partial release, self-certify recovery or let an agent
 choose arbitrary images/actions. Destructive/down database migrations are not
 rollback; use additive compatibility or separately approved restore/cutover with
 data-loss assessment. No live release/rollback/restore was executed in M3.
+
+## M4B local configuration
+
+M4A remains **NO-GO**. M4B changes are local preparation; no cloud account, provider
+sign-in, SQL connection or registry publication was performed. Historical hosted
+run 41149829560 validates its earlier SHA, not these changes. See
+[M4B evidence](evidence/m4b-local-preparation.md),
+[identity ADR](decisions/0007-application-identity.md) and
+[SQL ADR](decisions/0003-persistence.md). The app's commented
+[configuration example](../apps/octocat-supply/.env.example) has no credentials.
+Compose retains its loopback anonymous/SQLite configuration; new variables are not
+automatically forwarded by Compose or loaded into native Node. Supply explicit
+reviewed settings to each service.
+
+| Component | Required settings and behavior |
+| --- | --- |
+| API local default | `APP_ENV=local`, `AUTH_MODE=anonymous`, `DATABASE_BACKEND=sqlite`; existing explicit SQLite migrate/seed/reset remain available |
+| API OIDC | `AUTH_MODE=oidc`; fixed HTTPS `OIDC_ISSUER`, `OIDC_JWKS_URI`; bounded `OIDC_AUDIENCE`, `OIDC_REQUIRED_ROLE`, `OIDC_REQUIRED_SCOPE`; comma-separated exact HTTPS `ALLOWED_ORIGINS`. Configure API access-token audience, never SPA ID-token audience |
+| API cloud candidate | `APP_ENV=cloud`, `AUTH_MODE=oidc`, `DATABASE_BACKEND=sql`; explicit `SQL_SERVER`, `SQL_DATABASE`, `SQL_CLIENT_ID`. This selects only the assigned runtime managed identity; no password/default-chain fallback |
+| Frontend local | `PROXY_MODE=local`, `AUTH_MODE=anonymous`; fixed Docker host `api`, validated `API_PORT` default 3000, resolver default Docker 127.0.0.11; strips Authorization |
+| Frontend HTTPS candidate | `PROXY_MODE=https`, `AUTH_MODE=oidc`; fixed `API_ORIGIN=https://<host>` (no custom port/path/userinfo/query), identical `TRUSTED_API_HOST`, reviewed IPv4 `DNS_RESOLVER`; system CA, SNI and certificate verification, port 443 only |
+| Browser config | Server renders non-secret `/auth-config.json`: `OIDC_ISSUER`, public `OIDC_CLIENT_ID`, `OIDC_SCOPES` including `openid` plus API scope, `PUBLIC_ORIGIN` exact HTTPS origin. Callback: `<PUBLIC_ORIGIN>/auth/callback`; provider must register a public SPA with PKCE/CORS and assign the required role |
+| CSP | `OIDC_CONNECT_ORIGIN`: one exact reviewed HTTPS origin, default issuer origin; discovery/token endpoints must fit it. No wildcard/inline script permission or automatic expansion. Native Vite remains anonymous demo only |
+
+Only public identifiers/configuration belong in settings. Do not add client secrets,
+passwords, tokens or private keys. For Entra, use a tenant-specific v2 issuer and
+verify actual access-token issuer/audience/roles/scp/sub before release. No real
+tenant/client/host/resolver values have been chosen. Read-only, unauthenticated health
+exposes generic status/request ID; readiness checks schema/data, not IdP reachability.
+Sign-in/journey probes must separately prove identity availability. Invalid config
+prevents startup, DB failure prevents readiness/application access, invalid token
+never receives anonymous ownership.
+
+### SQL migration and rights handoff — not executed
+
+The driver is deliberately managed-identity-only. Do not sign in locally to make
+tests pass or create an SA password/test account. When separately authorized on a
+supported SQL/managed-identity environment, explicitly run `npm run db:sql:migrate`
+then `npm run db:sql:seed` (built equivalents: `node api/dist/sql-cli.js migrate
+--confirm-sql-change`, and `seed` with the same flag). The migrator requires
+`SQL_MIGRATOR_CLIENT_ID`, different from `SQL_CLIENT_ID`. Startup/readiness never
+migrate/seed; no SQL reset/down command exists.
+
+Provision users/grants only in separately reviewed bootstrap work:
+
+| Identity | Candidate SQL permissions | Forbidden |
+| --- | --- | --- |
+| API runtime | SELECT products/schema_migrations; SELECT/INSERT/UPDATE/DELETE carts/cart_items; transactional access | DDL, user/role administration, product updates, db_owner, control over migrator |
+| Explicit migrator | Bounded create/alter/index/reference and migration-history writes for these objects; fixture SELECT/INSERT; application-lock permission verified on actual engine | Server/database owner shortcut, broad Azure/Graph grants, persistent attachment to API runtime |
+
+Review exact object/schema ownership, grants and application-lock/driver behavior
+on a real engine. Test runtime DDL denial, cross-owner denial, fresh/replay/edited
+migrations, fixture drift, failed-transaction rollback, concurrency, collation,
+reconnect/cold start and compatibility. Recording doubles do not execute T-SQL.
+Start with fresh synthetic SQL data; no SQLite export or user-cart adoption exists.
+
+Private SQL/network/Entra admin/users and a dedicated migrator job remain absent.
+`infra/apps.bicep` now binds fail-closed OIDC/SQL/HTTPS modes and required non-secret
+inputs. It cannot provision missing SQL/private DNS/network/diagnostics or establish
+permissions, capacity or runtime interoperability.
+
+### Workflow changes and warning review
+
+CodeQL's trusted-main opt-in remains unchanged and **has not executed**. M4A recorded
+private-repository protection restrictions, separate from Code Security entitlement.
+No variable, plan, visibility or protection setting was changed. Release needs
+supported CodeQL results or a reviewed alternative/coverage decision and human gates.
+
+The previous artifact-action pin declared Node 20 and produced runtime warnings.
+Both uploads now pin v7.0.2 at `cf430e030ddbb5b0abf93d22962f4752f3646cd9`, whose
+[primary action metadata](https://github.com/actions/upload-artifact/blob/cf430e030ddbb5b0abf93d22962f4752f3646cd9/action.yml)
+declares Node 24. Successful execution/removal of punycode/url.parse warnings still
+needs a fresh hosted run; actionlint/policy cannot prove it. No Node-force flag or
+warning suppression was added. Playwright's local NO_COLOR/FORCE_COLOR conflict is
+separate from those hosted warnings.
+
+The existing containers job now runs `python3 scripts/delivery/verify_proxy.py`
+and retains its evidence. It uses hash-pinned published Node test certificates,
+local Docker and a fake bearer string, without provider authentication. It checks
+TLS name/CA/SNI, CSP, forwarding, dependency failure and seven rejected configs; see
+[fixture notice](../scripts/delivery/TLS_FIXTURE_NOTICE.txt). The required job emits
+a coverage notice when CodeQL is skipped. No publish/deploy/OIDC job or new
+permission is introduced. Hosted execution of these edits remains unverified.

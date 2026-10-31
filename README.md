@@ -4,7 +4,8 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current stage: M4A — Azure deployment preflight.** Hosted M3 CI is verified;
+**Current stage: M4B — local preparation only.** OIDC/cart ownership, SQL adapter
+and HTTPS proxy have local evidence with the limits below. Hosted M3 CI is verified;
 CodeQL was skipped and has not executed. Azure session/permission/quota checks
 remain blocked and deployment is NO-GO pending the documented gates. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
@@ -16,9 +17,10 @@ Agents, cloud deployment and release execution remain planned.
 
 | Document | Purpose |
 | --- | --- |
+| [M4B local evidence](docs/evidence/m4b-local-preparation.md) | Executed local checks, SQL simulation limits and remaining NO-GO gates |
 | [M4A preflight](docs/milestones/m4a-preflight.md) | Verified CI, blocked Azure facts and deployment readiness gaps |
 | [Azure cost/control plan](docs/project/azure-cost-estimate.md) | Itemised provisional costs, approval/budget-alert proposal and teardown |
-| [M4B proposal](docs/milestones/m4b-scope.md) | Local cloud-ready preparation and separately approved deployment scope |
+| [M4B scope](docs/milestones/m4b-scope.md) | Authorized local preparation and separately approved deployment scope |
 | [Secure delivery](docs/delivery.md) | CI, scanners, provenance, OIDC/protection configuration and rollback design |
 | [M3 evidence](docs/evidence/m3-secure-delivery.md) | Local results, scanner coverage, limitations, costs and M4 prerequisites |
 | [Azure definitions](infra/README.md) | Bicep candidate definitions; validation only, no deployment |
@@ -57,9 +59,8 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stops at M4A documentation/read-only preflight
-using an existing valid session only. Sign-in, credential refresh, GitHub setting
-changes, M4B implementation, agents, provisioning/deployment, paid inference,
+delivery dependency here. Current authorization stops at M4B local preparation.
+Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.
 

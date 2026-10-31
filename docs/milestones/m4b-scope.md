@@ -1,11 +1,14 @@
 # M4B handoff — Cloud-ready preparation, then separately approved deployment
 
-Status: **Proposed; not started or authorized by M4A.** See
+Status: **Local application/authentication/data/proxy preparation authorized by the
+owner's subsequent request and implemented; deployment remains NO-GO.** See
 [preflight findings](m4a-preflight.md), [cost/control plan](../project/azure-cost-estimate.md),
 [persistence ADR](../decisions/0003-persistence.md) and
 [delivery ADR](../decisions/0005-delivery-identity.md).
-Recommendation: authorize the local preparation slice next; keep cloud mutations
-disabled until its acceptance evidence and all approval fields are concrete.
+[Local evidence](../evidence/m4b-local-preparation.md) records actual outcomes and
+limits. Keep cloud mutations disabled until all approval fields and live gates close.
+The broader private-SQL/network/diagnostics IaC completion row below remains pending;
+this bounded implementation adds app configuration bindings, not those resources.
 
 ## Slice 1 — Local preparation only
 

@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import express, { type ErrorRequestHandler } from "express";
-import { Store } from "./database.js";
+import type { Repository } from "./repository.js";
+import { anonymousAuthenticator, type Authenticate } from "./auth.js";
 import { AppError, badInput, notFound } from "./errors.js";
 import { validateQuantity } from "./pricing.js";
 
@@ -43,11 +44,16 @@ function integerQuery(
 }
 
 export function createApp(
-  store: Store,
-  options: { log?: boolean; origins?: string[] } = {},
+  store: Repository,
+  options: {
+    log?: boolean;
+    origins?: string[];
+    authenticate?: Authenticate;
+  } = {},
 ) {
   const app = express();
   app.disable("x-powered-by");
+  app.set("trust proxy", false);
   const origins = options.origins ?? [
     "http://localhost:8080",
     "http://127.0.0.1:8080",
@@ -91,12 +97,15 @@ export function createApp(
     next();
   });
   app.use(express.json({ limit: "16kb", strict: true, inflate: false }));
-  app.use("/api", (req, _res, next) => {
+  app.use("/api", async (req, res, next) => {
     if (["POST", "PUT"].includes(req.method) && !req.is("application/json"))
       return next(
         new AppError(415, "UNSUPPORTED_MEDIA_TYPE", "Send application/json."),
       );
-    if (!store.ready())
+    res.locals.owner = await (options.authenticate ?? anonymousAuthenticator)(
+      req.get("authorization"),
+    );
+    if (!(await store.ready()))
       return next(
         new AppError(503, "NOT_READY", "The demo database is not ready."),
       );
@@ -105,11 +114,11 @@ export function createApp(
   const respond = (res: express.Response, value: object, status = 200) =>
     res.status(status).json({ ...value, requestId: res.locals.requestId });
   app.get("/health/live", (_req, res) => respond(res, { status: "live" }));
-  app.get("/health/ready", (_req, res) => {
-    const ready = store.ready();
+  app.get("/health/ready", async (_req, res) => {
+    const ready = await store.ready();
     respond(res, { status: ready ? "ready" : "not-ready" }, ready ? 200 : 503);
   });
-  app.get("/api/products", (req, res) => {
+  app.get("/api/products", async (req, res) => {
     if (
       Object.keys(req.query).some(
         (key) =>
@@ -138,7 +147,7 @@ export function createApp(
     );
     respond(
       res,
-      store.products(
+      await store.products(
         search.trim(),
         category,
         sort as "name" | "price",
@@ -147,25 +156,25 @@ export function createApp(
       ),
     );
   });
-  app.get("/api/products/:id", (req, res) =>
-    respond(res, store.product(productId(req.params.id))),
+  app.get("/api/products/:id", async (req, res) =>
+    respond(res, await store.product(productId(req.params.id))),
   );
-  app.post("/api/carts", (req, res) => {
+  app.post("/api/carts", async (req, res) => {
     if (
       req.body &&
       (Array.isArray(req.body) || Object.keys(req.body as object).length)
     )
       badInput("A new cart needs no fields.");
-    respond(res, store.createCart(), 201);
+    respond(res, await store.createCart(res.locals.owner), 201);
   });
-  app.get("/api/carts/:id", (req, res) =>
-    respond(res, store.cart(cartId(req.params.id))),
+  app.get("/api/carts/:id", async (req, res) =>
+    respond(res, await store.cart(cartId(req.params.id), res.locals.owner)),
   );
-  app.delete("/api/carts/:id", (req, res) => {
-    store.deleteCart(cartId(req.params.id));
+  app.delete("/api/carts/:id", async (req, res) => {
+    await store.deleteCart(cartId(req.params.id), res.locals.owner);
     res.sendStatus(204);
   });
-  app.put("/api/carts/:id/items/:productId", (req, res) => {
+  app.put("/api/carts/:id/items/:productId", async (req, res) => {
     if (
       !req.body ||
       Array.isArray(req.body) ||
@@ -175,15 +184,20 @@ export function createApp(
       badInput("Only quantity may be supplied.");
     respond(
       res,
-      store.setQuantity(
+      await store.setQuantity(
         cartId(req.params.id),
         productId(req.params.productId),
         validateQuantity(req.body.quantity),
+        res.locals.owner,
       ),
     );
   });
-  app.delete("/api/carts/:id/items/:productId", (req, res) => {
-    store.removeItem(cartId(req.params.id), productId(req.params.productId));
+  app.delete("/api/carts/:id/items/:productId", async (req, res) => {
+    await store.removeItem(
+      cartId(req.params.id),
+      productId(req.params.productId),
+      res.locals.owner,
+    );
     res.sendStatus(204);
   });
   app.use((_req, _res) => notFound());

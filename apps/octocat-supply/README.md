@@ -97,7 +97,8 @@ Seed: IDs 1–12; feeder 12999p, toy 1999p, remaining products 1500p. Categories
 feeding/play/everyday. Search trims and ignores case, treats SQL wildcards literally,
 and supports category plus name/price sorting with stable ID ties. Cart updates set
 absolute integer quantities 1–99 and never trust browser prices. Maximum 100 lines.
-No public product administration, checkout, tax, shipping, accounts or real payments.
+No public product administration, checkout, tax, shipping or real payments. The
+default local demo remains anonymous; optional OIDC preparation is described below.
 
 The user-requested discount extends the earlier design: **10% off a subtotal of
 30000p or more, rounded down to whole pence**, automatic and non-stacking. Two
@@ -145,9 +146,10 @@ volume needs explicit migrate/seed again. Do not use global Docker prune command
 Node's bundled `node:sqlite` is used instead of a separately compiled native addon;
 it is release-candidate API in this exact Node version. Local tests do not establish
 cloud driver compatibility, durable backups, availability SLOs, payment correctness
-or authentication. Cart IDs are opaque demo references, not credentials. The
+or cloud authentication. Cart IDs are opaque demo references, not credentials. The
 application is only for loopback synthetic use. Azure SQL/auth/deployment, agents,
-CI/CD and cloud telemetry remain later milestones.
+cloud telemetry remain later milestones. Subsequent local preparation does not
+change these original M2 evidence limits.
 
 See [M2 evidence](../../docs/evidence/m2-baseline.md) for actual commands, outcomes,
 clean-copy reproduction, platform versions, source provenance and remaining gaps.
@@ -165,3 +167,35 @@ recorded in [M3 evidence](../../docs/evidence/m3-secure-delivery.md); local base
 are never release authorization. Cloud auth, durable SQL and ACA HTTPS proxy
 support remain M4 blockers. The original M2 demo on 8080 is independent of the
 isolated M3 verification project and retains its volume.
+
+## M4B local preparation — deployment remains NO-GO
+
+The default setup above is preserved. Additive SQLite migration 3 introduces
+`owner_key`; explicitly run the normal migrate command before using the new code
+on an existing demo DB. Old carts remain anonymous and cannot be claimed on sign-in.
+Do not run the old M2 binary against schema 3 or reset a DB to bypass history checks.
+The existing running M2 demo/volume was not upgraded by this work.
+
+Optional OIDC uses Code + PKCE, in-memory tokens and owner-authorized API cart
+operations. SQL has a separate parameterized adapter and explicit migration/seed
+entrypoints, with no anonymous or SQLite fallback. Provider sign-in, real SQL engine
+and managed identity have **not** been integrated. The native dev UI stays anonymous;
+HTTPS/OIDC proxy configuration is a container interface. Settings, candidate SQL
+permissions and release blockers are in [delivery configuration](../../docs/delivery.md#m4b-local-configuration),
+[identity ADR](../../docs/decisions/0007-application-identity.md),
+[persistence ADR](../../docs/decisions/0003-persistence.md) and
+[M4B evidence](../../docs/evidence/m4b-local-preparation.md).
+
+For isolated local verification, run from the repository root with Node 24/Docker:
+
+```sh
+python3 scripts/delivery/verify_containers.py
+python3 scripts/delivery/verify_proxy.py
+```
+
+These own only temporary verification projects/ports 18080 and 18081 and clean
+them in `finally`; they refuse to take over pre-existing verification state.
+The TLS check downloads checksum-pinned **public, non-live** Node test vectors,
+never generates/registers a credential and never contacts an OIDC provider.
+SQLite behavior is real; SQL recording-driver contracts are explicitly simulated.
+No command here authorizes SQL mutations, cloud access or deployment.
