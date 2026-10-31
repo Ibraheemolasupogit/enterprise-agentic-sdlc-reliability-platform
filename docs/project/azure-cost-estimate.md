@@ -1,0 +1,130 @@
+# M4A — Provisional Azure cost and control plan
+
+Assessed 2026-10-31. **No spend approved; not a subscription-specific quote.**
+Region candidate UK South; currency GBP, PAYG retail, taxes/discounts/credits and
+free grants excluded. Subscription/offer/region/SKU eligibility remain unverified.
+Basis: [primary retail meter snapshot and reproducible arithmetic](../evidence/m4a-preflight.json)
+from [Azure Retail Prices API](https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices).
+Missing rates are labelled **allowance**, not fabricated API results. Some queries
+returned HTTP 429/no applicable rows; pricing pages did not expose numeric rates.
+Requote these lines and confirm managed-resource charges before approval.
+
+## Itemised low-duty month
+
+Assume 730 provisioned hours (30.4167 days), two apps each active 20 hours/month,
+0.25 vCPU/0.5 GiB per app, min 0/max 1 replica, 100,000 external requests,
+one Basic registry within included storage, one Basic B SQL DB (5 DTU/2 GB), one
+SQL private endpoint, one private DNS zone/10,000 queries and 1 GB Analytics log
+ingestion. Reserve one managed public IPv4 and managed load-balancer costs for
+the custom-VNet environment. Resource counts/billing need actual confirmation.
+
+| Component | Rate / quantity assumption | GBP/month |
+| --- | --- | ---: |
+| ACA active CPU | 36,000 vCPU-seconds × £0.000026 | 0.94 |
+| ACA active RAM | 72,000 GiB-seconds × £0.000003 | 0.22 |
+| ACA requests | 0.1 million × £0.301898/million | 0.03 |
+| ACR Basic | 30.4167 days × £0.125741/day; no ACR Tasks | 3.82 |
+| Azure SQL Basic B | 30.4167 days × £0.151704/day; 2 GB included | 4.61 |
+| SQL private endpoint | **Allowance £8/month**, endpoint meter not verified; one, 730 hours | 8.00 |
+| Private DNS | First-zone rate £0.377373 + 0.01 million queries × £0.301898/million | 0.38 |
+| Log Analytics | 1 GB × £2.173667/GB paid ingestion tier; do not assume shared free allowance | 2.17 |
+| Managed public IPv4 | Assumed one × 730 hours × £0.003774/hour | 2.76 |
+| Managed load balancer | **Allowance £15/month**, configuration/count/rate not verified | 15.00 |
+| Internet/PE data processing | **Allowance £1** for small 2 GB-scale traffic; actual meters unresolved | 1.00 |
+| Backup storage/overage | **Allowance £2**, Basic retention/included backup terms need confirmation | 2.00 |
+| Bounded migration compute | Aggregate 1 replica-hour/month reserved, same CPU/RAM; no always-on migrator | 0.03 |
+| **Model subtotal** | Round only after summing exact row values in JSON | **40.96** |
+| **With 25% contingency** | Provisional planning envelope, pre-tax | **51.20** |
+
+Of the subtotal, £26 is explicit allowance. This is an estimate with meaningful
+unquoted components, not a precise expected invoice. Standard managed identity/
+OIDC/app-registration features have no separate usage line assumed; premium Entra
+features, GitHub licensing/runner/artifact charges and paid SAST are excluded and
+require separate entitlement/cost review. No new hosted run was started in M4A.
+
+The [Basic SQL limits](https://learn.microsoft.com/en-us/azure/azure-sql/database/resource-limits-dtu-single-databases?view=azuresql)
+fit a small synthetic candidate by size, not proven performance/recovery. Serverless
+is not selected as a zero-idle-cost shortcut; readiness traffic/connection pools can
+prevent pause. No measured latency/SLO/RPO/RTO follows from this tier selection.
+
+## Short exercise and stress cases
+
+| Scenario | Exact assumptions | Subtotal / +25% contingency, pre-tax |
+| --- | --- | ---: |
+| 48-hour rehearsal | Each app active 6 hours, 10k requests, 0.25 GB logs, 1k DNS queries, 10-minute migrator; fixed daily/hourly items prorated; conservatively charge the whole DNS zone month; £0.25 each transfer/backup allowance | £4.02 / **£5.03** |
+| Low-duty retained month | Above itemised model | £40.96 / **£51.20** |
+| Both apps continuously active | Two × 730 active replica-hours; same fixed/traffic/log assumptions | £81.86 / **£102.32** |
+
+Health, test and user activity can keep replicas active. Scale-to-zero/free grants
+are not a spending guarantee. The stress case is compute sensitivity, not a load
+forecast; increased traffic/logs/DB tier would add cost. Temporary rollout replicas
+and retrying migrations must be included in the actual approval window.
+
+ACA environment Private Endpoint/advanced features can add an environment fee:
+the returned Environment Private Endpoint meter alone is £0.094343/hour, or
+**£68.87 per 730-hour month**, before other applicable fees. The candidate uses an
+internal API app, not an ACA environment Private Endpoint; do not confuse that
+with the separate SQL private endpoint. Do not enable advanced/dedicated features
+without repricing. [ACA billing](https://learn.microsoft.com/en-us/azure/container-apps/billing)
+also documents subscription-wide free grants; this estimate deliberately does not
+deduct them. [Custom-VNet guidance](https://learn.microsoft.com/en-us/azure/container-apps/custom-virtual-networks?tabs=workload-profiles-env)
+warns that managed network resources have associated charges.
+
+ACR Premium alone would be about £38.26/month at the returned rate instead of
+£3.82 Basic, before registry private endpoints/networking. NAT Gateway, Firewall,
+Application Gateway/WAF, private DNS Resolver, Dedicated profiles, geo-replication,
+custom domains, long-term backup retention and permanent test VMs are excluded.
+If policy requires them, stop and produce a revised scope/estimate; do not hide
+their costs or weaken private SQL/authentication to keep this estimate.
+
+## Proposed approval and budget alerts
+
+Recommend a **48-hour rehearsal first**, proposed £10 pre-tax exercise ceiling
+after rates/managed-resource fees are confirmed. A retained low-duty environment
+would need a separate proposed **£55/month** budget; the continuously-active case
+exceeds it. Neither amount is approved. Confirm billing currency/tax and offer
+before binding a financial limit; budgets are alerts, not hard caps.
+
+Propose a subscription-scoped budget filtered to the project RG **and the actual
+ACA managed-infrastructure RG**, so network charges are included. If that filter
+cannot cover all associated charges, use an additional reviewed scope/alert.
+Notify the owner at 50%, 80% and 100% actual and 100% forecast. Do not put private
+contact details in source. No budget, action group, notification or automation is
+created in M4A. Budget creation requires appropriate Cost Management permissions.
+
+[Budget evaluation](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets)
+can lag usage; it cannot safely enforce a two-day ceiling by itself. Record an
+absolute UTC expiry, check usage/resource inventory at least every six hours
+during rehearsal, stop new changes at 80% of the approved envelope and perform
+human-approved teardown at the deadline/ceiling. No automatic destructive agent
+is proposed. Keep max replicas/log ingestion low, and require explicit approval
+for retries, tier changes, extended duration or restored DBs.
+
+## Teardown and residual-cost verification
+
+Before first creation, record all owned resource IDs, tags/expiry, platform-managed
+RG, role assignments, identities/federations, Entra app registrations and any
+shared dependencies. Pin the source/digest/config/schema manifest and owner/actor.
+The future deletion scope must be approved explicitly; M4A authorizes none.
+
+1. Stop release/migration/probe activity. Preserve sanitized run evidence and any
+   specifically approved data backup; review data loss and retention obligations.
+2. Remove only the approved project apps/jobs and dependencies, then the dedicated
+   project resources/RG. Never delete a shared VNet/DNS zone, unrelated RG or any
+   Claims Processing resource. Let ACA remove its managed infrastructure through
+   supported environment deletion; do not manually delete arbitrary managed RGs.
+3. Remove dedicated federation/role bindings and outside-RG Entra app registrations
+   only when ownership and absence of other users are confirmed. Clean project
+   release variables/environments only with separate GitHub settings authorization.
+4. Verify project and managed RG resources, public IPs/LB, registry, SQL DB/server,
+   endpoints/DNS links, workspace and any orphan identities are gone as intended.
+   Inventory retained/deleted DB backups, LTR/exports, soft-delete assets and locks;
+   do not purge recovery artifacts without explicit approval.
+5. Review Cost Analysis after its ingestion delay and again after the billing
+   window; record any residual retained resources/charges. Stopping apps, deleting
+   containers or a green deletion command does not prove zero future cost.
+
+Final authorization must name the actual subscription/tenant/region, exact resource
+scope, expiry, financial ceiling, operator, rollback/data handling and teardown
+verification. Those fields remain unresolved until a usable existing Azure
+session and owner decisions are available.

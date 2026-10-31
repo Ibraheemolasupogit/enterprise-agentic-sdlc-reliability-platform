@@ -1,10 +1,11 @@
 # Capability and status matrix
 
 Authority: [master brief](project/master-brief.md), sections 9, 16–17. Assessed on
-2026-10-30. Use its states: **Planned, Implemented, Locally tested, Cloud verified,
+2026-10-31. Use its states: **Planned, Implemented, Locally tested, Cloud verified,
 Simulated, Design only, Blocked, Retired**. Historical validation is a separate
 evidence classification, not current repository verification. M3 delivery definitions and local security checks are recorded in
-[M3 evidence](evidence/m3-secure-delivery.md); hosted CI and Azure remain unverified.
+[M3 evidence](evidence/m3-secure-delivery.md); hosted CI is now confirmed by [M4A preflight](milestones/m4a-preflight.md); Azure
+session/permissions/quotas, deployment and CodeQL execution remain unverified.
 M2 application execution is locally verified as recorded in
 [M2 evidence](evidence/m2-baseline.md); agent/cloud execution remains unverified.
 M1 establishes design evidence only; the
@@ -16,8 +17,8 @@ M1 establishes design evidence only; the
 | Product/architecture/threat model/ADRs | Design only | [Architecture](architecture.md), [STRIDE model](threat-model.md), ADRs 0002–0006 and [M1 review](evidence/m1-design-review.md); no enforcement claim | M1 |
 | Independent Morrow Supply application/container baseline | Locally tested | [M2 evidence](evidence/m2-baseline.md): original React/API/SQLite, fixtures, pricing/discounts, unit/integration/component/browser and local container fault/persistence checks; upstream reuse remains not cleared | M2 |
 | Agent-assisted development/review | Planned | Requirement-to-change/tests/review evidence needed; no separate framework assumed | M2–M3; M8 |
-| Secure delivery, images and Azure IaC/identity | Implemented; Locally tested checks | One read-only CI workflow, actionlint, dependency/history-secret/image/config scans, SBOM/provenance, four compiled Bicep templates and negative security tests; CodeQL gated/unexecuted; no hosted CI, registry publication, protected settings or Azure identity/runtime proof | M3 |
-| Personal Azure deployment/internal API/durability | Planned | No cloud deployment; ACA/internal API, Azure SQL and identity selected in design; no runtime proof | M4 |
+| Secure delivery, images and Azure IaC/identity | Implemented; Locally tested checks | One read-only CI workflow, actionlint, dependency/history-secret/image/config scans, SBOM/provenance, four compiled Bicep templates and negative security tests; CodeQL gated/unexecuted; hosted run 41149829560 passed application/policy/container/required checks; CodeQL skipped; no registry publication or Azure identity/runtime proof; no GitHub environments and protection endpoints plan-restricted | M3 |
+| Personal Azure deployment/internal API/durability | Blocked for deployment; Design only | [M4A](milestones/m4a-preflight.md): no usable Azure session identified, subscription/region/permissions/quotas unverified; cloud auth/cart ownership, SQL/private DNS and HTTPS proxy absent; cost/governance approval pending | M4A assessment; M4B proposal |
 | Working agentic maintenance | Planned | C7 failure must be closed with real inference and useful output; not compilation alone | M5 |
 | Local dependency-aware health | Locally tested | Process liveness, DB/seed readiness, frontend API dependency path and wrong-port failure/recovery in M2 | M2 |
 | Azure observability and telemetry correlation | Planned | Local request IDs/logs exist; no Azure logs/metrics/traces, dashboards, SLO monitoring or config/deployment annotations verified | M6 |

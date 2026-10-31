@@ -1,7 +1,7 @@
 # ADR 0005 — GitHub Actions, Azure OIDC and protected releases
 
-Date: 2026-10-30. Status: M3 workflow/IaC implemented and locally tested; no Azure identities,
-protected settings, hosted CI run or release created.
+Date: 2026-10-30. Status: M3 workflow/IaC implemented; hosted validation confirmed in M4A.
+No Azure identities, protected environments or release created by this project work.
 Requirements: R04–R06, R10, R17. Owner: repository owner.
 
 ## Decision
@@ -80,3 +80,15 @@ federation/RBAC denial tests, SQL/private networking, cloud-ready images, cost a
 rollback/teardown remain unverified M4 entry gates. No token or credential was
 requested or created during M3. Current Bicep/compiler checks do not satisfy ARM
 what-if/authorization/policy validation, which would need cloud authentication.
+
+## M4A preflight addendum
+
+[Preflight](../milestones/m4a-preflight.md) independently confirms hosted run
+41149829560 at the current committed SHA; CodeQL was skipped, not executed.
+Existing environments are empty and branch/ruleset APIs return a private-plan
+restriction. Automatic release remains blocked pending enforceable protections;
+ADR's owner-operated fallback remains a proposal requiring reviewed scope/approval,
+not an enabled deploy path. Azure session/subscription/region/RBAC/quotas and actual
+OIDC subject are unverified; no sign-in or refresh was attempted. The
+[M4B handoff](../milestones/m4b-scope.md) and
+[cost/control proposal](../project/azure-cost-estimate.md) authorize no mutation.

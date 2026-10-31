@@ -1,0 +1,558 @@
+{
+  "assessedDate": "2026-10-31",
+  "scope": "M4A read-only deployment preflight; no sign-in, credential refresh, provisioning or deployment",
+  "sourceHead": "735989950304959dfda203d2b37558bcd30a3f71",
+  "github": {
+    "repository": "Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform",
+    "visibility": "private",
+    "repositoryId": 1439889276,
+    "ownerId": 181765037,
+    "runId": 41149829560,
+    "runUrl": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/41149829560",
+    "jobs": [
+      {
+        "id": 124383447759,
+        "name": "policy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124383448061,
+        "name": "application",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124383449673,
+        "name": "codeql",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 124383814230,
+        "name": "containers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124384409306,
+        "name": "required",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "codeqlExecuted": false,
+    "codeqlVariableObserved": "empty in required job log",
+    "artifactMetadata": [
+      {
+        "id": 13022930644,
+        "name": "infrastructure-and-policy-735989950304959dfda203d2b37558bcd30a3f71",
+        "digest": "sha256:3a1047ffa4906d0994c493e8a24be4dea6051e99af3b943f3983be6a9abfa921",
+        "expiresAt": "2026-11-07T00:23:09Z",
+        "headSha": "735989950304959dfda203d2b37558bcd30a3f71"
+      },
+      {
+        "id": 13021849689,
+        "name": "local-images-and-security-735989950304959dfda203d2b37558bcd30a3f71",
+        "digest": "sha256:ef6540a539174d962e48aec68e167ae558d5530b727c9837d19e7c6ec5e59c97",
+        "expiresAt": "2026-11-07T00:25:51Z",
+        "headSha": "735989950304959dfda203d2b37558bcd30a3f71"
+      }
+    ],
+    "downloadedArtifact": {
+      "id": 13021849689,
+      "sha256": "ef6540a539174d962e48aec68e167ae558d5530b727c9837d19e7c6ec5e59c97",
+      "digestMatched": true,
+      "sourceInputsMatched": 65,
+      "dirtyWorkingTree": false,
+      "signedAttestation": false,
+      "releaseEligible": false,
+      "images": {
+        "api": {
+          "imageId": "sha256:f8d7f4d089c587ec4f2ed233f8edf064fceef166c98cb01fa00d286994f5db94",
+          "platform": "linux/amd64",
+          "reportedHighCriticalFindings": 0,
+          "scanSha256": "860f3a3b8fe55c5f44d7505c003134c49977ebfda9d3bea5469b71fd41ee4b60",
+          "sbomSha256": "2b68ea5e27748ae9de921ecb1c242c0607fb84b6cccd9d073636795cbdef9588"
+        },
+        "frontend": {
+          "imageId": "sha256:feaed173a1dfdd014c4d07bead35c922509f2bbaa7452a365628b0e814d5b7b8",
+          "platform": "linux/amd64",
+          "reportedHighCriticalFindings": 0,
+          "scanSha256": "5bc3e6a199d0b51f8dde6130a3fb8e3e839e6ea4d594520a2a54fbeb92652b30",
+          "sbomSha256": "2ac07b6cef15daf6d2dd8913ef9dee09c342f324c8a2ddc8439a7260d4caaa94"
+        }
+      }
+    },
+    "testCounts": {
+      "application": 39,
+      "nativeBrowser": 3,
+      "containerBrowser": 3,
+      "deliverySecurity": 7
+    },
+    "environmentRead": {
+      "status": 200,
+      "totalCount": 0
+    },
+    "branchProtectionRead": {
+      "status": 403,
+      "message": "Upgrade to GitHub Pro or make this repository public to enable this feature."
+    },
+    "rulesetRead": {
+      "status": 403,
+      "message": "Upgrade to GitHub Pro or make this repository public to enable this feature."
+    }
+  },
+  "azure": {
+    "cliAvailable": false,
+    "customConfigDirectoryConfigured": false,
+    "standardAccountProfilePresent": false,
+    "standardTokenCacheFilesPresent": false,
+    "existingAuthenticatedSurfaceIdentified": false,
+    "subscriptionId": null,
+    "tenantId": null,
+    "approvedRegion": null,
+    "costCandidateRegion": "uksouth",
+    "liveSubscriptionPermissionQuotaChecksExecuted": false,
+    "reason": "No usable existing Azure session identified. No sign-in, credential refresh or credential-cache contents read. Sessions elsewhere are not ruled out."
+  },
+  "authorization": {
+    "cloudDeploy": false,
+    "resourceCreation": false,
+    "githubSettingsChanges": false,
+    "paidInference": false
+  },
+  "securityExceptionsAccepted": [],
+  "deploymentDecision": "NO-GO: Azure live checks, cloud-ready application/data/proxy and release governance/cost gates remain open.",
+  "retailPricing": {
+    "retrievedDate": "2026-10-31",
+    "currency": "GBP",
+    "candidateRegion": "uksouth",
+    "source": "https://prices.azure.com/api/retail/prices",
+    "apiVersion": "2023-01-01-preview",
+    "selectedMeters": {
+      "vCPU_active": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 2.6e-05,
+        "unitPrice": 2.6e-05,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2022-06-01T00:00:00Z",
+        "meterId": "2c27faec-4865-58a4-9bca-4c64327315d3",
+        "meterName": "Standard vCPU Active Usage",
+        "productId": "DZH318Z0B0NC",
+        "skuId": "DZH318Z0B0NC/000B",
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "serviceName": "Azure Container Apps",
+        "serviceId": "DZH319F70F09",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1 Second",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "",
+        "savingsPlan": [
+          {
+            "unitPrice": 2.1e-05,
+            "retailPrice": 2.1e-05,
+            "term": "3 Years"
+          },
+          {
+            "unitPrice": 2.2e-05,
+            "retailPrice": 2.2e-05,
+            "term": "1 Year"
+          }
+        ]
+      },
+      "memory_active": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 3e-06,
+        "unitPrice": 3e-06,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2022-06-01T00:00:00Z",
+        "meterId": "edbe3fc7-4303-5495-a104-88c166efe547",
+        "meterName": "Standard Memory Active Usage",
+        "productId": "DZH318Z0B0NC",
+        "skuId": "DZH318Z0B0NC/000B",
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "serviceName": "Azure Container Apps",
+        "serviceId": "DZH319F70F09",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1 GiB Second",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "",
+        "savingsPlan": [
+          {
+            "unitPrice": 3e-06,
+            "retailPrice": 3e-06,
+            "term": "3 Years"
+          },
+          {
+            "unitPrice": 3e-06,
+            "retailPrice": 3e-06,
+            "term": "1 Year"
+          }
+        ]
+      },
+      "requests": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.301898,
+        "unitPrice": 0.301898,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2022-06-01T00:00:00Z",
+        "meterId": "edca2d58-b847-565c-828a-df27aa4bae75",
+        "meterName": "Standard Requests",
+        "productId": "DZH318Z0B0NC",
+        "skuId": "DZH318Z0B0NC/000B",
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "serviceName": "Azure Container Apps",
+        "serviceId": "DZH319F70F09",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1M",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "",
+        "savingsPlan": [
+          {
+            "unitPrice": 0.250575,
+            "retailPrice": 0.250575,
+            "term": "3 Years"
+          },
+          {
+            "unitPrice": 0.256613,
+            "retailPrice": 0.256613,
+            "term": "1 Year"
+          }
+        ]
+      },
+      "environment_private_endpoint": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.094343,
+        "unitPrice": 0.094343,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2026-09-01T00:00:00Z",
+        "effectiveEndDate": "2026-10-31T23:59:00Z",
+        "meterId": "56fc71a5-793d-5be3-9b47-24ff4b813819",
+        "meterName": "Environment Private Endpoint",
+        "productId": "DZH318Z0B0NC",
+        "skuId": "DZH318Z0B0NC/00FR",
+        "productName": "Azure Container Apps",
+        "skuName": "Environment",
+        "serviceName": "Azure Container Apps",
+        "serviceId": "DZH319F70F09",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1 Hour",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "Environment",
+        "savingsPlan": [
+          {
+            "unitPrice": 0.062644,
+            "retailPrice": 0.062644,
+            "term": "3 Years"
+          },
+          {
+            "unitPrice": 0.064153,
+            "retailPrice": 0.064153,
+            "term": "1 Year"
+          }
+        ]
+      },
+      "environment_management": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.094343,
+        "unitPrice": 0.094343,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2026-09-01T00:00:00Z",
+        "effectiveEndDate": "2026-10-31T23:59:00Z",
+        "meterId": "5e45d155-a05b-5dd8-9121-9175ee4aef1d",
+        "meterName": "Environment Management Hour",
+        "productId": "DZH318Z0B0NC",
+        "skuId": "DZH318Z0B0NC/00FR",
+        "productName": "Azure Container Apps",
+        "skuName": "Environment",
+        "serviceName": "Azure Container Apps",
+        "serviceId": "DZH319F70F09",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1 Hour",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "Environment",
+        "savingsPlan": [
+          {
+            "unitPrice": 0.062644,
+            "retailPrice": 0.062644,
+            "term": "3 Years"
+          },
+          {
+            "unitPrice": 0.064153,
+            "retailPrice": 0.064153,
+            "term": "1 Year"
+          }
+        ]
+      },
+      "acr_basic": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.125741,
+        "unitPrice": 0.125741,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2018-01-01T00:00:00Z",
+        "meterId": "5c9e7a65-5784-494c-9718-7749d4075dd9",
+        "meterName": "Basic Registry Unit",
+        "productId": "DZH318Z0BQV5",
+        "skuId": "DZH318Z0BQV5/002L",
+        "productName": "Container Registry",
+        "skuName": "Basic",
+        "serviceName": "Container Registry",
+        "serviceId": "DZH315F9L8DM",
+        "serviceFamily": "Containers",
+        "unitOfMeasure": "1/Day",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": false,
+        "armSkuName": ""
+      },
+      "acr_premium": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 1.257859,
+        "unitPrice": 1.257859,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2018-01-01T00:00:00Z",
+        "meterId": "2f8e1105-47d0-4105-a934-b2175c766a71",
+        "meterName": "Premium Registry Unit",
+        "productId": "DZH318Z0BQV5",
+        "skuId": "DZH318Z0BQV5/000C",
+        "productName": "Container Registry",
+        "skuName": "Premium",
+        "serviceName": "Container Registry",
+        "serviceId": "DZH315F9L8DM",
+        "serviceFamily": "Containers",
+        "unitOfMeasure": "1/Day",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": false,
+        "armSkuName": ""
+      },
+      "sql_basic": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.151704,
+        "unitPrice": 0.151704,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2016-10-01T00:00:00Z",
+        "meterId": "a97bb631-35bd-47a7-ac4e-0c1ea52f1719",
+        "meterName": "B DTU",
+        "productId": "DZH318Z0BQGZ",
+        "skuId": "DZH318Z0BQGZ/001J",
+        "productName": "SQL Database Single Basic",
+        "skuName": "B",
+        "serviceName": "SQL Database",
+        "serviceId": "DZH3180HX10K",
+        "serviceFamily": "Databases",
+        "unitOfMeasure": "1/Day",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": ""
+      },
+      "private_dns_zone": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.377373,
+        "unitPrice": 0.377373,
+        "armRegionName": "",
+        "location": "",
+        "effectiveStartDate": "2019-12-01T00:00:00Z",
+        "meterId": "0b608a26-f611-4232-8192-ce81b6b57194",
+        "meterName": "Private Zone",
+        "productId": "DZH318Z0BNX0",
+        "skuId": "DZH318Z0BNX0/0021",
+        "productName": "Azure DNS",
+        "skuName": "Private",
+        "serviceName": "Azure DNS",
+        "serviceId": "DZH318Z695ZG",
+        "serviceFamily": "Networking",
+        "unitOfMeasure": "1",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": ""
+      },
+      "private_dns_queries": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.301898,
+        "unitPrice": 0.301898,
+        "armRegionName": "",
+        "location": "",
+        "effectiveStartDate": "2019-12-01T00:00:00Z",
+        "meterId": "46cff9cb-4b15-4af0-bf41-25143827fef8",
+        "meterName": "Private Queries",
+        "productId": "DZH318Z0BNX0",
+        "skuId": "DZH318Z0BNX0/0021",
+        "productName": "Azure DNS",
+        "skuName": "Private",
+        "serviceName": "Azure DNS",
+        "serviceId": "DZH318Z695ZG",
+        "serviceFamily": "Networking",
+        "unitOfMeasure": "1M",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": ""
+      },
+      "analytics_ingestion": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 5.0,
+        "retailPrice": 2.173667,
+        "unitPrice": 2.173667,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2018-02-01T00:00:00Z",
+        "meterId": "d664ef7a-c553-4b1c-a2ae-1a44ea5ed8ce",
+        "meterName": "Analytics Logs Data Ingestion",
+        "productId": "DZH318Z0BQD2",
+        "skuId": "DZH318Z0BQD2/003L",
+        "productName": "Log Analytics",
+        "skuName": "Analytics Logs",
+        "serviceName": "Log Analytics",
+        "serviceId": "DZH3140GXVMF",
+        "serviceFamily": "Management and Governance",
+        "unitOfMeasure": "1 GB",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": ""
+      },
+      "public_ipv4": {
+        "currencyCode": "GBP",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.003774,
+        "unitPrice": 0.003774,
+        "armRegionName": "uksouth",
+        "location": "UK South",
+        "effectiveStartDate": "2018-06-01T00:00:00Z",
+        "meterId": "9c150bf9-2bad-430e-a53c-c213804f49ef",
+        "meterName": "Standard IPv4 Static Public IP",
+        "productId": "DZH318Z0BNXN",
+        "skuId": "DZH318Z0BNXN/000D",
+        "productName": "IP Addresses",
+        "skuName": "Standard",
+        "serviceName": "Virtual Network",
+        "serviceId": "DZH314HC0WV9",
+        "serviceFamily": "Networking",
+        "unitOfMeasure": "1 Hour",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": false,
+        "armSkuName": ""
+      }
+    },
+    "unverifiedPriceLines": [
+      "SQL Private Link endpoint and data processing",
+      "managed load balancer",
+      "internet egress",
+      "backup overage"
+    ],
+    "limitations": "Some queries returned HTTP 429; unavailable rates use explicit planning allowances, not purported retail quotes. No subscription-specific discounts, credits, free grants or tax assumed."
+  },
+  "costScenarios": {
+    "48_hour_rehearsal": {
+      "hoursProvisioned": 48,
+      "aggregateActiveReplicaHours": "12",
+      "externalRequests": 10000,
+      "logIngestionGB": ".25",
+      "itemsGBP": {
+        "aca_compute": "0.34560000",
+        "aca_requests": "0.00301898",
+        "acr_basic": "0.251482",
+        "sql_basic": "0.303408",
+        "sql_private_endpoint_allowance": "0.5260273972602739726027397260",
+        "private_dns_zone": "0.377373",
+        "private_dns_queries": "0.000301898",
+        "analytics_ingestion": "0.54341675",
+        "managed_public_ipv4": "0.181152",
+        "managed_load_balancer_allowance": "0.9863013698630136986301369863",
+        "network_transfer_allowance": "0.25",
+        "backup_overage_allowance": "0.25",
+        "migration_compute": "0.004800000000000000000000000001"
+      },
+      "subtotalGBP": "4.022881395123287671232876712",
+      "with25PercentContingencyGBP": "5.028601743904109589041095890"
+    },
+    "low_duty_month": {
+      "hoursProvisioned": 730,
+      "aggregateActiveReplicaHours": "40",
+      "externalRequests": 100000,
+      "logIngestionGB": "1",
+      "itemsGBP": {
+        "aca_compute": "1.15200000",
+        "aca_requests": "0.0301898",
+        "acr_basic": "3.824622083333333333333333334",
+        "sql_basic": "4.614330000000000000000000001",
+        "sql_private_endpoint_allowance": "8",
+        "private_dns_zone": "0.377373",
+        "private_dns_queries": "0.00301898",
+        "analytics_ingestion": "2.173667",
+        "managed_public_ipv4": "2.755020",
+        "managed_load_balancer_allowance": "15",
+        "network_transfer_allowance": "1",
+        "backup_overage_allowance": "2",
+        "migration_compute": "0.02880000"
+      },
+      "subtotalGBP": "40.95902086333333333333333334",
+      "with25PercentContingencyGBP": "51.19877607916666666666666668"
+    },
+    "both_apps_active_full_month": {
+      "hoursProvisioned": 730,
+      "aggregateActiveReplicaHours": "1460",
+      "externalRequests": 100000,
+      "logIngestionGB": "1",
+      "itemsGBP": {
+        "aca_compute": "42.04800000",
+        "aca_requests": "0.0301898",
+        "acr_basic": "3.824622083333333333333333334",
+        "sql_basic": "4.614330000000000000000000001",
+        "sql_private_endpoint_allowance": "8",
+        "private_dns_zone": "0.377373",
+        "private_dns_queries": "0.00301898",
+        "analytics_ingestion": "2.173667",
+        "managed_public_ipv4": "2.755020",
+        "managed_load_balancer_allowance": "15",
+        "network_transfer_allowance": "1",
+        "backup_overage_allowance": "2",
+        "migration_compute": "0.02880000"
+      },
+      "subtotalGBP": "81.85502086333333333333333333",
+      "with25PercentContingencyGBP": "102.3187760791666666666666667"
+    },
+    "optionalACAEnvironmentPrivateEndpointMonthlyGBP": "68.870390",
+    "approvedBudget": null
+  },
+  "validation": {
+    "documentation": "PASS: 43 text files, 32 Markdown files, 237 local links/anchors; 13 milestone titles/order and catalogue references resolve",
+    "trackedWhitespace": "PASS: git diff --check",
+    "untrackedWhitespace": "PASS: four new text documents checked individually with git diff --no-index --check",
+    "secretScan": "PASS: gitleaks dir --redact --exit-code 1 .; no detected leaks",
+    "arithmetic": "PASS: Decimal item sums and 25% contingency reconcile for all three scenarios",
+    "provenance": "PASS: hosted archive digest, scans/SBOM image IDs and all 65 recorded source/build inputs verified",
+    "editBoundary": "PASS: six guidance/status docs plus four new preflight docs only; no application, infrastructure, workflow or delivery-script changes",
+    "git": "PASS: HEAD unchanged at sourceHead; nothing staged; no commits or pushes",
+    "notExecuted": [
+      "Azure subscription/tenant/permission/quota/region checks: no usable existing Azure session identified",
+      "Azure sign-in, credential refresh, ARM validate/what-if, resource creation, deployment or paid inference",
+      "CodeQL: skipped in reviewed hosted run",
+      "Application test reruns: documentation-only M4A; hosted run reviewed instead"
+    ]
+  }
+}

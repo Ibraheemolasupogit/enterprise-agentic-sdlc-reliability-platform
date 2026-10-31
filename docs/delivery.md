@@ -4,6 +4,10 @@ Authority: [master brief](project/master-brief.md), [ADR 0005](decisions/0005-de
 [M3 evidence](evidence/m3-secure-delivery.md) distinguishes actual local execution
 from unexecuted GitHub/Azure settings. The M2 application and tests are preserved;
 only container packaging changes address scanner findings. No release is enabled.
+Subsequent [M4A preflight](milestones/m4a-preflight.md) confirms hosted run
+41149829560 passed application/policy/containers/required, with CodeQL skipped.
+It found no GitHub environments and plan-restricted branch/ruleset protection
+reads; Azure live checks remain blocked. M3 evidence remains a historical snapshot.
 
 ## One validation pipeline
 

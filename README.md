@@ -4,8 +4,9 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current milestone: M3 — Secure delivery.** CI and deployment-free Azure IaC
-validation are implemented; hosted CI/Azure remain unverified. Morrow Supply is
+**Current stage: M4A — Azure deployment preflight.** Hosted M3 CI is verified;
+CodeQL was skipped and has not executed. Azure session/permission/quota checks
+remain blocked and deployment is NO-GO pending the documented gates. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
 demo with original synthetic data and illustrations. OctoCAT Supply is the
 conceptual reference; no upstream application source or assets were copied.
@@ -15,6 +16,9 @@ Agents, cloud deployment and release execution remain planned.
 
 | Document | Purpose |
 | --- | --- |
+| [M4A preflight](docs/milestones/m4a-preflight.md) | Verified CI, blocked Azure facts and deployment readiness gaps |
+| [Azure cost/control plan](docs/project/azure-cost-estimate.md) | Itemised provisional costs, approval/budget-alert proposal and teardown |
+| [M4B proposal](docs/milestones/m4b-scope.md) | Local cloud-ready preparation and separately approved deployment scope |
 | [Secure delivery](docs/delivery.md) | CI, scanners, provenance, OIDC/protection configuration and rollback design |
 | [M3 evidence](docs/evidence/m3-secure-delivery.md) | Local results, scanner coverage, limitations, costs and M4 prerequisites |
 | [Azure definitions](infra/README.md) | Bicep candidate definitions; validation only, no deployment |
@@ -53,9 +57,10 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stops at M3 secure delivery/local validation.
-Agents, paid services, cloud authentication/provisioning/deployment, commits and pushes are outside
-this task.
+delivery dependency here. Current authorization stops at M4A documentation/read-only preflight
+using an existing valid session only. Sign-in, credential refresh, GitHub setting
+changes, M4B implementation, agents, provisioning/deployment, paid inference,
+commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.
 
 The [master brief](docs/project/master-brief.md) is the authoritative specification.
@@ -67,4 +72,4 @@ Original code uses [MIT](LICENSE). Third-party packages/base images retain their
 [own terms and notices](THIRD_PARTY_NOTICES.md). The owner selected independent
 implementation; the upstream copying restriction in
 [ADR 0002](docs/decisions/0002-source-reuse.md) remains in force. No cloud/agent
-verification, hosted CI pass or production-readiness claim follows from local results.
+verification or production-readiness claim follows from local/hosted CI results.
