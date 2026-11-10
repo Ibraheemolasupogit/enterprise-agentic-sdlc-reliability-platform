@@ -1,0 +1,575 @@
+{
+  "milestone": "M4C-C3 planning only",
+  "date": "2026-11-10",
+  "status": "Design only; plan prepared; application implementation acceptance remains Planned",
+  "authority": "Owner C3 documentation/planning request; no client implementation or real-provider activity",
+  "baseHead": "b56d9bd189bcf9d3d077fa969c1bca2285d43742",
+  "initialWorkingTree": "clean",
+  "startedUtc": "2026-11-10T11:26:58.238098+00:00",
+  "recordedUtc": "2026-11-10T11:40:03.732260+00:00",
+  "hostedBaseline": {
+    "run": 42805606271,
+    "jobs": [
+      {
+        "id": 129793817329,
+        "name": "application",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129793817837,
+        "name": "policy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129793819609,
+        "name": "codeql",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 129794906283,
+        "name": "containers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 129796064455,
+        "name": "required",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "checkoutShaConfirmedInApplicationLog": "b56d9bd189bcf9d3d077fa969c1bca2285d43742",
+    "applicationTestsPassed": 97,
+    "applicationTestFilesPassed": 8,
+    "applicationBrowserTestsPassed": 3,
+    "CodeQL": "skipped",
+    "readOnlyJobMetadataAndApplicationLogInspected": true,
+    "artifactContentsReverified": false,
+    "settingsReadOrChanged": false
+  },
+  "recommendation": {
+    "oidcClient": "retain oidc-client-ts 3.5.0",
+    "browserIdTokenVerification": "reuse existing jose 6.2.14 via vetted-JWKS verified-session gate",
+    "newPackages": 0,
+    "upgrades": 0,
+    "dependencyChangesMade": false,
+    "browserNoticeGeneratorAdditionProposed": "Add existing JOSE MIT text when frontend starts importing JOSE; current generator browser list omits it"
+  },
+  "installedPackagesInspected": [
+    {
+      "name": "oidc-client-ts",
+      "installedVersion": "3.5.0",
+      "license": "Apache-2.0",
+      "dependencies": {
+        "jwt-decode": "^4.0.0"
+      },
+      "manifestSha256": "302e06acbad7e35f2844dfc29a5a708b0b06f3d8b45df4ac6a9a32c5ec826228"
+    },
+    {
+      "name": "jwt-decode",
+      "installedVersion": "4.0.0",
+      "license": "MIT",
+      "dependencies": {},
+      "manifestSha256": "15cc76bd7effa3c5ce634c178e22cbfa76de58fa8ab7bef96d6ca2f53912df37"
+    },
+    {
+      "name": "jose",
+      "installedVersion": "6.2.14",
+      "license": "MIT",
+      "dependencies": {},
+      "manifestSha256": "a37c30def477989c06178731f9137b63043bd403d896b6094e7449132a966510"
+    }
+  ],
+  "alternativeManifestObservations": [
+    {
+      "name": "react-oidc-context",
+      "observedVersion": "3.3.1",
+      "license": "MIT",
+      "dependencies": {},
+      "peerDependencies": {
+        "oidc-client-ts": "^3.1.0",
+        "react": ">=16.14.0"
+      },
+      "releasePinSelected": false
+    },
+    {
+      "name": "@azure/msal-browser",
+      "observedVersion": "5.29.0",
+      "license": "MIT",
+      "dependencies": {
+        "@azure/msal-common": "16.16.1"
+      },
+      "peerDependencies": {},
+      "releasePinSelected": false
+    },
+    {
+      "name": "@azure/msal-react",
+      "observedVersion": "5.8.1",
+      "license": "MIT",
+      "dependencies": {},
+      "peerDependencies": {
+        "@azure/msal-browser": "^5.29.0",
+        "react": "^16.8.0 || ^17 || ^18 || ^19.2.1"
+      },
+      "releasePinSelected": false
+    }
+  ],
+  "bundleProbe": {
+    "measurement": "Standalone export probe, not an application build or a promised production delta",
+    "node": "v24.22.2",
+    "rolldown": "1.2.16",
+    "gzipLevel": 9,
+    "rows": [
+      {
+        "name": "oidc-only",
+        "minifiedBytes": 68249,
+        "gzipBytes": 16967
+      },
+      {
+        "name": "oidc-plus-id-validation",
+        "minifiedBytes": 86447,
+        "gzipBytes": 23491
+      }
+    ],
+    "existingIgnoredBuildNotRebuilt": [
+      {
+        "file": "index-NqKkJnbn.js",
+        "bytes": 301598,
+        "gzipBytes": 88901
+      }
+    ]
+  },
+  "bundleProbeLimit": "Temporary-directory selected exports only; no application build/change or claimed production delta. Final clean Vite comparison remains Planned. Proposed extra-JS review bound: 10 KiB gzip.",
+  "sourceInspectionBindingsBeforePlanningEdits": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "e141348249816cea6b418377da649f58b6e07eb6dfcd6bc5cc65dbe665a55fc5"
+    },
+    {
+      "path": "README.md",
+      "sha256": "925abb2024798e2c73af81d0d5c775fdc360ffdc241e294ac1993ad44775a56e"
+    },
+    {
+      "path": "docs/project/master-brief.md",
+      "sha256": "7a134402d9ba237de415c73a7a7e427866798edc73b77d142b4ec0fec50c5ee6"
+    },
+    {
+      "path": "docs/milestones/m4c-scope.md",
+      "sha256": "1f86a7a0ffc829780d5fabf293c24f24950433e919a933d35ca5f19d791fb996"
+    },
+    {
+      "path": "docs/evidence/m4c-readiness-assessment.md",
+      "sha256": "b36bb9ad7319157f4572c243ec0a2c70df1ad1629589a79fb8b4ecb480515f13"
+    },
+    {
+      "path": "docs/decisions/0007-application-identity.md",
+      "sha256": "f4c2010c9e452c072e00aa0820077c09dbec60e327c94cd65520fc4e2652a626"
+    },
+    {
+      "path": "docs/threat-model.md",
+      "sha256": "0b35f52838cb751abc40cd566c0fdd9b840800a9c20d083e4da4302ff6d60c23"
+    },
+    {
+      "path": "docs/delivery.md",
+      "sha256": "8fc7046af02d024405718257e7aac717b24cf7117f2a794f13bd745cee8a4832"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/AuthApp.tsx",
+      "sha256": "e49b2c1b3a0e4a147fb28c4cbc4dbe7ef6cf22e02466459b7d53d03eb92b3bb0"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/main.tsx",
+      "sha256": "69a5ddf2bbc41b2f0389ed3728c5ffefb0c9913268dd7cb331ef4bcf49593348"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/App.tsx",
+      "sha256": "ab3d89c12a1591c6490cf9bf26d72a74e3db6ac53fa47f4902d600f03e8ced5a"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/api.ts",
+      "sha256": "ac01b99cc7abe1098bae8c33d0ae4926b0cc8ad413f46c49d27316542a7c491f"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+      "sha256": "c00bb0443bef72e1549da179dfd4e5efb8b41bc27ec44d141687b95c1dadb0a4"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+      "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/setup.ts",
+      "sha256": "8a48e3f3203adc47d858aeecf3ac11cb4c0eae0632f929fc897ecbd5a20e6099"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/auth.ts",
+      "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/runtime.ts",
+      "sha256": "de48b06010b7911363f69f3a30b07a8bad07cac5a9b731af81aa0a0d471a4210"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/app.ts",
+      "sha256": "3b78a5d03848182ec51b5056e71d49fe3511f3658eff7aa675cd64a2a0e501ec"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/auth.test.ts",
+      "sha256": "7249ce01702b081b5ec9d5567c11598bf8a391f1e6d3efc91be591e1088efb1e"
+    },
+    {
+      "path": "apps/octocat-supply/api/fixtures/README.md",
+      "sha256": "dfc56bc86e2934f28968ee104f061684a5437cda55c8d21dbce8c71395dc152a"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/start.sh",
+      "sha256": "3365440d52262f8987840bc577b0d85293c79edaec5e7d3a5ee6f3b62e5daa50"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/default.conf.template",
+      "sha256": "c8a04f8ae3fa6ebf879f70d6851237adf0ccc2f8826f2542ca97c1423c2ed054"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/vite.config.ts",
+      "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+    },
+    {
+      "path": "apps/octocat-supply/playwright.config.ts",
+      "sha256": "04baa2c7d841645782c8d849ab56aaca437fe9f4b249411d552e8fd3e38207c9"
+    },
+    {
+      "path": "apps/octocat-supply/vitest.config.ts",
+      "sha256": "f322a3f72f80ade328370bca7456180d6a784e131685d41624bf72d14151bda2"
+    },
+    {
+      "path": "apps/octocat-supply/tsconfig.tests.json",
+      "sha256": "e5a4426edf56782d171a85ada5bf46ee5ee37d6452f32f882728fb317adfa6f5"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+      "sha256": "a117527460eb215c5057451c056257bfafc09bd39bcde8f2bb5c667517a107ed"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/licenses.mjs",
+      "sha256": "fc8e01faf4ea10b896c158fb1843e3576bf580e422a0cdf4fbd4311a71798333"
+    },
+    {
+      "path": "apps/octocat-supply/package.json",
+      "sha256": "f04bbfc15a76e3f65d7dd0b45dc577d2c3024c942e18b02afb7cb1990cdc766b"
+    },
+    {
+      "path": "apps/octocat-supply/package-lock.json",
+      "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+    }
+  ],
+  "sourcePreservation": {
+    "originalApplicationTestDependencyWorkflowInfraDeliveryFileCount": 83,
+    "allByteIdentical": true,
+    "encoding": "Sorted path:sha256 plus newline, UTF-8",
+    "aggregateSha256": "328dc29fb8923708239a5baf2f45eb7899d2d996d9db55db180df49e236f4591"
+  },
+  "modifiedExistingDocumentation": [
+    "AGENTS.md",
+    "README.md",
+    "docs/capability-status.md",
+    "docs/decisions/0007-application-identity.md",
+    "docs/milestones/m4c-scope.md",
+    "docs/roadmap.md",
+    "docs/threat-model.md"
+  ],
+  "newDocumentation": [
+    "docs/milestones/m4c-c3-oidc-plan.md",
+    "docs/evidence/m4c-c3-planning.json"
+  ],
+  "gaps": [
+    {
+      "id": "G01",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G02",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G03",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G04",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G05",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G06",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G07",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G08",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G09",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G10",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G11",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    },
+    {
+      "id": "G12",
+      "classification": "Source-inspection finding; not newly executed protocol result"
+    }
+  ],
+  "proposedAcceptance": [
+    {
+      "id": "P01",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P02",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P03",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P04",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P05",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P06",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P07",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P08",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P09",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P10",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P11",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P12",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P13",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P14",
+      "status": "Planned; not executed in planning task"
+    },
+    {
+      "id": "P15",
+      "status": "Planned; not executed in planning task"
+    }
+  ],
+  "C3ImplementationAcceptance": {
+    "C3-A1": "Planned",
+    "C3-A2": "Planned",
+    "C3-A3": "Planned",
+    "regressionSecurityAndEvidence": "Planned"
+  },
+  "futurePolicyForOwnerReview": {
+    "transactionAgeSeconds": 300,
+    "identityNetworkTimeoutSeconds": 5,
+    "browserJwksTimeoutSeconds": 1,
+    "callbackAggregateTimeoutSeconds": 15,
+    "clockSkewSeconds": 5,
+    "runtimeApiAgePolicyChanged": false,
+    "refreshTokensSilentRenewOrOfflineAccess": false,
+    "signout": "this-tab application only; no provider logout/revocation claim"
+  },
+  "externalPrimarySources": [
+    {
+      "title": "OIDC Core",
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "PKCE RFC 7636",
+      "url": "https://datatracker.ietf.org/doc/html/rfc7636#section-4.6",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "OAuth Security BCP RFC 9700",
+      "url": "https://datatracker.ietf.org/doc/html/rfc9700#section-4.1",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "oidc-client-ts docs",
+      "url": "https://authts.github.io/oidc-client-ts/",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "Pinned engine validation source",
+      "url": "https://github.com/authts/oidc-client-ts/blob/v3.5.0/src/ResponseValidator.ts",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "Pinned engine release",
+      "url": "https://github.com/authts/oidc-client-ts/releases/tag/v3.5.0",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "React wrapper manifest",
+      "url": "https://github.com/authts/react-oidc-context/blob/main/package.json",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "MSAL React manifest",
+      "url": "https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/package.json",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "MSAL browser manifest",
+      "url": "https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/package.json",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "MSAL cache policy",
+      "url": "https://learn.microsoft.com/en-us/entra/msal/javascript/browser/caching",
+      "reviewedDate": "2026-11-10"
+    },
+    {
+      "title": "MSAL React integration",
+      "url": "https://learn.microsoft.com/en-us/entra/msal/javascript/react/getting-started",
+      "reviewedDate": "2026-11-10"
+    }
+  ],
+  "validation": [
+    {
+      "name": "repository",
+      "command": [
+        "python3",
+        "scripts/check_repository.py"
+      ],
+      "startedUtc": "2026-11-10T11:40:02.831234+00:00",
+      "exitCode": 0,
+      "status": "Pass",
+      "localLog": "artifacts/m4c-c3-planning/repository.log"
+    },
+    {
+      "name": "tracked-whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedUtc": "2026-11-10T11:40:03.536336+00:00",
+      "exitCode": 0,
+      "status": "Pass",
+      "localLog": "artifacts/m4c-c3-planning/tracked-whitespace.log"
+    },
+    {
+      "name": "secrets-tree",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact",
+        "--exit-code",
+        "1",
+        "."
+      ],
+      "startedUtc": "2026-11-10T11:40:03.549645+00:00",
+      "exitCode": 0,
+      "status": "Pass",
+      "localLog": "artifacts/m4c-c3-planning/secrets-tree.log"
+    },
+    {
+      "name": "untracked-whitespace",
+      "file": "docs/evidence/m4c-c3-planning.json",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "docs/evidence/m4c-c3-planning.json"
+      ],
+      "exitCode": 1,
+      "status": "Pass",
+      "diagnostics": ""
+    },
+    {
+      "name": "untracked-whitespace",
+      "file": "docs/milestones/m4c-c3-oidc-plan.md",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "docs/milestones/m4c-c3-oidc-plan.md"
+      ],
+      "exitCode": 1,
+      "status": "Pass",
+      "diagnostics": ""
+    },
+    {
+      "name": "source-preservation-and-head",
+      "status": "Pass",
+      "originalProtectedFilesUnchanged": 83,
+      "head": "b56d9bd189bcf9d3d077fa969c1bca2285d43742"
+    }
+  ],
+  "limitations": [
+    "No application, component, protocol, browser or cloud tests executed for this planning-only task",
+    "No new dependency installed; alternatives compared from maintained upstream docs/manifests, not installed or benchmarked",
+    "Current installed library has limited initial ID-token checks; current code supplies no nonce; recommended fixes not implemented",
+    "Temporary bundle probe is not an application delta or release artifact",
+    "Virtual HTTPS test-provider routing remains Planned and would not prove real TLS/provider CORS/tenant registration",
+    "CodeQL skipped; SAST and governance gaps remain; no settings/entitlement reread or change",
+    "C6 requires explicit tenant/registration/claim/user/sign-in/capture/cleanup authorization; C2/C4/C5/private cloud gates remain open"
+  ],
+  "notPerformed": [
+    "application changes",
+    "dependency additions or upgrades",
+    "provider authentication",
+    "credential or certificate creation",
+    "GitHub settings changes",
+    "Azure authentication",
+    "cloud provisioning or deployment",
+    "commit",
+    "push"
+  ],
+  "planningDeliverableComplete": true,
+  "planDocumentBinding": {
+    "path": "docs/milestones/m4c-c3-oidc-plan.md",
+    "sha256": "d02cd3c61dbc624af47a3fc54548efacfea4c07649600087de2975d81b76c59a"
+  }
+}
