@@ -1,6 +1,6 @@
 # ADR 0003 — Local SQLite and cloud relational durability
 
-Updated: 2026-10-31. Status: SQLite Locally tested; SQL adapter Implemented,
+Updated: 2026-11-10. Status: SQLite/shared contracts Locally tested; SQL adapter Implemented,
 recording-driver contracts Simulated; real SQL/Azure integration unverified.
 Requirements: R02, R06, R11, R20. Owner: repository owner.
 
@@ -114,6 +114,12 @@ private DNS, Azure SQL durability/backup behavior. No compatible authenticated S
 test database was available under this no-credentials/no-cloud scope. Real-engine
 contract, migration replay/drift/rollback and concurrency tests remain release gates.
 Host is macOS arm64; do not assume a supported Linux SQL Server engine from emulation.
+M4C-C1 adds 27 reusable domain cases executed against real file-backed SQLite and
+six SQLite-specific transaction/constraint regressions, without production changes.
+The [fixture contract and C2 matrix](../../apps/octocat-supply/api/test/contracts/README.md)
+require independent connections and asynchronous operations; real SQL execution
+remains Blocked. Scheduled synchronous SQLite operations do not establish parallel
+SQL transaction behavior. See [C1 evidence](../evidence/m4c-c1-repository-contracts.md).
 See [driver docs](https://tediousjs.github.io/node-mssql/),
 [Tedious configuration](https://tediousjs.github.io/tedious/api-connection.html)
 and [local evidence](../evidence/m4b-local-preparation.md).

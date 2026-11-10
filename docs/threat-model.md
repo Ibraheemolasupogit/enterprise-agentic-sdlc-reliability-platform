@@ -1,6 +1,9 @@
 # Application and agent STRIDE threat model
 
-Status: M1 design updated 2026-10-31 with M2/M3/M4B local evidence; cloud/agent controls remain unverified. Authority: master brief sections 10–12.
+Status: assessed 2026-11-10 with M2/M4B local and hosted CI evidence; real provider,
+SQL/Azure and agent controls remain unverified. M4C is documentation/planning only.
+See the [readiness assessment](evidence/m4c-readiness-assessment.md).
+Authority: master brief sections 10–12.
 Scope: [architecture](architecture.md), [requirements](requirements.md),
 [ADRs](decisions/0002-source-reuse.md) and [application identity](decisions/0007-application-identity.md).
 The original assessment below is supplemented by the implementation status table.
@@ -87,7 +90,7 @@ certification or universal prompt-injection immunity is claimed.
 | T04 | Memory-only browser tokens; per-subject cart references; no token/raw-owner logs; public non-secret config; safe 401/403/503; callback URL removed; actual browser/package license texts retained | XSS can still steal an active token; local sign-out neither revokes a bearer nor ends IdP SSO. Refresh requires sign-in. No real identity token captured/retained |
 | T01 / T04 | Fixed HTTPS host:443, CA/name/SNI verification, constrained resolver/config/CSP; bearer forwarded, spoofed principal/forwarding removed; API trust proxy false. Real local TLS success/name-denial tested | ACA routing/DNS and egress restrictions unverified. CSP allows one reviewed IdP connection origin. Config and trust store remain privileged inputs |
 | T05 | Pool max 4, 1s driver bounds, shared aggregate 1s SQL readiness; frontend 2s dependency check; DB failure fails access/readiness but not liveness | SQL timing test uses fake clock; actual cold start/performance and denial-of-service/rate limits unproven. Readiness does not exercise IdP/sign-in; separate journey probe required |
-| T08 / T09 | Compiled app config rejects cloud anonymous/SQLite fallback; eight delivery tests preserve read-only CI. CodeQL skip now visibly reported; Node 24 artifact pin locally validated | SAST has not run, GitHub protections unavailable/unverified and updated workflow not hosted-tested. No accepted security exception or release authority |
+| T08 / T09 | Compiled app config rejects cloud anonymous/SQLite fallback; hosted run 42794873352 at `40a6353` passed mandatory checks and reports CodeQL skipped | SAST has not run; main reports protection disabled, rulesets plan-restricted, detailed protection unreadable through integration and environments not re-read. No accepted security exception or release authority |
 
 Agents remain Planned; M4B adds no tools, inference rights or mutation authority.
 See [ADR 0007](decisions/0007-application-identity.md) and

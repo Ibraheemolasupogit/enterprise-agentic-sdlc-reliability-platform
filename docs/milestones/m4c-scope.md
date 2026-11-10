@@ -1,7 +1,8 @@
-# M4C — Proposed engineering-readiness work packages
+# M4C — Engineering-readiness work packages
 
-Date: 2026-11-10. Status: **assessment/planning authorized; implementation NOT
-authorized**. Authority: owner's M4C request, [master brief](../project/master-brief.md),
+Date: 2026-11-10. Status: **C1-only implementation authorized and locally tested;
+C2–C8 remain proposed, not authorized**. Authority: owner's bounded C1 request,
+[master brief](../project/master-brief.md),
 [M4A preflight](m4a-preflight.md), [M4B scope](m4b-scope.md) and
 [current assessment](../evidence/m4c-readiness-assessment.md). M4C subdivides the
 existing M4 stage; it adds no master milestone or deployment authority.
@@ -15,14 +16,15 @@ commit or push is part of these proposals. Deployment remains **NO-GO**.
 
 ## Dependency order and authority
 
-Every implementation package needs a new bounded owner request. “Local” below
+The owner authorized C1 only after the assessment. Every later implementation
+package needs a new bounded owner request. “Local” below
 means no Azure/Entra/GitHub settings access is intrinsically required, not permission
-to implement it in this assessment. Local test credentials/engine licenses also
+to implement later packages under C1. Local test credentials/engine licenses also
 need an explicit decision; local execution is not automatically credential-free.
 
 | Package | Depends on | Proposed boundary | External prerequisites / stop condition |
 | --- | --- | --- | --- |
-| C1 Repository contract foundation | Confirmed baseline | Entirely local, credential-free tests/documentation; recommended first slice | No SQL connection or engine claim; missing real SQL proof remains Blocked |
+| C1 Repository contract foundation | Confirmed baseline | Locally tested: credential-free reusable contracts and real SQLite regressions; [evidence](../evidence/m4c-c1-repository-contracts.md) | No SQL connection or engine claim; missing real SQL proof remains Blocked |
 | C2 Real SQL engine/driver rehearsal | C1 | Supported isolated local x64 SQL Server or specifically authorized existing test engine | Owner-approved host, pinned image/version/license, TLS and test-principal setup. Current ARM Mac cannot supply a supported SQL Server container |
 | C3 OIDC protocol harness | Baseline; can run alongside C1 | Local published fixtures and actual client-library callback behavior, labelled Simulated | No real account, provider registration, operational signing key or cloud login |
 | C4 Private SQL/network/identity/diagnostic definitions | C1/C3 configuration contracts; parallel with C2 | Local Bicep, compiled policy/mutations and diagnostic redaction tests only | Actual IDs/CIDRs/SKUs, effective routing/grants and ARM validation remain Blocked |
@@ -51,13 +53,15 @@ a SQL-only private bootstrap after C4/C5/C7A; C2 then executes on that target be
 C7B's combined application rehearsal. This is an explicit scope decision, never
 an automatic cloud/credential fallback or a circular permission inferred from C2.
 
-## C1 — Recommended first implementation boundary
+## C1 — Authorized repository contract foundation
 
-**One credential-free test-only slice.** Proposed files:
+**One credential-free test-only slice, completed locally.** Implemented files:
 `apps/octocat-supply/api/test/contracts/repository.contract.ts`,
 `apps/octocat-supply/api/test/repository-sqlite.contract.test.ts`, a focused
-contract/evidence document and, only if needed, test configuration/script wiring.
-These paths are proposals, not files implemented by this assessment.
+contract/evidence document. Existing test discovery required no configuration,
+package, script or workflow changes. [C1 evidence](../evidence/m4c-c1-repository-contracts.md)
+records C1-A1–A4 results; [the contract matrix](../../apps/octocat-supply/api/test/contracts/README.md)
+is the C2 handoff. No C2 engine runner or skipped placeholder was added.
 
 Acceptance C1-A1: express the existing `Repository` requirements as reusable adapter
 tests and run them against a new isolated SQLite database. Use two synthetic
@@ -335,5 +339,6 @@ Each package's evidence must record actor/authorization, source and environment,
 UTC times/commands, case IDs, expected/actual statuses, failures, scanner coverage,
 sanitized hashes and explicit limits. Keep raw sensitive artifacts out of Git;
 update only relevant summaries and capability status. Current authority stops at
-this plan. **Recommended next request: C1 only**, without engine/provider/cloud
-credentials, IaC implementation, settings or release execution.
+C1 tests/evidence. **Next possible request: bounded C2 prerequisite selection**,
+followed by separately authorized engine execution; no engine/provider/cloud
+credentials, IaC implementation, settings or release execution follows from C1.

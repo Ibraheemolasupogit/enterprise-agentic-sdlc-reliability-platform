@@ -4,9 +4,11 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current stage: M4B — local preparation only.** OIDC/cart ownership, SQL adapter
-and HTTPS proxy have local evidence with the limits below. Hosted M3 CI is verified;
-CodeQL was skipped and has not executed. Azure session/permission/quota checks
+**Current stage: M4C-C1 — repository contracts locally tested on real SQLite.**
+C2–C8 implementation needs new bounded owner direction. OIDC/cart ownership, SQL adapter
+and HTTPS proxy retain the evidence limits below. Hosted M4B run 42794873352 at
+`40a6353` passed policy/application/containers/required; CodeQL skipped and has not
+executed. Azure session/permission/quota checks
 remain blocked and deployment is NO-GO pending the documented gates. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
 demo with original synthetic data and illustrations. OctoCAT Supply is the
@@ -17,6 +19,9 @@ Agents, cloud deployment and release execution remain planned.
 
 | Document | Purpose |
 | --- | --- |
+| [M4C readiness assessment](docs/evidence/m4c-readiness-assessment.md) | Current hosted baseline, real SQL/provider gaps, governance reads and verification limits |
+| [M4C work packages](docs/milestones/m4c-scope.md) | C1-only authorization; remaining dependency order, acceptance tests, boundaries and costs |
+| [C1 repository evidence](docs/evidence/m4c-c1-repository-contracts.md) | 27 shared contracts and six SQLite regressions; real SQL C2 handoff remains Blocked |
 | [M4B local evidence](docs/evidence/m4b-local-preparation.md) | Executed local checks, SQL simulation limits and remaining NO-GO gates |
 | [M4A preflight](docs/milestones/m4a-preflight.md) | Verified CI, blocked Azure facts and deployment readiness gaps |
 | [Azure cost/control plan](docs/project/azure-cost-estimate.md) | Itemised provisional costs, approval/budget-alert proposal and teardown |
@@ -59,7 +64,7 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stops at M4B local preparation.
+delivery dependency here. Current authorization stops at C1 tests/documentation.
 Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.

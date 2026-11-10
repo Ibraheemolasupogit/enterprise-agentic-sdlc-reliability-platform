@@ -1,0 +1,567 @@
+{
+  "assessedDateUTC": "2026-11-10",
+  "scope": "M4C engineering-readiness assessment/planning only",
+  "assessmentStatus": "Recorded; documentation checks passed; implementation not authorized",
+  "implementationAuthorized": false,
+  "deploymentDecision": "NO-GO",
+  "initialWorkingTree": "clean",
+  "head": "40a6353c90bf614604f7de517639d0dd4f832867",
+  "hosted": {
+    "runId": 42794873352,
+    "url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/42794873352",
+    "event": "push",
+    "branch": "main",
+    "headSha": "40a6353c90bf614604f7de517639d0dd4f832867",
+    "status": "completed",
+    "conclusion": "success",
+    "createdUTC": "2026-11-10T09:56:17Z",
+    "updatedUTC": "2026-11-10T10:01:26Z",
+    "jobs": [
+      {
+        "name": "policy",
+        "id": 129757337030,
+        "result": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 -m pip install --disable-pip-version-check -r requirements-delivery.txt",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/install_tools.py \"$RUNNER_TEMP/morrow-tools\"",
+            "result": "success"
+          },
+          {
+            "name": "Run echo \"$RUNNER_TEMP/morrow-tools\" >> \"$GITHUB_PATH\"",
+            "result": "success"
+          },
+          {
+            "name": "Run actionlint -shellcheck=\"\"",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/validate_infra.py",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 -m unittest discover -s tests/delivery -v",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/check_repository.py",
+            "result": "success"
+          },
+          {
+            "name": "Run git diff --check",
+            "result": "success"
+          },
+          {
+            "name": "Run gitleaks git --redact --exit-code 1 --log-opts=\"--all\" .",
+            "result": "success"
+          },
+          {
+            "name": "Run gitleaks dir --redact --exit-code 1 .",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/scan_config.py",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+            "result": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Complete job",
+            "result": "success"
+          }
+        ]
+      },
+      {
+        "name": "application",
+        "id": 129757337347,
+        "result": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "result": "success"
+          },
+          {
+            "name": "Initialize containers",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "result": "success"
+          },
+          {
+            "name": "Run npm ci --ignore-scripts",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run licenses",
+            "result": "success"
+          },
+          {
+            "name": "Run git diff --exit-code -- dependencies.json frontend/public/third-party-notices.txt",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run format:check",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run typecheck",
+            "result": "success"
+          },
+          {
+            "name": "Run npm test",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "result": "success"
+          },
+          {
+            "name": "Run npm audit --audit-level=high",
+            "result": "success"
+          },
+          {
+            "name": "Use version-matched bundled Chromium (no runtime apt)",
+            "result": "success"
+          },
+          {
+            "name": "Run npm run test:e2e",
+            "result": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "result": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Stop containers",
+            "result": "success"
+          },
+          {
+            "name": "Complete job",
+            "result": "success"
+          }
+        ]
+      },
+      {
+        "name": "codeql",
+        "id": 129757339072,
+        "result": "skipped",
+        "steps": []
+      },
+      {
+        "name": "containers",
+        "id": 129758411920,
+        "result": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "result": "success"
+          },
+          {
+            "name": "Run npm ci --ignore-scripts",
+            "result": "success"
+          },
+          {
+            "name": "Run npm exec -- playwright install --with-deps chromium",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/install_tools.py \"$RUNNER_TEMP/morrow-tools\" trivy",
+            "result": "success"
+          },
+          {
+            "name": "Run echo \"$RUNNER_TEMP/morrow-tools\" >> \"$GITHUB_PATH\"",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/verify_containers.py",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/verify_proxy.py",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/scan_images.py",
+            "result": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/provenance.py",
+            "result": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+            "result": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "result": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "result": "success"
+          },
+          {
+            "name": "Complete job",
+            "result": "success"
+          }
+        ]
+      },
+      {
+        "name": "required",
+        "id": 129759759951,
+        "result": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "result": "success"
+          },
+          {
+            "name": "Fail closed on failed or cancelled validation",
+            "result": "success"
+          },
+          {
+            "name": "Complete job",
+            "result": "success"
+          }
+        ]
+      }
+    ],
+    "observedTests": {
+      "application": 64,
+      "applicationBrowser": 3,
+      "containerBrowser": 3
+    },
+    "proxy": "PASS positive trusted TLS/bearer/header/readiness and negative name/config cases in logs",
+    "images": "Scan/provenance job steps successful; artifact contents and hashes not independently reverified in this assessment",
+    "codeql": "Skipped; no SAST result",
+    "noWorkflowTriggered": true
+  },
+  "governance": {
+    "repository": {
+      "private": true,
+      "ownerType": "User",
+      "securityAndAnalysis": "not returned; entitlement state unverified"
+    },
+    "main": {
+      "sha": "40a6353c90bf614604f7de517639d0dd4f832867",
+      "protected": false,
+      "protectionEnabled": false,
+      "statusEnforcement": "off"
+    },
+    "protection": {
+      "status": 403,
+      "reason": "Resource not accessible by integration",
+      "interpretation": "Integration permission restriction; not a current plan-error observation"
+    },
+    "rulesets": {
+      "status": 403,
+      "reason": "Upgrade to GitHub Pro or make this repository public to enable this feature.",
+      "interpretation": "Current private-plan restriction"
+    },
+    "environments": {
+      "status": "Not re-read",
+      "reason": "Connected fetch tool rejected endpoint as unsupported (400); no alternate credentials used",
+      "historical": "M4A recorded zero environments on 2026-10-31; not a current claim"
+    },
+    "decisionsUnmade": [
+      "Supported private CodeQL entitlement or licensed SAST alternative with actual coverage results",
+      "Enforceable protected release route versus explicitly approved owner-operated fallback",
+      "Independent reviewer availability",
+      "Any plan, ownership, visibility, variable or settings changes"
+    ]
+  },
+  "capabilityAssessment": {
+    "sqlite": "Locally tested, with hosted synthetic CI evidence",
+    "sqlAdapter": "Implemented",
+    "sqlRecordingTests": "Simulated; 8 tests use recording executor/fake clocks",
+    "realSqlEngine": "Blocked; no production DriverExecutor integration evidence",
+    "sqlServerHost": "Current macOS arm64 is not a supported SQL Server Linux container host; owner-approved x64 or dedicated engine needed",
+    "azureSqlManagedIdentityPrivateNetwork": "Blocked; no live proof",
+    "oidcCryptoAndSQLiteOwnership": "Locally tested including real crypto/HTTP with published fixtures; hosted baseline passed",
+    "oidcBrowserTests": "Three config/storage/bearer tests; no full provider redirect or code exchange",
+    "oidcRealProvider": "Blocked; registrations/claims/roles/consent/PKCE/CORS/provider sessions unverified",
+    "azureDefinitions": "Four existing Bicep templates statically validated; missing private SQL/network/bootstrap/migrator/diagnostics resources",
+    "diagnostics": "API safe request JSON and Nginx errors exist; environment logs destination none; no cloud sink/correlation implementation",
+    "sast": "Blocked; CodeQL skipped",
+    "releaseGovernance": "Blocked; main unprotected, rulesets plan-restricted; detailed protection/environment configuration incompletely readable"
+  },
+  "validationTargets": [
+    "Real BigInt/int/nvarchar/UUID driver binding and result types",
+    "T-SQL DDL/checksum/application lock/rollback/grants/concurrency behavior",
+    "Verified TLS and private DNS using normal SQL FQDN",
+    "Configured driver/readiness/HTTP timeout behavior under real contention and reconnect",
+    "API one-hour maxTokenAge versus provider/browser lifetime and reauthentication",
+    "Actual UserManager PKCE/state/nonce/code/callback/error handling",
+    "Credential-safe real-provider traces/HAR/log/artifact capture",
+    "Distinct SQL runtime/migrator rights and managed identity issuance/renewal in ACA",
+    "No raw query/PII diagnostics collection; no claim that replica limits prevent abuse"
+  ],
+  "workPackages": [
+    {
+      "id": "C1",
+      "title": "Credential-free shared repository contract foundation",
+      "dependsOn": [
+        "baseline"
+      ],
+      "authorization": "New local test-only owner request; no engine/provider/credentials/cloud",
+      "acceptance": "C1-A1 through C1-A4 in docs/milestones/m4c-scope.md",
+      "status": "Planned",
+      "recommendedFirst": true
+    },
+    {
+      "id": "C2",
+      "title": "Supported real SQL engine and locked driver integration",
+      "dependsOn": [
+        "C1",
+        "approved x64/dedicated engine/license/TLS/test principals"
+      ],
+      "authorization": "Explicit local test environment/principal scope; or separately authorized dedicated cloud target",
+      "acceptance": "C2-A1 through C2-A4",
+      "status": "Blocked"
+    },
+    {
+      "id": "C3",
+      "title": "Offline OIDC protocol and safe-capture harness",
+      "dependsOn": [
+        "baseline"
+      ],
+      "authorization": "New local credential-free fixture task",
+      "acceptance": "C3-A1 through C3-A3",
+      "status": "Planned"
+    },
+    {
+      "id": "C4",
+      "title": "Offline private SQL/network/identity/minimal diagnostic definitions",
+      "dependsOn": [
+        "C1",
+        "C3 configuration contracts"
+      ],
+      "authorization": "New local IaC/test scope; no ARM/Azure calls or apply",
+      "acceptance": "C4-A1 through C4-A4",
+      "status": "Planned"
+    },
+    {
+      "id": "C5",
+      "title": "SAST/governance route and independent review",
+      "dependsOn": [
+        "baseline"
+      ],
+      "authorization": "Decision paper/local coverage preparation; any tool execution, workflow/settings/billing changes separately scoped",
+      "acceptance": "C5-A1 through C5-A2",
+      "status": "Blocked"
+    },
+    {
+      "id": "C6",
+      "title": "Real provider PKCE and token-flow rehearsal",
+      "dependsOn": [
+        "C3",
+        "explicit tenant/registration/test-principal/sign-in approval"
+      ],
+      "authorization": "Real cloud identity authorization; local HTTPS/SQLite can isolate provider behavior without Azure infrastructure",
+      "acceptance": "C6-A1 through C6-A2",
+      "status": "Blocked"
+    },
+    {
+      "id": "C7",
+      "title": "Azure preflight then separately approved private integration",
+      "dependsOn": [
+        "C4",
+        "C7A explicit cloud read/ARM approval",
+        "C7B additionally C2/C5/C6 and mutation/cost/teardown approval"
+      ],
+      "authorization": "Two distinct approvals; read/ARM never authorizes apply; absent/expired session stops without refresh",
+      "acceptance": "C7A preflight; C7B private SQL/MI/ingress/roles/diagnostics/data tests and teardown",
+      "status": "Blocked"
+    },
+    {
+      "id": "C8",
+      "title": "Evidence freeze and independent readiness handoff",
+      "dependsOn": [
+        "C2",
+        "C4",
+        "C5",
+        "C6",
+        "C7B"
+      ],
+      "authorization": "Reviewed local handoff only, no release or promotion",
+      "acceptance": "C8-A1 through C8-A2",
+      "status": "Planned"
+    }
+  ],
+  "costs": {
+    "approvedSpend": null,
+    "azurePricesRefreshed": false,
+    "historicalM4AModel": {
+      "assessed": "2026-10-31",
+      "currency": "GBP",
+      "preTax": true,
+      "rehearsal48Hours": 5.03,
+      "proposedUnapprovedCeiling": 10,
+      "lowDutyMonthly": 51.2,
+      "activeMonthly": 102.32,
+      "limits": "Unverified network allowances and excluded GitHub/SAST/premium identity; not a current quote or approval"
+    },
+    "githubCodeSecurityPublicListPrice": {
+      "usdPerActiveCommitterMonth": 30,
+      "source": "https://github.com/security/plans",
+      "eligibility": "Eligible base plan/organization and separate reviewer-protection needs; no quote/entitlement for current personal private repo"
+    },
+    "otherPotentialCosts": [
+      "x64 compute/CI minutes/storage and local power/downloads",
+      "engine license/EULA and explicit ephemeral test-principal setup decisions",
+      "identity/admin/test-user work and premium features if required",
+      "ACA and migrator compute; ACR; SQL; PE/DNS; managed IP/LB; transfer/backup; log ingestion/retention"
+    ],
+    "requoteBeforeCloudApproval": true
+  },
+  "boundaries": {
+    "localWithoutCloud": [
+      "C1",
+      "C3",
+      "C4",
+      "C5 decision/coverage preparation"
+    ],
+    "localButNeedsSeparateEngineCredentialApproval": [
+      "C2 on supported owned x64 hardware"
+    ],
+    "requiresExplicitCloudIdentityAuthorization": [
+      "C6"
+    ],
+    "requiresExplicitAzureReadArmAuthorization": [
+      "C7A"
+    ],
+    "requiresSeparateMutationCostAndTeardownAuthorization": [
+      "C7B"
+    ],
+    "prohibitedNow": [
+      "Implementation or operational test runs",
+      "SQL/provider/image installation",
+      "New credentials or operational use of published vectors",
+      "Cloud authentication, refresh or fallback",
+      "Provision/apply/deploy/publish",
+      "GitHub settings/visibility/entitlement changes",
+      "Paid inference or agents",
+      "Commit or push"
+    ],
+    "azureAccountFacts": "Not rechecked; prior Azure session/subscription/RBAC/region/quota blockers remain",
+    "claimsProcessing": "Separate; no code/data/config reuse"
+  },
+  "sources": [
+    "https://learn.microsoft.com/sql/linux/install-upgrade/setup",
+    "https://learn.microsoft.com/en-us/sql/linux/sql-server-linux-faq?view=sql-server-ver17",
+    "https://learn.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code",
+    "https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens",
+    "https://learn.microsoft.com/en-us/azure/container-apps/custom-virtual-networks",
+    "https://learn.microsoft.com/en-us/azure/azure-sql/database/private-endpoint-overview?view=azuresql",
+    "https://learn.microsoft.com/en-us/azure/container-apps/managed-identity",
+    "https://learn.microsoft.com/en-us/azure/container-apps/log-monitoring",
+    "https://docs.github.com/en/code-security/reference/code-scanning/troubleshoot-analysis-errors/private-repository-enablement",
+    "https://docs.github.com/en/code-security/concepts/code-scanning/codeql/codeql-cli",
+    "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+    "https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments",
+    "https://github.com/security/plans"
+  ],
+  "verification": {
+    "repository": "PASS 55 text files, 40 Markdown files, 323 relative links/anchors; all 13 roadmap titles and catalogue references",
+    "json": "PASS Python JSON parsing",
+    "trackedWhitespace": "PASS git diff --check",
+    "untrackedWhitespace": [
+      {
+        "path": "docs/evidence/m4c-readiness-assessment.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4c-readiness-assessment.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/milestones/m4c-scope.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      }
+    ],
+    "secretScan": "PASS gitleaks dir --redact --exit-code 1 .; no findings, no exclusions added; history not rerun",
+    "unchangedImplementation": {
+      "result": "PASS",
+      "protectedInputs": 80,
+      "snapshotSha256": "f44951e86b3798dfe8ba15f97a40cbfabab06acef4c85fa9d8d503b52bde9fcd",
+      "prefixes": [
+        "apps/",
+        "infra/",
+        ".github/",
+        "scripts/",
+        "tests/",
+        "security/"
+      ]
+    },
+    "newApplicationOrCloudTestsRun": false,
+    "changedFiles": [
+      "AGENTS.md",
+      "README.md",
+      "docs/architecture.md",
+      "docs/capability-status.md",
+      "docs/delivery.md",
+      "docs/evidence/m4c-readiness-assessment.json",
+      "docs/evidence/m4c-readiness-assessment.md",
+      "docs/milestones/m4c-scope.md",
+      "docs/roadmap.md",
+      "docs/threat-model.md"
+    ]
+  },
+  "prohibitedActionsPerformed": [],
+  "recordedUTC": "2026-11-10T10:28:29.562996+00:00",
+  "rawEvidence": [
+    {
+      "path": "artifacts/m4c-readiness/unchanged-inputs.json",
+      "sha256": "f44951e86b3798dfe8ba15f97a40cbfabab06acef4c85fa9d8d503b52bde9fcd"
+    },
+    {
+      "path": "artifacts/m4c-readiness/hosted-excerpt.log",
+      "sha256": "6961f00ee5522317fcd4d94478fc65ace89597bc2cb4b6056045902116bba650"
+    },
+    {
+      "path": "artifacts/m4c-readiness/untracked-whitespace.json",
+      "sha256": "88deb99674f92aecdb470b67e96f64aa52154f5461f23f94c3f1a29956e1cdff"
+    }
+  ]
+}

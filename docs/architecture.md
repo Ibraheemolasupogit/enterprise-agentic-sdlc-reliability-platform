@@ -2,8 +2,11 @@
 
 Status: **Locally tested** M2 baseline and M4B authentication/proxy preparation;
 SQL contracts **Simulated**, actual SQL/Entra/Azure execution **Blocked**. M3 hosted
-CI was confirmed by M4A on the earlier committed baseline; no hosted M4B result.
-Agent/Azure/observability runtime diagrams remain **Design only**. Authority: [master brief](project/master-brief.md).
+CI was confirmed by M4A on the earlier baseline. Hosted M4B run 42794873352 at
+`40a6353` now passes all four mandatory jobs, with CodeQL skipped; see
+[M4C assessment](evidence/m4c-readiness-assessment.md). M4C implementation is not
+authorized. Agent/Azure/observability runtime diagrams remain **Design only**.
+Authority: [master brief](project/master-brief.md).
 Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
 

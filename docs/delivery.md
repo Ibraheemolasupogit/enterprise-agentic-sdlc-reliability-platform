@@ -9,6 +9,12 @@ Subsequent [M4A preflight](milestones/m4a-preflight.md) confirms hosted run
 It found no GitHub environments and plan-restricted branch/ruleset protection
 reads; Azure live checks remain blocked. M3 evidence remains a historical snapshot.
 
+The [M4C assessment](evidence/m4c-readiness-assessment.md) confirms hosted run
+42794873352 at `40a6353` passed policy/application/containers/required, including
+the M4B repairs; CodeQL skipped. Current main reports protection disabled and
+rulesets remain plan-restricted. M4C is assessment/planning only; no new workflow,
+settings, publishing, Azure authentication or release is authorized.
+
 ## One validation pipeline
 
 [Secure delivery](../.github/workflows/ci.yml) runs for PRs/main pushes and manual
@@ -34,8 +40,9 @@ revision without a runtime apt refresh; setup-node still selects exact Node
 step bound. Missing/mismatched browsers or dependencies still fail real E2E.
 See the [bounded timeout repair evidence](evidence/m4b-playwright-ci-repair.md).
 The containers job, including its separate host-side `--with-deps` installation,
-is unchanged and still must execute successfully. No passing hosted result for
-the new application environment is claimed.
+is unchanged and succeeded in that run, along with the new application environment.
+This closes the repair's hosted gap, not its continuing external mirror/network
+dependency or any SQL/provider/cloud/SAST/governance gate.
 
 CodeQL is the trusted-main-only `codeql` job, disabled unless the owner explicitly
 sets repository variable `CODEQL_ENABLED=true` **after** confirming support and
@@ -267,8 +274,8 @@ supported CodeQL results or a reviewed alternative/coverage decision and human g
 The previous artifact-action pin declared Node 20 and produced runtime warnings.
 Both uploads now pin v7.0.2 at `cf430e030ddbb5b0abf93d22962f4752f3646cd9`, whose
 [primary action metadata](https://github.com/actions/upload-artifact/blob/cf430e030ddbb5b0abf93d22962f4752f3646cd9/action.yml)
-declares Node 24. Successful execution/removal of punycode/url.parse warnings still
-needs a fresh hosted run; actionlint/policy cannot prove it. No Node-force flag or
+declares Node 24. Both upload steps succeeded in run 42794873352; this assessment
+does not claim every historical warning is absent. No Node-force flag or
 warning suppression was added. Playwright's local NO_COLOR/FORCE_COLOR conflict is
 separate from those hosted warnings.
 
@@ -278,4 +285,5 @@ local Docker and a fake bearer string, without provider authentication. It check
 TLS name/CA/SNI, CSP, forwarding, dependency failure and seven rejected configs; see
 [fixture notice](../scripts/delivery/TLS_FIXTURE_NOTICE.txt). The required job emits
 a coverage notice when CodeQL is skipped. No publish/deploy/OIDC job or new
-permission is introduced. Hosted execution of these edits remains unverified.
+permission is introduced. Hosted execution passed at `40a6353`; the original
+dated M4B repair records remain historical snapshots.

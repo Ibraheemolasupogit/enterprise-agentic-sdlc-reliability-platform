@@ -1,0 +1,911 @@
+{
+  "milestone": "M4C-C1",
+  "date": "2026-11-10",
+  "status": "Locally tested on real SQLite; C1-A1 through C1-A4 met",
+  "authority": "Owner request: C1 tests/evidence only; stop at C1",
+  "baseHead": "0645f09b8a8bad0cdbbafe694c3a60e27be601f8",
+  "initialSnapshotUtc": "2026-11-10T10:38:35.726933+00:00",
+  "recordedUtc": "2026-11-10T10:52:15.022386+00:00",
+  "workingTreeWasDirty": true,
+  "initialStatus": [
+    " M AGENTS.md",
+    " M README.md",
+    " M docs/architecture.md",
+    " M docs/capability-status.md",
+    " M docs/delivery.md",
+    " M docs/roadmap.md",
+    " M docs/threat-model.md",
+    "?? docs/evidence/m4c-readiness-assessment.json"
+  ],
+  "taskModifiedExistingFiles": [
+    "AGENTS.md",
+    "README.md",
+    "docs/capability-status.md",
+    "docs/decisions/0003-persistence.md",
+    "docs/milestones/m4c-scope.md",
+    "docs/roadmap.md"
+  ],
+  "taskNewFiles": [
+    "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+    "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+    "apps/octocat-supply/api/test/contracts/README.md",
+    "docs/evidence/m4c-c1-repository-contracts.md",
+    "docs/evidence/m4c-c1-repository-contracts.json"
+  ],
+  "preexistingWorkPreserved": true,
+  "byteIdenticalPreexistingDocuments": [
+    "docs/architecture.md",
+    "docs/delivery.md",
+    "docs/threat-model.md",
+    "docs/evidence/m4c-readiness-assessment.json"
+  ],
+  "sourceIntegrity": {
+    "protectedOriginalFileCount": 80,
+    "allByteIdenticalToInitialSnapshot": true,
+    "aggregateSha256": "04584327ab939de2955c70d3dfff196c4f196ca8452764eb1b68232c8a765311",
+    "encoding": "UTF-8 sorted path:sha256 plus newline for each original file under apps/, .github/, infra/, scripts/, tests/, security/"
+  },
+  "bindingsSha256": [
+    {
+      "path": "apps/octocat-supply/package-lock.json",
+      "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+    },
+    {
+      "path": "apps/octocat-supply/package.json",
+      "sha256": "f04bbfc15a76e3f65d7dd0b45dc577d2c3024c942e18b02afb7cb1990cdc766b"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database.ts",
+      "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/repository.ts",
+      "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/sql.ts",
+      "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/auth.ts",
+      "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "dc521dcfe45bcab5a523e099452320d20ed7feae0c579189973dfff05bcf6c04"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+      "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+      "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/README.md",
+      "sha256": "16ccdaff381e345850fa4b90c8c86ab0bd91adab73a493c1608d03c59dc0a7ba"
+    }
+  ],
+  "runtimeSchema": {
+    "node": "v24.22.2",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sqlite": "3.53.4",
+    "fixtures": {
+      "rows": 12,
+      "encoding": "JSON.stringify(fixtures), UTF-8, no trailing newline",
+      "sha256": "674bb9e29fbd1eef921680cfb4ce99a1293f5ea313c55e05bcc491a68fdcad89"
+    },
+    "sqliteMigrations": [
+      {
+        "version": 1,
+        "sha256": "5ad18314480f4df1511889491541bc16b44a482e0af90251eb71b2f84bdf695f"
+      },
+      {
+        "version": 2,
+        "sha256": "a5f8561c6965ee6c95b0612ffffa5acc804738dcac0a03d64bf66997cecd4fac"
+      },
+      {
+        "version": 3,
+        "sha256": "3efb5845fc30a76b325e03a08e6e2d32677ab09618119218b69b79745efee75d"
+      }
+    ],
+    "sqlMigrationsNotExecuted": [
+      {
+        "version": 1,
+        "sha256": "3caf6877f1aa0dcbc5a0eaaa0c47d1cdf05728ed354329e660efc145ca1b9d21"
+      }
+    ]
+  },
+  "tools": {
+    "npm": "11.19.1",
+    "vitest": "5.0.5",
+    "playwright": "1.64.1",
+    "python": "3.12.8",
+    "docker": "28.3.3 linux/arm64",
+    "bicep": "0.48.1 (cec7951cf6)",
+    "actionlint": "1.7.12",
+    "gitleaks": "8.30.1",
+    "trivy": "0.72.0",
+    "trivyDatabaseUpdatedUtc": "2026-11-09T13:58:27.621115901Z"
+  },
+  "applicationTests": {
+    "total": 97,
+    "passed": 97,
+    "failed": 0,
+    "skipped": 0,
+    "originalTestsPassed": 64,
+    "newSharedPassed": 27,
+    "newSqliteSpecificPassed": 6,
+    "newCases": [
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R01: exposes the exact seeded catalogue and product details on a ready database",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R02: combines case-insensitive search/category filters and counts before pagination",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R03: treats wildcard and SQL-like search input as literal data",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R04: sorts and pages equal prices deterministically by product ID",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R05: reports a missing product with the safe domain error",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R06: creates distinct empty carts, including two for the same owner",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R07/cart: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R07/setQuantity: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R07/removeItem: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R07/deleteCart: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R08: isolates same-product mutations and removals across carts and owners",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R09: sets absolute quantities at both bounds, deduplicates retries and orders lines",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R10: computes authoritative integer prices, floors the discount and reprices after removal",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R11: applies the exact discount threshold and removes it below the threshold",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/0: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/-1: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/1.5: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/100: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/NaN: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/Infinity: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R12/-Infinity: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R13: missing-product failure preserves the cart and allows a subsequent transaction",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R14: removing a line is idempotent, including absent products, and leaves a usable empty cart",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R15: deletes only the chosen cart and a repeated delete reports not found",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R16: retains ownership, changes and deletions after every connection closes and reopens",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R17: two connections retain distinct-product absolute updates over 20 scheduled rounds",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Repository acceptance \u2014 real file-backed SQLite R18: scheduled same-product writes produce one serialized absolute value and duplicate retries stay idempotent",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S01/INSERT: rolls back a post-write failure and releases the transaction",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S01/UPDATE: rolls back a post-write failure and releases the transaction",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S01/DELETE: rolls back a post-write failure and releases the transaction",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S02: enforces foreign keys/quantity/uniqueness and cascades only the deleted cart's lines",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S03: hides uncommitted changes, rejects a contending writer and recovers after rollback",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      },
+      {
+        "name": "Real SQLite transaction/constraint regressions S04: rolls back a failed cart deletion including its cascaded line deletions",
+        "status": "passed",
+        "environment": "real file-backed SQLite"
+      }
+    ]
+  },
+  "simulatedSqlTests": {
+    "count": 8,
+    "passed": 8,
+    "classification": "Simulated recording executor/fake-clock tests; no SQL engine or production driver connection"
+  },
+  "c2CommonCases": [
+    {
+      "id": "R01",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R02",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R03",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R04",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R05",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R06",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R07",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R08",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R09",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R10",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R11",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R12",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R13",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R14",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R15",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R16",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R17",
+      "status": "Blocked; real SQL engine not executed"
+    },
+    {
+      "id": "R18",
+      "status": "Blocked; real SQL engine not executed"
+    }
+  ],
+  "validation": [
+    {
+      "name": "format",
+      "command": [
+        "npm",
+        "run",
+        "format:check"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:19.957985+00:00",
+      "finished": "2026-11-10T10:44:20.777387+00:00",
+      "elapsedSeconds": 0.819,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/format.log"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:20.777860+00:00",
+      "finished": "2026-11-10T10:44:21.711398+00:00",
+      "elapsedSeconds": 0.934,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/lint.log"
+    },
+    {
+      "name": "types",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:21.711708+00:00",
+      "finished": "2026-11-10T10:44:23.627943+00:00",
+      "elapsedSeconds": 1.916,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/types.log"
+    },
+    {
+      "name": "application-tests",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile=../../artifacts/m4c-c1/application-tests.json"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:23.628341+00:00",
+      "finished": "2026-11-10T10:44:25.289461+00:00",
+      "elapsedSeconds": 1.661,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/application-tests.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:25.289899+00:00",
+      "finished": "2026-11-10T10:44:26.338355+00:00",
+      "elapsedSeconds": 1.048,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/build.log"
+    },
+    {
+      "name": "licenses",
+      "command": [
+        "npm",
+        "run",
+        "licenses"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:26.338803+00:00",
+      "finished": "2026-11-10T10:44:26.471413+00:00",
+      "elapsedSeconds": 0.133,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/licenses.log"
+    },
+    {
+      "name": "license-diff",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "apps/octocat-supply/dependencies.json",
+        "apps/octocat-supply/frontend/public/third-party-notices.txt"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:44:26.472744+00:00",
+      "finished": "2026-11-10T10:44:26.514969+00:00",
+      "elapsedSeconds": 0.042,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/license-diff.log"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--audit-level=high",
+        "--json"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:26.515347+00:00",
+      "finished": "2026-11-10T10:44:27.931420+00:00",
+      "elapsedSeconds": 1.416,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/audit.log"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "cwd": "apps/octocat-supply",
+      "started": "2026-11-10T10:44:27.931878+00:00",
+      "finished": "2026-11-10T10:44:31.730617+00:00",
+      "elapsedSeconds": 3.799,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/browser.log"
+    },
+    {
+      "name": "actionlint",
+      "command": [
+        "actionlint",
+        "-shellcheck="
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:05.936629+00:00",
+      "finished": "2026-11-10T10:45:05.960211+00:00",
+      "elapsedSeconds": 0.023,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/actionlint.log"
+    },
+    {
+      "name": "bicep",
+      "command": [
+        "python3",
+        "scripts/delivery/validate_infra.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:05.960599+00:00",
+      "finished": "2026-11-10T10:45:10.719987+00:00",
+      "elapsedSeconds": 4.759,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/bicep.log"
+    },
+    {
+      "name": "delivery-security",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/delivery",
+        "-v"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:10.720332+00:00",
+      "finished": "2026-11-10T10:45:11.018490+00:00",
+      "elapsedSeconds": 0.298,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/delivery-security.log"
+    },
+    {
+      "name": "config-scan",
+      "command": [
+        "python3",
+        "scripts/delivery/scan_config.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:11.018813+00:00",
+      "finished": "2026-11-10T10:45:12.838945+00:00",
+      "elapsedSeconds": 1.82,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/config-scan.log"
+    },
+    {
+      "name": "containers",
+      "command": [
+        "python3",
+        "scripts/delivery/verify_containers.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:23.410662+00:00",
+      "finished": "2026-11-10T10:45:42.586968+00:00",
+      "elapsedSeconds": 19.176,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/containers.log"
+    },
+    {
+      "name": "proxy",
+      "command": [
+        "python3",
+        "scripts/delivery/verify_proxy.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:45:42.587666+00:00",
+      "finished": "2026-11-10T10:45:47.179385+00:00",
+      "elapsedSeconds": 4.592,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/proxy.log"
+    },
+    {
+      "name": "images",
+      "command": [
+        "python3",
+        "scripts/delivery/scan_images.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:46:45.167987+00:00",
+      "finished": "2026-11-10T10:46:45.984963+00:00",
+      "elapsedSeconds": 0.817,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/images.log"
+    },
+    {
+      "name": "repository",
+      "command": [
+        "python3",
+        "scripts/check_repository.py"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:51:49.597909+00:00",
+      "finished": "2026-11-10T10:51:50.146975+00:00",
+      "elapsedSeconds": 0.549,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/repository.log"
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:51:50.147246+00:00",
+      "finished": "2026-11-10T10:51:50.162372+00:00",
+      "elapsedSeconds": 0.015,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/whitespace.log"
+    },
+    {
+      "name": "secrets-history",
+      "command": [
+        "gitleaks",
+        "git",
+        "--redact",
+        "--exit-code",
+        "1",
+        "--log-opts=--all",
+        "."
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:51:50.162619+00:00",
+      "finished": "2026-11-10T10:51:50.324331+00:00",
+      "elapsedSeconds": 0.162,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/secrets-history.log"
+    },
+    {
+      "name": "secrets-tree",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact",
+        "--exit-code",
+        "1",
+        "."
+      ],
+      "cwd": ".",
+      "started": "2026-11-10T10:51:50.324621+00:00",
+      "finished": "2026-11-10T10:51:50.415149+00:00",
+      "elapsedSeconds": 0.091,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c1/secrets-tree.log"
+    }
+  ],
+  "imageScans": [
+    {
+      "name": "api",
+      "scanPolicy": "existing HIGH,CRITICAL; exit-code 1; no ignore-unfixed or exceptions",
+      "reportedHighCritical": 0,
+      "imageID": "sha256:b3e445c3c2fffe44e9ca801d1fd17acdafd599cd344a06a655d3605718e34921",
+      "os": {
+        "Family": "alpine",
+        "Name": "3.24.3"
+      },
+      "report": "artifacts/m3/api-vulnerabilities.json"
+    },
+    {
+      "name": "frontend",
+      "scanPolicy": "existing HIGH,CRITICAL; exit-code 1; no ignore-unfixed or exceptions",
+      "reportedHighCritical": 0,
+      "imageID": "sha256:1d4a01f20f1db240c0bbd2f6b3af4ff247c5ab1c78bc84ef76ef4f0d869424f4",
+      "os": {
+        "Family": "alpine",
+        "Name": "3.24.2"
+      },
+      "report": "artifacts/m3/frontend-vulnerabilities.json"
+    }
+  ],
+  "npmAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 10,
+    "high": 0,
+    "critical": 0,
+    "total": 10
+  },
+  "containerSmoke": {
+    "started": "2026-11-10T10:45:23.801506+00:00",
+    "project": "morrow-supply-m3-verify",
+    "actor": "deterministic local delivery verification",
+    "checks": [
+      "12 fixtures and authoritative discount total via built proxy",
+      "non-root/read-only/cap-drop; only loopback frontend published",
+      "cart persisted across API container replacement",
+      "all three unchanged M2 browser cases passed through production images"
+    ],
+    "result": "PASS",
+    "finished": "2026-11-10T10:45:42.571841+00:00"
+  },
+  "proxy": {
+    "started": "2026-11-10T10:45:42.704161+00:00",
+    "actor": "local deterministic TLS fixture test",
+    "checks": [
+      "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+      "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+      "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+    ],
+    "result": "PASS",
+    "finished": "2026-11-10T10:45:47.169219+00:00"
+  },
+  "initialSandboxFailure": {
+    "command": [
+      "python3",
+      "scripts/delivery/validate_infra.py"
+    ],
+    "exitCode": 159,
+    "cause": "Bicep .NET runtime could not extract into sandboxed user cache",
+    "resolution": "Same offline policy group rerun with authorized local cache access: passed",
+    "retainedLog": "artifacts/m4c-c1/sandbox-bicep.log"
+  },
+  "limits": [
+    "Native macOS arm64 SQLite; container smoke Linux arm64; no fresh hosted run",
+    "Synchronous scheduled SQLite calls are not simultaneous writers or SQL locking proof",
+    "SQLite lock contention/rollback and constraints are real but not T-SQL validation",
+    "Canonical twelve-product fixture does not exercise 100-distinct-product repository guard; original helper oversized-cart test retained",
+    "No SQL engine/credentials/license acceptance/SQL driver connection; real engine C2 remains Blocked",
+    "No Azure/provider/managed identity/private DNS/ARM validation/CodeQL/governance execution",
+    "Ten pre-existing MODERATE npm audit findings remain; image scan only asserts HIGH/CRITICAL policy",
+    "No production behavior, dependency, workflow, cloud, GitHub setting, commit or push changes"
+  ],
+  "c2Prerequisites": [
+    "Separate bounded owner authorization; supported x64 host and pinned licensed engine/edition",
+    "Owned disposable database, bootstrap/runtime/migrator principals and cleanup rights explicitly approved",
+    "Verified TLS trust CA and matching host; no insecure or production authentication fallback",
+    "Same shared factory contracts plus C2-A1-A4 actual driver/engine/migration/concurrency/privilege/timeout evidence",
+    "Bound compute/storage/hosted-minute costs and keep Azure MI/private integration separately authorized"
+  ],
+  "initialSecretScannerFinding": {
+    "rule": "generic-api-key",
+    "file": "docs/evidence/m4c-c1-repository-contracts.json",
+    "cause": "Public source SHA-256 directly beside an auth.ts filename key; confirmed file checksum, not an operational credential",
+    "resolution": "Represent paths and SHA-256 as separate named fields; no suppression, rule, gate or allowlist change",
+    "redactedReport": "artifacts/m4c-c1/secrets-tree-findings.json"
+  },
+  "untrackedTextWhitespace": [
+    {
+      "file": "apps/octocat-supply/api/test/contracts/README.md",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "apps/octocat-supply/api/test/contracts/README.md"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    },
+    {
+      "file": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "apps/octocat-supply/api/test/contracts/repository.contract.ts"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    },
+    {
+      "file": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    },
+    {
+      "file": "docs/evidence/m4c-c1-repository-contracts.json",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "docs/evidence/m4c-c1-repository-contracts.json"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    },
+    {
+      "file": "docs/evidence/m4c-c1-repository-contracts.md",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "docs/evidence/m4c-c1-repository-contracts.md"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    },
+    {
+      "file": "docs/evidence/m4c-readiness-assessment.json",
+      "command": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "docs/evidence/m4c-readiness-assessment.json"
+      ],
+      "exitCode": 1,
+      "whitespaceDiagnostics": "",
+      "pass": true
+    }
+  ],
+  "acceptance": {
+    "C1-A1": "Met; local C1 only",
+    "C1-A2": "Met; local C1 only",
+    "C1-A3": "Met; local C1 only",
+    "C1-A4": "Met; local C1 only"
+  },
+  "caseSourceSha256": [
+    {
+      "path": "apps/octocat-supply/package-lock.json",
+      "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+    },
+    {
+      "path": "apps/octocat-supply/package.json",
+      "sha256": "f04bbfc15a76e3f65d7dd0b45dc577d2c3024c942e18b02afb7cb1990cdc766b"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database.ts",
+      "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/repository.ts",
+      "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/sql.ts",
+      "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/auth.ts",
+      "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "dc521dcfe45bcab5a523e099452320d20ed7feae0c579189973dfff05bcf6c04"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+      "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+      "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/README.md",
+      "sha256": "16ccdaff381e345850fa4b90c8c86ab0bd91adab73a493c1608d03c59dc0a7ba"
+    }
+  ]
+}

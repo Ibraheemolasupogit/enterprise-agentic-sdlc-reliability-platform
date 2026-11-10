@@ -1,10 +1,11 @@
 # Capability and status matrix
 
 Authority: [master brief](project/master-brief.md), sections 9, 16–17. Assessed on
-2026-10-31. Use its states: **Planned, Implemented, Locally tested, Cloud verified,
+2026-11-10. Use its states: **Planned, Implemented, Locally tested, Cloud verified,
 Simulated, Design only, Blocked, Retired**. Historical validation is a separate
 evidence classification, not current repository verification. M3 delivery definitions and local security checks are recorded in
-[M3 evidence](evidence/m3-secure-delivery.md); hosted CI is now confirmed by [M4A preflight](milestones/m4a-preflight.md); Azure
+[M3 evidence](evidence/m3-secure-delivery.md); the [M4C assessment](evidence/m4c-readiness-assessment.md)
+confirms hosted M4B mandatory checks at `40a6353`; Azure
 session/permissions/quotas, deployment and CodeQL execution remain unverified.
 M2 application execution is locally verified as recorded in
 [M2 evidence](evidence/m2-baseline.md); agent/cloud execution remains unverified.
@@ -17,11 +18,13 @@ M1 establishes design evidence only; the
 | Product/architecture/threat model/ADRs | Design only | [Architecture](architecture.md), [STRIDE model](threat-model.md), ADRs 0002–0006 and [M1 review](evidence/m1-design-review.md); no enforcement claim | M1 |
 | Independent Morrow Supply application/container baseline | Locally tested | [M2 evidence](evidence/m2-baseline.md): original React/API/SQLite, fixtures, pricing/discounts, unit/integration/component/browser and local container fault/persistence checks; upstream reuse remains not cleared | M2 |
 | Agent-assisted development/review | Planned | Requirement-to-change/tests/review evidence needed; no separate framework assumed | M2–M3; M8 |
-| Secure delivery, images and Azure IaC/identity | Implemented; Locally tested checks | One read-only CI workflow, actionlint, dependency/history-secret/image/config scans, SBOM/provenance, four compiled Bicep templates and negative security tests; CodeQL gated/unexecuted; hosted run 41149829560 passed application/policy/container/required checks; CodeQL skipped; no registry publication or Azure identity/runtime proof; no GitHub environments and protection endpoints plan-restricted | M3 |
+| Secure delivery, images and Azure IaC/identity | Implemented; Locally tested with hosted synthetic CI evidence | Run 42794873352 at `40a6353` passed policy/application/containers/required, including browser/proxy/image gates; CodeQL skipped. No registry publication or Azure identity/runtime proof. Main protection disabled; rulesets plan-restricted; environment state not re-read | M3/M4B |
 | Personal Azure deployment/internal API/durability | Blocked for deployment; Design only | [M4A](milestones/m4a-preflight.md) NO-GO preserved: Azure subscription/region/permissions/quotas unverified; private SQL/network/diagnostics IaC, live auth/DB/protection/cost gates pending. Local preparation does not establish a deployment | M4A/M4B |
 | Application identity and owner isolation | Locally tested API crypto/SQLite ownership; Implemented browser OIDC | [M4B evidence](evidence/m4b-local-preparation.md): fixed issuer/audience/JWKS/role/scope, every cart method, legacy anonymous migration and namespaces; browser code exchange/real tenant claims unverified | M4B local |
 | SQL persistence adapter/migrations | Implemented; Simulated recording-driver contracts | Parameter binding intentions, owner locks/transactions, history/fixtures/readiness errors tested with doubles; no T-SQL engine, managed identity, concurrency/private DNS or Azure SQL integration proof | M4B local; live release gate |
+| Shared repository acceptance contracts | Locally tested on real file-backed SQLite | [C1 evidence](evidence/m4c-c1-repository-contracts.md): 27 shared cases plus six SQLite transaction/constraint regressions; same contracts await an independent-connection SQL fixture in C2. Scheduled SQLite calls do not prove parallel SQL locking; no SQL engine runner/claim | M4C-C1; C2 Blocked |
 | HTTPS frontend/API proxy | Locally tested | Published TLS test peer, hostname/CA/SNI, bearer/header boundary, readiness failure, CSP/config rejection; ACA DNS/TLS/internal ingress unverified | M4B local |
+| Engineering-readiness assessment | Design only; assessment recorded; C1 locally tested separately | [M4C plan](milestones/m4c-scope.md): C1-only implementation authorized/completed; SQL/provider/IaC/identity/diagnostic/SAST/governance acceptance and later authority boundaries remain open | M4C planning/C1 |
 | Working agentic maintenance | Planned | C7 failure must be closed with real inference and useful output; not compilation alone | M5 |
 | Local dependency-aware health | Locally tested | Process liveness, DB/seed readiness, frontend API dependency path and wrong-port failure/recovery in M2 | M2 |
 | Azure observability and telemetry correlation | Planned | Local request IDs/logs exist; no Azure logs/metrics/traces, dashboards, SLO monitoring or config/deployment annotations verified | M6 |
