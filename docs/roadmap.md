@@ -2,9 +2,9 @@
 
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
 replaces the initial M0 proposal and the event challenge sequence. Current authority
-is M4C-C1 repository contracts/tests and focused documentation only; C2–C8
-implementation and deployment require new direction. M4A's deployment NO-GO remains.
-M4B hosted mandatory checks passed at `40a6353`; CodeQL has not run.
+is M4C-C3 OIDC client/PKCE planning only; C1 repository contracts are complete.
+C2–C8 implementation and deployment require new direction. M4A's deployment NO-GO
+remains. Hosted mandatory checks passed at `b56d9bd`; CodeQL has not run.
 Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
 records historical design/source gates. The owner selected independent code/MIT;
 [M2 evidence](evidence/m2-baseline.md) records local execution without promoting
@@ -49,4 +49,6 @@ and [local evidence](evidence/m4b-local-preparation.md), followed by the
 records shared acceptance tests executed on real SQLite; SQL recording tests
 remain Simulated and real SQL engine execution stays Blocked for C2.
 M4A/M4B/M4C subdivide M4; the thirteen master-brief milestones are unchanged.
-Stop after C1. No SQL engine, provider, IaC implementation or deployment is authorized.
+Current [C3 plan](milestones/m4c-c3-oidc-plan.md) assesses existing client/session
+gaps, simulated protocol fixtures and C6 handoff. Stop after C3 planning. No client
+implementation, SQL engine, provider, IaC implementation or deployment is authorized.

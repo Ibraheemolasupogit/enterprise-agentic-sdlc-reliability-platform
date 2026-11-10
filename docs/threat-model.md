@@ -1,7 +1,8 @@
 # Application and agent STRIDE threat model
 
 Status: assessed 2026-11-10 with M2/M4B local and hosted CI evidence; real provider,
-SQL/Azure and agent controls remain unverified. M4C is documentation/planning only.
+SQL/Azure and agent controls remain unverified. C1 SQLite contracts are locally
+tested; current C3 work is documentation/planning only.
 See the [readiness assessment](evidence/m4c-readiness-assessment.md).
 Authority: master brief sections 10–12.
 Scope: [architecture](architecture.md), [requirements](requirements.md),
@@ -96,3 +97,15 @@ Agents remain Planned; M4B adds no tools, inference rights or mutation authority
 See [ADR 0007](decisions/0007-application-identity.md) and
 [M4B results](evidence/m4b-local-preparation.md) for exact scope and executed versus
 simulated evidence. Broad network/bootstrap/diagnostic work remains pending.
+
+## C3 browser risks identified by source review — not repaired
+
+[C3 plan G01–G12/P01–P15](milestones/m4c-c3-oidc-plan.md) maps T01/T04/T05/T06
+to missing explicit nonce, limited initial ID-token validation and early user
+publication, unvetted metadata semantics, callback cleanup/replay/lifetime gaps,
+API 401/session races and unsafe provider artifact capture. Retain memory tokens,
+actual API signature/issuer/audience/role/scope enforcement and every cart owner
+check. The proposed verified-session gate and local protocol/capture tests remain
+Design only/Planned; no real provider or new client control was executed here.
+Hosted run 42805606271 at `b56d9bd` passed mandatory jobs; CodeQL skipped. Those
+results do not close the new browser protocol acceptance or SAST/governance gaps.

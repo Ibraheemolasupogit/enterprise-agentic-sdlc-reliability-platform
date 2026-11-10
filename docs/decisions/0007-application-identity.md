@@ -4,6 +4,16 @@ Date: 2026-10-31. Status: Implemented; cryptographic/API boundaries Locally test
 External provider sign-in and Azure authorization are unverified. Requirements:
 R06, R11, NF03; threats T01, T04–T06; validation V05/V08/V09.
 
+C3 planning update, 2026-11-10: the [detailed plan](../milestones/m4c-c3-oidc-plan.md)
+retains these pinned libraries but identifies incomplete browser nonce, ID-token,
+metadata, callback and session-lifecycle controls. It is **Design only**, not an
+implementation or provider-verification claim. The browser consequences below
+describe the original M4B boundary; specifically, library callback processing is
+not proof of full ID-token validation. The current call supplies no nonce, and
+the pinned library's initial ID-token checks are limited. Proposed JOSE verification
+before session publication, explicit nonce, 401 recovery and capture controls need
+the later bounded C3 implementation request. API claims/ownership policy stays fixed.
+
 ## Decision
 
 Use `oidc-client-ts` 3.5.0 for browser Authorization Code + PKCE (S256), and `jose`
