@@ -168,3 +168,21 @@ Alpine indexes list the selected versions for both aarch64 and x86_64; execution
 platforms, package checksums and scan results are recorded in the bounded image
 repair [evidence](docs/evidence/m4b-frontend-image-repair.md). No image publication
 or public distribution is authorized here.
+
+## M4B application CI browser environment
+
+CI adopts the unmodified official
+`mcr.microsoft.com/playwright:v1.64.1-noble` image at index digest
+`sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f`.
+The version matches the existing locked Playwright packages. Source:
+[Microsoft Playwright](https://github.com/microsoft/playwright/tree/cfe490d941f992655948eee8fd4fd94e1c4234bf),
+tag v1.64.1, exact revision `cfe490d941f992655948eee8fd4fd94e1c4234bf`;
+[reviewed image recipe](https://github.com/microsoft/playwright/blob/cfe490d941f992655948eee8fd4fd94e1c4234bf/utils/docker/Dockerfile.noble).
+Playwright's Apache-2.0 license and Microsoft copyright remain applicable; Ubuntu,
+Node, browser binaries and other bundled components retain their distinct terms
+and shipped notices. No third-party source or image content is modified, copied
+into the application images or redistributed here. Retain upstream LICENSE/NOTICE
+and component notices/source obligations before any separate redistribution.
+This is an ephemeral local/CI testing environment, not a deployed application base.
+The upstream recipe was reviewed as source content; it is not executed as an
+installer. The published image is consumed by immutable digest.

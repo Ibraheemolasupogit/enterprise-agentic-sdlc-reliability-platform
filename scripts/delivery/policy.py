@@ -40,8 +40,13 @@ def workflow_policy(workflow):
             require("${{ github.event." not in run, "Untrusted event interpolation into shell")
     gate = workflow["jobs"]["required"]
     application_commands = {step.get("run") for step in workflow["jobs"]["application"]["steps"]}
+    browser_version = json.loads((ROOT / "apps/octocat-supply/package-lock.json").read_text())["packages"]["node_modules/@playwright/test"]["version"]
+    browser_container = workflow["jobs"]["application"].get("container", {})
+    require(re.fullmatch(r"mcr\.microsoft\.com/playwright:v" + re.escape(browser_version) + r"-noble@sha256:[a-f0-9]{64}", browser_container.get("image", "")), "Unpinned or mismatched Playwright CI image")
+    require(browser_container.get("options") == "--user 1001", "Browser CI container privilege change")
     for command in ("npm ci --ignore-scripts", "npm run licenses", "npm run format:check", "npm run lint",
-                    "npm run typecheck", "npm test", "npm run build", "npm audit --audit-level=high", "npm run test:e2e"):
+                    "npm run typecheck", "npm test", "npm run build", "npm audit --audit-level=high",
+                    "npm exec -- playwright install chromium", "npm run test:e2e"):
         require(command in application_commands, "Missing required application check: " + command)
     require(gate.get("if") == "always()", "Required gate must inspect failed/skipped dependencies")
     require(set(gate["needs"]) == {"application", "policy", "containers", "codeql"}, "Missing gate dependency")

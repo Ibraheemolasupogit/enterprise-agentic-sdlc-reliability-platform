@@ -21,9 +21,21 @@ PRs receive repository read access only. The isolated hosted runner executes
 untrusted PR code; never move these jobs to a privileged self-hosted runner.
 
 The workflow installs with `npm ci --ignore-scripts`, checks generated licensing
-drift, formatting/lint/types, 39 existing tests, production builds, full dependency
+drift, formatting/lint/types, 64 application tests, production builds, full dependency
 audit and three browser cases. The separate container job reuses those browser
 cases through built Nginx/API images. No business functionality was changed.
+
+The application job runs as UID 1001 in the official Playwright 1.64.1 Noble
+image, pinned by immutable multiarchitecture digest in the workflow and matched
+to the existing lockfile. Its browser libraries/fonts and Chromium are supplied
+by that image. `npm exec -- playwright install chromium` uses the bundled matching
+revision without a runtime apt refresh; setup-node still selects exact Node
+24.22.2. The job retains its 20-minute bound and browser setup has a five-minute
+step bound. Missing/mismatched browsers or dependencies still fail real E2E.
+See the [bounded timeout repair evidence](evidence/m4b-playwright-ci-repair.md).
+The containers job, including its separate host-side `--with-deps` installation,
+is unchanged and still must execute successfully. No passing hosted result for
+the new application environment is claimed.
 
 CodeQL is the trusted-main-only `codeql` job, disabled unless the owner explicitly
 sets repository variable `CODEQL_ENABLED=true` **after** confirming support and

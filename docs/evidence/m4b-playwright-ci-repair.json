@@ -1,0 +1,190 @@
+{
+  "recordedUTC": "2026-11-10T08:20:06.250978+00:00",
+  "baseHead": "3abbf63426adc7c7a93165fd1838911cfe6d250b",
+  "initialWorkingTree": "clean",
+  "scope": "Hosted application Playwright installation timeout only",
+  "status": "Implemented and Locally tested",
+  "hostedRepairedRun": "Unverified; no rerun triggered",
+  "deploymentDecision": "NO-GO",
+  "hostedFailure": {
+    "runId": 42763141078,
+    "applicationJobId": 129653308605,
+    "runnerOS": "Ubuntu 24.04.5 x64",
+    "runnerImage": "20261101.360.1",
+    "checkoutCommit": "3abbf63426adc7c7a93165fd1838911cfe6d250b",
+    "jobs": {
+      "application": "cancelled",
+      "policy": "success",
+      "containers": "skipped",
+      "codeql": "skipped",
+      "required": "failure"
+    },
+    "precedingApplicationChecks": "PASS: licenses/format/lint/types/64 tests/build/high audit",
+    "failedStep": "npm exec -- playwright install --with-deps chromium",
+    "installStartedUTC": "2026-11-10T05:37:29Z",
+    "lastAptProgressUTC": "2026-11-10T05:37:54Z",
+    "cancelledUTC": "2026-11-10T05:56:16Z",
+    "cause": "Runtime apt-get update stalled fetching Ubuntu repository indexes before browser download; deeper network/mirror cause unverified",
+    "mirrors": [
+      "http://azure.archive.ubuntu.com/ubuntu",
+      "https://archive.ubuntu.com/ubuntu"
+    ],
+    "jobTimeoutMinutesUnchanged": 20
+  },
+  "remediation": {
+    "applicationContainer": {
+      "image": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f",
+      "options": "--user 1001"
+    },
+    "source": "https://github.com/microsoft/playwright",
+    "sourceTag": "v1.64.1",
+    "sourceRevision": "cfe490d941f992655948eee8fd4fd94e1c4234bf",
+    "license": "Playwright Apache-2.0; other bundled components retain distinct terms and notices",
+    "browserInstallCommand": "npm exec -- playwright install chromium",
+    "browserStepTimeoutMinutes": 5,
+    "runtimeAptInApplication": false,
+    "nodeVersion": "24.22.2",
+    "npmVersion": "11.19.1",
+    "packageVersions": {
+      "@playwright/test": "1.64.1",
+      "playwright": "1.64.1",
+      "playwright-core": "1.64.1"
+    },
+    "browserRevision": "1248",
+    "chromiumVersion": "156.0.8078.4",
+    "aptAlternativeRejected": "Runner inventory lists browsers but cannot prove every revision-specific library/font; no blind removal of dependency provisioning",
+    "containerAlternative": "Official version-matched immutable Noble image supplies libraries and browsers; app package still installed from lockfile",
+    "policyMutationsAdded": [
+      "mutable image",
+      "Playwright version mismatch",
+      "privilege escalation",
+      "restore application with-deps install"
+    ]
+  },
+  "localValidation": {
+    "host": "macOS arm64 / Docker Desktop 28.3.3",
+    "linuxImageId": "sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f",
+    "linuxArchitecture": "arm64",
+    "linuxBrowser": {
+      "startedUTC": "2026-11-10T08:02:13.767591+00:00",
+      "image": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f",
+      "platform": "linux/arm64",
+      "uid": 1001,
+      "exitCode": 0,
+      "result": "PASS",
+      "finishedUTC": "2026-11-10T08:03:01.758293+00:00"
+    },
+    "linuxNodeArchive": {
+      "url": "https://nodejs.org/dist/v24.22.2/node-v24.22.2-linux-arm64.tar.xz",
+      "sha256": "eb187837a2230d4047161ac0be008584e16b46f726e9c9490ee35dc6b17d9ba8",
+      "verified": true
+    },
+    "linuxBrowserInstallTimestampsUTC": [
+      "2026-11-10T08:02:56.798Z",
+      "2026-11-10T08:02:57.176Z"
+    ],
+    "linuxBrowserPassed": 3,
+    "nativeBrowserPassed": 3,
+    "applicationPassed": 64,
+    "applicationTestFiles": 7,
+    "formatLintTypesBuild": "PASS",
+    "licenseDrift": "PASS 417 locked records; browser notices unchanged",
+    "npmAudit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 10,
+      "high": 0,
+      "critical": 0,
+      "total": 10
+    },
+    "actionlint": "PASS; shellcheck not invoked",
+    "deliverySecurityPassed": 12,
+    "newMutationSubcases": 4,
+    "workflowAndCompiledPolicy": "PASS; compiled templates and IaC unchanged",
+    "unchangedOtherJobs": [
+      "policy",
+      "containers",
+      "codeql",
+      "required"
+    ],
+    "preservedProtectedFileCount": 69,
+    "preservedProtectedInputsSha256": "7c3ecba6fe416d018885b6aed684c535c3338eb1dab796fbf87039bc25046345",
+    "applicationLockConfigE2EAndContainerProxyUnchanged": true,
+    "documentationWhitespace": "PASS 53 text files, 38 Markdown files, 288 relative links/anchors; git diff --check and both untracked text files",
+    "secretScan": "PASS all 8 commits and working tree including new evidence; no exceptions",
+    "untrackedWhitespace": [
+      {
+        "path": "docs/evidence/m4b-playwright-ci-repair.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4b-playwright-ci-repair.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      }
+    ]
+  },
+  "limitations": [
+    "Linux arm64 execution, not GitHub Ubuntu amd64 job-container/action integration",
+    "Runner init, checkout/setup-node mount permissions and new hosted success remain unverified",
+    "Unchanged containers job retains its separate host --with-deps apt step and mirror exposure; must still pass",
+    "Container/proxy checks and app image scans not rerun because implementations/recipes unchanged; no new result claimed",
+    "Official image pulls and npm remain external network dependencies; no overall CI duration guarantee",
+    "CodeQL and cloud/governance gates remain open; no release eligibility established",
+    "Existing 10 moderate npm findings retained; no waiver or unrelated dependency repair"
+  ],
+  "changedFiles": [
+    ".github/workflows/ci.yml",
+    "scripts/delivery/policy.py",
+    "tests/delivery/test_security.py",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/delivery.md",
+    "docs/evidence/m4b-playwright-ci-repair.md",
+    "docs/evidence/m4b-playwright-ci-repair.json"
+  ],
+  "rawEvidence": [
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/hosted-install-excerpt.log",
+      "sha256": "b64186fc6611bf4db7aa991e7816d1a0e6dffc596ea148eb2c426a7c53c6e3f2"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/manifest.txt",
+      "sha256": "e871e8dccab76a7a5df7b8e13207bf82a7cc796b4d02e61a229b4845abe0c7b7"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/image-inspect.json",
+      "sha256": "33394da2582f3d777edac4c179feed6766ae5693899ad0e2d39ee43e7cdec870"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/image-pull.log",
+      "sha256": "cf4fa0c8dafc26cf91631d49c173a8d9dab3e5001105ca8fb1e805ab140d88c0"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/node-archive.json",
+      "sha256": "1046a96604c8b82dfd6131b4827f75991d63c280255423a03738807f2c15df89"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/linux-browser.log",
+      "sha256": "c7727a1899c4bfa9d531f100fec97425a56dbddbacba9153e7fe988310bcc852"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/linux-browser-result.json",
+      "sha256": "dc35df750bccc0ccbc3212d140ac36b3f34e4deba4788fdff238d1b120e3bd79"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/native-browser.log",
+      "sha256": "22ddd2f6ce6e341d00d16460db9e53c69352d4be1fb541e35e0d16d55095f82c"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/npm-audit.json",
+      "sha256": "a72feec033dbaeda6f2abdcf97338e5e648116b4e57720b6cf284bfa1438bd03"
+    },
+    {
+      "path": "artifacts/m4b-playwright-ci-repair/preserved-inputs.json",
+      "sha256": "7c3ecba6fe416d018885b6aed684c535c3338eb1dab796fbf87039bc25046345"
+    }
+  ],
+  "cleanup": "Only owned local browser-test volume/container removed; pre-existing demo untouched",
+  "prohibitedActionsPerformed": []
+}

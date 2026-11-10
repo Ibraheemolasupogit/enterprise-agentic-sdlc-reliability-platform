@@ -47,7 +47,8 @@ class DeliverySecurityTests(unittest.TestCase):
         self.assertNotEqual(role["AssignableScopes"], ["/"])
 
     def test_workflow_rejects_oidc_and_privileged_pr_mutations(self):
-        for mutation in ("oidc", "trigger", "pin", "persist", "bypass", "gate", "codeql", "omit", "proxy"):
+        for mutation in ("oidc", "trigger", "pin", "persist", "bypass", "gate", "codeql", "omit", "proxy",
+                         "browser-image", "browser-version", "browser-user", "browser-apt"):
             with self.subTest(mutation=mutation):
                 workflow = copy.deepcopy(policy.load_workflow())
                 if mutation == "oidc":
@@ -66,6 +67,14 @@ class DeliverySecurityTests(unittest.TestCase):
                     workflow["jobs"]["codeql"]["if"] = "always()"
                 elif mutation == "proxy":
                     workflow["jobs"]["containers"]["steps"] = [s for s in workflow["jobs"]["containers"]["steps"] if s.get("run") != "python3 scripts/delivery/verify_proxy.py"]
+                elif mutation == "browser-image":
+                    workflow["jobs"]["application"]["container"]["image"] = "mcr.microsoft.com/playwright:latest"
+                elif mutation == "browser-version":
+                    workflow["jobs"]["application"]["container"]["image"] = workflow["jobs"]["application"]["container"]["image"].replace("v1.64.1", "v1.63.0")
+                elif mutation == "browser-user":
+                    workflow["jobs"]["application"]["container"]["options"] = "--privileged"
+                elif mutation == "browser-apt":
+                    next(s for s in workflow["jobs"]["application"]["steps"] if s.get("run") == "npm exec -- playwright install chromium")["run"] = "npm exec -- playwright install --with-deps chromium"
                 else:
                     workflow["jobs"]["application"]["steps"] = [s for s in workflow["jobs"]["application"]["steps"] if s.get("run") != "npm audit --audit-level=high"]
                 with self.assertRaises(ValueError):
