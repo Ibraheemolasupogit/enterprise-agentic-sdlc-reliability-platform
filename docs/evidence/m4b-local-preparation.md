@@ -1,5 +1,11 @@
 # M4B verification — local preparation only
 
+Subsequent hosted result: run 41198119793 at `1e8d92d` passed application/policy
+but failed the TLS harness; the required gate correctly failed and CodeQL skipped.
+See the [bounded CI repair](m4b-ci-repair.md) for the reproduced Linux fixture
+permission defect, fix, diagnostics and fresh local validation. The evidence below
+is the original local snapshot, not a claim of hosted M4B completion.
+
 Date: 2026-10-31 UTC. Authority: [master brief](../project/master-brief.md),
 [scope](../milestones/m4b-scope.md) and the owner’s subsequent local-only request.
 **Bounded local implementation delivered; deployment NO-GO preserved.** The broader

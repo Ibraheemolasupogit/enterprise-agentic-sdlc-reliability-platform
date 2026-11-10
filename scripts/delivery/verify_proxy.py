@@ -26,8 +26,49 @@ FIXTURES = [
 def docker(*args, check=True):
     result = subprocess.run(["docker", *args], capture_output=True, text=True, timeout=120)
     if check:
-        result.check_returncode()
+        if result.returncode:
+            raise RuntimeError(f"Docker {args[0]} failed ({result.returncode}): {result.stderr[-4000:]}")
     return result
+
+
+def allow_peer_fixture_reads(folder):
+    # TemporaryDirectory is 0700; native Linux preserves its runner UID on bind mount.
+    # Only published, non-live vectors and the test server are made readable, never secrets.
+    for name in [name for name, _ in FIXTURES] + ["peer.mjs"]:
+        (folder / name).chmod(0o644)
+    folder.chmod(0o755)
+
+
+def safe(value):
+    return value.replace("Bearer public-non-live-fixture", "[non-live bearer redacted]")
+
+
+def collect_diagnostics():
+    commands = {
+        **{f"{name}-state": ["inspect", "--format", "{{json .State}} user={{.Config.User}}", name] for name in NAMES},
+        **{f"{name}-logs": ["logs", "--tail", "40", name] for name in NAMES},
+        "nginx-config": ["exec", NAMES[1], "nginx", "-T", "-c", "/app/nginx.conf"],
+        "resolver": ["exec", NAMES[1], "cat", "/etc/resolv.conf"],
+        "network": ["network", "inspect", "--format", "{{json .Containers}}", NETWORK],
+        "peer-files": ["exec", NAMES[0], "sh", "-c", "id; ls -ld /fixtures /fixtures/*"],
+    }
+    result = {}
+    for label, command in commands.items():
+        try:
+            response = docker(*command, check=False)
+            result[label] = {"exitCode": response.returncode, "output": safe((response.stdout + response.stderr)[-12000:])}
+        except Exception as error:
+            result[label] = {"error": safe(str(error))}
+    return result
+
+
+def write_record(record):
+    output = ROOT / "artifacts/m4b"
+    output.mkdir(parents=True, exist_ok=True)
+    record["finished"] = datetime.now(timezone.utc).isoformat()
+    rendered = safe(json.dumps(record, indent=2))
+    (output / "proxy.json").write_text(rendered + "\n")
+    print(rendered, flush=True)
 
 
 def get(path):
@@ -43,16 +84,24 @@ def get(path):
         return response.status, response.read()
 
 
-def wait_status(path, expected):
-    for _ in range(40):
+def wait_status(path, expected, attempts=40):
+    last = "No HTTP response"
+    for _ in range(attempts):
         try:
             status, data = get(path)
             if status == expected:
                 return data
-        except OSError:
-            pass
+            last = f"HTTP {status}: {safe(data.decode(errors='replace')[:512])}"
+        except OSError as error:
+            last = safe(str(error))
+        for name in NAMES:
+            state = docker("inspect", "--format", "{{json .State}}", name, check=False)
+            if state.returncode == 0:
+                details = json.loads(state.stdout)
+                if not details["Running"]:
+                    raise RuntimeError(f"{name} exited ({details['ExitCode']}); {path}: {last}")
         time.sleep(0.25)
-    raise RuntimeError(f"{path} never reached {expected}")
+    raise RuntimeError(f"{path} never reached {expected}; last response: {last}")
 
 
 def main():
@@ -75,6 +124,7 @@ https.createServer({key:fs.readFileSync('/fixtures/agent1-key.pem'),cert:fs.read
  authorization:req.headers.authorization,principal:req.headers['x-ms-client-principal']??null,
  forwarded:req.headers['x-forwarded-for']??null,proto:req.headers['x-forwarded-proto']}));
 }).listen(443,'0.0.0.0');\n''')
+        allow_peer_fixture_reads(temp)
         docker("network", "create", NETWORK)
         try:
             docker("run", "-d", "--name", NAMES[0], "--network", NETWORK,
@@ -112,6 +162,8 @@ https.createServer({key:fs.readFileSync('/fixtures/agent1-key.pem'),cert:fs.read
             start("wrong-name")
             wait_status("/health/ready", 503)
             assert get("/api/echo")[0] == 503 and get("/")[0] == 200
+            tls_logs = docker("logs", "--tail", "20", NAMES[1]).stderr
+            assert 'certificate does not match "wrong-name"' in tls_logs, "Expected TLS hostname rejection, not another upstream failure"
             record["checks"].append("wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass")
             docker("rm", "-f", NAMES[1])
             for invalid in ({"TRUSTED_API_HOST": "other"}, {"API_ORIGIN": "http://agent1"}, {"OIDC_SCOPES": 'openid"; malicious'}, {"DNS_RESOLVER": "999.0.0.1"}, {"API_ORIGIN": "https://agent1:444"}, {"OIDC_CONNECT_ORIGIN": 'https://issuer.example.test; unsafe-inline'}, {"OIDC_CONNECT_ORIGIN": 'https://issuer.example.test\nmalicious'}):
@@ -121,15 +173,15 @@ https.createServer({key:fs.readFileSync('/fixtures/agent1-key.pem'),cert:fs.read
                 docker("rm", NAMES[1])
             record["checks"].append("seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup")
             record["result"] = "PASS"
+        except Exception as error:
+            record.update(result="FAIL", error=safe(str(error)), diagnostics=collect_diagnostics())
+            write_record(record)  # Existing always-upload step retains evidence before cleanup.
+            raise
         finally:
             for name in reversed(NAMES):
                 docker("rm", "-f", name, check=False)
             docker("network", "rm", NETWORK)
-    record["finished"] = datetime.now(timezone.utc).isoformat()
-    output = ROOT / "artifacts/m4b"
-    output.mkdir(parents=True, exist_ok=True)
-    (output / "proxy.json").write_text(json.dumps(record, indent=2) + "\n")
-    print(json.dumps(record, indent=2))
+    write_record(record)
 
 
 if __name__ == "__main__":

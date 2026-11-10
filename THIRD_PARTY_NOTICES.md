@@ -147,3 +147,24 @@ than relabelled MIT. Before any public package/image publication, retain these
 texts and all transitive/base obligations; scans/SBOMs are inventory evidence, not
 a legal clearance or a license for external identity/cloud services. The no-copy
 decision for upstream OctoCAT remains unchanged.
+
+## M4B frontend OS security patches — 2026-11-10
+
+The existing pinned Nginx/Alpine base and its notices are retained. The frontend
+recipe additionally selects these unmodified signed packages from Alpine v3.24
+`main`, using exact versions. Package metadata/source revisions were recorded
+before building. No upstream application source/assets are imported.
+
+| Package/version | Upstream source and exact Alpine packaging revision | Terms and retained obligations |
+| --- | --- | --- |
+| libexpat 2.10.0-r0 | [Expat](https://libexpat.github.io/); [aports af0fa42036cd6e626768c0d65fddaa1d1b30cf21](https://gitlab.alpinelinux.org/alpine/aports/-/tree/af0fa42036cd6e626768c0d65fddaa1d1b30cf21/main/expat) | MIT package metadata; retain upstream copyright/permission texts when distributing |
+| musl and musl-utils 1.2.6-r3 | [musl](https://musl.libc.org/); [aports 8f79d39391b46d6dbf1800fb68b8212a21d5ee2e](https://gitlab.alpinelinux.org/alpine/aports/-/tree/8f79d39391b46d6dbf1800fb68b8212a21d5ee2e/main/musl) | musl: MIT; musl-utils: MIT AND BSD-2-Clause AND GPL-2.0-or-later. Preserve package/base notices and applicable source obligations before public image distribution |
+| zlib 1.4-r0 | [zlib](https://zlib.net/); [aports bdf501c870a92a05c097857401f69c48c4810384](https://gitlab.alpinelinux.org/alpine/aports/-/tree/bdf501c870a92a05c097857401f69c48c4810384/main/zlib) | Zlib package metadata; preserve upstream notice and restrictions when distributing |
+
+Package source code is not modified. The modification is limited to replacing
+four installed OS package versions through the existing `apk add` layer; image
+notices, including `/usr/share/licenses/nginx/COPYRIGHT`, remain retained. Official
+Alpine indexes list the selected versions for both aarch64 and x86_64; execution
+platforms, package checksums and scan results are recorded in the bounded image
+repair [evidence](docs/evidence/m4b-frontend-image-repair.md). No image publication
+or public distribution is authorized here.

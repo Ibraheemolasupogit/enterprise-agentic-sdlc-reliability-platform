@@ -1,0 +1,404 @@
+{
+  "createdUTC": "2026-10-31T15:18:07.809218+00:00",
+  "baseHead": "1e8d92d69a7947a2d7bbf301886580d5c95d8254",
+  "scope": "Hosted CI proxy verification repair only; deployment NO-GO preserved",
+  "hosted": {
+    "runId": 41198119793,
+    "containersJobId": 124528678377,
+    "os": "Ubuntu 24.04.5 x64",
+    "commit": "1e8d92d69a7947a2d7bbf301886580d5c95d8254",
+    "jobs": {
+      "application": "success",
+      "policy": "success",
+      "containers": "failure",
+      "required": "failure",
+      "codeql": "skipped"
+    },
+    "failedStep": "python3 scripts/delivery/verify_proxy.py",
+    "error": "RuntimeError: /api/echo never reached 200",
+    "imageScanStep": "skipped",
+    "provenanceStep": "skipped",
+    "containerBrowserPassed": 3,
+    "originalPeerLogsAvailable": false,
+    "originalHttpResponseAvailable": false,
+    "rerunTriggered": false,
+    "logExcerptSha256": "12752bdc26ab1aa55dbf286a8f2836ff1e098448d4b4ffeb6b38a40b724fe677"
+  },
+  "rootCause": {
+    "diagnosis": "Private runner-owned 0700 fixture directory prevents non-root peer from traversing /fixtures",
+    "historicalLimitation": "Hosted peer exit/logs were discarded; diagnosis is supported by source analysis and controlled Linux reproduction",
+    "reproduction": "Linux Docker volume UID/GID 1001, mode 0700; peer UID 1000",
+    "observed": {
+      "peerExitCode": 1,
+      "peerError": "Cannot find module '/fixtures/peer.mjs'",
+      "staticHttp": 200,
+      "apiHttp": 503,
+      "readinessHttp": 503,
+      "proxyError": "agent1 could not be resolved (3: Host not found)"
+    },
+    "repairedReplay": "Same volume owner and non-root peer; actual prepared directory 0755 and fixture files 0644; all TLS/proxy/negative checks PASS",
+    "negativeDiagnosticReplay": "Reinjected 0700 directory: early exit 1 + HTTP 503 and failure record saved before cleanup"
+  },
+  "localResults": {
+    "applicationPassed": 64,
+    "nativeBrowserPassed": 3,
+    "containerBrowserPassed": 3,
+    "deliverySecurityPassed": 12,
+    "newHarnessRegressions": 4,
+    "format": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "actionlint": "PASS; shellcheck not invoked",
+    "bicep": "PASS four lint/build + compiled policy, no Azure access",
+    "configScan": "PASS Dockerfiles and finite registry-access ARM coverage",
+    "documentation": "PASS 49 text files, 36 Markdown files, 278 relative links/anchors, 13 roadmap titles and catalogue references",
+    "secrets": "PASS Gitleaks all 7 commits and working tree; no accepted exceptions",
+    "trackedUntrackedWhitespace": "PASS git diff --check and all 3 untracked text files"
+  },
+  "finalProxy": {
+    "started": "2026-10-31T15:15:57.291448+00:00",
+    "actor": "local deterministic TLS fixture test",
+    "checks": [
+      "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+      "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+      "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+    ],
+    "result": "PASS",
+    "finished": "2026-10-31T15:16:02.115204+00:00"
+  },
+  "containerSmoke": {
+    "started": "2026-10-31T15:15:37.586899+00:00",
+    "project": "morrow-supply-m3-verify",
+    "actor": "deterministic local delivery verification",
+    "checks": [
+      "12 fixtures and authoritative discount total via built proxy",
+      "non-root/read-only/cap-drop; only loopback frontend published",
+      "cart persisted across API container replacement",
+      "all three unchanged M2 browser cases passed through production images"
+    ],
+    "result": "PASS",
+    "finished": "2026-10-31T15:15:57.162587+00:00"
+  },
+  "images": {
+    "api": {
+      "localImageId": "sha256:839eb4775f39214d0f44c7d4135e403af4928d11a8cfb5b0fa20256fde8a8b98",
+      "architecture": "arm64",
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "978bd786e3511ce58051d76ac6dd63c5b8571d38985363ab0b732b42415ab32c",
+      "sbomSha256": "29edbd5fd03e28e97b99896287fb07c93f0bc2259ff0d91f40459a238729a569"
+    },
+    "frontend": {
+      "localImageId": "sha256:5f70c7b7e1b3b4208bbfcb8b6867a8fd5fdc6831f61bb94a11c1ea86fc2f834c",
+      "architecture": "arm64",
+      "high": 0,
+      "critical": 0,
+      "reportSha256": "528eb36ca43e056959643f360efe0b372864b5d88eee082bae79788d7c4c69a7",
+      "sbomSha256": "a5cb02b9f9f9c0e267404cce270045a739406dfb8ec80c0f7eda1119ffae3259"
+    }
+  },
+  "provenance": {
+    "file": "artifacts/m3/provenance.json",
+    "sha256": "c20894f9d232bb78b3baab3f68f2099f3ddf6e812f608145b44f3108e863031c",
+    "verifiedInputs": 84,
+    "signedAttestation": false,
+    "releaseEligible": false
+  },
+  "diagnosticsProof": {
+    "failureRecordSha256": "1c772929aa32eeabf812d8cb84e052c123182bd7e290d9a6c4bc945f1d4a3bcd",
+    "generatedNginxConfigSha256": "597c293c3382cbc437c40caf84e1433f7a5ffe0b1e9012931f210140dd0db131",
+    "httpCaptureSha256": "fa596f79007577e04e85aee97b7dadabc8236303836477a76131a7a599e8dc6e"
+  },
+  "unchanged": [
+    "Application/business code",
+    "Frontend proxy configuration",
+    "Container image recipes/dependency locks",
+    "CI workflow and required gate",
+    "Bicep and identity settings",
+    "CodeQL conditional execution"
+  ],
+  "limitations": [
+    "Local macOS arm64 host with Linux-volume semantics, not actual Ubuntu x64 hosted execution",
+    "New hosted run and CodeQL remain unverified",
+    "No cloud, provider or SQL integration performed",
+    "Existing dependency advisory remains outside this repair; no waiver introduced"
+  ],
+  "prohibitedActionsPerformed": [],
+  "changedFiles": [
+    "scripts/delivery/verify_proxy.py",
+    "tests/delivery/test_proxy.py",
+    "docs/evidence/m4b-local-preparation.md",
+    "docs/evidence/m4b-ci-repair.md",
+    "docs/evidence/m4b-ci-repair.json"
+  ],
+  "resumedValidation": {
+    "recordedUTC": "2026-11-09T18:10:47.156818+00:00",
+    "baseHeadUnchanged": "1e8d92d69a7947a2d7bbf301886580d5c95d8254",
+    "scope": "Preserve and independently revalidate the existing bounded proxy repair; refresh evidence only",
+    "sourceAndTestUnchangedSinceResume": true,
+    "hostedLogsReinspected": true,
+    "hostedRerunTriggered": false,
+    "proxyRepairStatus": "Locally tested",
+    "releaseStatus": "BLOCKED / NO-GO",
+    "baselineReplay": {
+      "mode": "baseline",
+      "started": "2026-11-09T18:02:34.439039+00:00",
+      "volumeOwnerUID": 1001,
+      "peerUID": 1000,
+      "linuxFixtureModes": "1001:1001 700 /fixtures\n1001:1001 644 /fixtures/agent1-cert.pem\n1001:1001 644 /fixtures/agent1-key.pem\n1001:1001 644 /fixtures/ca1-cert.pem\n1001:1001 644 /fixtures/peer.mjs\n",
+      "http": {
+        "/": {
+          "status": 200,
+          "body": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta\n      name=\"description\"\n      content=\"Morrow Supply \u2014 an original synthetic commerce demonstration.\"\n    />\n    <title>Morrow Supply \u00b7 The everyday collection</title>\n    <link rel=\"icon\" href=\"data:,\" />\n    <script type=\"module\" crossorigin src=\"/assets/index-NqKkJnbn.js\"></script>\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/in"
+        },
+        "/api/echo": {
+          "status": 503,
+          "body": "{\"code\":\"UPSTREAM_UNAVAILABLE\",\"message\":\"The shop is temporarily unavailable.\",\"requestId\":\"4c1233aca38355906e367318063aecea\"}"
+        },
+        "/health/ready": {
+          "status": 503,
+          "body": "{\"code\":\"UPSTREAM_UNAVAILABLE\",\"message\":\"The shop is temporarily unavailable.\",\"requestId\":\"f1445de1267768597d10ff7bfdbae3b0\"}"
+        }
+      },
+      "result": "FAIL",
+      "error": "/api/echo never reached 200",
+      "finished": "2026-11-09T18:02:46.864934+00:00"
+    },
+    "repairedReplay": {
+      "mode": "fixed",
+      "started": "2026-11-09T18:04:20.092058+00:00",
+      "volumeOwnerUID": 1001,
+      "peerUID": 1000,
+      "linuxFixtureModes": "1001:1001 755 /fixtures\n1001:1001 644 /fixtures/agent1-cert.pem\n1001:1001 644 /fixtures/agent1-key.pem\n1001:1001 644 /fixtures/ca1-cert.pem\n1001:1001 644 /fixtures/peer.mjs\n",
+      "result": "PASS",
+      "finished": "2026-11-09T18:04:25.062053+00:00"
+    },
+    "diagnosticFaultReplay": {
+      "mode": "injected",
+      "started": "2026-11-09T18:04:49.553408+00:00",
+      "volumeOwnerUID": 1001,
+      "peerUID": 1000,
+      "linuxFixtureModes": "1001:1001 700 /fixtures\n1001:1001 644 /fixtures/agent1-cert.pem\n1001:1001 644 /fixtures/agent1-key.pem\n1001:1001 644 /fixtures/ca1-cert.pem\n1001:1001 644 /fixtures/peer.mjs\n",
+      "result": "FAIL",
+      "error": "morrow-m4b-tls-peer exited (1); /api/echo: HTTP 503: {\"code\":\"UPSTREAM_UNAVAILABLE\",\"message\":\"The shop is temporarily unavailable.\",\"requestId\":\"2ebb3058e17111add07cfaa7ea999242\"}",
+      "finished": "2026-11-09T18:04:51.189360+00:00"
+    },
+    "finalProxy": {
+      "started": "2026-11-09T18:05:42.489665+00:00",
+      "actor": "local deterministic TLS fixture test",
+      "checks": [
+        "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+        "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+        "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+      ],
+      "result": "PASS",
+      "finished": "2026-11-09T18:05:46.427254+00:00"
+    },
+    "containerSmoke": {
+      "started": "2026-11-09T18:05:25.009355+00:00",
+      "project": "morrow-supply-m3-verify",
+      "actor": "deterministic local delivery verification",
+      "checks": [
+        "12 fixtures and authoritative discount total via built proxy",
+        "non-root/read-only/cap-drop; only loopback frontend published",
+        "cart persisted across API container replacement",
+        "all three unchanged M2 browser cases passed through production images"
+      ],
+      "result": "PASS",
+      "finished": "2026-11-09T18:05:42.380977+00:00"
+    },
+    "checks": {
+      "applicationFormatLintTypesBuild": "PASS",
+      "licenseDrift": "PASS 417 locked records",
+      "applicationTests": 64,
+      "nativeBrowserTests": 3,
+      "containerBrowserTests": 3,
+      "deliverySecurityTests": 12,
+      "bicep": "PASS four lint/build + policy; no Azure access",
+      "actionlint": "PASS; shellcheck not invoked",
+      "configScan": "PASS refreshed public checks; finite registry-access ARM/two Dockerfile coverage",
+      "npmAudit": {
+        "info": 0,
+        "low": 0,
+        "moderate": 10,
+        "high": 0,
+        "critical": 0,
+        "total": 10
+      },
+      "imageGate": "BLOCKED: frontend seven HIGH package findings; no exceptions or recipe changes",
+      "provenance": "Not regenerated after failed image gate; earlier provenance is historical",
+      "secretScan": "PASS all 7 commits and working tree including refreshed evidence; no exceptions",
+      "repositoryAndWhitespace": "PASS 51 text files, 36 Markdown files, 279 relative links/anchors; git diff --check and all 3 untracked text files",
+      "untrackedWhitespace": [
+        {
+          "path": "docs/evidence/m4b-ci-repair.json",
+          "exitCode": 1,
+          "whitespaceDiagnostics": false
+        },
+        {
+          "path": "docs/evidence/m4b-ci-repair.md",
+          "exitCode": 1,
+          "whitespaceDiagnostics": false
+        },
+        {
+          "path": "tests/delivery/test_proxy.py",
+          "exitCode": 1,
+          "whitespaceDiagnostics": false
+        }
+      ]
+    },
+    "scanner": {
+      "trivy": "0.72.0",
+      "vulnerabilityDBUpdatedUTC": "2026-11-09T13:58:27.621115901Z",
+      "vulnerabilityDBDownloadedUTC": "2026-11-09T18:06:21.192466Z",
+      "checksDownloadedUTC": "2026-11-09T18:05:08.902021Z"
+    },
+    "images": {
+      "api": {
+        "localImageId": "sha256:2ecd71e83450e98a32903d3a62ce0930c52652b0efcb07f005434b1a6aece795",
+        "architecture": "arm64",
+        "createdUTC": "2026-11-09T18:06:21.29997Z",
+        "high": 0,
+        "critical": 0,
+        "reportSha256": "a2cf5cdb1246bf3811c48278192b51ab102c323ad0f5f6a7d24c03d43bceec76",
+        "sbomSha256": "8dbeac0ddcaa67fbe03e24ec2ce1a8bcdcdb5b2e54f69152df57d8a144be2470",
+        "findings": []
+      },
+      "frontend": {
+        "localImageId": "sha256:e218ef74aba4c2aa57d137f01836f8f05dc190b7e571d236d20239cc3fa8e728",
+        "architecture": "arm64",
+        "createdUTC": "2026-11-09T18:06:21.577597Z",
+        "high": 7,
+        "critical": 0,
+        "reportSha256": "e115e26662b5c21c037f53ee47ebb0623e81e8300d8d45327551514d771d1b2f",
+        "sbomSha256": "af69ce9aed2d0e2d98a32bc67643d57fa8a619853717c32a63fa28d4481353bd",
+        "findings": [
+          {
+            "VulnerabilityID": "CVE-2026-113351",
+            "Severity": "HIGH",
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-113351"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-115506",
+            "Severity": "HIGH",
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-115506"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-117610",
+            "Severity": "HIGH",
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-117610"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-118370",
+            "Severity": "HIGH",
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-118370"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-107891",
+            "Severity": "HIGH",
+            "PkgName": "musl",
+            "InstalledVersion": "1.2.6-r2",
+            "FixedVersion": "1.2.6-r3",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-107891",
+            "Severity": "HIGH",
+            "PkgName": "musl-utils",
+            "InstalledVersion": "1.2.6-r2",
+            "FixedVersion": "1.2.6-r3",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-85091",
+            "Severity": "HIGH",
+            "PkgName": "zlib",
+            "InstalledVersion": "1.3.2-r0",
+            "FixedVersion": "1.3.2-r1",
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091"
+          }
+        ]
+      }
+    },
+    "rawEvidence": [
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-replay.json",
+        "sha256": "e67e29cb46d15303c77470a628b07ab85b2b80ee12d06e11f08eb07a75ddadc0"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-peer-state.log",
+        "sha256": "6114c8604634f2041ade8d8dd773dbd1acdba5686069733c9020b569bce7e638"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-peer-logs.log",
+        "sha256": "13569fef8fbe2faa68ba60576fe42b79dbfb891f42e7066d0e1e7f4d5ca4543f"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-proxy-logs.log",
+        "sha256": "1b350fb148df33d28005510c41148da735712d195200b5d17e12d9441f4bca92"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-nginx.log",
+        "sha256": "597c293c3382cbc437c40caf84e1433f7a5ffe0b1e9012931f210140dd0db131"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/baseline-network.log",
+        "sha256": "37002dba4254c5265fbe16adb490a22145b57cc1619a97096e57b94f07e35cab"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/fixed-replay.json",
+        "sha256": "208bb1fd4d793fee80adb05b341855482deece0a3ed04eab282d0ebc3c7d1311"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/injected-replay.json",
+        "sha256": "27e8e1dd76d381f5936ef74b55a093e4ac471b45441a0bec42ceabfdc3063a6f"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/injected-failure-record.json",
+        "sha256": "29a40bffe2dc60d8e8ce5e1406e016448c317ddd71358a0ae72ac860ed1daa9e"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/hosted-failure-excerpt.log",
+        "sha256": "3810e91321f9a62041e467199b906a3c99eb24aaabee96f9ab6d381447fae6d6"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/replay.py",
+        "sha256": "f5ce67b3407c428e68a4c0ff493de311c3a165df8c3b70859526448df3282741"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/config-scan.log",
+        "sha256": "48eca6450c6148fa25255cb6f6a1c2a966a6c6fb4c8edb63258c218a90b204da"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/image-scan.log",
+        "sha256": "5345d0abbc58336a42ff850d7b924ef0cb87cc421f87b08138a18c9ac72b75f7"
+      },
+      {
+        "path": "artifacts/m4b-ci-repair/resume/npm-audit.json",
+        "sha256": "9dd6fdbb2fbc6ddd5000d675e0a477ffdfa43efc2015e4fae8ab951a7a853a72"
+      }
+    ],
+    "verificationLimits": [
+      "Linux arm64 Docker-volume semantics under macOS, not Ubuntu x64 hosted execution",
+      "Original hosted peer logs/HTTP state were discarded",
+      "New hosted CI and CodeQL unverified",
+      "Image gate blocks release; dependency remediation outside this proxy-only task",
+      "No cloud/provider/SQL integration or Azure authentication performed"
+    ],
+    "cleanup": "Test-owned resources removed; pre-existing stopped M2 containers and volume untouched",
+    "prohibitedActionsPerformed": []
+  }
+}

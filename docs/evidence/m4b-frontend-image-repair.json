@@ -1,0 +1,579 @@
+{
+  "recordedUTC": "2026-11-10T05:14:42.635118+00:00",
+  "baseHead": "1e8d92d69a7947a2d7bbf301886580d5c95d8254",
+  "scope": "Bounded frontend runtime OS package vulnerability repair only; existing five-file proxy repair preserved",
+  "status": "Locally tested",
+  "imageGate": "PASS",
+  "deploymentDecision": "NO-GO",
+  "baseImage": {
+    "reference": "nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03",
+    "source": "https://github.com/nginx/docker-nginx-unprivileged",
+    "sourceRevision": "bb7393196554e11f7ba95452856d8b5faff217bf",
+    "layers": 9,
+    "unchanged": true,
+    "nginxVersion": "1.30.6",
+    "nginxNoticeSha256": "4f72e2bccf0bcd839dd447ab6f359336f428caa1987a9afec2bc9ade5711658a"
+  },
+  "classification": {
+    "packageFindings": 7,
+    "distinctCVEs": 6,
+    "installedPackages": 4,
+    "severity": "HIGH",
+    "class": "os-pkgs",
+    "type": "alpine",
+    "source": "Alpine Secdb",
+    "allInheritedFromPinnedBase": true,
+    "applicationNpmFindings": 0
+  },
+  "remediation": {
+    "method": "Add four exact versions to existing signed apk add operation; no distribution/base/Nginx/application/architecture change",
+    "simulatedPackageChanges": 4,
+    "actualFrontendPackageChanges": 4,
+    "zlibSelection": "1.4-r0 is indexed on the existing v3.24 stable main repository; minimum 1.3.2-r1 APK remains reachable but is absent from the current package index",
+    "packageMetadata": {
+      "aarch64": [
+        {
+          "P": "libexpat",
+          "V": "2.10.0-r0",
+          "A": "aarch64",
+          "L": "MIT",
+          "o": "expat",
+          "c": "af0fa42036cd6e626768c0d65fddaa1d1b30cf21",
+          "U": "https://libexpat.github.io/",
+          "D": "so:libc.musl-aarch64.so.1",
+          "p": "so:libexpat.so.1=1.13.1",
+          "C": "Q19LcY95xuLs+NZroFQQAq4LiZB10="
+        },
+        {
+          "P": "musl",
+          "V": "1.2.6-r3",
+          "A": "aarch64",
+          "L": "MIT",
+          "o": "musl",
+          "c": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+          "U": "https://musl.libc.org/",
+          "D": null,
+          "p": "so:libc.musl-aarch64.so.1=1",
+          "C": "Q1LxWdAiUjx6a3hymmYymFy3cU++Y="
+        },
+        {
+          "P": "musl-utils",
+          "V": "1.2.6-r3",
+          "A": "aarch64",
+          "L": "MIT AND BSD-2-Clause AND GPL-2.0-or-later",
+          "o": "musl",
+          "c": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+          "U": "https://musl.libc.org/",
+          "D": "scanelf so:libc.musl-aarch64.so.1",
+          "p": "libc-utils=1.2.6-r3 cmd:getconf=1.2.6-r3 cmd:getent=1.2.6-r3 cmd:iconv=1.2.6-r3 cmd:ldconfig=1.2.6-r3 cmd:ldd=1.2.6-r3",
+          "C": "Q1w4Ehr//R8t12gfesZgWKPNcj0DA="
+        },
+        {
+          "P": "zlib",
+          "V": "1.4-r0",
+          "A": "aarch64",
+          "L": "Zlib",
+          "o": "zlib",
+          "c": "bdf501c870a92a05c097857401f69c48c4810384",
+          "U": "https://zlib.net/",
+          "D": "so:libc.musl-aarch64.so.1",
+          "p": "so:libz.so.1=1.4",
+          "C": "Q1cAnIFG+QhV4gjN8LYPNd8Iv+wcM="
+        }
+      ],
+      "x86_64": [
+        {
+          "P": "libexpat",
+          "V": "2.10.0-r0",
+          "A": "x86_64",
+          "L": "MIT",
+          "o": "expat",
+          "c": "af0fa42036cd6e626768c0d65fddaa1d1b30cf21",
+          "U": "https://libexpat.github.io/",
+          "D": "so:libc.musl-x86_64.so.1",
+          "p": "so:libexpat.so.1=1.13.1",
+          "C": "Q1sJ3mbRK300qoX/3bSQgNsvVLmDY="
+        },
+        {
+          "P": "musl",
+          "V": "1.2.6-r3",
+          "A": "x86_64",
+          "L": "MIT",
+          "o": "musl",
+          "c": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+          "U": "https://musl.libc.org/",
+          "D": null,
+          "p": "so:libc.musl-x86_64.so.1=1",
+          "C": "Q1dw6DBNlY3O2Y12mX356Podtcoy8="
+        },
+        {
+          "P": "musl-utils",
+          "V": "1.2.6-r3",
+          "A": "x86_64",
+          "L": "MIT AND BSD-2-Clause AND GPL-2.0-or-later",
+          "o": "musl",
+          "c": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+          "U": "https://musl.libc.org/",
+          "D": "scanelf so:libc.musl-x86_64.so.1",
+          "p": "libc-utils=1.2.6-r3 cmd:getconf=1.2.6-r3 cmd:getent=1.2.6-r3 cmd:iconv=1.2.6-r3 cmd:ldconfig=1.2.6-r3 cmd:ldd=1.2.6-r3",
+          "C": "Q1UTctqvsjRkaWDspNehP3BjJPJNY="
+        },
+        {
+          "P": "zlib",
+          "V": "1.4-r0",
+          "A": "x86_64",
+          "L": "Zlib",
+          "o": "zlib",
+          "c": "bdf501c870a92a05c097857401f69c48c4810384",
+          "U": "https://zlib.net/",
+          "D": "so:libc.musl-x86_64.so.1",
+          "p": "so:libz.so.1=1.4",
+          "C": "Q14j+c5OMsvdJ78cidhOg7phxCkLw="
+        }
+      ]
+    },
+    "sourceModifications": "None; replace installed signed packages only"
+  },
+  "images": {
+    "api": {
+      "before": {
+        "imageId": "sha256:2ecd71e83450e98a32903d3a62ce0930c52652b0efcb07f005434b1a6aece795",
+        "scanCreatedUTC": "2026-11-09T18:06:21.29997Z",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.3"
+        },
+        "findings": [],
+        "reportSha256": "a2cf5cdb1246bf3811c48278192b51ab102c323ad0f5f6a7d24c03d43bceec76"
+      },
+      "after": {
+        "imageId": "sha256:6c05f3a6698cd83dadce20aed1b1d83b1f853f93e73a3cf6cf555aa314408402",
+        "scanCreatedUTC": "2026-11-10T05:05:43.495195Z",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.3"
+        },
+        "architecture": "arm64",
+        "runtimeUser": "node",
+        "highCriticalFindings": [],
+        "allSeverityCounts": {
+          "MEDIUM": 1
+        },
+        "residualFindings": [
+          {
+            "PkgName": "zlib",
+            "InstalledVersion": "1.3.2-r1",
+            "FixedVersion": "1.4-r0",
+            "VulnerabilityID": "CVE-2026-4738",
+            "Severity": "MEDIUM",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:d3531b7a4f217bdc3426c57bcff84c170f086f456a39689d4a615c6d026c4be0",
+              "DiffID": "sha256:a278e6f39431cd0ed74238a3d377893ad0d905d68b676bf9a65529080669756b"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-4738"
+          }
+        ],
+        "reportSha256": "b416b3040afbebdc934559b8839af42b79d1bfe75231692a1de10868e53ee7bf",
+        "sbomSha256": "2ed14a31a7d046358d6a20171a12872d5d6eb6aa8bdc3477216f5182277446e0",
+        "fullInventorySha256": "35f373115bd745d53af4d97841d6a054ea4fad3fff11af29c73280d25316a967"
+      },
+      "packageChanges": {}
+    },
+    "frontend": {
+      "before": {
+        "imageId": "sha256:e218ef74aba4c2aa57d137f01836f8f05dc190b7e571d236d20239cc3fa8e728",
+        "scanCreatedUTC": "2026-11-09T18:06:21.577597Z",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.2"
+        },
+        "findings": [
+          {
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "VulnerabilityID": "CVE-2026-113351",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:9d39ace23ce6f88c7870aa6e33ddd632c42be9171e29ee1caa6c3f7800f87ba0",
+              "DiffID": "sha256:c23c5c84c91967a7ea87e5deffb49659c0a66f8be77a2359d518c3cb8865b14c"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-113351",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 9
+          },
+          {
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "VulnerabilityID": "CVE-2026-115506",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:9d39ace23ce6f88c7870aa6e33ddd632c42be9171e29ee1caa6c3f7800f87ba0",
+              "DiffID": "sha256:c23c5c84c91967a7ea87e5deffb49659c0a66f8be77a2359d518c3cb8865b14c"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-115506",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 9
+          },
+          {
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "VulnerabilityID": "CVE-2026-117610",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:9d39ace23ce6f88c7870aa6e33ddd632c42be9171e29ee1caa6c3f7800f87ba0",
+              "DiffID": "sha256:c23c5c84c91967a7ea87e5deffb49659c0a66f8be77a2359d518c3cb8865b14c"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-117610",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 9
+          },
+          {
+            "PkgName": "libexpat",
+            "InstalledVersion": "2.9.0-r0",
+            "FixedVersion": "2.10.0-r0",
+            "VulnerabilityID": "CVE-2026-118370",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:9d39ace23ce6f88c7870aa6e33ddd632c42be9171e29ee1caa6c3f7800f87ba0",
+              "DiffID": "sha256:c23c5c84c91967a7ea87e5deffb49659c0a66f8be77a2359d518c3cb8865b14c"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-118370",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 9
+          },
+          {
+            "PkgName": "musl",
+            "InstalledVersion": "1.2.6-r2",
+            "FixedVersion": "1.2.6-r3",
+            "VulnerabilityID": "CVE-2026-107891",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:a9986cd6f37dbddae7862a6d4be71683472e7c2ea708e87db14f8a6393c00f00",
+              "DiffID": "sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 1
+          },
+          {
+            "PkgName": "musl-utils",
+            "InstalledVersion": "1.2.6-r2",
+            "FixedVersion": "1.2.6-r3",
+            "VulnerabilityID": "CVE-2026-107891",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:a9986cd6f37dbddae7862a6d4be71683472e7c2ea708e87db14f8a6393c00f00",
+              "DiffID": "sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 1
+          },
+          {
+            "PkgName": "zlib",
+            "InstalledVersion": "1.3.2-r0",
+            "FixedVersion": "1.3.2-r1",
+            "VulnerabilityID": "CVE-2026-85091",
+            "Severity": "HIGH",
+            "Status": "fixed",
+            "Layer": {
+              "Digest": "sha256:a9986cd6f37dbddae7862a6d4be71683472e7c2ea708e87db14f8a6393c00f00",
+              "DiffID": "sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b"
+            },
+            "DataSource": {
+              "ID": "alpine",
+              "Name": "Alpine Secdb",
+              "URL": "https://secdb.alpinelinux.org/"
+            },
+            "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091",
+            "origin": "Pinned Nginx base runtime OS package",
+            "baseLayerNumber": 1
+          }
+        ],
+        "reportSha256": "e115e26662b5c21c037f53ee47ebb0623e81e8300d8d45327551514d771d1b2f"
+      },
+      "after": {
+        "imageId": "sha256:c4ffb3525ceb92540778747044a5781c688a86ea69c7c6da8b48ea4ea0f0a053",
+        "scanCreatedUTC": "2026-11-10T05:05:44.041949Z",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.2"
+        },
+        "architecture": "arm64",
+        "runtimeUser": "101",
+        "highCriticalFindings": [],
+        "allSeverityCounts": {},
+        "residualFindings": [],
+        "reportSha256": "07f9e5b5e7ebde423600ee234e3a51169d60c2c8f84876e7cdc06cd6eb695071",
+        "sbomSha256": "4edd2dfaceab3ff6eb6df8888c05309f604439b7f5db8f009438a9e8367d81cd",
+        "fullInventorySha256": "4377d319b0dfa6cf718ec50a323baa984534c23b501aad68a6505ba2b39f50e1"
+      },
+      "packageChanges": {
+        "libexpat": {
+          "before": "2.9.0-r0",
+          "after": "2.10.0-r0"
+        },
+        "musl": {
+          "before": "1.2.6-r2",
+          "after": "1.2.6-r3"
+        },
+        "musl-utils": {
+          "before": "1.2.6-r2",
+          "after": "1.2.6-r3"
+        },
+        "zlib": {
+          "before": "1.3.2-r0",
+          "after": "1.4-r0"
+        }
+      }
+    }
+  },
+  "scanner": {
+    "version": "0.72.0",
+    "gateCommand": "python3 scripts/delivery/scan_images.py",
+    "gateExitCode": 0,
+    "severityThreshold": "HIGH,CRITICAL including unfixed findings",
+    "supplementalInventory": "All severities; does not replace or alter gate",
+    "vulnerabilityDBUpdatedUTC": "2026-11-09T13:58:27.621115901Z",
+    "vulnerabilityDBNextUpdateUTC": "2026-11-10T13:58:27.621115641Z",
+    "vulnerabilityDBDownloadedUTC": "2026-11-09T18:06:21.192466Z",
+    "exceptionRegister": [],
+    "ignoredCVEs": []
+  },
+  "verification": {
+    "applicationFormatLintTypesBuild": "PASS",
+    "applicationTests": 64,
+    "applicationTestFiles": 7,
+    "nativeBrowserTests": 3,
+    "containerBrowserTests": 3,
+    "licenseDrift": "PASS; 417 locked records and browser notices unchanged",
+    "npmAudit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 10,
+      "high": 0,
+      "critical": 0,
+      "total": 10
+    },
+    "containerSmoke": {
+      "started": "2026-11-10T05:04:47.036836+00:00",
+      "project": "morrow-supply-m3-verify",
+      "actor": "deterministic local delivery verification",
+      "checks": [
+        "12 fixtures and authoritative discount total via built proxy",
+        "non-root/read-only/cap-drop; only loopback frontend published",
+        "cart persisted across API container replacement",
+        "all three unchanged M2 browser cases passed through production images"
+      ],
+      "result": "PASS",
+      "finished": "2026-11-10T05:05:33.839894+00:00"
+    },
+    "proxy": {
+      "started": "2026-11-10T05:05:33.986910+00:00",
+      "actor": "local deterministic TLS fixture test",
+      "checks": [
+        "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+        "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+        "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+      ],
+      "result": "PASS",
+      "finished": "2026-11-10T05:05:42.934022+00:00"
+    },
+    "bicep": "PASS four templates lint/build + policy; no Azure access",
+    "deliverySecurityTests": 12,
+    "actionlint": "PASS; shellcheck not invoked",
+    "configScan": "PASS two Dockerfiles and finite registry-access ARM coverage; all four compiled templates covered by policy",
+    "provenance": {
+      "path": "artifacts/m3/provenance.json",
+      "createdUTC": "2026-11-10T05:08:23.645627+00:00",
+      "sha256": "46c92a8ff699e74a4cc6a2a612e94a46ffca879dd0b5a15e33c6a75abfcad3fb",
+      "verifiedInputs": 84,
+      "sourceHead": "1e8d92d69a7947a2d7bbf301886580d5c95d8254",
+      "dirtyWorkingTree": true,
+      "imageIdentityMatches": true,
+      "signedAttestation": false,
+      "releaseEligible": false
+    },
+    "secretScan": "PASS all 7 commits and working tree including new evidence; no exceptions",
+    "documentationWhitespace": "PASS 52 text files, 37 Markdown files, 285 relative links/anchors; git diff --check and all 5 untracked text files",
+    "untrackedWhitespace": [
+      {
+        "path": "docs/evidence/m4b-ci-repair.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4b-ci-repair.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4b-frontend-image-repair.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4b-frontend-image-repair.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "tests/delivery/test_proxy.py",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      }
+    ]
+  },
+  "preservedProxyRepair": {
+    "allFiveFilesByteIdentical": true,
+    "sha256": {
+      "scripts/delivery/verify_proxy.py": "7899bda4faa9af34550b10c8bf5dc088acba9dc67f2026ea3a83ece3e81251a8",
+      "tests/delivery/test_proxy.py": "df48e22e881e02203e12739b476c79dc42e9e903f5f0058a15d371778a693d93",
+      "docs/evidence/m4b-local-preparation.md": "a926a30932e975f11eaece3b95b38cac00fb3cf5ba47b766b5d024a06c900a9a",
+      "docs/evidence/m4b-ci-repair.md": "5d80f2d4ae0bd07ef66b0055d2956d42c2d8729f2f6ec1f9301afefca29f9cd2",
+      "docs/evidence/m4b-ci-repair.json": "ad136b91c90921203f8b4210d826b6a7070d3f1fc6205e9db58f5188c1143ced"
+    }
+  },
+  "changedFilesThisTask": [
+    "apps/octocat-supply/frontend/Dockerfile",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/evidence/m4b-frontend-image-repair.md",
+    "docs/evidence/m4b-frontend-image-repair.json"
+  ],
+  "unchangedBoundaries": [
+    "API recipe and all application source/tests/dependency locks",
+    "Five-file proxy repair",
+    "Frontend TLS/host validation/header stripping/fail-closed configuration",
+    "CI workflow, scanners, thresholds and exception register",
+    "Infrastructure and cloud identities/settings"
+  ],
+  "rawEvidence": [
+    {
+      "path": "artifacts/m4b-image-repair/before-image-inspect.json",
+      "sha256": "e0796afc087113dcf7b2442c42285180105ff7aed4b38b0073ab25a8197d21e5"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/base-image-inspect.json",
+      "sha256": "53cbe8a57b5e8886e30736b2620dbfc0c8b124651eeb2ee4131ea294842302b6"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/before-history.txt",
+      "sha256": "b22cd3b002418beb8d9354ad8fb21cffe80b96d5a012799cf92d4b76e7024275"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/package-investigation.log",
+      "sha256": "24162219ad7b6c2451c4ac0b3ddee36932753133a9b1159981574653749ce6a1"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/patch-plan.log",
+      "sha256": "b2aee31633a5db0bd9490098e7915fb7a5e870806c52e144640024b8312ebef8"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/alpine-main-secdb.json",
+      "sha256": "35e2341005dbaf677f0adbff70defe1ed303559ff8f4ebfdfbed397211debc7b"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/aarch64-APKINDEX.tar.gz",
+      "sha256": "d879b8c45e287770800e8fe7dc56435f407a914da55afa74dcb9f7833ce05e9b"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/x86_64-APKINDEX.tar.gz",
+      "sha256": "5877a29726f2100b48066aa8aa83a23cd0508431e4e9eb7dfad744ee675ec2fd"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/selected-package-metadata.json",
+      "sha256": "49d72e9778645219a75295a8c9c3c348583dfdaca5e1bbcf05eda90935d2deed"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/after-image-inspect.json",
+      "sha256": "62a64ff0cd01ce5b1162e9eb2630b0e4fb907b7fae5a66ef6dfeba59cbb6e9ee"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/after-package-inventory.log",
+      "sha256": "0db7d605c9a8194c21ec687499dca207d55117fb0da38a8432d8b0ac1629392f"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/base-notice-hash.txt",
+      "sha256": "0afd4a9a5fa4c28f879ba31cc888668b90861e902f8a0987f5e69e4d42902e8b"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/container-check.log",
+      "sha256": "d88f8aca52cfeb4fb4e5c41e80c49ee60f08ef845283b09dbef4b7d504bfb6c6"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/proxy-check.log",
+      "sha256": "61e0dc0fba7a0eadfdabdd383f7b4d3752729d8e8c722f25533997fa113a464b"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/config-scan.log",
+      "sha256": "71a2fe3ab383df303d7c29ec1d80bc7527d6a0b5fbcb9c4ff69e522b8f479ea2"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/image-scan.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/native-browser.log",
+      "sha256": "afc5d7052c2649346ec2484add8fc6f1b06386560954b6bdc7407b3536ca818c"
+    },
+    {
+      "path": "artifacts/m4b-image-repair/npm-audit.json",
+      "sha256": "a72feec033dbaeda6f2abdcf97338e5e648116b4e57720b6cf284bfa1438bd03"
+    }
+  ],
+  "limits": [
+    "macOS arm64 host / Linux arm64 containers; x86_64 package availability verified but no x86_64 build or hosted execution",
+    "Frontend all-severity inventory is clear at execution; future advisories and package availability can change",
+    "API retains one MEDIUM zlib CVE-2026-4738; no accepted exception or high/critical threshold change",
+    "npm retains ten moderate findings; no dependency upgrade or waiver",
+    "Unsigned local evidence and image IDs, not approved published registry manifest digests",
+    "Hosted proxy confirmation, CodeQL and M4B cloud/governance integration gates remain unverified"
+  ],
+  "cleanup": "Only isolated verification containers/volumes/networks removed; stopped M2 containers/volume/network preserved",
+  "prohibitedActionsPerformed": []
+}
