@@ -8,6 +8,14 @@ export default defineConfig({
       {
         extends: true,
         test: {
+          name: "fixtures",
+          environment: "node",
+          include: ["test/fixtures/**/*.test.ts"],
+        },
+      },
+      {
+        extends: true,
+        test: {
           name: "api",
           environment: "node",
           include: ["api/test/**/*.test.ts"],
@@ -18,6 +26,7 @@ export default defineConfig({
         test: {
           name: "web",
           environment: "jsdom",
+          environmentOptions: { jsdom: { url: "https://shop.example.test" } },
           include: ["frontend/test/**/*.test.tsx"],
           setupFiles: ["frontend/test/setup.ts"],
         },

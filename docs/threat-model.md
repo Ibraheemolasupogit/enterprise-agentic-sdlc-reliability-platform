@@ -2,7 +2,7 @@
 
 Status: assessed 2026-11-10 with M2/M4B local and hosted CI evidence; real provider,
 SQL/Azure and agent controls remain unverified. C1 SQLite contracts are locally
-tested; current C3 work is documentation/planning only.
+tested; C3 client/crypto behavior is now locally tested against Simulated providers.
 See the [readiness assessment](evidence/m4c-readiness-assessment.md).
 Authority: master brief sections 10–12.
 Scope: [architecture](architecture.md), [requirements](requirements.md),
@@ -98,14 +98,20 @@ See [ADR 0007](decisions/0007-application-identity.md) and
 [M4B results](evidence/m4b-local-preparation.md) for exact scope and executed versus
 simulated evidence. Broad network/bootstrap/diagnostic work remains pending.
 
-## C3 browser risks identified by source review — not repaired
+## C3 browser control evidence and remaining limits
 
 [C3 plan G01–G12/P01–P15](milestones/m4c-c3-oidc-plan.md) maps T01/T04/T05/T06
-to missing explicit nonce, limited initial ID-token validation and early user
-publication, unvetted metadata semantics, callback cleanup/replay/lifetime gaps,
-API 401/session races and unsafe provider artifact capture. Retain memory tokens,
-actual API signature/issuer/audience/role/scope enforcement and every cart owner
-check. The proposed verified-session gate and local protocol/capture tests remain
-Design only/Planned; no real provider or new client control was executed here.
+to the planning-time gaps. [C3 execution](evidence/m4c-c3-oidc.md) now proves local
+nonce/S256/state binding, JOSE ID signature/claims before publication, vetted
+metadata, one-time/clean callbacks, bounded expiry/401/logout/stale generations,
+hashed scoped references and protected same-origin API requests. API cryptographic
+policy/ownership is unchanged. Capture-off settings, canaries and adversarial
+mutations are mandatory checks. Provider responses and transport routing are
+Simulated; real client, crypto, Express and isolated SQLite execute.
 Hosted run 42805606271 at `b56d9bd` passed mandatory jobs; CodeQL skipped. Those
-results do not close the new browser protocol acceptance or SAST/governance gaps.
+dated hosted results are not execution of the C3 diff. C3 does not close real
+provider, SAST/governance, private SQL/Azure or deployment gates. Same-origin XSS
+can still steal an active bearer; browser hashing is pseudonymization, not secrecy.
+Tab sign-out/abort cannot revoke a bearer or undo an already accepted server write.
+The capture guard proves the implemented profile/reporters/canaries, not universal
+secret detection. No real-provider traces or operational signing keys were used.

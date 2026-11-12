@@ -4,11 +4,32 @@ Status: **Locally tested** M2 baseline and M4B authentication/proxy preparation;
 SQL contracts **Simulated**, actual SQL/Entra/Azure execution **Blocked**. M3 hosted
 CI was confirmed by M4A on the earlier baseline. Hosted M4B run 42794873352 at
 `40a6353` now passes all four mandatory jobs, with CodeQL skipped; see
-[M4C assessment](evidence/m4c-readiness-assessment.md). M4C implementation is not
-authorized. Agent/Azure/observability runtime diagrams remain **Design only**.
+[M4C assessment](evidence/m4c-readiness-assessment.md). C1 and C3 now have local
+implementation evidence. C3 uses real client/crypto/API/SQLite execution with
+**Simulated provider responses**; no actual Entra/Azure integration. Other M4C
+implementation is unauthorized. Agent/Azure/observability diagrams remain **Design only**.
 Authority: [master brief](project/master-brief.md).
 Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
+
+## C3 local identity boundary
+
+```mermaid
+flowchart LR
+    L["Actual UserManager: code, S256, state, nonce"] --> P["Node-only simulated provider; routed HTTPS URLs"]
+    P --> L
+    L --> V["JOSE ID signature/claims and transaction gate"]
+    V --> S["Current verified session in tab memory"]
+    S --> A["Same-origin API: verified access-token owner"]
+    A --> D["Real isolated SQLite"]
+```
+
+Raw library user events cannot publish the shop/session. API authority remains
+the access-token issuer/sub, even when ID-token subjects differ. Full-page browser
+navigation, client PKCE and real JOSE/Express/SQLite execute locally; virtual HTTPS
+routing does not prove provider TLS/CORS/registration. No test responder, private
+test vector or auth-bypass route is shipped in the production frontend. See
+[C3 evidence](evidence/m4c-c3-oidc.md) for state/session/cleanup and C6 limits.
 
 ## Application and local boundary — M2
 

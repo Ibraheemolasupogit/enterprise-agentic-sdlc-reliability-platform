@@ -38,12 +38,16 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
+      - run: npm run test:auth-mutations
       - run: npm run build
       - run: npm audit --audit-level=high
       - name: Use version-matched bundled Chromium (no runtime apt)
         run: npm exec -- playwright install chromium
         timeout-minutes: 5
       - run: npm run test:e2e
+      - run: npm run test:auth-capture
+      - run: npm run test:e2e:oidc
+      - run: npm run test:auth-capture
 
   policy:
     runs-on: ubuntu-24.04

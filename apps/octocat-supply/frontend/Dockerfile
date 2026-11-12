@@ -9,7 +9,7 @@ FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28
 USER root
 # Exact security patch versions; no blanket scanner ignores or ignore-unfixed gate.
 RUN apk add --no-cache brotli-libs=1.2.1-r0 curl=8.23.0-r0 libcurl=8.23.0-r0 \
-    libexpat=2.10.0-r0 musl=1.2.6-r3 musl-utils=1.2.6-r3 zlib=1.4-r0
+    libexpat=2.10.0-r0 libxslt=1.1.43-r4 musl=1.2.6-r3 musl-utils=1.2.6-r3 zlib=1.4-r0
 USER 101
 COPY --from=build /app/frontend/dist /usr/share/nginx/html
 COPY LICENSE /usr/share/nginx/html/LICENSE

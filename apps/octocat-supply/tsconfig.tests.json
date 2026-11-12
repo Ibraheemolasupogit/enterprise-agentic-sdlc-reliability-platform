@@ -9,11 +9,13 @@
     ]
   },
   "include": [
+    "test/fixtures/**/*.ts",
     "api/test/**/*.ts",
     "frontend/test/**/*.ts",
     "frontend/test/**/*.tsx",
     "e2e/**/*.ts",
     "playwright.config.ts",
+    "playwright.oidc.config.ts",
     "vitest.config.ts"
   ]
 }

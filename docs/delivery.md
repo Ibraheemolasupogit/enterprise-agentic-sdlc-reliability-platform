@@ -12,8 +12,9 @@ reads; Azure live checks remain blocked. M3 evidence remains a historical snapsh
 The [M4C assessment](evidence/m4c-readiness-assessment.md) confirms hosted run
 42794873352 at `40a6353` passed policy/application/containers/required, including
 the M4B repairs; CodeQL skipped. Current main reports protection disabled and
-rulesets remain plan-restricted. M4C is assessment/planning only; no new workflow,
-settings, publishing, Azure authentication or release is authorized.
+ruleset/protection observations are dated, not re-read here. C3 local implementation
+adds mandatory simulated OIDC browser/capture/mutation checks; no GitHub settings,
+publishing, Azure authentication or release is authorized. See [C3 evidence](evidence/m4c-c3-oidc.md).
 
 ## One validation pipeline
 
@@ -27,9 +28,34 @@ PRs receive repository read access only. The isolated hosted runner executes
 untrusted PR code; never move these jobs to a privileged self-hosted runner.
 
 The workflow installs with `npm ci --ignore-scripts`, checks generated licensing
-drift, formatting/lint/types, 64 application tests, production builds, full dependency
-audit and three browser cases. The separate container job reuses those browser
+drift, formatting/lint/types, 195 application tests, production builds, full dependency
+audit and three original anonymous browser cases. The separate container job reuses those browser
 cases through built Nginx/API images. No business functionality was changed.
+
+C3 adds `npm run test:auth-mutations`, `npm run test:e2e:oidc` and capture checks
+before/after the seven OIDC journeys. No npm package/version upgrade, job permission,
+timeout, Playwright image, required-gate or container/proxy security setting changes.
+The OIDC profile blocks service workers, rejects debug/capture overrides, turns
+trace/video/screenshots off, preserves no per-test output and uses a sanitized
+case/status/counter reporter. Its automatic fixture intercepts every test context
+before navigation; only the two fixed virtual HTTPS origins route to the owned
+loopback bridge. Additional contexts explicitly join that fence. Unknown targets
+are aborted. Real providers never run in this pipeline.
+
+Run locally after `npm run build`: `npm run test:auth-capture`,
+`npm run test:e2e:oidc`, then `npm run test:auth-capture`. The original anonymous
+profile keeps its traces/screenshots. Its test-only Vite server now prebundles and
+warms the module graph before readiness (forced cold optimization), preventing a
+first-use JOSE import from reloading an in-progress journey. Production Vite/proxy
+configuration and the original browser assertions are unchanged. Isolated mutation
+copies must fail intended assertions, not merely fail compilation or test discovery.
+The 2026-11-12 owner-authorized P15 follow-up pins only frontend libxslt 1.1.43-r4
+from the existing Alpine v3.24 main repository. Both rebuilt images pass the
+unchanged HIGH/CRITICAL gate, and P01–P15 acceptance is met locally. The earlier
+three-HIGH scan is retained as history; no scanner exception or base-image update.
+See the current C3 evidence for exact results and remaining release limits.
+No fixture/private-vector code enters the built frontend; JOSE's full MIT text is
+included in generated browser notices, and lock/dependency inventory remain unchanged.
 
 The application job runs as UID 1001 in the official Playwright 1.64.1 Noble
 image, pinned by immutable multiarchitecture digest in the workflow and matched

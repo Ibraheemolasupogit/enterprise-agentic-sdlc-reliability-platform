@@ -1,8 +1,8 @@
 # M4C — Engineering-readiness work packages
 
-Date: 2026-11-10. Status: **C1 complete and locally tested; C3 planning only
-authorized; C2–C8 implementation remains unauthorized**. Authority: owner's bounded
-C1 implementation and subsequent C3 planning requests,
+Date: 2026-11-12. Status: **C1 complete; C3 local client/crypto tests pass with
+Simulated provider responses; P01–P15 and overall C3 acceptance met locally after the authorized libxslt patch; C2/C4/C5/C6/C7/C8 implementation unauthorized**.
+Authority: owner's bounded C1, C3 planning and subsequent C3 implementation requests,
 [master brief](../project/master-brief.md),
 [M4A preflight](m4a-preflight.md), [M4B scope](m4b-scope.md) and
 [current assessment](../evidence/m4c-readiness-assessment.md). M4C subdivides the
@@ -17,7 +17,7 @@ commit or push is part of these proposals. Deployment remains **NO-GO**.
 
 ## Dependency order and authority
 
-The owner authorized C1 after the assessment and C3 planning after C1. Every later implementation
+The owner authorized C1, then C3 planning and local implementation. Every other implementation
 package needs a new bounded owner request. “Local” below
 means no Azure/Entra/GitHub settings access is intrinsically required, not permission
 to implement later packages under C1. Local test credentials/engine licenses also
@@ -27,7 +27,7 @@ need an explicit decision; local execution is not automatically credential-free.
 | --- | --- | --- | --- |
 | C1 Repository contract foundation | Confirmed baseline | Locally tested: credential-free reusable contracts and real SQLite regressions; [evidence](../evidence/m4c-c1-repository-contracts.md) | No SQL connection or engine claim; missing real SQL proof remains Blocked |
 | C2 Real SQL engine/driver rehearsal | C1 | Supported isolated local x64 SQL Server or specifically authorized existing test engine | Owner-approved host, pinned image/version/license, TLS and test-principal setup. Current ARM Mac cannot supply a supported SQL Server container |
-| C3 OIDC protocol harness | Baseline; independent of C2 | [Detailed plan](m4c-c3-oidc-plan.md) recorded, Design only: retain pinned client, verify before session publication, protocol fixtures/capture controls | Implementation needs new scope; no real account, provider registration, operational signing key or cloud login |
+| C3 OIDC protocol harness | Baseline; independent of C2 | [Local implementation](../evidence/m4c-c3-oidc.md): actual pinned client/JOSE, verified-session gate, protocol fixtures, capture controls and mandatory CI | Provider responses Simulated; no real account, provider registration, operational signing key or cloud login |
 | C4 Private SQL/network/identity/diagnostic definitions | C1/C3 configuration contracts; parallel with C2 | Local Bicep, compiled policy/mutations and diagnostic redaction tests only | Actual IDs/CIDRs/SKUs, effective routing/grants and ARM validation remain Blocked |
 | C5 SAST and governance route | Baseline; begin decision work early | Local coverage/rights/approval design; later bounded SAST execution if authorized | Owner selects eligible entitlement or supported alternative, review route and reviewer. Settings/billing/visibility changes are separate human actions |
 | C6 Real provider token-flow rehearsal | C3; owner-approved identity scope | Real Entra/provider validation with local HTTPS application first | Exact tenant/SPA/API registration, test users/roles/consent and explicit sign-in/token-use authorization; no Azure infrastructure required for this isolated stage |
@@ -143,13 +143,15 @@ any real defect correction; preserve SQLite and both hardened application images
 
 ## C3 — Local OIDC protocol and credential-safe diagnostics
 
-The owner authorized the [detailed C3 implementation plan](m4c-c3-oidc-plan.md),
-not implementation. It records precise current gaps, existing `oidc-client-ts`
-3.5.0/`jose` 6.2.14 recommendation, comparison/bundle probe, proposed files/sequence,
-P01–P15 negative/acceptance matrix, safe capture controls and C6 prerequisites.
-Browser nonce/ID-token/session/config/401 changes are proposed for a later bounded
-implementation request; no new dependency or provider is selected. Current hosted
-baseline is `b56d9bd`, run 42805606271: mandatory jobs pass, CodeQL skipped.
+The owner subsequently authorized local implementation of the
+[detailed C3 plan](m4c-c3-oidc-plan.md), superseding planning-only authority.
+[Execution evidence](../evidence/m4c-c3-oidc.md) maps P01–P15 to 195 application tests,
+seven simulated-provider browser journeys and the preserved security/container
+checks. Fresh 2026-11-12 verification passes P01–P15 after the owner authorized only the
+frontend Alpine libxslt 1.1.43-r4 pin. Both rebuilt images pass the unchanged
+HIGH/CRITICAL gate; no other package upgrade or scanner exception was made. Retained `oidc-client-ts` 3.5.0 and `jose` 6.2.14; no new dependency or real
+provider. Last verified hosted baseline remains `b56d9bd`, run 42805606271:
+mandatory jobs passed, CodeQL skipped. C3 changes have local evidence only.
 
 Proposed surface: focused `AuthApp`/client-library protocol tests and deterministic
 OIDC endpoint fixtures, using retained published non-live vectors only. No new
@@ -348,6 +350,5 @@ Each package's evidence must record actor/authorization, source and environment,
 UTC times/commands, case IDs, expected/actual statuses, failures, scanner coverage,
 sanitized hashes and explicit limits. Keep raw sensitive artifacts out of Git;
 update only relevant summaries and capability status. Current authority stops at
-C3 planning; C1 is complete. **Next possible request: bounded local C3 implementation**
-following its plan, or separately scoped C2 prerequisite selection; no engine/provider/cloud
-credentials, IaC implementation, settings or release execution follows from C1.
+C3 local implementation/evidence. C2/C4/C5/C6/C7/C8 require new bounded requests;
+no engine, real provider/cloud credentials, IaC, settings or release authority follows.

@@ -3,6 +3,7 @@ import { defineConfig } from "@playwright/test";
 const external = process.env.E2E_BASE_URL;
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: "**/oidc/**",
   fullyParallel: false,
   workers: 1,
   retries: 0,

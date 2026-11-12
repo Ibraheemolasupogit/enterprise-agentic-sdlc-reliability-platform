@@ -46,8 +46,16 @@ def workflow_policy(workflow):
     require(browser_container.get("options") == "--user 1001", "Browser CI container privilege change")
     for command in ("npm ci --ignore-scripts", "npm run licenses", "npm run format:check", "npm run lint",
                     "npm run typecheck", "npm test", "npm run build", "npm audit --audit-level=high",
-                    "npm exec -- playwright install chromium", "npm run test:e2e"):
+                    "npm exec -- playwright install chromium", "npm run test:e2e",
+                    "npm run test:auth-capture", "npm run test:e2e:oidc", "npm run test:auth-mutations"):
         require(command in application_commands, "Missing required application check: " + command)
+    steps = workflow["jobs"]["application"]["steps"]
+    runs = [step.get("run") for step in steps]
+    oidc = runs.index("npm run test:e2e:oidc")
+    require(0 < oidc < len(runs) - 1 and runs[oidc - 1] == "npm run test:auth-capture" and runs[oidc + 1] == "npm run test:auth-capture", "OIDC capture must be checked before and after browser execution")
+    for step in steps:
+        if step.get("run") in ("npm run test:auth-capture", "npm run test:e2e:oidc", "npm run test:auth-mutations"):
+            require("if" not in step, "OIDC validation cannot be conditionally skipped")
     require(gate.get("if") == "always()", "Required gate must inspect failed/skipped dependencies")
     require(set(gate["needs"]) == {"application", "policy", "containers", "codeql"}, "Missing gate dependency")
     require(any(s.get("run") == "python3 scripts/delivery/verify_proxy.py" for s in workflow["jobs"]["containers"]["steps"]), "Missing HTTPS proxy verification")

@@ -8,7 +8,7 @@ import {
   type JWTPayload,
 } from "jose";
 import request from "supertest";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   oidcAuthenticator,
   anonymousAuthenticator,
@@ -17,6 +17,11 @@ import {
 import { createApp } from "../src/app.js";
 import { Store, migrations } from "../src/database.js";
 import { runtimeSettings } from "../src/runtime.js";
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.useRealTimers();
+});
 
 const privateJwk = JSON.parse(
   readFileSync(
@@ -110,7 +115,9 @@ describe("OIDC signature/claims and anonymous namespace boundaries", () => {
   ])("rejects invalid claims %j", async (claims) => {
     await expect(
       verify("Bearer " + (await token(claims))),
-    ).rejects.toMatchObject({ status: expect.any(Number) });
+    ).rejects.toMatchObject({
+      status: "roles" in claims || "scope" in claims ? 403 : 401,
+    });
   });
   it("rejects absent/oversized/tampered tokens and refreshes a rotated JWKS kid", async () => {
     await expect(verify(undefined)).rejects.toMatchObject({ status: 401 });
@@ -232,4 +239,100 @@ describe("OIDC signature/claims and anonymous namespace boundaries", () => {
       expect(() => runtimeSettings(env)).toThrow();
     expect(() => oidcSettings({ OIDC_ISSUER: "http://untrusted" })).toThrow();
   });
+  it("P07/P08/P10: preserves API audience, delegated scp, exact permissions and the one-hour age cap", async () => {
+    expect(
+      await verify(
+        "Bearer " + (await token({ scope: undefined, scp: "cart" })),
+      ),
+    ).toBe(await verify("Bearer " + (await token())));
+    await expect(
+      verify("Bearer " + (await token({ aud: "morrow-spa" }))),
+    ).rejects.toMatchObject({ status: 401, code: "UNAUTHENTICATED" });
+    await expect(
+      verify(
+        "Bearer " +
+          (await token({
+            iat: Math.floor(Date.now() / 1000) - 3606,
+            exp: Math.floor(Date.now() / 1000) + 1800,
+          })),
+      ),
+    ).rejects.toMatchObject({ status: 401 });
+    await expect(
+      verify("Bearer " + (await token({ roles: undefined }))),
+    ).rejects.toMatchObject({ status: 403 });
+    await expect(
+      verify("Bearer " + (await token({ scope: undefined, scp: undefined }))),
+    ).rejects.toMatchObject({ status: 403 });
+  });
+  it("P09: cached valid key survives outage, cold/expired unresolved key fails 503, healthy unknown kid fails 401", async () => {
+    let outage = false,
+      calls = 0;
+    const keys = createRemoteJWKSet(new URL(config.jwksUri), {
+      cacheMaxAge: 100,
+      cooldownDuration: 0,
+      [customFetch]: async () => {
+        calls++;
+        if (outage) throw new TypeError("non-live-upstream-canary");
+        return new Response(JSON.stringify({ keys: [publicJwk] }));
+      },
+    });
+    const remote = oidcAuthenticator(config, keys);
+    const bearer = "Bearer " + (await token());
+    await remote(bearer);
+    outage = true;
+    await remote(bearer);
+    expect(calls).toBe(1);
+    await expect(
+      remote("Bearer " + (await token({}, "unresolved"))),
+    ).rejects.toMatchObject({ status: 503, code: "IDENTITY_UNAVAILABLE" });
+    outage = false;
+    await expect(
+      remote("Bearer " + (await token({}, "unknown"))),
+    ).rejects.toMatchObject({ status: 401 });
+    outage = true;
+    const now = Date.now();
+    vi.spyOn(Date, "now").mockReturnValue(now + 101);
+    await expect(remote(bearer)).rejects.toMatchObject({ status: 503 });
+  });
+  it.each([
+    ["missing bearer", undefined, 401, "UNAUTHENTICATED"],
+    ["ID-token audience", { aud: "morrow-spa" }, 401, "UNAUTHENTICATED"],
+    ["role", { roles: [] }, 403, "FORBIDDEN"],
+    ["scope", { scope: "read" }, 403, "FORBIDDEN"],
+    ["trusted key outage", {}, 503, "IDENTITY_UNAVAILABLE"],
+  ] as const)(
+    "P07/P08/P09: real HTTP preserves safe %s denial",
+    async (label, claims, status, code) => {
+      const store = new Store(":memory:");
+      store.migrate();
+      store.seed();
+      const unavailable = oidcAuthenticator(
+        config,
+        createRemoteJWKSet(new URL(config.jwksUri), {
+          [customFetch]: async () => {
+            throw new TypeError("non-live-sensitive-identity-detail");
+          },
+        }),
+      );
+      const app = createApp(store, {
+        authenticate: label === "trusted key outage" ? unavailable : verify,
+      });
+      try {
+        const operation = request(app).get("/api/products");
+        if (claims)
+          operation.set("Authorization", "Bearer " + (await token(claims)));
+        const result = await operation.expect(status);
+        expect(result.body.code).toBe(code);
+        expect(
+          JSON.stringify(result.body).includes(
+            "non-live-sensitive-identity-detail",
+          ),
+        ).toBe(false);
+        expect(result.body).not.toHaveProperty("stack");
+        await request(app).get("/health/ready").expect(200);
+      } finally {
+        store.close();
+      }
+    },
+  );
 });

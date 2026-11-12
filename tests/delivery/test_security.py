@@ -19,6 +19,31 @@ class DeliverySecurityTests(unittest.TestCase):
     def test_current_workflow_passes(self):
         policy.workflow_policy(policy.load_workflow())
 
+    def test_oidc_browser_and_capture_checks_are_mandatory_and_ordered(self):
+        for mutation in ("omit-browser", "omit-capture", "conditional", "bypass", "capture-after-only", "omit-mutations", "conditional-mutations"):
+            with self.subTest(mutation=mutation):
+                workflow = copy.deepcopy(policy.load_workflow())
+                steps = workflow["jobs"]["application"]["steps"]
+                browser = next(s for s in steps if s.get("run") == "npm run test:e2e:oidc")
+                if mutation == "omit-browser":
+                    steps.remove(browser)
+                elif mutation == "omit-capture":
+                    workflow["jobs"]["application"]["steps"] = [s for s in steps if s.get("run") != "npm run test:auth-capture"]
+                elif mutation == "conditional":
+                    browser["if"] = "false"
+                elif mutation == "bypass":
+                    browser["continue-on-error"] = "true"
+                elif mutation == "capture-after-only":
+                    steps.remove(next(s for s in steps if s.get("run") == "npm run test:auth-capture"))
+                else:
+                    control = next(s for s in steps if s.get("run") == "npm run test:auth-mutations")
+                    if mutation == "omit-mutations":
+                        steps.remove(control)
+                    else:
+                        control["if"] = "false"
+                with self.assertRaises(ValueError):
+                    policy.workflow_policy(workflow)
+
     def test_required_gate_executes_fail_closed(self):
         script = policy.load_workflow()["jobs"]["required"]["steps"][0]["run"]
         good = {"APPLICATION": "success", "POLICY": "success", "CONTAINERS": "success",

@@ -23,6 +23,7 @@ for (const name of [
   "scheduler",
   "oidc-client-ts",
   "jwt-decode",
+  "jose",
 ]) {
   const folder = join("node_modules", name);
   const pkg = JSON.parse(readFileSync(join(folder, "package.json"), "utf8"));

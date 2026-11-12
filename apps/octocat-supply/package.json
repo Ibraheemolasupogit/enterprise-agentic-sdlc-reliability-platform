@@ -21,6 +21,9 @@
     "test:api": "vitest run --project api",
     "test:web": "vitest run --project web",
     "test:e2e": "playwright test",
+    "test:e2e:oidc": "playwright test --config playwright.oidc.config.ts",
+    "test:auth-capture": "node --import tsx scripts/verify-auth-capture.mjs",
+    "test:auth-mutations": "node scripts/verify-auth-mutations.mjs",
     "db:migrate": "tsx api/src/database-cli.ts migrate",
     "db:seed": "tsx api/src/database-cli.ts seed",
     "db:reset": "tsx api/src/database-cli.ts reset --confirm-demo-reset",
@@ -29,7 +32,7 @@
     "start:api": "node api/dist/server.js",
     "licenses": "node scripts/licenses.mjs",
     "test:containers": "node scripts/container-smoke.mjs",
-    "format:check": "prettier --check api frontend/src frontend/test frontend/index.html frontend/vite.config.ts e2e scripts *.json *.ts *.mjs"
+    "format:check": "prettier --check api test frontend/src frontend/test frontend/index.html frontend/vite.config.ts e2e scripts *.json *.ts *.mjs"
   },
   "dependencies": {
     "express": "5.3.0",

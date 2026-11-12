@@ -1,5 +1,11 @@
 # M4C-C3 — OIDC client, PKCE and safe session implementation plan
 
+Execution update: the owner subsequently authorized **C3 local implementation** at
+baseline `26e47b9`. [C3 evidence](../evidence/m4c-c3-oidc.md) records actual P01–P15
+outcomes and small test-harness adjustments. The following preserves the original
+planning snapshot, proposed behavior and source findings; its planning-only limits
+have been superseded for C3 only. Other milestones and real providers remain blocked.
+
 Date: 2026-11-10 UTC. Status: **Design only; planning authorized, implementation
 not authorized**. Authority: owner's C3 planning request and the
 [master brief](../project/master-brief.md). Baseline:

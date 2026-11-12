@@ -1,8 +1,16 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
-import { afterEach } from "vitest";
+import { afterEach, beforeEach, vi } from "vitest";
+import { webcrypto } from "node:crypto";
+
+beforeEach(() => vi.stubGlobal("crypto", webcrypto));
 
 afterEach(() => {
   cleanup();
   localStorage.clear();
+  sessionStorage.clear();
+  history.replaceState({}, "", "/");
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+  vi.useRealTimers();
 });

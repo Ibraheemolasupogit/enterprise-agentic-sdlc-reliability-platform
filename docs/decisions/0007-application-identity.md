@@ -4,20 +4,23 @@ Date: 2026-10-31. Status: Implemented; cryptographic/API boundaries Locally test
 External provider sign-in and Azure authorization are unverified. Requirements:
 R06, R11, NF03; threats T01, T04–T06; validation V05/V08/V09.
 
-C3 planning update, 2026-11-10: the [detailed plan](../milestones/m4c-c3-oidc-plan.md)
-retains these pinned libraries but identifies incomplete browser nonce, ID-token,
-metadata, callback and session-lifecycle controls. It is **Design only**, not an
-implementation or provider-verification claim. The browser consequences below
-describe the original M4B boundary; specifically, library callback processing is
-not proof of full ID-token validation. The current call supplies no nonce, and
-the pinned library's initial ID-token checks are limited. Proposed JOSE verification
-before session publication, explicit nonce, 401 recovery and capture controls need
-the later bounded C3 implementation request. API claims/ownership policy stays fixed.
+C3 execution update, 2026-11-10: the [approved plan](../milestones/m4c-c3-oidc-plan.md)
+is implemented and [locally tested](../evidence/m4c-c3-oidc.md) using Simulated provider
+responses and real client/JOSE/API/SQLite execution. Browser sign-in now supplies
+nonce, vets metadata and verifies RS256 ID-token signature/issuer/client audience/
+times/subject/nonce before publishing a session. Raw library user events grant no
+shop/API access. API claims/ownership policy is unchanged. No real provider claim.
+
+Local verification refresh, 2026-11-12: P01–P14 pass against simulated providers.
+The subsequent owner-authorized libxslt 1.1.43-r4 pin clears all three frontend
+HIGH findings. Both rebuilt images pass the unchanged image gate; P15 and overall
+C3 local acceptance are met. Authentication behavior remains locally
+tested; no real provider or production credential is needed for these checks.
 
 ## Decision
 
 Use `oidc-client-ts` 3.5.0 for browser Authorization Code + PKCE (S256), and `jose`
-6.2.14 for API signature/JWKS/claim verification. Do not implement an identity
+6.2.14 for browser ID-token and API access-token signature/JWKS/claim verification. Do not implement an identity
 provider, password store or hand-written JWT verifier. Pin one HTTPS issuer,
 audience and JWKS endpoint per deployment. A tenant-specific issuer supplies the
 single-tenant boundary; never use Entra `common` or token-selected discovery.
@@ -46,13 +49,22 @@ configuration, database connection or migration.
 
 ## Browser and proxy consequences
 
-Tokens live in memory, not localStorage. SessionStorage holds transient PKCE/state
-for the redirect; the library verifies the callback. Refresh requires another sign-in;
-local sign-out clears this application's user but does not end the provider SSO
-session or revoke a stolen token. No refresh-token/offline scope is required. Cart
-references are stored separately per ID-token issuer/subject and never replace API
+Tokens live in memory, not localStorage. SessionStorage holds transient PKCE/state/
+nonce and a 300-second configuration-bound pending descriptor. Its namespace encodes
+public deployment configuration, not identity claims. The real library consumes
+state/code; JOSE verifies the ID token before controller publication. Identity
+requests have 5s bounds, JWKS 1s and callback acceptance 15s. Callback URLs are
+scrubbed before config fetch and cleaned on failure; duplicate/unsolicited/expired
+callbacks fail closed. Refresh requires explicit sign-in. A protected API 401 clears
+the current generation without replay; 403/503 remain distinct. Logout/unmount
+cancel owned work and suppress stale responses; accepted server writes may still
+finish. Sign-out is this-tab application-only, without provider logout/revocation.
+Refresh/offline grants are rejected. Only cart UUID references persist under a
+hashed `[verified ID issuer, client ID, ID subject]` namespace; legacy OIDC references
+migrate only after a real authenticated API lookup. They never replace API
 authorization. Browser configuration failure closes the shop, rather than entering
-anonymous mode. Callback query is removed on success/failure; proxy access logging
+anonymous mode. Same-origin API requests use only the current access token, omit
+cookies and reject redirects. Proxy access logging
 is disabled and API logs omit tokens, queries and raw owner identifiers.
 
 The production proxy has two explicit modes: Docker HTTP/anonymous and fixed

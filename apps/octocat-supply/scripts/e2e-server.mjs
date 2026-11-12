@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import { setTimeout as delay } from "node:timers/promises";
+import { createServer } from "vite";
 
 function command(args, extra = {}) {
   return spawn(process.execPath, args, {
@@ -37,24 +38,52 @@ if (!ready) {
   api.kill();
   throw new Error("E2E API did not become ready.");
 }
-const web = command(
-  [
-    "node_modules/vite/bin/vite.js",
-    "--config",
-    "frontend/vite.config.ts",
-    "--port",
-    "4173",
+// C3 adds a browser JOSE import. Warm the complete graph before announcing
+// readiness, so first-use dependency optimization cannot reload a running test.
+process.env.API_PORT = "4174";
+let graphReady = false;
+const web = await createServer({
+  configFile: "frontend/vite.config.ts",
+  server: { port: 4173 },
+  optimizeDeps: {
+    force: true,
+    include: [
+      "react",
+      "react-dom/client",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "oidc-client-ts",
+      "jose",
+    ],
+  },
+  plugins: [
+    {
+      name: "e2e-graph-readiness",
+      enforce: "pre",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (!graphReady && req.url === "/health/ready") {
+            res.statusCode = 503;
+            res.end();
+          } else next();
+        });
+      },
+    },
   ],
-  { API_PORT: "4174" },
-);
+});
+await web.listen();
+await web.warmupRequest("/src/main.tsx");
+await web.waitForRequestsIdle();
+graphReady = true;
 const stop = () => {
-  web.kill("SIGTERM");
+  void web.close();
   api.kill("SIGTERM");
 };
 process.once("SIGINT", stop);
 process.once("SIGTERM", stop);
-web.once("exit", (code) => {
+web.httpServer.once("close", () => {
   api.kill();
-  process.exitCode = code ?? 1;
 });
-api.once("exit", () => web.kill());
+api.once("exit", () => {
+  void web.close();
+});

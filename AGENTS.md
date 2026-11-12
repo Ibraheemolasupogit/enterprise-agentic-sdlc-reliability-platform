@@ -5,8 +5,9 @@
   authoritative specification; the owner's task sets the authorized milestone.
 - This repository starts fresh. Do not assume the unavailable personal OctoCAT
   repository, historical deployments, or local application code exists here.
-- Current authorized work is M4C-C3 OIDC client/PKCE implementation planning only,
-  per the owner's bounded request; no application/dependency implementation.
+- Current authorized work is M4C-C3 local OIDC client/PKCE implementation only,
+  per the owner's bounded request, superseding planning-only authority. Retain
+  pinned libraries and follow the approved P01–P15 plan with local simulated providers.
   Preserve M4A's deployment NO-GO. The
   owner selected independent original implementation and MIT; do not copy OctoCAT
   source/assets. Use [M2 scope](docs/milestones/m2-scope.md) and
@@ -15,9 +16,9 @@
   and [M4B scope](docs/milestones/m4b-scope.md).
   The [M4C plan](docs/milestones/m4c-scope.md) and
   [assessment](docs/evidence/m4c-readiness-assessment.md) define the remaining
-  boundaries; C2–C8 implementation and all cloud execution need new authorization.
+  boundaries; C2/C4/C5/C6/C7/C8 implementation and all cloud execution need new authorization.
   Preserve [C1 evidence](docs/evidence/m4c-c1-repository-contracts.md); current
-  [C3 plan](docs/milestones/m4c-c3-oidc-plan.md) is Design only, not execution approval.
+  [C3 plan](docs/milestones/m4c-c3-oidc-plan.md) defines the currently authorized local slice.
   Preserve all M2 application behaviour/tests and M3 workflow/IaC.
   Later milestones need owner direction.
 - Keep Claims Processing separate; do not import its code, data, or configuration.
@@ -32,12 +33,14 @@
 - Do not import upstream application code/assets or add agents. Prior M4B work covered
   local OIDC/cart ownership, SQL adapter/migrations, HTTPS proxy, deterministic tests
   and bounded workflow fixes. C1's reusable contracts/real SQLite tests are complete.
-  Current C3 work is source/library assessment and focused planning documentation;
-  no production behavior, dependency, test implementation, workflow, SQL engine
-  or cloud changes.
-  Keep SQLite and all M2 tests operational.
+  Current C3 work covers verified browser sessions, simulated protocol/adversarial
+  tests, capture controls, frontend JOSE notices and mandatory CI/policy wiring.
+  No package upgrades, SQL engine, real provider, other milestone or cloud changes.
+  Keep SQLite and all M2/C1 tests operational. Stop after C3; record its results in
+  [C3 evidence](docs/evidence/m4c-c3-oidc.md). No other milestone is authorized.
   Published non-live test vectors are not operational credentials; never register them.
-  Do not sign in, refresh credentials, change GitHub settings, create credentials,
+  Do not sign in to real providers/cloud services, refresh operational credentials,
+  change GitHub settings, create cloud credentials,
   provision/deploy resources or run paid inference. Missing Azure
   session/quota/permission evidence stays Blocked; never use a token-refresh or
   alternate-credential fallback. ARM validate/what-if need later scoped authorization.

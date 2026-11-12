@@ -186,3 +186,22 @@ and component notices/source obligations before any separate redistribution.
 This is an ephemeral local/CI testing environment, not a deployed application base.
 The upstream recipe was reviewed as source content; it is not executed as an
 installer. The published image is consumed by immutable digest.
+
+## M4C-C3 P15 libxslt security patch — 2026-11-12
+
+The owner authorized only `libxslt 1.1.43-r3` → `1.1.43-r4` to clear the C3 P15
+image gate. The existing frontend `apk add --no-cache` layer selects that exact
+unmodified signed package from the already configured official Alpine v3.24
+`main` repository at `https://dl-cdn.alpinelinux.org/alpine/v3.24/main`.
+No repository, signing key, base digest, Nginx binary or other package pin changes.
+
+| Package/version | Source and exact Alpine packaging revision | Terms and retained obligations |
+| --- | --- | --- |
+| libxslt 1.1.43-r4 | [Upstream libxslt](http://xmlsoft.org/XSLT/); [Alpine aarch64 package](https://pkgs.alpinelinux.org/package/v3.24/main/aarch64/libxslt); [aports e85ecba78539486bd0a685963ca5da3e1652fbd0](https://gitlab.alpinelinux.org/alpine/aports/-/tree/e85ecba78539486bd0a685963ca5da3e1652fbd0/main/libxslt) | Alpine declares X11; retain upstream copyright/permission text and component notices when distributing. Original application MIT does not replace these terms. No third-party source modification |
+
+Package metadata was reviewed before the build. Existing Nginx/base notices,
+including `/usr/share/licenses/nginx/COPYRIGHT`, remain retained. Browser npm
+notices are unchanged because this is an OS-library patch; no npm dependency or
+browser source is added. Signed installation, single-package delta, image/SBOM
+hashes, compatibility and scans are recorded in [C3 evidence](docs/evidence/m4c-c3-oidc.md).
+No public image distribution, hosted or real-provider validation is implied.
