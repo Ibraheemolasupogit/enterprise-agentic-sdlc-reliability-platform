@@ -1,8 +1,9 @@
 # M4C — Engineering-readiness work packages
 
 Date: 2026-11-13. Status: **C1/C3 local acceptance preserved; C4 local infrastructure
-definitions/static validation authorized and implemented; C2/C5/C6/C7/C8 unauthorized**.
-Authority: owner's bounded C1, C3 planning and subsequent C3 implementation requests,
+definitions/static validation implemented; C5 read-only assessment/planning only;
+C5 implementation and C2/C6/C7/C8 unauthorized**.
+Authority: owner's bounded C1/C3/C4 execution and subsequent C5 planning requests,
 [master brief](../project/master-brief.md),
 [M4A preflight](m4a-preflight.md), [M4B scope](m4b-scope.md) and
 [current assessment](../evidence/m4c-readiness-assessment.md). M4C subdivides the
@@ -18,10 +19,13 @@ commit or push is part of these proposals. Deployment remains **NO-GO**.
 ## Dependency order and authority
 
 The owner authorized C1, C3 and subsequently **C4 definitions/static validation only**
-at baseline `e537eff`. Owner-supplied hosted run 43308294860 passed mandatory jobs
-with CodeQL skipped; this task does not independently re-read it. C4 results and
-limits are in [C4 evidence](../evidence/m4c-c4-infrastructure.md). Every other implementation
-package needs a new bounded owner request. “Local” below
+at baseline `e537eff`. C4 results and limits are in
+[C4 evidence](../evidence/m4c-c4-infrastructure.md). Subsequent C5 read-only checks
+confirm C4 `e9b5704` / hosted run 43407086701 passed mandatory jobs with CodeQL
+skipped. The owner now authorizes C5 assessment/planning only; see
+[C5 findings](../evidence/m4c-c5-readiness.md) and the
+[unexecuted proposed plan](m4c-c5-sast-plan.md). C5 and later implementation
+need a new bounded owner request. “Local” below
 means no Azure/Entra/GitHub settings access is intrinsically required, not permission
 to implement later packages under C1. Local test credentials/engine licenses also
 need an explicit decision; local execution is not automatically credential-free.
@@ -238,11 +242,22 @@ phased prerequisites, actual checks, failures corrected and acceptance status.
 
 ## C5 — SAST and governance route, decided early
 
+**Assessment/planning only, completed at `e9b5704`; implementation not authorized.**
+[C5 assessment](../evidence/m4c-c5-readiness.md) confirms the absent opt-in flag,
+CodeQL skipped, main unprotected, governance endpoint plan restrictions and no
+environments/established independent reviewer. The exact billing plan and eligible
+Code Security arrangement remain unverified. The
+[proposed plan](m4c-c5-sast-plan.md) recommends an unexecuted Semgrep CE/original-rule
+pilot, mandatory future CI/error controls and 20 adversarial cases. Engine/coverage
+and governance-route selection are pending; neither acceptance criterion is met.
+No settings, paid service, application, workflow or scanner implementation changed.
+
 Owner must choose a supported private CodeQL arrangement with entitlement and
 actual results, or a licensed/supported SAST alternative plus explicit coverage
-review. Current private personal/Pro status does not establish private CodeQL
-eligibility. Pro branch protection, Code Security entitlement and private required
-deployment reviewers are separate features. No purchase, transfer, visibility,
+review. Current private User-owned status does not establish private CodeQL
+eligibility; the exact billing plan was not returned. Pro branch protection,
+Code Security entitlement and private required deployment reviewers are separate
+features. No purchase, transfer, visibility,
 settings, variable, environment or CodeQL activation is authorized by this plan.
 
 Acceptance C5-A1: inventory TypeScript/TSX/API/auth/data-access attack paths, select

@@ -4,15 +4,16 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current stage: M4C-C4 — local infrastructure definitions and static validation;
-deployment remains NO-GO.** C1 real SQLite and C3 P01–P15 acceptance are preserved.
-The owner supplies baseline `e537eff`, hosted run 43308294860: policy/application/
-containers/required passed, CodeQL skipped. Those results were not independently
-re-read here and do not validate this C4 diff. C4 adds network/private SQL/identity/
-migrator/diagnostic contracts and adversarial offline checks; it does not establish
-live connectivity, database access or identity enforcement. C2/C5/C6/C7/C8 need
-new bounded direction. Azure session/permission/quota checks
-remain blocked and deployment is NO-GO pending the documented gates. Morrow Supply is
+**Current stage: M4C-C5 — read-only security/governance assessment and planning
+only; C5 implementation is not authorized and deployment remains NO-GO.**
+C1/C3 local acceptance and C4 static validation are preserved. Read-only checks
+confirm C4 commit `e9b5704`, hosted run 43407086701: policy/application/containers/
+required passed, CodeQL skipped. CodeQL's opt-in flag is absent; private eligibility
+and independent release governance remain unestablished. Main is unprotected and
+no environments exist. The proposed Semgrep CE/local-rule pilot has not been
+installed or executed. C5 acceptance and C2/C6/C7/C8 remain open; no live
+network/SQL/provider/identity enforcement or Azure readiness follows from CI.
+Azure session/permission/quota checks remain blocked. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
 demo with original synthetic data and illustrations. OctoCAT Supply is the
 conceptual reference; no upstream application source or assets were copied.
@@ -27,6 +28,8 @@ Agents, cloud deployment and release execution remain planned.
 | [C1 repository evidence](docs/evidence/m4c-c1-repository-contracts.md) | 27 shared contracts and six SQLite regressions; real SQL C2 handoff remains Blocked |
 | [C3 OIDC/PKCE plan](docs/milestones/m4c-c3-oidc-plan.md) | Approved design, original gap assessment, test matrix and separately authorized execution update |
 | [C3 implementation evidence](docs/evidence/m4c-c3-oidc.md) | Actual-library PKCE/nonce/ID-token/session tests, seven local browser journeys, capture controls, scans and C6 limits |
+| [C5 readiness assessment](docs/evidence/m4c-c5-readiness.md) | Read-only CodeQL/entitlement, branch/reviewer/environment facts, limits and NO-GO recommendation |
+| [C5 proposed implementation plan](docs/milestones/m4c-c5-sast-plan.md) | Unexecuted local SAST pilot, fail-closed controls, adversarial cases and independent-governance acceptance gates |
 | [C4 infrastructure evidence](docs/evidence/m4c-c4-infrastructure.md) | Eight local Bicep contracts, parameter/redaction/security mutations, regression results, costs and open integration gates |
 | [M4B local evidence](docs/evidence/m4b-local-preparation.md) | Executed local checks, SQL simulation limits and remaining NO-GO gates |
 | [M4A preflight](docs/milestones/m4a-preflight.md) | Verified CI, blocked Azure facts and deployment readiness gaps |
@@ -70,7 +73,7 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stops at C4 local definitions/static validation/evidence.
+delivery dependency here. Current authorization stops at C5 read-only assessment/planning/evidence; no C5 implementation.
 Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.

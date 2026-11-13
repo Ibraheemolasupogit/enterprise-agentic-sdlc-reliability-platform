@@ -1,0 +1,2440 @@
+{
+  "schemaVersion": 1,
+  "milestone": "M4C-C5",
+  "scope": "Read-only security/governance assessment and planning ONLY; no implementation",
+  "status": "Design only; planning complete; C5-A1 and C5-A2 not met",
+  "dateUtc": "2026-11-13",
+  "generatedUtc": "2026-11-13T10:39:11.845469+00:00",
+  "repository": "Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform",
+  "baseline": {
+    "head": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+    "branch": "main",
+    "initialWorkingTree": "clean",
+    "startedUtc": "2026-11-13T10:19:42.821298+00:00",
+    "trackedFileCount": 175
+  },
+  "authority": {
+    "currentOwnerRequest": "C5 assessment and planning only, stop before implementation",
+    "precedence": "Owner current request supersedes former C4 execution scope in AGENTS; only planning guidance updated",
+    "masterBriefSha256": "7a134402d9ba237de415c73a7a7e427866798edc73b77d142b4ec0fec50c5ee6"
+  },
+  "reviewedInputs": [
+    "AGENTS.md",
+    "README.md",
+    "docs/project/master-brief.md",
+    "docs/milestones/m4c-scope.md",
+    "docs/delivery.md",
+    ".github/workflows/ci.yml",
+    "docs/decisions/0005-delivery-identity.md",
+    "security/tools.json",
+    "scripts/delivery/install_tools.py",
+    "docs/evidence/m4c-c4-infrastructure.md",
+    "selected runtime/auth/data-access source and policy files"
+  ],
+  "constraintsPreserved": {
+    "applicationCiInfraSecurityTestsDependenciesUnchanged": true,
+    "existingC1C3C4EvidenceUnchanged": true,
+    "claimsProcessingAccessed": false,
+    "azureAuthenticationOrAction": false,
+    "githubSettingsVisibilitySubscriptionsPermissionsChanged": false,
+    "paidServiceOrToolActivated": false,
+    "sastInstalledOrExecuted": false,
+    "commitOrPush": false,
+    "agentsAdded": false
+  },
+  "githubReadMethod": {
+    "connector": "Repository, workflow jobs and required-job log through existing GitHub connector",
+    "fallback": "GET-only gh API for governance endpoints not supported by connector",
+    "network": "Initial sandbox network access failed; approved read-only network invocation succeeded",
+    "authentication": "Existing authorized connection only; no login/token discovery/refresh or alternate credentials",
+    "filteredOutput": "Only metadata/settings/errors; no credentials/billing records/token values retained",
+    "httpMutationMethodsUsed": []
+  },
+  "githubReads": [
+    {
+      "name": "repo",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform"
+      ],
+      "startedUtc": "2026-11-13T10:21:57.668415+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.062408+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "full_name": "Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform",
+        "visibility": "private",
+        "default_branch": "main",
+        "security_and_analysis": null,
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "push": true,
+          "triage": true,
+          "pull": true
+        },
+        "allow_auto_merge": false,
+        "delete_branch_on_merge": false
+      }
+    },
+    {
+      "name": "actor-plan",
+      "method": "GET",
+      "endpoint": "user",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "user"
+      ],
+      "startedUtc": "2026-11-13T10:21:57.668770+00:00",
+      "finishedUtc": "2026-11-13T10:21:57.979589+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "login": "Ibraheemolasupogit",
+        "type": "User",
+        "planName": null,
+        "planReturned": false
+      }
+    },
+    {
+      "name": "branch",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/branches/main",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/branches/main"
+      ],
+      "startedUtc": "2026-11-13T10:21:57.669723+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.015808+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "name": "main",
+        "protected": false,
+        "protection": {
+          "enabled": false,
+          "required_status_checks": {
+            "enforcement_level": "off",
+            "contexts": [],
+            "checks": []
+          }
+        },
+        "protection_url": "https://api.github.com/repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/branches/main/protection",
+        "sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd"
+      }
+    },
+    {
+      "name": "branch-protection",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/branches/main/protection",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/branches/main/protection"
+      ],
+      "startedUtc": "2026-11-13T10:21:57.670075+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.054040+00:00",
+      "exitCode": 1,
+      "httpStatus": 403,
+      "error": {
+        "message": "Upgrade to GitHub Pro or make this repository public to enable this feature.",
+        "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+        "status": "403"
+      },
+      "diagnostic": "gh: Upgrade to GitHub Pro or make this repository public to enable this feature. (HTTP 403)"
+    },
+    {
+      "name": "rulesets",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/rulesets?includes_parents=true&per_page=100",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/rulesets?includes_parents=true&per_page=100"
+      ],
+      "startedUtc": "2026-11-13T10:21:57.980141+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.292413+00:00",
+      "exitCode": 1,
+      "httpStatus": 403,
+      "error": {
+        "message": "Upgrade to GitHub Pro or make this repository public to enable this feature.",
+        "documentation_url": "https://docs.github.com/rest/repos/rules#get-all-repository-rulesets",
+        "status": "403"
+      },
+      "diagnostic": "gh: Upgrade to GitHub Pro or make this repository public to enable this feature. (HTTP 403)"
+    },
+    {
+      "name": "active-rules",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/rules/branches/main",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/rules/branches/main"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.016193+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.299431+00:00",
+      "exitCode": 1,
+      "httpStatus": 403,
+      "error": {
+        "message": "Upgrade to GitHub Pro or make this repository public to enable this feature.",
+        "documentation_url": "https://docs.github.com/rest/repos/rules#get-rules-for-a-branch",
+        "status": "403"
+      },
+      "diagnostic": "gh: Upgrade to GitHub Pro or make this repository public to enable this feature. (HTTP 403)"
+    },
+    {
+      "name": "environments",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/environments?per_page=100",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/environments?per_page=100"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.054354+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.415978+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "total_count": 0,
+        "environments": []
+      }
+    },
+    {
+      "name": "codeql-variable",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/variables/CODEQL_ENABLED",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/variables/CODEQL_ENABLED"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.062691+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.324042+00:00",
+      "exitCode": 1,
+      "httpStatus": 404,
+      "error": {
+        "message": "Not Found",
+        "documentation_url": "https://docs.github.com/rest/actions/variables#get-a-repository-variable",
+        "status": "404"
+      },
+      "diagnostic": "gh: Not Found (HTTP 404)"
+    },
+    {
+      "name": "code-scanning-default",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/code-scanning/default-setup",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/code-scanning/default-setup"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.292893+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.821985+00:00",
+      "exitCode": 1,
+      "httpStatus": 403,
+      "error": {
+        "message": "Code scanning is not enabled for this repository. Please enable code scanning in the repository settings.",
+        "documentation_url": "https://docs.github.com/rest/code-scanning/code-scanning#get-a-code-scanning-default-setup-configuration",
+        "status": "403"
+      },
+      "diagnostic": "gh: Code scanning is not enabled for this repository. Please enable code scanning in the repository settings. (HTTP 403)"
+    },
+    {
+      "name": "code-scanning-analyses",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/code-scanning/analyses?per_page=1",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/code-scanning/analyses?per_page=1"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.299908+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.631869+00:00",
+      "exitCode": 1,
+      "httpStatus": 403,
+      "error": {
+        "message": "Code scanning is not enabled for this repository. Please enable code scanning in the repository settings.",
+        "documentation_url": "https://docs.github.com/rest/code-scanning/code-scanning#list-code-scanning-analyses-for-a-repository",
+        "status": "403"
+      },
+      "diagnostic": "gh: Code scanning is not enabled for this repository. Please enable code scanning in the repository settings. (HTTP 403)"
+    },
+    {
+      "name": "run",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.324408+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.681047+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "id": 43407086701,
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+        "status": "completed",
+        "conclusion": "success",
+        "run_attempt": 1,
+        "created_at": "2026-11-13T10:10:17Z",
+        "updated_at": "2026-11-13T10:15:44Z",
+        "html_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701",
+        "path": ".github/workflows/ci.yml"
+      }
+    },
+    {
+      "name": "check-runs",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/commits/e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd/check-runs?per_page=100",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/commits/e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd/check-runs?per_page=100"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.416322+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.827056+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "total_count": 5,
+        "check_runs": [
+          {
+            "id": 131826407800,
+            "name": "required",
+            "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+            "status": "completed",
+            "conclusion": "success",
+            "details_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701/job/131826407800",
+            "appId": 15368,
+            "appSlug": "github-actions"
+          },
+          {
+            "id": 131825137410,
+            "name": "containers",
+            "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+            "status": "completed",
+            "conclusion": "success",
+            "details_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701/job/131825137410",
+            "appId": 15368,
+            "appSlug": "github-actions"
+          },
+          {
+            "id": 131823957215,
+            "name": "codeql",
+            "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+            "status": "completed",
+            "conclusion": "skipped",
+            "details_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701/job/131823957215",
+            "appId": 15368,
+            "appSlug": "github-actions"
+          },
+          {
+            "id": 131823955364,
+            "name": "application",
+            "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+            "status": "completed",
+            "conclusion": "success",
+            "details_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701/job/131823955364",
+            "appId": 15368,
+            "appSlug": "github-actions"
+          },
+          {
+            "id": 131823954896,
+            "name": "policy",
+            "head_sha": "e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd",
+            "status": "completed",
+            "conclusion": "success",
+            "details_url": "https://github.com/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/runs/43407086701/job/131823954896",
+            "appId": 15368,
+            "appSlug": "github-actions"
+          }
+        ]
+      }
+    },
+    {
+      "name": "collaborators",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/collaborators?per_page=100",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/collaborators?per_page=100"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.632351+00:00",
+      "finishedUtc": "2026-11-13T10:21:58.927907+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": [
+        {
+          "login": "Ibraheemolasupogit",
+          "type": "User",
+          "role_name": "admin",
+          "permissions": {
+            "admin": true,
+            "maintain": true,
+            "push": true,
+            "triage": true,
+            "pull": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "commit-prs",
+      "method": "GET",
+      "endpoint": "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/commits/e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd/pulls?per_page=100",
+      "command": [
+        "/opt/homebrew/bin/gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/commits/e9b5704a2601d4ebb8a2ad9fcf079405c51e60bd/pulls?per_page=100"
+      ],
+      "startedUtc": "2026-11-13T10:21:58.681448+00:00",
+      "finishedUtc": "2026-11-13T10:21:59.032561+00:00",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": []
+    }
+  ],
+  "supplementalReads": [
+    {
+      "method": "GET",
+      "command": [
+        "gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/Ibraheemolasupogit/enterprise-agentic-sdlc-reliability-platform/actions/variables?per_page=100",
+        "--jq",
+        "{total_count, codeqlFlagPresent: any(.variables[]; .name == \"CODEQL_ENABLED\")}"
+      ],
+      "observedUtcDate": "2026-11-13",
+      "timePrecision": "session date only",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "total_count": 0,
+        "codeqlFlagPresent": false
+      }
+    },
+    {
+      "method": "GET",
+      "command": [
+        "gh",
+        "api",
+        "--method",
+        "GET",
+        "repos/semgrep/semgrep/git/tags/18866f410389ff28d02310adeb770e9b3c59da56"
+      ],
+      "outputProjection": "Object commit and verification fields only",
+      "observedUtcDate": "2026-11-13",
+      "timePrecision": "session date only",
+      "exitCode": 0,
+      "httpStatus": 200,
+      "data": {
+        "object": {
+          "type": "commit",
+          "sha": "9240f708f8d7e2fbd38b67aa6cd17704b1f81e14"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "unsigned"
+        }
+      }
+    }
+  ],
+  "hostedJobs": {
+    "sourceTool": "GitHub connector: fetch_workflow_run_jobs",
+    "runId": 43407086701,
+    "jobs": [
+      {
+        "id": 131823954896,
+        "name": "policy",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 -m pip install --disable-pip-version-check -r requirements-delivery.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/install_tools.py \"$RUNNER_TEMP/morrow-tools\"",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run echo \"$RUNNER_TEMP/morrow-tools\" >> \"$GITHUB_PATH\"",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actionlint -shellcheck=\"\"",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/validate_infra.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 -m unittest discover -s tests/delivery -v",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/check_repository.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run gitleaks git --redact --exit-code 1 --log-opts=\"--all\" .",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run gitleaks dir --redact --exit-code 1 .",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/scan_config.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 131823955364,
+        "name": "application",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Initialize containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci --ignore-scripts",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run licenses",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --exit-code -- dependencies.json frontend/public/third-party-notices.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run format:check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run typecheck",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:auth-mutations",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm audit --audit-level=high",
+            "conclusion": "success"
+          },
+          {
+            "name": "Use version-matched bundled Chromium (no runtime apt)",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:e2e",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:auth-capture",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:e2e:oidc",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:auth-capture",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Stop containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 131823957215,
+        "name": "codeql",
+        "status": "completed",
+        "conclusion": "skipped",
+        "steps": []
+      },
+      {
+        "id": 131825137410,
+        "name": "containers",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci --ignore-scripts",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm exec -- playwright install --with-deps chromium",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/install_tools.py \"$RUNNER_TEMP/morrow-tools\" trivy",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run echo \"$RUNNER_TEMP/morrow-tools\" >> \"$GITHUB_PATH\"",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/verify_containers.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/verify_proxy.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/scan_images.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/delivery/provenance.py",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 131826407800,
+        "name": "required",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Fail closed on failed or cancelled validation",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "requiredJobLogObservation": {
+    "sourceTool": "GitHub connector fetch_workflow_job_logs",
+    "jobId": 131826407800,
+    "logTimeUtc": "2026-11-13T10:15:41Z to 10:15:42Z",
+    "sanitizedSummary": {
+      "APPLICATION": "success",
+      "POLICY": "success",
+      "CONTAINERS": "success",
+      "CODEQL": "skipped",
+      "CODEQL_ENABLED": "",
+      "coverageNotice": "CodeQL did not execute; release remains subject to SAST and governance approval."
+    },
+    "rawLogRetained": false,
+    "limit": "Job metadata/log read only; hosted artifact contents not downloaded/reverified"
+  },
+  "codeqlConclusion": {
+    "immediateSkipCause": "Job requires non-PR main AND vars.CODEQL_ENABLED true; flag absent and resolved empty",
+    "attemptedAnalysis": false,
+    "currentPrCoverage": false,
+    "configuredLanguages": [
+      "javascript-typescript"
+    ],
+    "pythonCoveredByCurrentCodeqlProfile": false,
+    "aggregateAllowsDisabledSkip": true,
+    "privateCodeSecurityEligibility": "Not established; code-scanning reads 403 not enabled, private User-owned repository; exact billing plan omitted",
+    "billingPlan": "Unknown; not inferred from endpoint restriction",
+    "localCliLicenseBypassAllowed": false
+  },
+  "governanceConclusion": {
+    "mainProtected": false,
+    "requiredStatusChecksEnforcement": "off",
+    "branchProtectionRulesetEffectiveRulesRead": "403 plan restriction; not a verified empty ruleset inventory",
+    "environmentsCount": 0,
+    "collaboratorsObserved": [
+      "owner/admin only"
+    ],
+    "independentReviewerEstablished": false,
+    "associatedPrsForBaseline": 0,
+    "exactTrustedCurrentCheck": {
+      "name": "required",
+      "app": "github-actions",
+      "appId": 15368
+    },
+    "routeSelected": false,
+    "routeImplemented": false,
+    "manualApprovalJsonProvesHumanAuthenticity": false
+  },
+  "sourceInventory": {
+    "total": 65,
+    "suffixCounts": {
+      ".ts": 33,
+      ".tsx": 9,
+      ".mjs": 8,
+      ".py": 14,
+      ".sh": 1
+    },
+    "runtimeApiSourceCount": 12,
+    "runtimeFrontendSourceCount": 6,
+    "files": [
+      {
+        "path": "apps/octocat-supply/api/src/app.ts",
+        "sha256": "3b78a5d03848182ec51b5056e71d49fe3511f3658eff7aa675cd64a2a0e501ec",
+        "bytes": 7301
+      },
+      {
+        "path": "apps/octocat-supply/api/src/auth.ts",
+        "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7",
+        "bytes": 4122
+      },
+      {
+        "path": "apps/octocat-supply/api/src/config.ts",
+        "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071",
+        "bytes": 1540
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database-cli.ts",
+        "sha256": "b3370e7206a223779e49c0fe8102d713617e0c8bd98d05871e1eb76ea46e10d3",
+        "bytes": 1041
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database.ts",
+        "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387",
+        "bytes": 8547
+      },
+      {
+        "path": "apps/octocat-supply/api/src/errors.ts",
+        "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8",
+        "bytes": 407
+      },
+      {
+        "path": "apps/octocat-supply/api/src/pricing.ts",
+        "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9",
+        "bytes": 1173
+      },
+      {
+        "path": "apps/octocat-supply/api/src/repository.ts",
+        "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762",
+        "bytes": 845
+      },
+      {
+        "path": "apps/octocat-supply/api/src/runtime.ts",
+        "sha256": "de48b06010b7911363f69f3a30b07a8bad07cac5a9b731af81aa0a0d471a4210",
+        "bytes": 1854
+      },
+      {
+        "path": "apps/octocat-supply/api/src/server.ts",
+        "sha256": "ec60a9cafd24a48fa2766f16f285f69c29c2713e912301fddc9e84ef16a7e251",
+        "bytes": 848
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql-cli.ts",
+        "sha256": "a5f355c04febe6677dcc2c1cb5b9f20b2978034ccf0e84afb7a25ccb847b6420",
+        "bytes": 825
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql.ts",
+        "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518",
+        "bytes": 12658
+      },
+      {
+        "path": "apps/octocat-supply/api/test/app.test.ts",
+        "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5",
+        "bytes": 6749
+      },
+      {
+        "path": "apps/octocat-supply/api/test/auth.test.ts",
+        "sha256": "ac9e163fce4a668f7e1da9da03387de8c10488e0aad7488ae349d46b29cbd1f2",
+        "bytes": 11316
+      },
+      {
+        "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+        "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5",
+        "bytes": 16924
+      },
+      {
+        "path": "apps/octocat-supply/api/test/database.test.ts",
+        "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a",
+        "bytes": 3336
+      },
+      {
+        "path": "apps/octocat-supply/api/test/pricing.test.ts",
+        "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4",
+        "bytes": 1723
+      },
+      {
+        "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+        "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8",
+        "bytes": 5420
+      },
+      {
+        "path": "apps/octocat-supply/api/test/sql.test.ts",
+        "sha256": "5076193c9a8e5f1bd177705be40d7dcc8847104cff62a4e8ab2c971d975cc541",
+        "bytes": 8745
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/auth.spec.ts",
+        "sha256": "1db3e65be4683f8857990ef58210c0d9b411345d6e28d9861d32c6e3595a961c",
+        "bytes": 7719
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/fixtures.ts",
+        "sha256": "c2ad2452164e098ae741a9b3a1303f245147e2d7b8a9ff642d4a4af63275af48",
+        "bytes": 3204
+      },
+      {
+        "path": "apps/octocat-supply/e2e/shop.spec.ts",
+        "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f",
+        "bytes": 3805
+      },
+      {
+        "path": "apps/octocat-supply/eslint.config.mjs",
+        "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff",
+        "bytes": 751
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/App.tsx",
+        "sha256": "ab3d89c12a1591c6490cf9bf26d72a74e3db6ac53fa47f4902d600f03e8ced5a",
+        "bytes": 17732
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/AuthApp.tsx",
+        "sha256": "407193f2ab772d1a0792b4e91c11576b93573dde97458fc604bf1ba1e0d75c02",
+        "bytes": 3199
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/api.ts",
+        "sha256": "3c914ea82b39a87f8757489c43f2e86f615c694fd9a2f4e1e91dba99fabf5da8",
+        "bytes": 4101
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/idToken.ts",
+        "sha256": "e52e2242187c45cba995d27eb3a31db5bac65a6eb4b50a70d3677cd30d1d941d",
+        "bytes": 4622
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/main.tsx",
+        "sha256": "e09879ef211d7975b658a9aee1caf40df982f91b889dd538e7d9954712540aea",
+        "bytes": 266
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/oidcSession.ts",
+        "sha256": "ca783613d673ffb7f01293768129023456c1f514404a634f651abd5b494def86",
+        "bytes": 12208
+      },
+      {
+        "path": "apps/octocat-supply/frontend/start.sh",
+        "sha256": "3365440d52262f8987840bc577b0d85293c79edaec5e7d3a5ee6f3b62e5daa50",
+        "bytes": 3297
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/ApiSession.test.tsx",
+        "sha256": "346663bc9c8bbcb0b2b95e89b0c92030a10722b73b1cfae60af3f483aa82ddd7",
+        "bytes": 3471
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+        "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369",
+        "bytes": 6727
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+        "sha256": "c00bb0443bef72e1549da179dfd4e5efb8b41bc27ec44d141687b95c1dadb0a4",
+        "bytes": 2425
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/IdToken.test.tsx",
+        "sha256": "f66059f3a18b3aeddba0b28e9d6ed42ee3175c9bb914a5cd6a2dd3e1bc623f9e",
+        "bytes": 2473
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcProtocol.test.tsx",
+        "sha256": "948b4c7c8d19ed760661ee40ebf7ecdeef89c201dc4ee652f4fccfbc8813f3aa",
+        "bytes": 8523
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcSession.test.tsx",
+        "sha256": "ed1008ccefb9551b27883306eed088dc593930b40a8440a356b0a01943dc8323",
+        "bytes": 10154
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/oidcHarness.ts",
+        "sha256": "73aeab87f85ebcfc65622ffaf8b746fcbbae8010636e64fbbfe9d0e22924a151",
+        "bytes": 1276
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/setup.ts",
+        "sha256": "93d2fc16e15d8747817d09b3fa1bffad0889dc263bbd33ff9015af8f44d5c1c2",
+        "bytes": 435
+      },
+      {
+        "path": "apps/octocat-supply/frontend/vite.config.ts",
+        "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778",
+        "bytes": 1961
+      },
+      {
+        "path": "apps/octocat-supply/playwright.config.ts",
+        "sha256": "7313764403d65b89e80d0342c10a56fc5705a4240471e6942cbb6bab63f830e9",
+        "bytes": 590
+      },
+      {
+        "path": "apps/octocat-supply/playwright.oidc.config.ts",
+        "sha256": "faee55a5e5e2becd9ee90234816c8300296ad8eca198d5e4c9fc2c41487234af",
+        "bytes": 704
+      },
+      {
+        "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+        "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b",
+        "bytes": 5664
+      },
+      {
+        "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+        "sha256": "daad4a12e490fc527de0feb3d7bbc1964506670b9b319f3636f97e9a50cacac7",
+        "bytes": 2356
+      },
+      {
+        "path": "apps/octocat-supply/scripts/licenses.mjs",
+        "sha256": "6f671991fca4660f7202bea0fb5992547853cd6acb5c53cc2b18c0a3821f900c",
+        "bytes": 1860
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-e2e-server.mjs",
+        "sha256": "28d05aa891a30f8151447008cfa12713d934f2a63a61e723155687f808bccfb4",
+        "bytes": 6972
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-reporter.mjs",
+        "sha256": "f838b16818897b05e722e3e26c655dbd20290935756da4a3d90561576702c045",
+        "bytes": 748
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-capture.mjs",
+        "sha256": "4b4dc46822a7d513fbfe776343e92ecbec313c145b2e58e804044a49b59a6d3d",
+        "bytes": 4401
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-mutations.mjs",
+        "sha256": "782597beb08ae1db4ff668d061b5b1359280baf7c07f31a77fbd79c6667ecd91",
+        "bytes": 3690
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.test.ts",
+        "sha256": "a272346db8791bd056e71c8e21aeb5a490945a1ce02e8369e9964ab4df9a1793",
+        "bytes": 3231
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.ts",
+        "sha256": "687af01e5845f841ed0755e1d6e1d3f8161f17039dd5504ea4acc5fcc39230af",
+        "bytes": 7854
+      },
+      {
+        "path": "apps/octocat-supply/vitest.config.ts",
+        "sha256": "b86f587a9680583a37741cad90478be3070efa62dac18be27e82950ed87a2da8",
+        "bytes": 830
+      },
+      {
+        "path": "scripts/check_repository.py",
+        "sha256": "d8688895ab1a190f61769b4c2ec965ca61d54ddfef6fcfb87ba969ddb9387c93",
+        "bytes": 5287
+      },
+      {
+        "path": "scripts/delivery/diagnostics.py",
+        "sha256": "4df0acca7d6df5fa7b40d476704769ab3da7a837224f8c5db160d70cbc1428c7",
+        "bytes": 1329
+      },
+      {
+        "path": "scripts/delivery/install_tools.py",
+        "sha256": "1b81aa2b840a85cb99b520cd4c92698d02e10c4615773b6e9eab14e6763c258f",
+        "bytes": 1745
+      },
+      {
+        "path": "scripts/delivery/policy.py",
+        "sha256": "856d8b7e0ed9fba135caa6eda3bff4ee9ae41b0f1a22cb59277c5f8de29dca02",
+        "bytes": 33697
+      },
+      {
+        "path": "scripts/delivery/provenance.py",
+        "sha256": "405fe93b1d04792a87bfcad50b10ec0f2aea7115a6d535d241c8af8b8b6fc467",
+        "bytes": 2749
+      },
+      {
+        "path": "scripts/delivery/scan_config.py",
+        "sha256": "1141caa8a725f1de2d70175566c32195760865a1a14468001c19120c77c7ce44",
+        "bytes": 1141
+      },
+      {
+        "path": "scripts/delivery/scan_images.py",
+        "sha256": "827a9e9de64947312faab3f4fe500c210652d1ed1a60f976c048e68fe55bc211",
+        "bytes": 1144
+      },
+      {
+        "path": "scripts/delivery/validate_infra.py",
+        "sha256": "9e913fd315a73a47bfdfea75cdd32cbdd131e7fe7ae1ad10f14866fa15f0389d",
+        "bytes": 2117
+      },
+      {
+        "path": "scripts/delivery/validate_parameters.py",
+        "sha256": "13ffc7d2424ec4471bf8289d5492aee5c65a849f373064750b491469a55c0c1d",
+        "bytes": 8137
+      },
+      {
+        "path": "scripts/delivery/verify_containers.py",
+        "sha256": "8bfd7ab76fb3ff481866c839650d422464383896c8e3e7a77c4913a688848b8d",
+        "bytes": 4853
+      },
+      {
+        "path": "scripts/delivery/verify_proxy.py",
+        "sha256": "7899bda4faa9af34550b10c8bf5dc088acba9dc67f2026ea3a83ece3e81251a8",
+        "bytes": 9679
+      },
+      {
+        "path": "tests/delivery/test_infra_c4.py",
+        "sha256": "deb3e5f13daf42758ccc5869a9d5c6f3a38ad7450a80f8c60237f83044217e11",
+        "bytes": 18812
+      },
+      {
+        "path": "tests/delivery/test_proxy.py",
+        "sha256": "df48e22e881e02203e12739b476c79dc42e9e903f5f0058a15d371778a693d93",
+        "bytes": 3793
+      },
+      {
+        "path": "tests/delivery/test_security.py",
+        "sha256": "9179dede51af2d97ce7bb4351a26b183e5281fe734fa28dbe4d69a73e022d659",
+        "bytes": 9922
+      }
+    ],
+    "limit": "Inventory and selected-source inspection only; no parser/engine scan or claim of zero vulnerabilities"
+  },
+  "sastProposal": {
+    "engine": "Semgrep CE",
+    "version": "1.185.0",
+    "sourceCommit": "9240f708f8d7e2fbd38b67aa6cd17704b1f81e14",
+    "tagObject": "18866f410389ff28d02310adeb770e9b3c59da56",
+    "tagSigned": false,
+    "engineLicenseMetadata": "LGPL-2.1-or-later; root license LGPL 2.1 text",
+    "rules": "Original local MIT rules proposed; no upstream pack copied/adopted",
+    "selectedOrInstalled": false,
+    "wheelMetadataOnly": true,
+    "fullTransitiveLocksReady": false,
+    "parserCompatibilityVerified": false,
+    "finiteCoverage": "CE single-function community TS/JS/JSX/Python; Bash/YAML experimental; no interfile equivalence to CodeQL",
+    "requiredFutureJob": "source-security; unconditional read-only, aggregate accepts only success",
+    "findingPolicy": "All security findings block; no automatic suppression/waiver",
+    "governanceRecommendation": "Separately select and verify ADR 0005 owner-operated fallback with authentic independent exact-artifact review; no route selected here"
+  },
+  "upstreamMetadata": [
+    {
+      "name": "semgrep-tag",
+      "url": "https://api.github.com/repos/semgrep/semgrep/git/ref/tags/v1.185.0",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:39.936428+00:00",
+      "sha256": "d0097727cfdb5430595684ead79fda9836a9c2dc097624f786ee887fded7e4bc",
+      "data": {
+        "ref": "refs/tags/v1.185.0",
+        "node_id": "MDM6UmVmMjI3ODAzODE1OnJlZnMvdGFncy92MS4xODUuMA==",
+        "url": "https://api.github.com/repos/semgrep/semgrep/git/refs/tags/v1.185.0",
+        "object": {
+          "sha": "18866f410389ff28d02310adeb770e9b3c59da56",
+          "type": "tag",
+          "url": "https://api.github.com/repos/semgrep/semgrep/git/tags/18866f410389ff28d02310adeb770e9b3c59da56"
+        }
+      }
+    },
+    {
+      "name": "semgrep-release",
+      "url": "https://api.github.com/repos/semgrep/semgrep/releases/tags/v1.185.0",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:39.936616+00:00",
+      "sha256": "839b91a1038a97dd5d5a5a9c48b13305f44a07bfdccfdd8973913c8f26677d2a",
+      "data": {
+        "tag_name": "v1.185.0",
+        "target_commitish": "develop",
+        "published_at": "2026-11-10T09:32:54Z",
+        "html_url": "https://github.com/semgrep/semgrep/releases/tag/v1.185.0",
+        "immutable": true
+      }
+    },
+    {
+      "name": "semgrep-pypi",
+      "url": "https://pypi.org/pypi/semgrep/1.185.0/json",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:39.937459+00:00",
+      "sha256": "d95709f66dc4222f764d16a88c1b0681d7f0d1be461d8d52a2ead686c29d4f36",
+      "data": {
+        "version": "1.185.0",
+        "requires_python": ">=3.10",
+        "license": null,
+        "license_expression": "LGPL-2.1-or-later",
+        "requires_dist": [
+          "attrs>=21.3",
+          "boltons~=21.0",
+          "certifi>=2026.10.19",
+          "click-option-group~=0.5",
+          "click~=8.4.2",
+          "colorama~=0.4.0",
+          "exceptiongroup~=1.2.0",
+          "glom>=23.3",
+          "jsonschema~=4.25.1",
+          "mcp==1.29.0",
+          "opentelemetry-api~=1.37.0",
+          "opentelemetry-sdk~=1.37.0",
+          "opentelemetry-exporter-otlp-proto-http~=1.37.0",
+          "opentelemetry-instrumentation-requests~=0.58b0",
+          "opentelemetry-instrumentation-threading~=0.58b0",
+          "packaging>=21.0",
+          "peewee~=3.14",
+          "pyjwt[crypto]<3,>=2.15.0",
+          "requests~=2.22",
+          "rich>=13.5.2",
+          "ruamel.yaml>=0.18.15",
+          "ruamel.yaml.clib==0.2.15",
+          "semantic-version~=2.10.0",
+          "structlog~=26.1.0",
+          "tomli~=2.4.0",
+          "typing-extensions~=4.2",
+          "urllib3~=2.0",
+          "wcmatch~=8.3",
+          "pywin32==311; sys_platform == \"win32\""
+        ],
+        "artifacts": [
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-macosx_11_0_arm64.whl",
+            "sha256": "d54c7dc22f6f360e0f9f850b1ecdfe00ec755600f9cf2ec6be3928b42818f1b4",
+            "url": "https://files.pythonhosted.org/packages/63/8a/746b73f404709f89cecbd80f7dcd4e347b21353bfdea163cb23158d4593f/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-macosx_11_0_arm64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:11.316155Z"
+          },
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_aarch64.whl",
+            "sha256": "8cffbaf80abb8e39abc6d7a86588dcf94b7ddc1f40e8e16e555a1116347be3ef",
+            "url": "https://files.pythonhosted.org/packages/ba/4e/cae05468e1b8c33a18bafb25539f845d6f35e6e58973ebdd2aafa6b387ed/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_aarch64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:15.739683Z"
+          },
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl",
+            "sha256": "0eb6aaadad5b957af96d1300487e10af1dc8016e8ef53072effb48cd4906c02b",
+            "url": "https://files.pythonhosted.org/packages/f2/13/0d4dc8d124794105f300082c46e3d8ad45eac7af63113b57a5966629b5a3/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:20.370832Z"
+          },
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-musllinux_1_2_aarch64.whl",
+            "sha256": "99fde53fda44c25d8ab27424f421947b0a0186d86ce888c593a6da62b811d783",
+            "url": "https://files.pythonhosted.org/packages/c6/4e/77b2128d3a7f2e1f9abbeb4b0d7f9f59957663b6aa01a9b2e0f4d1c1b915/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-musllinux_1_2_aarch64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:25.128950Z"
+          },
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-musllinux_1_2_x86_64.whl",
+            "sha256": "f030c391af948b493ae2220a1b64372df5f18adf8e2dd909ab62035364c51890",
+            "url": "https://files.pythonhosted.org/packages/fb/60/e0557977f9b0ae3a5158e2a311c35f8ed59359cac2788bb3c6dc461de3dc/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-musllinux_1_2_x86_64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:30.073771Z"
+          },
+          {
+            "filename": "semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-win_amd64.whl",
+            "sha256": "91812ac0856cfe5b6135a4dffde3052a04c36a46e4e82e78793e3a07e51d7894",
+            "url": "https://files.pythonhosted.org/packages/8e/8e/c8d5135ff77a60e825c08b68272a924572e59841d01beba29be7041d2c75/semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-win_amd64.whl",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:34.366671Z"
+          },
+          {
+            "filename": "semgrep-1.185.0.tar.gz",
+            "sha256": "e6fa06ae6262b13b6ef14dd634e2b7d97ccc51ff41b94da59b63862d0c8578af",
+            "url": "https://files.pythonhosted.org/packages/78/82/530228c094e10e658ba323852b169ce807f8ce826384095f89c5e5a34482/semgrep-1.185.0.tar.gz",
+            "requires_python": ">=3.10",
+            "yanked": false,
+            "upload_time": "2026-11-10T09:33:37.579973Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "semgrep-license",
+      "url": "https://raw.githubusercontent.com/semgrep/semgrep/v1.185.0/LICENSE",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:39.937699+00:00",
+      "sha256": "20c17d8b8c48a600800dfd14f95d5cb9ff47066a9641ddeab48dc54aec96e331"
+    },
+    {
+      "name": "semgrep-source-cli",
+      "url": "https://raw.githubusercontent.com/semgrep/semgrep/v1.185.0/cli/src/semgrep/commands/scan.py",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:40.101751+00:00",
+      "sha256": "fa3c1ea1b94082969a2217383d19be386b1ddf0af1a6d02d25f1404f8d294dd3"
+    },
+    {
+      "name": "semgrep-source-settings",
+      "url": "https://raw.githubusercontent.com/semgrep/semgrep/v1.185.0/cli/src/semgrep/settings.py",
+      "exitCode": 0,
+      "retrievedUtc": "2026-11-13T10:25:40.182199+00:00",
+      "sha256": "bfd4dcb6d8aba67a5baa70f097023dafe811ac965e5791475260d84e2eca37cf"
+    }
+  ],
+  "primaryDocumentation": [
+    "https://docs.github.com/en/code-security/reference/code-scanning/troubleshoot-analysis-errors/private-repository-enablement",
+    "https://docs.github.com/en/code-security/concepts/code-scanning/codeql/codeql-cli",
+    "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+    "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+    "https://docs.semgrep.dev/deployment/oss-deployment",
+    "https://docs.semgrep.dev/semgrep-ce-languages",
+    "https://docs.semgrep.dev/cli-reference",
+    "https://docs.semgrep.dev/metrics",
+    "https://docs.semgrep.dev/semgrep-code/semgrep-pro-engine-intro",
+    "https://docs.semgrep.dev/semgrep-appsec-platform/json-and-sarif",
+    "https://semgrep.dev/legal/rules-license/"
+  ],
+  "proposedAdversarialCases": [
+    {
+      "id": "C5-M01",
+      "case": "Interpolated/untrusted SQL versus bound parameters",
+      "expected": "Unsafe query detected by named rule; safe query clean",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M02",
+      "case": "Disabled certificate/hostname verification versus verified TLS",
+      "expected": "Bypass detected; legitimate test-fixture context explicitly classified",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M03",
+      "case": "Decode-only/untrusted JWT key, issuer or algorithm versus verified JOSE",
+      "expected": "Actual detectable bypass variants fail; missed aliases/wrappers remain an open coverage gate",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M04",
+      "case": "Tainted process command / Python shell=True versus fixed argv",
+      "expected": "Unsafe execution detected; safe pair clean",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M05",
+      "case": "Unsafe HTML/eval versus escaped JSX",
+      "expected": "Real TSX parser and matching controls behave as specified",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M06",
+      "case": "Bearer/claims/callback-value logging versus fixed error codes",
+      "expected": "Unsafe logging detected; safe pair clean; finite dataflow limits documented",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M07",
+      "case": "Malformed TS/TSX/Python",
+      "expected": "Parser failure blocks, never counted as detected vulnerability or clean scan",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M08",
+      "case": "New/missing/oversize source, path escape, ignore entry or inline suppression",
+      "expected": "Inventory/config blocks omission or real unsafe detection persists; no silent skip",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M09",
+      "case": "Remove/empty/disable/downgrade a rule or change catalog/hash",
+      "expected": "Mandatory-rule/catalog policy rejects tampering",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M10",
+      "case": "Wrong engine/version/checksum/platform or missing tool dependency",
+      "expected": "Installation/run fails closed, without source build/alternate engine fallback",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M11",
+      "case": "Timeout, crash, killed process, partial/empty/truncated/malformed JSON or skipped target",
+      "expected": "Scan rejected, exact safe failure class recorded",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M12",
+      "case": "Forged exit 0 with report errors/findings/coverage mismatch",
+      "expected": "Report/inventory validator rejects independently of exit code",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M13",
+      "case": "Remote/auto rules, Pro, token/metrics/trace destination or network attempt",
+      "expected": "Configuration/environment/egress controls reject; no remote fallback",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M14",
+      "case": "Canary fragments in raw source/results/messages/dataflows/stdout/upload roots",
+      "expected": "Published console/artifacts contain no canaries; raw report never uploaded",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M15",
+      "case": "Conditional/omitted SAST job, path filters or continue-on-error",
+      "expected": "Workflow policy rejects every bypass variant",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M16",
+      "case": "Remove aggregate dependency or permit skipped/cancelled/neutral/failed result",
+      "expected": "Executable aggregate matrix blocks every non-success/absent state",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M17",
+      "case": "Add PR write/OIDC/security-events privileges or privileged PR execution",
+      "expected": "Existing and new policy reject privilege escalation",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M18",
+      "case": "Change approved SHA/tree/tool/rules/report/image/config/schema/scope/expiry",
+      "expected": "Review-manifest predicate rejects mismatch/staleness",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M19",
+      "case": "Missing reviewer, owner self-review or invented approval identity",
+      "expected": "Predicate rejects; authentic independent external evidence remains separately required",
+      "status": "Planned; not executed"
+    },
+    {
+      "id": "C5-M20",
+      "case": "Cross-file ownership/session/authorization variant beyond CE capability",
+      "expected": "Record actual miss/coverage limit; complementary tests and independent review required; never claim CE detection without output",
+      "status": "Planned; not executed"
+    }
+  ],
+  "acceptance": {
+    "C5-A1": {
+      "status": "Blocked / not met",
+      "missing": "Owner engine/coverage selection; full toolchain rights/hash/advisory review; real reviewed-source scan, parser/inventory/detection/control results, independently accepted finite coverage and findings"
+    },
+    "C5-A2": {
+      "status": "Blocked / not met",
+      "missing": "Explicit route selection, supported effective controls or authentic owner-operated fallback, independent reviewer and exact-artifact approval/denial proof"
+    }
+  },
+  "recommendation": {
+    "planning": "Complete",
+    "futureImplementation": "Conditional GO for separately authorized feasibility then bounded integration; no implementation authority granted",
+    "c5Acceptance": "NO-GO",
+    "automaticRelease": "NO-GO",
+    "azureDeployment": "NO-GO"
+  },
+  "costs": {
+    "incurredActions": "No Azure/paid service activated or run",
+    "future": "Local download/compute/storage, original-rule maintenance and independent human review; private Actions minutes/artifact storage may cost money",
+    "unknown": "Actual scan duration/tool supply-chain audit, account quota/billing tier and any protected-route/Code Security entitlement pricing; no free-quota/zero-cost assumption"
+  },
+  "notPerformed": [
+    "SAST install/scan or parser probes",
+    "C5 mutation/control execution",
+    "application/browser/proxy/container or Bicep regression rerun",
+    "CodeQL execution/SARIF upload",
+    "hosted artifact inspection or new hosted run",
+    "GitHub setting/visibility/plan/permission change",
+    "Azure/ARM/login/provision/deploy",
+    "release rehearsal/approval creation",
+    "commits/pushes"
+  ],
+  "changedFiles": [
+    {
+      "path": "AGENTS.md",
+      "change": "modified documentation",
+      "sha256": "3f0de6040bb2027d15fb4c0dc4426361e51f4c1c936810521772f433e8d4d73c"
+    },
+    {
+      "path": "README.md",
+      "change": "modified documentation",
+      "sha256": "f02b6e41b9350efe1513e10d46cf9c7ac6e24bfaa61f3a4e413a8599d2b11065"
+    },
+    {
+      "path": "docs/capability-status.md",
+      "change": "modified documentation",
+      "sha256": "6c5f797001330d19c09ce2adc62b64cadf2293c6740710b72b015375461265b7"
+    },
+    {
+      "path": "docs/delivery.md",
+      "change": "modified documentation",
+      "sha256": "eeb856aecbbbab93c5b60c4f2fa403a5e591d43c255dd5e723e7226588c53fa9"
+    },
+    {
+      "path": "docs/milestones/m4c-scope.md",
+      "change": "modified documentation",
+      "sha256": "b921a027b3c907cf551936f8419905ddc01e461ce9dd6bc44b6b5bd2df784682"
+    },
+    {
+      "path": "docs/evidence/m4c-c5-readiness.md",
+      "change": "new planning/evidence document",
+      "sha256": "565a8445124fec58ac906852dde2de77761fe846ba9916699287cd9dab5558c7"
+    },
+    {
+      "path": "docs/evidence/m4c-c5-readiness.json",
+      "change": "new planning/evidence document",
+      "hashPolicy": "Self-hash omitted to avoid circular evidence"
+    },
+    {
+      "path": "docs/milestones/m4c-c5-sast-plan.md",
+      "change": "new planning/evidence document",
+      "sha256": "e4398f9f3e8c2826cf634c51922ee72b2ab398995e7b695dea951d30e6085f3c"
+    }
+  ],
+  "preservation": {
+    "initialTrackedFiles": 175,
+    "allowedExistingDocumentationChanges": [
+      "AGENTS.md",
+      "README.md",
+      "docs/capability-status.md",
+      "docs/delivery.md",
+      "docs/milestones/m4c-scope.md"
+    ],
+    "unchangedFileCount": 170,
+    "allOtherInitialHashesMatch": true,
+    "headUnchanged": true,
+    "preservedSha256": [
+      {
+        "path": ".editorconfig",
+        "sha256": "71589501b7a5dd84d122c08a34d94001034ec89843a90e2e790a65087c8a4fcc"
+      },
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf"
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "5f9980c4e4a2209a8a2137a505ebecbde14f8f4225e0a39f740406e917f9925b"
+      },
+      {
+        "path": ".gitleaks.toml",
+        "sha256": "548c2721bba8d343b34d44d72ec8573dfc6d3dd2a38269b3a2a16c188c3554ac"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+      },
+      {
+        "path": "THIRD_PARTY_NOTICES.md",
+        "sha256": "ea3786af0c921a948d7aa310f05cac913ed451f3c2b4858ffffe44a3df91c5d8"
+      },
+      {
+        "path": "apps/octocat-supply/.dockerignore",
+        "sha256": "bff2a5976307b8d15351d7fc26d89379d7c6fbfd884ba92d2d802d2eff453ae2"
+      },
+      {
+        "path": "apps/octocat-supply/.env.example",
+        "sha256": "209e1711fc5db4b5826b58231bdb08c4046c438589981a3705146cbc8828f5ba"
+      },
+      {
+        "path": "apps/octocat-supply/.node-version",
+        "sha256": "9185b9f67843cabfa8054f65ce47ce0b52036b0bfe07ae5a6b834d97cc127140"
+      },
+      {
+        "path": "apps/octocat-supply/.npmrc",
+        "sha256": "994f7cb40cf8035ac70be35a65bf3cb51aa62e5b8fe94531d596b279f66740cb"
+      },
+      {
+        "path": "apps/octocat-supply/.prettierignore",
+        "sha256": "7dbe51fba7938967231c5016477977cf06ea3ae4c40557bf573dafd5145fa989"
+      },
+      {
+        "path": "apps/octocat-supply/LICENSE",
+        "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+      },
+      {
+        "path": "apps/octocat-supply/README.md",
+        "sha256": "000681dac588658463d97a348093c1a6d934b7b318ad4288fcbad35c8a0ef6f6"
+      },
+      {
+        "path": "apps/octocat-supply/api/Dockerfile",
+        "sha256": "b665e48fe1fc90385dcf41c4d08995ed59edbfd259bb96309555da1d50437adc"
+      },
+      {
+        "path": "apps/octocat-supply/api/fixtures/README.md",
+        "sha256": "dfc56bc86e2934f28968ee104f061684a5437cda55c8d21dbce8c71395dc152a"
+      },
+      {
+        "path": "apps/octocat-supply/api/fixtures/rfc7515-rsa.json",
+        "sha256": "c4083dbf214f34675354f6f3caef133a129b478a595c30f5e803934e4b30fbbb"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/app.ts",
+        "sha256": "3b78a5d03848182ec51b5056e71d49fe3511f3658eff7aa675cd64a2a0e501ec"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/auth.ts",
+        "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/config.ts",
+        "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database-cli.ts",
+        "sha256": "b3370e7206a223779e49c0fe8102d713617e0c8bd98d05871e1eb76ea46e10d3"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database.ts",
+        "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/errors.ts",
+        "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/pricing.ts",
+        "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/repository.ts",
+        "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/runtime.ts",
+        "sha256": "de48b06010b7911363f69f3a30b07a8bad07cac5a9b731af81aa0a0d471a4210"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/server.ts",
+        "sha256": "ec60a9cafd24a48fa2766f16f285f69c29c2713e912301fddc9e84ef16a7e251"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql-cli.ts",
+        "sha256": "a5f355c04febe6677dcc2c1cb5b9f20b2978034ccf0e84afb7a25ccb847b6420"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql.ts",
+        "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/app.test.ts",
+        "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/auth.test.ts",
+        "sha256": "ac9e163fce4a668f7e1da9da03387de8c10488e0aad7488ae349d46b29cbd1f2"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/contracts/README.md",
+        "sha256": "16ccdaff381e345850fa4b90c8c86ab0bd91adab73a493c1608d03c59dc0a7ba"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+        "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/database.test.ts",
+        "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/pricing.test.ts",
+        "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+        "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/sql.test.ts",
+        "sha256": "5076193c9a8e5f1bd177705be40d7dcc8847104cff62a4e8ab2c971d975cc541"
+      },
+      {
+        "path": "apps/octocat-supply/api/tsconfig.json",
+        "sha256": "c23a766f4ec826ffca64940c738d988442c91da75123e2473e744164087b2b3c"
+      },
+      {
+        "path": "apps/octocat-supply/compose.yaml",
+        "sha256": "e0506206f1ff67c8bc96f649e06ac9cbb7317c67e89870bdcd8c2e45b39f0a9d"
+      },
+      {
+        "path": "apps/octocat-supply/dependencies.json",
+        "sha256": "574da29fb22bcaa6a6551e1d4f1cc49735a2f4cac00f61ff4c7fc4db696a9712"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/auth.spec.ts",
+        "sha256": "1db3e65be4683f8857990ef58210c0d9b411345d6e28d9861d32c6e3595a961c"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/fixtures.ts",
+        "sha256": "c2ad2452164e098ae741a9b3a1303f245147e2d7b8a9ff642d4a4af63275af48"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/shop.spec.ts",
+        "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f"
+      },
+      {
+        "path": "apps/octocat-supply/eslint.config.mjs",
+        "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/Dockerfile",
+        "sha256": "a08099f83bda7b0e6c59d4164d62b04c3b6784da30a15841de9d086431e744d2"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/default.conf.template",
+        "sha256": "c8a04f8ae3fa6ebf879f70d6851237adf0ccc2f8826f2542ca97c1423c2ed054"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/index.html",
+        "sha256": "ae03ca56ff7bd79bd143e88e6bb9b283fe6f0c29c059959fb1015e2a84112047"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/nginx.conf",
+        "sha256": "37565129a2504558d240a6ee34ab6d75c0023d317f2797502f6240c7dbbcaef1"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/public/auth-config.json",
+        "sha256": "592a64cde9470fbc2ac37b1525b92eedbe7127f88150c091c7de204a3a8a8b1d"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/public/third-party-notices.txt",
+        "sha256": "3e3d8e98867cedfea5372bc234b2784ca575284073bd65e9f94390e1037c72b0"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/App.tsx",
+        "sha256": "ab3d89c12a1591c6490cf9bf26d72a74e3db6ac53fa47f4902d600f03e8ced5a"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/AuthApp.tsx",
+        "sha256": "407193f2ab772d1a0792b4e91c11576b93573dde97458fc604bf1ba1e0d75c02"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/api.ts",
+        "sha256": "3c914ea82b39a87f8757489c43f2e86f615c694fd9a2f4e1e91dba99fabf5da8"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/idToken.ts",
+        "sha256": "e52e2242187c45cba995d27eb3a31db5bac65a6eb4b50a70d3677cd30d1d941d"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/main.tsx",
+        "sha256": "e09879ef211d7975b658a9aee1caf40df982f91b889dd538e7d9954712540aea"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/oidcSession.ts",
+        "sha256": "ca783613d673ffb7f01293768129023456c1f514404a634f651abd5b494def86"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/styles.css",
+        "sha256": "33aa113f5215f3749e9beece641f34e12e8a823fbc1252d9ed45718bc159630a"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/start.sh",
+        "sha256": "3365440d52262f8987840bc577b0d85293c79edaec5e7d3a5ee6f3b62e5daa50"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/ApiSession.test.tsx",
+        "sha256": "346663bc9c8bbcb0b2b95e89b0c92030a10722b73b1cfae60af3f483aa82ddd7"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+        "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+        "sha256": "c00bb0443bef72e1549da179dfd4e5efb8b41bc27ec44d141687b95c1dadb0a4"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/IdToken.test.tsx",
+        "sha256": "f66059f3a18b3aeddba0b28e9d6ed42ee3175c9bb914a5cd6a2dd3e1bc623f9e"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcProtocol.test.tsx",
+        "sha256": "948b4c7c8d19ed760661ee40ebf7ecdeef89c201dc4ee652f4fccfbc8813f3aa"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcSession.test.tsx",
+        "sha256": "ed1008ccefb9551b27883306eed088dc593930b40a8440a356b0a01943dc8323"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/oidcHarness.ts",
+        "sha256": "73aeab87f85ebcfc65622ffaf8b746fcbbae8010636e64fbbfe9d0e22924a151"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/setup.ts",
+        "sha256": "93d2fc16e15d8747817d09b3fa1bffad0889dc263bbd33ff9015af8f44d5c1c2"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/tsconfig.json",
+        "sha256": "e721551f9284931c90ea08317c6b76faeea740967242cb0b882ed96b588c028e"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/vite.config.ts",
+        "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+      },
+      {
+        "path": "apps/octocat-supply/package-lock.json",
+        "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+      },
+      {
+        "path": "apps/octocat-supply/package.json",
+        "sha256": "f88f146c429368bda995700d6100731ecb8abc771738dd62a248b4aa8e5da00c"
+      },
+      {
+        "path": "apps/octocat-supply/playwright.config.ts",
+        "sha256": "7313764403d65b89e80d0342c10a56fc5705a4240471e6942cbb6bab63f830e9"
+      },
+      {
+        "path": "apps/octocat-supply/playwright.oidc.config.ts",
+        "sha256": "faee55a5e5e2becd9ee90234816c8300296ad8eca198d5e4c9fc2c41487234af"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+        "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+        "sha256": "daad4a12e490fc527de0feb3d7bbc1964506670b9b319f3636f97e9a50cacac7"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/licenses.mjs",
+        "sha256": "6f671991fca4660f7202bea0fb5992547853cd6acb5c53cc2b18c0a3821f900c"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-e2e-server.mjs",
+        "sha256": "28d05aa891a30f8151447008cfa12713d934f2a63a61e723155687f808bccfb4"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-reporter.mjs",
+        "sha256": "f838b16818897b05e722e3e26c655dbd20290935756da4a3d90561576702c045"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-capture.d.mts",
+        "sha256": "03b825e9c9902b070805040672123193d54798eebc7b4d0222927fa4e8b77126"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-capture.mjs",
+        "sha256": "4b4dc46822a7d513fbfe776343e92ecbec313c145b2e58e804044a49b59a6d3d"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-mutations.mjs",
+        "sha256": "782597beb08ae1db4ff668d061b5b1359280baf7c07f31a77fbd79c6667ecd91"
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.test.ts",
+        "sha256": "a272346db8791bd056e71c8e21aeb5a490945a1ce02e8369e9964ab4df9a1793"
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.ts",
+        "sha256": "687af01e5845f841ed0755e1d6e1d3f8161f17039dd5504ea4acc5fcc39230af"
+      },
+      {
+        "path": "apps/octocat-supply/tsconfig.tests.json",
+        "sha256": "64769f5583b822cd973514028a63505748bd7a88fd88a27ee900d1c76f22486e"
+      },
+      {
+        "path": "apps/octocat-supply/vitest.config.ts",
+        "sha256": "b86f587a9680583a37741cad90478be3070efa62dac18be27e82950ed87a2da8"
+      },
+      {
+        "path": "docs/architecture.md",
+        "sha256": "51a0e89179773dd1bcffb0c1912c0e4b4413eaa1c2af0a96d16b59363cba9260"
+      },
+      {
+        "path": "docs/decisions/0001-start-fresh.md",
+        "sha256": "a2f98a97b488445c4ac5a9fe28ca66d93374ad10ef220e95c7cf61f5b88f3a32"
+      },
+      {
+        "path": "docs/decisions/0002-source-reuse.md",
+        "sha256": "8bb050d0dcbfb7808640f9ace32d4476c0f84be5c0389de8edc9991efcc749f0"
+      },
+      {
+        "path": "docs/decisions/0003-persistence.md",
+        "sha256": "c819f4c278d14d18ac3b5b0a4c415268b2a2dc8b0dba88a1a892207f6f791b54"
+      },
+      {
+        "path": "docs/decisions/0004-agent-execution-permissions.md",
+        "sha256": "28878643d3d92778d7cb6a388fe394bd9063ae3e7bba4a2e18bf11274f21a683"
+      },
+      {
+        "path": "docs/decisions/0005-delivery-identity.md",
+        "sha256": "7f71e1fdf83cb73bb3f7e165e7da9b22f95c4f05e7ba057fad53d09c15ccc13a"
+      },
+      {
+        "path": "docs/decisions/0006-observability.md",
+        "sha256": "95ef78b6d2e59caf5bb3c46d9ff0e95edeaf46e34a6c2af76201b18c9ced62b2"
+      },
+      {
+        "path": "docs/decisions/0007-application-identity.md",
+        "sha256": "47f47bb03ea7c6000d6251c32d05089255b0d224c597ed1c61c71d90941f2230"
+      },
+      {
+        "path": "docs/evidence/images/m2-desktop.png",
+        "sha256": "d6211f0cff1db00dc5bd30954d60d2dc9c15b641f47b6787390e2520f1fcb150"
+      },
+      {
+        "path": "docs/evidence/images/m2-mobile.png",
+        "sha256": "a78dab47824918c31a41b15be84258aa1e633df56248e414c4f19f14eb997085"
+      },
+      {
+        "path": "docs/evidence/m0-assessment.md",
+        "sha256": "b28a2f97265a907945fc418d0f14cd92cbeab4eee06ded5bf5892617a020d20f"
+      },
+      {
+        "path": "docs/evidence/m1-design-review.md",
+        "sha256": "f54c7c9225b93d704de483fd194ee8d476ff5b465db20d51eac7d70e422c1b1b"
+      },
+      {
+        "path": "docs/evidence/m2-baseline.md",
+        "sha256": "ebe6bf25e1f16aabe44a233e381f0f95cdedd66d3f9f5c33988ddf21cd006fd1"
+      },
+      {
+        "path": "docs/evidence/m2-clean-container-smoke.json",
+        "sha256": "e18702917f49c5145f0178f7e03a962952bd7415a4872def924a1e00f9247aee"
+      },
+      {
+        "path": "docs/evidence/m2-clean-setup.json",
+        "sha256": "6f97422fffe1517e99d80f333ce2b001a63ea46ed1da231718d963746880998d"
+      },
+      {
+        "path": "docs/evidence/m2-cli-checks.json",
+        "sha256": "265c34b0c3b0945ec3b0871c519a3c941761af0715cde3620cbc40828c63b7b0"
+      },
+      {
+        "path": "docs/evidence/m2-production-audit.json",
+        "sha256": "a84f369ca953c0ba519385cb0b37fa133837f57ea6dd732b203b233b0d2081bc"
+      },
+      {
+        "path": "docs/evidence/m2-source-fingerprint.json",
+        "sha256": "f24db59912c6f1cdeb6d324c665a458ee2777d3645823e376f9d354d97f2560b"
+      },
+      {
+        "path": "docs/evidence/m3-local-results.json",
+        "sha256": "3ad115efd90b7e79e13125299afb1344303c82faca930c6fd4a01b3266976cb5"
+      },
+      {
+        "path": "docs/evidence/m3-secure-delivery.md",
+        "sha256": "91987f245f74122f8e02b5dfe33a9a7357c9d3948bcfbe5c597cfd7a7101cec0"
+      },
+      {
+        "path": "docs/evidence/m4a-preflight.json",
+        "sha256": "f5c9043880569a4d185212c8aa09bb5a4f07a031ce620a74bbddb9b399c539b4"
+      },
+      {
+        "path": "docs/evidence/m4b-ci-repair.json",
+        "sha256": "ad136b91c90921203f8b4210d826b6a7070d3f1fc6205e9db58f5188c1143ced"
+      },
+      {
+        "path": "docs/evidence/m4b-ci-repair.md",
+        "sha256": "5d80f2d4ae0bd07ef66b0055d2956d42c2d8729f2f6ec1f9301afefca29f9cd2"
+      },
+      {
+        "path": "docs/evidence/m4b-frontend-image-repair.json",
+        "sha256": "f9441463490434a55783dffd9af6107fe2be9b0b437e6fef188622c0946d79e9"
+      },
+      {
+        "path": "docs/evidence/m4b-frontend-image-repair.md",
+        "sha256": "fc9c17c6b5e9288f75b6a272d1b5bae279eec34373cc0627dac953caa2988458"
+      },
+      {
+        "path": "docs/evidence/m4b-local-preparation.md",
+        "sha256": "a926a30932e975f11eaece3b95b38cac00fb3cf5ba47b766b5d024a06c900a9a"
+      },
+      {
+        "path": "docs/evidence/m4b-local-results.json",
+        "sha256": "660001529cc9a52167451eecdbe15541dd54961e884424c414e73d3fc8bd8c2d"
+      },
+      {
+        "path": "docs/evidence/m4b-playwright-ci-repair.json",
+        "sha256": "4846aa51fdc5320583558887600759c2e64f8f6c8ade8e8e1374c9e818f00ec4"
+      },
+      {
+        "path": "docs/evidence/m4b-playwright-ci-repair.md",
+        "sha256": "cd23d7176d3bf60a00ce18d253899ecce1e43dffa15d2449494e31f85c358b0e"
+      },
+      {
+        "path": "docs/evidence/m4c-c1-repository-contracts.json",
+        "sha256": "eba9cc2feb8bb8474311858070c0b3a59e895a1926a85b2d92dadfa0954c0536"
+      },
+      {
+        "path": "docs/evidence/m4c-c1-repository-contracts.md",
+        "sha256": "dc2570c6c11ea205276208f79c1b36d9c19cae97f7e97003ca502e73e437a4cf"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-oidc.json",
+        "sha256": "94d833cd4d7218a254cd5fc71d52819e7e51e1e0f0bab9f7459ff4ada8bc849b"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-oidc.md",
+        "sha256": "b5f0773c8e2e0404fb7da314ad35bf6c048e5df3e94a7a0fa56eb3ec4b21327c"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-planning.json",
+        "sha256": "434b8708b5a790ede424121420d9bc9ba3f53b3ca5a2f6f1d7c25d42f7fbb17c"
+      },
+      {
+        "path": "docs/evidence/m4c-c4-infrastructure.json",
+        "sha256": "c026f3bb7496b3a9b487332d389ef9906e1ac8779081cd001f27489b38021199"
+      },
+      {
+        "path": "docs/evidence/m4c-c4-infrastructure.md",
+        "sha256": "36fc2deae39e9e1dc208486d65b035655b5a2a93a19f12e54c4eea21f702af40"
+      },
+      {
+        "path": "docs/evidence/m4c-readiness-assessment.json",
+        "sha256": "f267644a22d861e4fead9f6140500ceef4954a74d1177a86a92c24bc3f3ee1b4"
+      },
+      {
+        "path": "docs/evidence/m4c-readiness-assessment.md",
+        "sha256": "b36bb9ad7319157f4572c243ec0a2c70df1ad1629589a79fb8b4ecb480515f13"
+      },
+      {
+        "path": "docs/historical-reuse.md",
+        "sha256": "a206a33054d31ac3197b92e3863f103bfb9708cd9105fcfdebe627ccc410996b"
+      },
+      {
+        "path": "docs/milestones/m1-scope.md",
+        "sha256": "7b048351bc53fbda34280af9a5771a653ff54dc6aff1fbcc7f8716571c40bdef"
+      },
+      {
+        "path": "docs/milestones/m2-scope.md",
+        "sha256": "69c1fed4fc13bb3d2a569e6d0053f65f54f475209943d08e3b5fa135941474d6"
+      },
+      {
+        "path": "docs/milestones/m3-scope.md",
+        "sha256": "76f421297ae354b0ce5f77c67ad3634b120f8761b52ab85856d091c774e23230"
+      },
+      {
+        "path": "docs/milestones/m4a-preflight.md",
+        "sha256": "3f5e73ad6701ff41d9fa234718e792bb73648c6de5add9348f5462ebe5cdf254"
+      },
+      {
+        "path": "docs/milestones/m4b-scope.md",
+        "sha256": "24c87e07903779c5cd34babf767ec9cf9886ea80518d143bd21f563931af8f52"
+      },
+      {
+        "path": "docs/milestones/m4c-c3-oidc-plan.md",
+        "sha256": "5b207dd9a483eedef75414d5de8798777e024e3002466d4e42485b6d9399efe8"
+      },
+      {
+        "path": "docs/project-charter.md",
+        "sha256": "d47b17bf64b14aa230d50e16e92bd879732a3dc0cae13ccfb49faba5b6f58594"
+      },
+      {
+        "path": "docs/project/azure-cost-estimate.md",
+        "sha256": "c441f6d60f85994e631fffcf69a50434d34b4385829b1cee1cb3bef4dce45e03"
+      },
+      {
+        "path": "docs/project/master-brief.md",
+        "sha256": "7a134402d9ba237de415c73a7a7e427866798edc73b77d142b4ec0fec50c5ee6"
+      },
+      {
+        "path": "docs/requirements.md",
+        "sha256": "911dfba15bbe1903257b32bf1226e942c5c04bdc95d70b7909bade988fd9981a"
+      },
+      {
+        "path": "docs/roadmap.md",
+        "sha256": "445f01ace2bdfaeacd58258adb26651b486f07c1b4f2f4a9fc90966f6c778666"
+      },
+      {
+        "path": "docs/source-assessment.md",
+        "sha256": "022d3c0343337a8372433079e7dacefc213bed21311a892245864e1eb7613d56"
+      },
+      {
+        "path": "docs/threat-model.md",
+        "sha256": "5990994e2d60a0d8d8e4e04145ad0a380f2fcdd1b1cdea633692df299fb388c3"
+      },
+      {
+        "path": "docs/validation-strategy.md",
+        "sha256": "5256ad127ec3acddc7fe1a6efab8b4f8d6dfe22edb040da1a5fb5b2275cef51c"
+      },
+      {
+        "path": "infra/README.md",
+        "sha256": "5103911acc9353f9a2c3c9601bd8e1ff141bee9def471eff63f05b0beba04c50"
+      },
+      {
+        "path": "infra/apps.bicep",
+        "sha256": "98da5cdb6b414430e97fe3b580dd086e7356d39ca89916ef380f5ba824e2dbbc"
+      },
+      {
+        "path": "infra/bicepconfig.json",
+        "sha256": "dcec22b04c210ea11f37175dc0ab5e2c35226f4ef6afb99f16ea105b5905850b"
+      },
+      {
+        "path": "infra/diagnostics-console.kql",
+        "sha256": "39d60f3461b915822f080132345b1467720bd64ae3fd0aa064d3178e8fa434b1"
+      },
+      {
+        "path": "infra/diagnostics-system.kql",
+        "sha256": "3889262203f62b1441e9bab899a172f0b633f5e64568f36f59bb201aebfab1fd"
+      },
+      {
+        "path": "infra/diagnostics.bicep",
+        "sha256": "e47bf9c5689abf7b62bf877ccd9551eb20f521e675111aaa3ac6b4745a78cca9"
+      },
+      {
+        "path": "infra/federation.bicep",
+        "sha256": "7ecba9eb94674a3fff87c5f684ea6a6f525f0ceaab16d7d8ebeb1b091fc0e3c6"
+      },
+      {
+        "path": "infra/foundation.bicep",
+        "sha256": "3387fadd9a36db3a7d0afb2f2d67a0264b978a9352f53ebd04e91a8584280aa4"
+      },
+      {
+        "path": "infra/identity-contract.json",
+        "sha256": "0cd8730160355ba7e4181d58ca460f5709f66b6a39b832445904506ce47cc338"
+      },
+      {
+        "path": "infra/migrator.bicep",
+        "sha256": "2b50016752a3160fc3a087b95a4bed5fe4212b2784a46fb4f7cb65bb5552d8a4"
+      },
+      {
+        "path": "infra/network.bicep",
+        "sha256": "9e73aae95748b941b845a742fdc1b415b280df6d1f1b3656cde55e75a93ed96c"
+      },
+      {
+        "path": "infra/registry-access.bicep",
+        "sha256": "006f9ac55fd40d3907d512c01bd6780e08841df5fa0e6829b6f8147982761436"
+      },
+      {
+        "path": "infra/release-role.example.json",
+        "sha256": "75b12bcad74b0b8d09f3ce546b9641952233fc857d55218399368f0820517fc3"
+      },
+      {
+        "path": "infra/secret-reference-contract.json",
+        "sha256": "8f9b9e4253cbeb96a9100aa07475acac498cd2f1d503a4ac6983d67e79dbd7d2"
+      },
+      {
+        "path": "infra/sql.bicep",
+        "sha256": "ca768997a367b3d470891853e795e45ee63fb8ab4acd634e05ad152cdfe277b1"
+      },
+      {
+        "path": "requirements-delivery.txt",
+        "sha256": "0969da99a0bc2a1b71ed50584560f4588a37567ac63af3ddbaf3c4617ca5621a"
+      },
+      {
+        "path": "scripts/check_repository.py",
+        "sha256": "d8688895ab1a190f61769b4c2ec965ca61d54ddfef6fcfb87ba969ddb9387c93"
+      },
+      {
+        "path": "scripts/delivery/TLS_FIXTURE_NOTICE.txt",
+        "sha256": "b49e8a41652eb266c055833df3ab5c31d9a1760730ab9d14b4b31ea1678e7484"
+      },
+      {
+        "path": "scripts/delivery/diagnostics.py",
+        "sha256": "4df0acca7d6df5fa7b40d476704769ab3da7a837224f8c5db160d70cbc1428c7"
+      },
+      {
+        "path": "scripts/delivery/install_tools.py",
+        "sha256": "1b81aa2b840a85cb99b520cd4c92698d02e10c4615773b6e9eab14e6763c258f"
+      },
+      {
+        "path": "scripts/delivery/policy.py",
+        "sha256": "856d8b7e0ed9fba135caa6eda3bff4ee9ae41b0f1a22cb59277c5f8de29dca02"
+      },
+      {
+        "path": "scripts/delivery/provenance.py",
+        "sha256": "405fe93b1d04792a87bfcad50b10ec0f2aea7115a6d535d241c8af8b8b6fc467"
+      },
+      {
+        "path": "scripts/delivery/scan_config.py",
+        "sha256": "1141caa8a725f1de2d70175566c32195760865a1a14468001c19120c77c7ce44"
+      },
+      {
+        "path": "scripts/delivery/scan_images.py",
+        "sha256": "827a9e9de64947312faab3f4fe500c210652d1ed1a60f976c048e68fe55bc211"
+      },
+      {
+        "path": "scripts/delivery/validate_infra.py",
+        "sha256": "9e913fd315a73a47bfdfea75cdd32cbdd131e7fe7ae1ad10f14866fa15f0389d"
+      },
+      {
+        "path": "scripts/delivery/validate_parameters.py",
+        "sha256": "13ffc7d2424ec4471bf8289d5492aee5c65a849f373064750b491469a55c0c1d"
+      },
+      {
+        "path": "scripts/delivery/verify_containers.py",
+        "sha256": "8bfd7ab76fb3ff481866c839650d422464383896c8e3e7a77c4913a688848b8d"
+      },
+      {
+        "path": "scripts/delivery/verify_proxy.py",
+        "sha256": "7899bda4faa9af34550b10c8bf5dc088acba9dc67f2026ea3a83ece3e81251a8"
+      },
+      {
+        "path": "security/compose.verify.yaml",
+        "sha256": "1394cc029c6b2483fbbc48f1b05be96cd763299418b99aaf0da6dbdda5090cc9"
+      },
+      {
+        "path": "security/exceptions.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "security/tools.json",
+        "sha256": "e386f5165c4463fe420b2c0ccd66b25905334fb837f1c1796985291a46b0c719"
+      },
+      {
+        "path": "tests/delivery/test_infra_c4.py",
+        "sha256": "deb3e5f13daf42758ccc5869a9d5c6f3a38ad7450a80f8c60237f83044217e11"
+      },
+      {
+        "path": "tests/delivery/test_proxy.py",
+        "sha256": "df48e22e881e02203e12739b476c79dc42e9e903f5f0058a15d371778a693d93"
+      },
+      {
+        "path": "tests/delivery/test_security.py",
+        "sha256": "9179dede51af2d97ce7bb4351a26b183e5281fe734fa28dbe4d69a73e022d659"
+      }
+    ]
+  },
+  "localVerification": {
+    "status": "Passed documentation and preservation validation; no C5 implementation tests run",
+    "results": [
+      {
+        "name": "repository-documentation",
+        "command": [
+          "python3",
+          "scripts/check_repository.py"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.105535+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.846323+00:00",
+        "exitCode": 0,
+        "output": "PASS: 74 text files, 47 Markdown files, 422 relative file links; UTF-8/LF, final newlines, and trailing whitespace checked.\nScope: includes untracked files and local heading anchors; external URLs are not checked.\nPASS: all 13 roadmap milestone titles/order match the authoritative master brief.\nPASS: M1 journey, non-functional, validation and threat references resolve.\n"
+      },
+      {
+        "name": "tracked-whitespace",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.106470+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.123961+00:00",
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "redacted-tree-secret-scan",
+        "command": [
+          "/opt/homebrew/bin/gitleaks",
+          "dir",
+          "--redact",
+          "--exit-code",
+          "1",
+          "."
+        ],
+        "startedUtc": "2026-11-13T10:38:40.106639+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.372077+00:00",
+        "exitCode": 0,
+        "output": "\n    \u25cb\n    \u2502\u2572\n    \u2502 \u25cb\n    \u25cb \u2591\n    \u2591    gitleaks\n\n10:38AM INF scanned ~2126471 bytes (2.13 MB) in 218ms\n10:38AM INF no leaks found\n"
+      },
+      {
+        "name": "secret-scanner-version",
+        "command": [
+          "/opt/homebrew/bin/gitleaks",
+          "version"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.106702+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.139753+00:00",
+        "exitCode": 0,
+        "output": "8.30.1\n"
+      },
+      {
+        "name": "untracked-whitespace:docs/evidence/m4c-c5-readiness.json",
+        "command": [
+          "git",
+          "diff",
+          "--no-index",
+          "--check",
+          "--",
+          "/dev/null",
+          "docs/evidence/m4c-c5-readiness.json"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.856886+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.865929+00:00",
+        "exitCode": 1,
+        "output": "",
+        "interpretation": "Pass: no whitespace diagnostics; no-index code 1 may denote content difference"
+      },
+      {
+        "name": "untracked-whitespace:docs/evidence/m4c-c5-readiness.md",
+        "command": [
+          "git",
+          "diff",
+          "--no-index",
+          "--check",
+          "--",
+          "/dev/null",
+          "docs/evidence/m4c-c5-readiness.md"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.865973+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.874754+00:00",
+        "exitCode": 1,
+        "output": "",
+        "interpretation": "Pass: no whitespace diagnostics; no-index code 1 may denote content difference"
+      },
+      {
+        "name": "untracked-whitespace:docs/milestones/m4c-c5-sast-plan.md",
+        "command": [
+          "git",
+          "diff",
+          "--no-index",
+          "--check",
+          "--",
+          "/dev/null",
+          "docs/milestones/m4c-c5-sast-plan.md"
+        ],
+        "startedUtc": "2026-11-13T10:38:40.874801+00:00",
+        "finishedUtc": "2026-11-13T10:38:40.883554+00:00",
+        "exitCode": 1,
+        "output": "",
+        "interpretation": "Pass: no whitespace diagnostics; no-index code 1 may denote content difference"
+      },
+      {
+        "name": "evidence-json-contract",
+        "exitCode": 0,
+        "checks": "JSON parsed; 20 explicitly unexecuted cases, 8 documentation changes, 65-source inventory, GET-only records and 170 preserved original files"
+      }
+    ],
+    "untrackedFilesChecked": [
+      "docs/evidence/m4c-c5-readiness.json",
+      "docs/evidence/m4c-c5-readiness.md",
+      "docs/milestones/m4c-c5-sast-plan.md"
+    ]
+  },
+  "ignoredLocalEvidence": {
+    "root": "artifacts/m4c-c5-planning",
+    "publishedElsewhere": false,
+    "metadataFiles": [
+      {
+        "path": "artifacts/m4c-c5-planning/active-rules.json",
+        "sha256": "6f2b0582eb95939923f50068af4b42873e0cbc1fa3be6ea7e75391ae9d73e061"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/actor-plan.json",
+        "sha256": "765b5726ba442eba5c4b9b905df60ddfb4931941497c42d5373b59c1fa09091a"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/branch-protection.json",
+        "sha256": "75cf0d58271d37893e10de77995becffb142771105f74903e719f9dc21e8ea9a"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/branch.json",
+        "sha256": "63530102d3aea1c82323eba6819761a43457643f4c690b2347fd5aa5c27d2147"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/check-runs.json",
+        "sha256": "4d8df815c34c705065dfeff0049eadf49dd6eeb4c509e0a392083cd36ba25f8b"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/code-scanning-analyses.json",
+        "sha256": "d419663c26b8f928be18e37ef8136300a8bf008139301f1ac0ad5a313fc2dee6"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/code-scanning-default.json",
+        "sha256": "005c963528059cb1f6cfef9eb4156f8178c47590d54d5fa327ce841cc82a4380"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/codeql-variable.json",
+        "sha256": "2c4b422f469d4673e04c856a88b3c273f88b8d71cc345527291728607aced254"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/collaborators.json",
+        "sha256": "9c765535bc10283e14ce62edeaed35ec412f1197f5c731d3001a3aff38073f7d"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/commit-prs.json",
+        "sha256": "f9becfa95c381e242808beefa8c12b788dc174f5435dff737a7060c1ca8af6e1"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/connector-jobs.json",
+        "sha256": "a6e9a78052112b8a5de02120452427a8ae14bb24f1009b5c3c8cecbe80c259eb"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/environments.json",
+        "sha256": "820e513d15ac5146ee04ed730959e76f272d60eb6a3c62f72f93591a53ca034c"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/github-reads.json",
+        "sha256": "b0dc8471672e41e5839b0da72180912c0a3b4f190fd91efb0fcbfc12d0033536"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/initial.json",
+        "sha256": "eee59299b12244aded508f728daf50cd643b25737dcc1ae54fb3a4b8ed84d181"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/public-metadata.json",
+        "sha256": "85f0d0b0bba2123ee25d8970cdc0afc2fcd33840dc0855887fc09e0d5c038a9f"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/repo.json",
+        "sha256": "1ddcfb554c879ba1343af4a461392ae9302f20b82e8b131df98c507f24d0d0d2"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/rulesets.json",
+        "sha256": "ae9be9f515d3e8fa6ebda38dfd783de6427606b30847dc3333cc0c4f2d215158"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/run.json",
+        "sha256": "05b7c2baa8f05f3a7512e1317b7df252ce87b318792a04c4dad54825826bede3"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-license.txt",
+        "sha256": "20c17d8b8c48a600800dfd14f95d5cb9ff47066a9641ddeab48dc54aec96e331"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-pypi.txt",
+        "sha256": "d95709f66dc4222f764d16a88c1b0681d7f0d1be461d8d52a2ead686c29d4f36"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-release.txt",
+        "sha256": "839b91a1038a97dd5d5a5a9c48b13305f44a07bfdccfdd8973913c8f26677d2a"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-source-cli.txt",
+        "sha256": "fa3c1ea1b94082969a2217383d19be386b1ddf0af1a6d02d25f1404f8d294dd3"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-source-settings.txt",
+        "sha256": "bfd4dcb6d8aba67a5baa70f097023dafe811ac965e5791475260d84e2eca37cf"
+      },
+      {
+        "path": "artifacts/m4c-c5-planning/semgrep-tag.txt",
+        "sha256": "d0097727cfdb5430595684ead79fda9836a9c2dc097624f786ee887fded7e4bc"
+      }
+    ],
+    "limit": "Ignored caches aid local review; tracked evidence contains filtered reproducible commands/results. No raw credentials or operational auth material captured."
+  }
+}

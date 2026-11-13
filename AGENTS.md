@@ -5,9 +5,10 @@
   authoritative specification; the owner's task sets the authorized milestone.
 - This repository starts fresh. Do not assume the unavailable personal OctoCAT
   repository, historical deployments, or local application code exists here.
-- Current authorized work is M4C-C4 local infrastructure definitions and static
-  validation only, per the owner's subsequent bounded request at `e537eff`.
-  Preserve completed C1/C3 and pinned libraries/P01–P15 simulated-provider tests.
+- Current authorized work is M4C-C5 read-only security/governance assessment and
+  planning ONLY, per the owner at C4 baseline `e9b5704`. Do not implement C5 or
+  modify application code/CI workflows. Preserve completed C1/C3/C4 and pinned
+  libraries/P01–P15 simulated-provider tests.
   Preserve M4A's deployment NO-GO. The
   owner selected independent original implementation and MIT; do not copy OctoCAT
   source/assets. Use [M2 scope](docs/milestones/m2-scope.md) and
@@ -19,12 +20,12 @@
   boundaries; C2/C5/C6/C7/C8 implementation and all cloud execution need new authorization.
   Preserve [C1 evidence](docs/evidence/m4c-c1-repository-contracts.md); current
   [C3 plan](docs/milestones/m4c-c3-oidc-plan.md) defines the preserved identity slice.
-  C4's network/SQL/identity/migrator/diagnostic definitions and adversarial local
-  policy/parameter/redaction checks are authorized; no actual SQL/provider/cloud
-  connection, account, credential, resource or deployment is authorized.
-  Preserve all M2 application behaviour/tests and M3 workflow/security gates;
-  extend IaC only within C4's authorized definition/static-validation boundary.
-  Later milestones need owner direction.
+  C4's completed network/SQL/identity/migrator/diagnostic definitions and local
+  policy/parameter/redaction checks must be preserved. C5 permits read-only
+  GitHub eligibility/governance checks and documentation only; no actual
+  SQL/provider/cloud connection, account, credential, resource or deployment.
+  Preserve all M2 application behaviour/tests and M3 workflow/security gates.
+  C5 implementation and later milestones need new owner direction.
 - Keep Claims Processing separate; do not import its code, data, or configuration.
 - Distinguish proposed, implemented, locally verified, and historically validated
   capabilities. C1–C6 are historically validated per the owner; C7 inference
@@ -41,8 +42,10 @@
   tests, capture controls, frontend JOSE notices and mandatory CI/policy wiring.
   No package upgrades, SQL engine, real provider, other milestone or cloud changes.
   Keep SQLite and all M2/C1/C3 tests operational. Preserve
-  [C3 evidence](docs/evidence/m4c-c3-oidc.md). Stop after C4; record results in
-  [C4 evidence](docs/evidence/m4c-c4-infrastructure.md). No other milestone is authorized.
+  [C3 evidence](docs/evidence/m4c-c3-oidc.md) and
+  [C4 evidence](docs/evidence/m4c-c4-infrastructure.md). Stop after C5 planning;
+  record findings in [C5 assessment](docs/evidence/m4c-c5-readiness.md) and the
+  [proposed plan](docs/milestones/m4c-c5-sast-plan.md). Do not execute that plan.
   Published non-live test vectors are not operational credentials; never register them.
   Do not sign in to real providers/cloud services, refresh operational credentials,
   change GitHub settings, create cloud credentials,
@@ -59,8 +62,11 @@
   Read-only C3 planning checks confirm run 42805606271 at `b56d9bd` passed those
   mandatory jobs and all 97 application tests; CodeQL skipped again.
   The owner supplies verified baseline `e537eff`, run 43308294860: mandatory
-  policy/application/containers/required passed; CodeQL skipped. This C4 task
-  does not independently re-read hosted artifacts/settings or establish Azure readiness.
+  policy/application/containers/required passed; CodeQL skipped. C5 read-only
+  checks independently confirm subsequent C4 run 43407086701 at `e9b5704` passed
+  those mandatory jobs, CodeQL skipped; artifact contents were not reverified.
+  Main is unprotected and governance/CodeQL eligibility remain blocked; no
+  GitHub setting/visibility/subscription/permission or paid-service change is authorized.
 - Do not commit or push; the owner performs both manually.
 - Run `python3 scripts/check_repository.py` and `git diff --check` for documentation
   changes. Include untracked files in whitespace checks with

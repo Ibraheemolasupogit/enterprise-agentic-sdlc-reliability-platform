@@ -360,4 +360,38 @@ not prove all new resources safe, so explicit compiled-resource policies remain
 mandatory. No live parameter/ARM/what-if, DNS, SQL, MI/RBAC, region/SKU/quota, grant,
 restore or ingestion proof follows. Existing application/crypto/SQLite/proxy tests
 remain local; real SQL/provider, SAST/governance and cloud gates remain open.
-Deployment stays NO-GO; stop at C4.
+Deployment stays NO-GO; C4 execution stopped at its static boundary.
+
+## C5 read-only SAST and governance planning
+
+The owner authorized assessment/planning only at C4 `e9b5704`. The
+[C5 assessment](evidence/m4c-c5-readiness.md) and
+[GET/verification evidence](evidence/m4c-c5-readiness.json) independently confirm
+run 43407086701 passed policy/application/containers/required while codeql was
+skipped. Its opt-in variable is absent; the aggregate intentionally accepts that
+disabled state with a coverage notice. No CodeQL analysis was attempted in this run.
+The current condition also excludes PRs. No workflow was changed in this task.
+
+Private Code Security eligibility is not established. Main reports unprotected
+with status-check enforcement off; protection/ruleset reads return plan-restriction
+403s. No environments exist, and only the owner appears as a collaborator. Exact
+billing plan, independent reviewer and enforceable approval route remain unverified.
+Private branch protection, private Code Security and private deployment reviewers
+have different eligibility; an admin token or a green run proves none of them.
+
+The [proposed bounded C5 plan](milestones/m4c-c5-sast-plan.md) recommends a separately
+authorized Semgrep CE 1.185.0/original-local-rule feasibility slice, complete isolated
+hash locks, actual TS/TSX/Python parser/coverage probes, full target inventory,
+strict error/report/capture handling and mandatory future `source-security` plus
+aggregate enforcement. Twenty seeded/error/bypass/review cases are **Planned**,
+not executed. No tool or rule pack was installed/adopted and no source scan ran.
+CE's single-function limits need independent coverage review alongside existing
+C1/C3/C4 tests; it is not asserted equivalent to CodeQL.
+
+Owner must separately select the supported protected route or ADR 0005's proposed
+owner-operated fallback, establish an independent reviewer and obtain authentic
+exact-artifact approval evidence. A local approval manifest cannot prove human
+identity/independence or enforce repository settings. No route is enabled here.
+C5-A1/A2 remain unmet; implementation, automatic release and Azure deployment are
+NO-GO under this task. No settings/visibility/subscription/permission, paid service,
+credential, application or CI change, commit or push is authorized. Stop at planning.

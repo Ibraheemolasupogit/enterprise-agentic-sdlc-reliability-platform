@@ -12,7 +12,11 @@ The [C3 plan](milestones/m4c-c3-oidc-plan.md) confirms hosted mandatory jobs at
 has [local evidence](evidence/m4c-c3-oidc.md). The owner subsequently supplies
 `e537eff` / hosted run 43308294860 with mandatory jobs passed, CodeQL skipped;
 that run was not independently re-read here. [C4](evidence/m4c-c4-infrastructure.md)
-adds local definitions/static checks only, with no hosted result for its diff.
+adds local definitions/static checks only. Subsequent
+[C5 read-only assessment](evidence/m4c-c5-readiness.md) independently confirms C4
+`e9b5704` / run 43407086701 mandatory jobs passed, CodeQL skipped; hosted artifact
+contents were not reverified. Main is unprotected, no environments exist, and
+independent reviewer/eligible SAST governance remain unestablished.
 M2 application execution is locally verified as recorded in
 [M2 evidence](evidence/m2-baseline.md); agent/cloud execution remains unverified.
 M1 establishes design evidence only; the
@@ -32,6 +36,7 @@ M1 establishes design evidence only; the
 | Shared repository acceptance contracts | Locally tested on real file-backed SQLite | [C1 evidence](evidence/m4c-c1-repository-contracts.md): 27 shared cases plus six SQLite transaction/constraint regressions; same contracts await an independent-connection SQL fixture in C2. Scheduled SQLite calls do not prove parallel SQL locking; no SQL engine runner/claim | M4C-C1; C2 Blocked |
 | Private infrastructure and minimum diagnostics contracts | Implemented; Design only infrastructure with Locally tested static checks | [C4 evidence](evidence/m4c-c4-infrastructure.md): eight Bicep templates, network/SQL PE/DNS/TLS/Entra-only definitions, five identities and unapplied least-privilege manifests, manual migrator, export-off diagnostics, parameter/freshness/security mutations. No live DNS/SQL/MI/RBAC/ingestion proof; Python redaction model is not KQL execution | M4C-C4 local only |
 | HTTPS frontend/API proxy | Locally tested | Published TLS test peer, hostname/CA/SNI, bearer/header boundary, readiness failure, CSP/config rejection; ACA DNS/TLS/internal ingress unverified | M4B local |
+| SAST and independent release governance | Design only; acceptance Blocked | [C5 assessment](evidence/m4c-c5-readiness.md) and [proposed plan](milestones/m4c-c5-sast-plan.md): absent CodeQL opt-in, private eligibility unestablished; proposed CE/local rules not installed/scanned, 20 unexecuted controls. No selected/enforced governance route or independent reviewer; no CI/settings changes | M4C-C5 planning only |
 | Engineering-readiness assessment | Design only; C1/C3 local execution and C4 static checks recorded separately | [M4C plan](milestones/m4c-scope.md): C1/C3 preserved; C4 definition/static-validation slice implemented. Real SQL/provider/network/identity/diagnostic/SAST/governance and later authority boundaries remain open | M4C planning/C1/C3/C4 |
 | Working agentic maintenance | Planned | C7 failure must be closed with real inference and useful output; not compilation alone | M5 |
 | Local dependency-aware health | Locally tested | Process liveness, DB/seed readiness, frontend API dependency path and wrong-port failure/recovery in M2 | M2 |
