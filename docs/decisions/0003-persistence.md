@@ -123,3 +123,25 @@ SQL transaction behavior. See [C1 evidence](../evidence/m4c-c1-repository-contra
 See [driver docs](https://tediousjs.github.io/node-mssql/),
 [Tedious configuration](https://tediousjs.github.io/tedious/api-connection.html)
 and [local evidence](../evidence/m4b-local-preparation.md).
+
+## C4 static database contract
+
+The separately authorized C4 slice defines a candidate Basic 5-DTU/2-GB database,
+Entra group administrator/Entra-only access, public network disabled, TLS 1.2
+minimum, explicit Proxy connection policy/TCP 1433, private endpoint/DNS, TDE and
+seven-day Local backup retention. These are compiled/static-checked **definitions**,
+not a SQL engine, backup/restore, grant, private network or managed-identity result.
+Local backup redundancy does not establish geographic recovery or the unmeasured
+RPO/RTO objectives. Costs/region/SKU and actual permissions remain release gates.
+
+The [unapplied grant manifest](../../infra/identity-contract.json) separates runtime
+table data access from time-bound migration CREATE TABLE/ALTER/REFERENCES and
+history/seed rights. ALTER dbo remains broad inside that dedicated application-only
+schema; bootstrap must verify no unrelated objects, actual engine permissions and
+revoke DDL after the approved window. First creation also proposes temporary
+schema SELECT/INSERT before new object grants can exist, then requires replacement
+with the listed history/product object grants; no permanent schema data grant.
+This sequence still needs real-engine proof. No db_owner, server directory identity,
+Graph grant, SQL principal, credential or connection is created. The
+[manual migrator definition](../../infra/migrator.bicep) is bounded but never started.
+See [C4 evidence](../evidence/m4c-c4-infrastructure.md); C2/C7 real proofs remain Blocked.

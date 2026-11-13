@@ -96,7 +96,8 @@ certification or universal prompt-injection immunity is claimed.
 Agents remain Planned; M4B adds no tools, inference rights or mutation authority.
 See [ADR 0007](decisions/0007-application-identity.md) and
 [M4B results](evidence/m4b-local-preparation.md) for exact scope and executed versus
-simulated evidence. Broad network/bootstrap/diagnostic work remains pending.
+simulated evidence. C4 subsequently adds local network/bootstrap/diagnostic
+definitions and static checks; live enforcement remains pending.
 
 ## C3 browser control evidence and remaining limits
 
@@ -115,3 +116,25 @@ can still steal an active bearer; browser hashing is pseudonymization, not secre
 Tab sign-out/abort cannot revoke a bearer or undo an already accepted server write.
 The capture guard proves the implemented profile/reporters/canaries, not universal
 secret detection. No real-provider traces or operational signing keys were used.
+
+## C4 infrastructure definitions and residual threats
+
+Assessed 2026-11-13 under C4-only authority at `e537eff`. The owner supplies hosted
+run 43308294860 with mandatory jobs passed and CodeQL skipped; that run was not
+independently re-read and does not verify the C4 diff. The
+[C4 record](evidence/m4c-c4-infrastructure.md) and
+[infrastructure contract](../infra/README.md) separate static controls from live proof.
+
+| Threats | Defined/static-checked boundary | Remaining gate |
+| --- | --- | --- |
+| T01/T06 | API ingress internal/TLS, frontend TLS plus required /24–/32 client CIDR; five distinct managed identities; no shared runtime/migrator or pull-token endpoint | Actual ACA ingress/IP/MI endpoint denials, provider authorization and rights remain C6/C7; IP restriction does not authorize a cart owner |
+| T02/T06 | SQL public access disabled, Entra-group admin/only authentication, TLS, separate PE/DNS/NSGs, Proxy policy, runtime object permissions and no DDL; manual one-replica/600s/no-retry migration definition | No engine/driver/MI or role grant executed. ALTER dbo is broad within the dedicated synthetic schema; time-bound DDL and verify actual grants/ownership/Graph needs in C2/C7 |
+| T04 | No secret slots/inline values/connection strings, no shared-key workspace auth; export defaults off; proposed ingestion projection drops payload and unknown fields; payload canaries test a Python reference model | Not KQL/ingestion proof. Raw stdout/live stream/provider transport still exists; platform metadata must use validated names/digests. Enable no export before live schema/canary/order/role checks; source must avoid sensitive emission |
+| T04/T08 | Workspace-only query access and unapplied operations table-read manifest; no exec/listSecrets/logstream/sharedKeys, other export destination or raw HTTP/query/audit collection | RBAC action support/effective denials and unrelated diagnostic settings need live inventory. A complete workspace update can remove its DCR; export must be stopped before changes, and initial bootstrap must not overwrite a linked workspace |
+| T05 | Consumption 0–1 replicas, fixed Basic/2-GB SQL, seven-day Local backups, 30-day Analytics retention and 0.1-GB/day safeguard | No throughput/HA/restore/RPO/RTO proof; cold starts/locks and cap-induced loss of visibility remain risks. Replicas/expiry/tags/caps do not enforce a hard spending ceiling or automatic teardown |
+| T04/T06 | Dedicated subnet/NSG attachments; only ACA-to-SQL Proxy 1433; no service-endpoint/public-SQL fallback or paid network appliance | External ACA public ingress bypasses subnet NSGs. Outbound Internet HTTPS and public ACR/Monitor remain explicit exposure; no FQDN firewall/private registry claim. C7 must review ACR/NSG compatibility and reprice if private ACR is required |
+| T08/T09 | Exact eight-template/resource inventories, source/output freshness hashes, parameter checks, retained old invariants and harmful compiled/manifest/CI mutations | Static checks do not evaluate ARM, Kusto, DNS, Azure Policy/RBAC, regions/quotas or real network routes. No SAST/independent governance or cloud-readiness claim follows |
+
+No C2/C5/C6/C7 execution, Azure auth/ARM request, credential/principal creation,
+paid service, GitHub setting change or release is authorized or performed. M4A
+deployment remains NO-GO. Existing C1/C3 application/proxy/capture behavior is preserved.

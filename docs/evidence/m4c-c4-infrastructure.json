@@ -1,0 +1,3648 @@
+{
+  "milestone": "M4C-C4",
+  "date": "2026-11-13",
+  "recordedUtc": "2026-11-13T09:37:18.646047+00:00",
+  "authority": "Owner authorized C4 local infrastructure definitions/static validation only at e537eff; all live Azure/ARM/SQL/provider, C2/C5/C6/C7/C8 execution, credentials, settings, commits and pushes excluded.",
+  "status": "C4-A1–A4 met within static boundary; Implemented definitions / Locally tested static checks; no live connectivity/SQL/MI/RBAC/ingestion claim; deployment NO-GO",
+  "baseHead": "e537efff74c6026e75cdf02a633d1e5e5c46e278",
+  "initialWorkingTreeClean": true,
+  "hostedBaseline": {
+    "run": "43308294860",
+    "sha": "e537eff",
+    "jobs": {
+      "policy": "passed",
+      "application": "passed",
+      "containers": "passed",
+      "required": "passed",
+      "CodeQL": "skipped"
+    },
+    "source": "Owner-supplied verified baseline; not independently re-read in C4; no hosted result for this diff."
+  },
+  "acceptance": {
+    "C4-A1": "Met for local definition/static-validation scope only; live integration remains Blocked/unauthorized",
+    "C4-A2": "Met for local definition/static-validation scope only; live integration remains Blocked/unauthorized",
+    "C4-A3": "Met for local definition/static-validation scope only; live integration remains Blocked/unauthorized",
+    "C4-A4": "Met for local definition/static-validation scope only; live integration remains Blocked/unauthorized"
+  },
+  "gapAssessment": [
+    "Baseline four templates omitted owned VNet/subnets/NSGs/private SQL/PE/DNS, remaining three identities, migrator and minimum diagnostic sink.",
+    "Loader assumed exactly four outputs; new sources needed explicit resource, freshness and mutation coverage."
+  ],
+  "preservation": {
+    "initialSnapshot": {
+      "path": "artifacts/m4c-c4/initial.json",
+      "sha256": "66c7334eb400eb2121617c6f7b17befa30046e7127e72640d41d2d7fed598073"
+    },
+    "protectedFiles": 86,
+    "protectedFilesByteIdentical": true,
+    "protectedBindings": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf"
+      },
+      {
+        "path": "apps/octocat-supply/.dockerignore",
+        "sha256": "bff2a5976307b8d15351d7fc26d89379d7c6fbfd884ba92d2d802d2eff453ae2"
+      },
+      {
+        "path": "apps/octocat-supply/.env.example",
+        "sha256": "209e1711fc5db4b5826b58231bdb08c4046c438589981a3705146cbc8828f5ba"
+      },
+      {
+        "path": "apps/octocat-supply/.node-version",
+        "sha256": "9185b9f67843cabfa8054f65ce47ce0b52036b0bfe07ae5a6b834d97cc127140"
+      },
+      {
+        "path": "apps/octocat-supply/.npmrc",
+        "sha256": "994f7cb40cf8035ac70be35a65bf3cb51aa62e5b8fe94531d596b279f66740cb"
+      },
+      {
+        "path": "apps/octocat-supply/.prettierignore",
+        "sha256": "7dbe51fba7938967231c5016477977cf06ea3ae4c40557bf573dafd5145fa989"
+      },
+      {
+        "path": "apps/octocat-supply/LICENSE",
+        "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+      },
+      {
+        "path": "apps/octocat-supply/README.md",
+        "sha256": "000681dac588658463d97a348093c1a6d934b7b318ad4288fcbad35c8a0ef6f6"
+      },
+      {
+        "path": "apps/octocat-supply/api/Dockerfile",
+        "sha256": "b665e48fe1fc90385dcf41c4d08995ed59edbfd259bb96309555da1d50437adc"
+      },
+      {
+        "path": "apps/octocat-supply/api/fixtures/README.md",
+        "sha256": "dfc56bc86e2934f28968ee104f061684a5437cda55c8d21dbce8c71395dc152a"
+      },
+      {
+        "path": "apps/octocat-supply/api/fixtures/rfc7515-rsa.json",
+        "sha256": "c4083dbf214f34675354f6f3caef133a129b478a595c30f5e803934e4b30fbbb"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/app.ts",
+        "sha256": "3b78a5d03848182ec51b5056e71d49fe3511f3658eff7aa675cd64a2a0e501ec"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/auth.ts",
+        "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/config.ts",
+        "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database-cli.ts",
+        "sha256": "b3370e7206a223779e49c0fe8102d713617e0c8bd98d05871e1eb76ea46e10d3"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/database.ts",
+        "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/errors.ts",
+        "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/pricing.ts",
+        "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/repository.ts",
+        "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/runtime.ts",
+        "sha256": "de48b06010b7911363f69f3a30b07a8bad07cac5a9b731af81aa0a0d471a4210"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/server.ts",
+        "sha256": "ec60a9cafd24a48fa2766f16f285f69c29c2713e912301fddc9e84ef16a7e251"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql-cli.ts",
+        "sha256": "a5f355c04febe6677dcc2c1cb5b9f20b2978034ccf0e84afb7a25ccb847b6420"
+      },
+      {
+        "path": "apps/octocat-supply/api/src/sql.ts",
+        "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/app.test.ts",
+        "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/auth.test.ts",
+        "sha256": "ac9e163fce4a668f7e1da9da03387de8c10488e0aad7488ae349d46b29cbd1f2"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/contracts/README.md",
+        "sha256": "16ccdaff381e345850fa4b90c8c86ab0bd91adab73a493c1608d03c59dc0a7ba"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+        "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/database.test.ts",
+        "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/pricing.test.ts",
+        "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+        "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8"
+      },
+      {
+        "path": "apps/octocat-supply/api/test/sql.test.ts",
+        "sha256": "5076193c9a8e5f1bd177705be40d7dcc8847104cff62a4e8ab2c971d975cc541"
+      },
+      {
+        "path": "apps/octocat-supply/api/tsconfig.json",
+        "sha256": "c23a766f4ec826ffca64940c738d988442c91da75123e2473e744164087b2b3c"
+      },
+      {
+        "path": "apps/octocat-supply/compose.yaml",
+        "sha256": "e0506206f1ff67c8bc96f649e06ac9cbb7317c67e89870bdcd8c2e45b39f0a9d"
+      },
+      {
+        "path": "apps/octocat-supply/dependencies.json",
+        "sha256": "574da29fb22bcaa6a6551e1d4f1cc49735a2f4cac00f61ff4c7fc4db696a9712"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/auth.spec.ts",
+        "sha256": "1db3e65be4683f8857990ef58210c0d9b411345d6e28d9861d32c6e3595a961c"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/oidc/fixtures.ts",
+        "sha256": "c2ad2452164e098ae741a9b3a1303f245147e2d7b8a9ff642d4a4af63275af48"
+      },
+      {
+        "path": "apps/octocat-supply/e2e/shop.spec.ts",
+        "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f"
+      },
+      {
+        "path": "apps/octocat-supply/eslint.config.mjs",
+        "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/Dockerfile",
+        "sha256": "a08099f83bda7b0e6c59d4164d62b04c3b6784da30a15841de9d086431e744d2"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/default.conf.template",
+        "sha256": "c8a04f8ae3fa6ebf879f70d6851237adf0ccc2f8826f2542ca97c1423c2ed054"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/index.html",
+        "sha256": "ae03ca56ff7bd79bd143e88e6bb9b283fe6f0c29c059959fb1015e2a84112047"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/nginx.conf",
+        "sha256": "37565129a2504558d240a6ee34ab6d75c0023d317f2797502f6240c7dbbcaef1"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/public/auth-config.json",
+        "sha256": "592a64cde9470fbc2ac37b1525b92eedbe7127f88150c091c7de204a3a8a8b1d"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/public/third-party-notices.txt",
+        "sha256": "3e3d8e98867cedfea5372bc234b2784ca575284073bd65e9f94390e1037c72b0"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/App.tsx",
+        "sha256": "ab3d89c12a1591c6490cf9bf26d72a74e3db6ac53fa47f4902d600f03e8ced5a"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/AuthApp.tsx",
+        "sha256": "407193f2ab772d1a0792b4e91c11576b93573dde97458fc604bf1ba1e0d75c02"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/api.ts",
+        "sha256": "3c914ea82b39a87f8757489c43f2e86f615c694fd9a2f4e1e91dba99fabf5da8"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/idToken.ts",
+        "sha256": "e52e2242187c45cba995d27eb3a31db5bac65a6eb4b50a70d3677cd30d1d941d"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/main.tsx",
+        "sha256": "e09879ef211d7975b658a9aee1caf40df982f91b889dd538e7d9954712540aea"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/oidcSession.ts",
+        "sha256": "ca783613d673ffb7f01293768129023456c1f514404a634f651abd5b494def86"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/src/styles.css",
+        "sha256": "33aa113f5215f3749e9beece641f34e12e8a823fbc1252d9ed45718bc159630a"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/start.sh",
+        "sha256": "3365440d52262f8987840bc577b0d85293c79edaec5e7d3a5ee6f3b62e5daa50"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/ApiSession.test.tsx",
+        "sha256": "346663bc9c8bbcb0b2b95e89b0c92030a10722b73b1cfae60af3f483aa82ddd7"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+        "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+        "sha256": "c00bb0443bef72e1549da179dfd4e5efb8b41bc27ec44d141687b95c1dadb0a4"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/IdToken.test.tsx",
+        "sha256": "f66059f3a18b3aeddba0b28e9d6ed42ee3175c9bb914a5cd6a2dd3e1bc623f9e"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcProtocol.test.tsx",
+        "sha256": "948b4c7c8d19ed760661ee40ebf7ecdeef89c201dc4ee652f4fccfbc8813f3aa"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/OidcSession.test.tsx",
+        "sha256": "ed1008ccefb9551b27883306eed088dc593930b40a8440a356b0a01943dc8323"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/oidcHarness.ts",
+        "sha256": "73aeab87f85ebcfc65622ffaf8b746fcbbae8010636e64fbbfe9d0e22924a151"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/test/setup.ts",
+        "sha256": "93d2fc16e15d8747817d09b3fa1bffad0889dc263bbd33ff9015af8f44d5c1c2"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/tsconfig.json",
+        "sha256": "e721551f9284931c90ea08317c6b76faeea740967242cb0b882ed96b588c028e"
+      },
+      {
+        "path": "apps/octocat-supply/frontend/vite.config.ts",
+        "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+      },
+      {
+        "path": "apps/octocat-supply/package-lock.json",
+        "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+      },
+      {
+        "path": "apps/octocat-supply/package.json",
+        "sha256": "f88f146c429368bda995700d6100731ecb8abc771738dd62a248b4aa8e5da00c"
+      },
+      {
+        "path": "apps/octocat-supply/playwright.config.ts",
+        "sha256": "7313764403d65b89e80d0342c10a56fc5705a4240471e6942cbb6bab63f830e9"
+      },
+      {
+        "path": "apps/octocat-supply/playwright.oidc.config.ts",
+        "sha256": "faee55a5e5e2becd9ee90234816c8300296ad8eca198d5e4c9fc2c41487234af"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+        "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+        "sha256": "daad4a12e490fc527de0feb3d7bbc1964506670b9b319f3636f97e9a50cacac7"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/licenses.mjs",
+        "sha256": "6f671991fca4660f7202bea0fb5992547853cd6acb5c53cc2b18c0a3821f900c"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-e2e-server.mjs",
+        "sha256": "28d05aa891a30f8151447008cfa12713d934f2a63a61e723155687f808bccfb4"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/oidc-reporter.mjs",
+        "sha256": "f838b16818897b05e722e3e26c655dbd20290935756da4a3d90561576702c045"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-capture.d.mts",
+        "sha256": "03b825e9c9902b070805040672123193d54798eebc7b4d0222927fa4e8b77126"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-capture.mjs",
+        "sha256": "4b4dc46822a7d513fbfe776343e92ecbec313c145b2e58e804044a49b59a6d3d"
+      },
+      {
+        "path": "apps/octocat-supply/scripts/verify-auth-mutations.mjs",
+        "sha256": "782597beb08ae1db4ff668d061b5b1359280baf7c07f31a77fbd79c6667ecd91"
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.test.ts",
+        "sha256": "a272346db8791bd056e71c8e21aeb5a490945a1ce02e8369e9964ab4df9a1793"
+      },
+      {
+        "path": "apps/octocat-supply/test/fixtures/oidc-provider.ts",
+        "sha256": "687af01e5845f841ed0755e1d6e1d3f8161f17039dd5504ea4acc5fcc39230af"
+      },
+      {
+        "path": "apps/octocat-supply/tsconfig.tests.json",
+        "sha256": "64769f5583b822cd973514028a63505748bd7a88fd88a27ee900d1c76f22486e"
+      },
+      {
+        "path": "apps/octocat-supply/vitest.config.ts",
+        "sha256": "b86f587a9680583a37741cad90478be3070efa62dac18be27e82950ed87a2da8"
+      },
+      {
+        "path": "docs/evidence/m4c-c1-repository-contracts.json",
+        "sha256": "eba9cc2feb8bb8474311858070c0b3a59e895a1926a85b2d92dadfa0954c0536"
+      },
+      {
+        "path": "docs/evidence/m4c-c1-repository-contracts.md",
+        "sha256": "dc2570c6c11ea205276208f79c1b36d9c19cae97f7e97003ca502e73e437a4cf"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-oidc.json",
+        "sha256": "94d833cd4d7218a254cd5fc71d52819e7e51e1e0f0bab9f7459ff4ada8bc849b"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-oidc.md",
+        "sha256": "b5f0773c8e2e0404fb7da314ad35bf6c048e5df3e94a7a0fa56eb3ec4b21327c"
+      },
+      {
+        "path": "docs/evidence/m4c-c3-planning.json",
+        "sha256": "434b8708b5a790ede424121420d9bc9ba3f53b3ca5a2f6f1d7c25d42f7fbb17c"
+      },
+      {
+        "path": "security/compose.verify.yaml",
+        "sha256": "1394cc029c6b2483fbbc48f1b05be96cd763299418b99aaf0da6dbdda5090cc9"
+      },
+      {
+        "path": "security/exceptions.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "security/tools.json",
+        "sha256": "e386f5165c4463fe420b2c0ccd66b25905334fb837f1c1796985291a46b0c719"
+      }
+    ],
+    "allApplicationWorkflowSecurityAndC1C3EvidencePreserved": true,
+    "noPreexistingUncommittedWork": true
+  },
+  "filesChanged": [
+    "AGENTS.md",
+    "README.md",
+    "docs/architecture.md",
+    "docs/capability-status.md",
+    "docs/decisions/0003-persistence.md",
+    "docs/decisions/0005-delivery-identity.md",
+    "docs/delivery.md",
+    "docs/evidence/m4c-c4-infrastructure.json",
+    "docs/evidence/m4c-c4-infrastructure.md",
+    "docs/milestones/m4c-scope.md",
+    "docs/project/azure-cost-estimate.md",
+    "docs/roadmap.md",
+    "docs/threat-model.md",
+    "infra/README.md",
+    "infra/apps.bicep",
+    "infra/diagnostics-console.kql",
+    "infra/diagnostics-system.kql",
+    "infra/diagnostics.bicep",
+    "infra/foundation.bicep",
+    "infra/identity-contract.json",
+    "infra/migrator.bicep",
+    "infra/network.bicep",
+    "infra/registry-access.bicep",
+    "infra/secret-reference-contract.json",
+    "infra/sql.bicep",
+    "scripts/delivery/diagnostics.py",
+    "scripts/delivery/policy.py",
+    "scripts/delivery/scan_config.py",
+    "scripts/delivery/validate_infra.py",
+    "scripts/delivery/validate_parameters.py",
+    "tests/delivery/test_infra_c4.py"
+  ],
+  "sourceBindings": [
+    {
+      "path": ".editorconfig",
+      "sha256": "71589501b7a5dd84d122c08a34d94001034ec89843a90e2e790a65087c8a4fcc"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "5f9980c4e4a2209a8a2137a505ebecbde14f8f4225e0a39f740406e917f9925b"
+    },
+    {
+      "path": ".gitleaks.toml",
+      "sha256": "548c2721bba8d343b34d44d72ec8573dfc6d3dd2a38269b3a2a16c188c3554ac"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "3faf539b0e5277cafc2f3037e280d24d7d11cae4c8301b4acf70d92b967663d9"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+    },
+    {
+      "path": "README.md",
+      "sha256": "138803abe16b8e3834ddb9a0f800ad7cb05b280143742cefd31f9e777ed27a00"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "ea3786af0c921a948d7aa310f05cac913ed451f3c2b4858ffffe44a3df91c5d8"
+    },
+    {
+      "path": "apps/octocat-supply/.dockerignore",
+      "sha256": "bff2a5976307b8d15351d7fc26d89379d7c6fbfd884ba92d2d802d2eff453ae2"
+    },
+    {
+      "path": "apps/octocat-supply/.env.example",
+      "sha256": "209e1711fc5db4b5826b58231bdb08c4046c438589981a3705146cbc8828f5ba"
+    },
+    {
+      "path": "apps/octocat-supply/.node-version",
+      "sha256": "9185b9f67843cabfa8054f65ce47ce0b52036b0bfe07ae5a6b834d97cc127140"
+    },
+    {
+      "path": "apps/octocat-supply/.npmrc",
+      "sha256": "994f7cb40cf8035ac70be35a65bf3cb51aa62e5b8fe94531d596b279f66740cb"
+    },
+    {
+      "path": "apps/octocat-supply/.prettierignore",
+      "sha256": "7dbe51fba7938967231c5016477977cf06ea3ae4c40557bf573dafd5145fa989"
+    },
+    {
+      "path": "apps/octocat-supply/LICENSE",
+      "sha256": "f8be26f98eb49f2e56bd40c0f367e6f8250729942f4ad778cac372fdcc5e1bac"
+    },
+    {
+      "path": "apps/octocat-supply/README.md",
+      "sha256": "000681dac588658463d97a348093c1a6d934b7b318ad4288fcbad35c8a0ef6f6"
+    },
+    {
+      "path": "apps/octocat-supply/api/Dockerfile",
+      "sha256": "b665e48fe1fc90385dcf41c4d08995ed59edbfd259bb96309555da1d50437adc"
+    },
+    {
+      "path": "apps/octocat-supply/api/fixtures/README.md",
+      "sha256": "dfc56bc86e2934f28968ee104f061684a5437cda55c8d21dbce8c71395dc152a"
+    },
+    {
+      "path": "apps/octocat-supply/api/fixtures/rfc7515-rsa.json",
+      "sha256": "c4083dbf214f34675354f6f3caef133a129b478a595c30f5e803934e4b30fbbb"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/app.ts",
+      "sha256": "3b78a5d03848182ec51b5056e71d49fe3511f3658eff7aa675cd64a2a0e501ec"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/auth.ts",
+      "sha256": "92eb083caac7cf53d3a99104f63dd4ac4101365002eb05b69314b785a8545df7"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/config.ts",
+      "sha256": "0a65e0c24940bb873b37ffa9eff0d5db5939817ea66e124d4bcfd75218a05071"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database-cli.ts",
+      "sha256": "b3370e7206a223779e49c0fe8102d713617e0c8bd98d05871e1eb76ea46e10d3"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/database.ts",
+      "sha256": "69c66acafb805739c43056f050a63f73ecbdfa97102999832cc64cff0e6e4387"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/errors.ts",
+      "sha256": "89c1e71365936871605c3cab135e12129648976f36f267efad2b623ad7a60dc8"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/pricing.ts",
+      "sha256": "c839aeaaf00b48d71d5848f04656c9d3de6188eb33230ff8f4ff25a7a58bf9f9"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/repository.ts",
+      "sha256": "d98fca9b55053b35af95f6351b185d70f9613ba767bd3ea12cce6556b1d17762"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/runtime.ts",
+      "sha256": "de48b06010b7911363f69f3a30b07a8bad07cac5a9b731af81aa0a0d471a4210"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/server.ts",
+      "sha256": "ec60a9cafd24a48fa2766f16f285f69c29c2713e912301fddc9e84ef16a7e251"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/sql-cli.ts",
+      "sha256": "a5f355c04febe6677dcc2c1cb5b9f20b2978034ccf0e84afb7a25ccb847b6420"
+    },
+    {
+      "path": "apps/octocat-supply/api/src/sql.ts",
+      "sha256": "91c1a42f21f06a6b470af47f13723546042e729e941dd6450fbec23c8ee8f518"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/app.test.ts",
+      "sha256": "28d4cb370af08036835084a3f7effeeec2bb2cff9c59ee7bc18747d3af1842e5"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/auth.test.ts",
+      "sha256": "ac9e163fce4a668f7e1da9da03387de8c10488e0aad7488ae349d46b29cbd1f2"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/README.md",
+      "sha256": "16ccdaff381e345850fa4b90c8c86ab0bd91adab73a493c1608d03c59dc0a7ba"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/contracts/repository.contract.ts",
+      "sha256": "9d08d00c4785a33e55307f1b4cf445a5d858435143d21fab3c14e5c3cc23e0d5"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/database.test.ts",
+      "sha256": "27e31ef9e18c27996ba8f38077fae64b3ae7c91e72a74f07b41344c9dd1fae9a"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/pricing.test.ts",
+      "sha256": "1dc0307fd6a9c75a1acf100225337d7af8e569fc669eaf305f77bee2b668b2e4"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+      "sha256": "bbcac59c26b12ada330dc0c60c03c37f8670267b0a15771187cb5c05ef8a3ed8"
+    },
+    {
+      "path": "apps/octocat-supply/api/test/sql.test.ts",
+      "sha256": "5076193c9a8e5f1bd177705be40d7dcc8847104cff62a4e8ab2c971d975cc541"
+    },
+    {
+      "path": "apps/octocat-supply/api/tsconfig.json",
+      "sha256": "c23a766f4ec826ffca64940c738d988442c91da75123e2473e744164087b2b3c"
+    },
+    {
+      "path": "apps/octocat-supply/compose.yaml",
+      "sha256": "e0506206f1ff67c8bc96f649e06ac9cbb7317c67e89870bdcd8c2e45b39f0a9d"
+    },
+    {
+      "path": "apps/octocat-supply/dependencies.json",
+      "sha256": "574da29fb22bcaa6a6551e1d4f1cc49735a2f4cac00f61ff4c7fc4db696a9712"
+    },
+    {
+      "path": "apps/octocat-supply/e2e/oidc/auth.spec.ts",
+      "sha256": "1db3e65be4683f8857990ef58210c0d9b411345d6e28d9861d32c6e3595a961c"
+    },
+    {
+      "path": "apps/octocat-supply/e2e/oidc/fixtures.ts",
+      "sha256": "c2ad2452164e098ae741a9b3a1303f245147e2d7b8a9ff642d4a4af63275af48"
+    },
+    {
+      "path": "apps/octocat-supply/e2e/shop.spec.ts",
+      "sha256": "2cf92ede2ee9fada1e0e727de2681337cd17f5167aeae111d040a46c544f210f"
+    },
+    {
+      "path": "apps/octocat-supply/eslint.config.mjs",
+      "sha256": "b8f4cb572e82ab5e03158c5620b3e3c18988abf399f67d0f80d147b2c9c02fff"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/Dockerfile",
+      "sha256": "a08099f83bda7b0e6c59d4164d62b04c3b6784da30a15841de9d086431e744d2"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/default.conf.template",
+      "sha256": "c8a04f8ae3fa6ebf879f70d6851237adf0ccc2f8826f2542ca97c1423c2ed054"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/index.html",
+      "sha256": "ae03ca56ff7bd79bd143e88e6bb9b283fe6f0c29c059959fb1015e2a84112047"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/nginx.conf",
+      "sha256": "37565129a2504558d240a6ee34ab6d75c0023d317f2797502f6240c7dbbcaef1"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/public/auth-config.json",
+      "sha256": "592a64cde9470fbc2ac37b1525b92eedbe7127f88150c091c7de204a3a8a8b1d"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/public/third-party-notices.txt",
+      "sha256": "3e3d8e98867cedfea5372bc234b2784ca575284073bd65e9f94390e1037c72b0"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/App.tsx",
+      "sha256": "ab3d89c12a1591c6490cf9bf26d72a74e3db6ac53fa47f4902d600f03e8ced5a"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/AuthApp.tsx",
+      "sha256": "407193f2ab772d1a0792b4e91c11576b93573dde97458fc604bf1ba1e0d75c02"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/api.ts",
+      "sha256": "3c914ea82b39a87f8757489c43f2e86f615c694fd9a2f4e1e91dba99fabf5da8"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/idToken.ts",
+      "sha256": "e52e2242187c45cba995d27eb3a31db5bac65a6eb4b50a70d3677cd30d1d941d"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/main.tsx",
+      "sha256": "e09879ef211d7975b658a9aee1caf40df982f91b889dd538e7d9954712540aea"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/oidcSession.ts",
+      "sha256": "ca783613d673ffb7f01293768129023456c1f514404a634f651abd5b494def86"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/src/styles.css",
+      "sha256": "33aa113f5215f3749e9beece641f34e12e8a823fbc1252d9ed45718bc159630a"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/start.sh",
+      "sha256": "3365440d52262f8987840bc577b0d85293c79edaec5e7d3a5ee6f3b62e5daa50"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/ApiSession.test.tsx",
+      "sha256": "346663bc9c8bbcb0b2b95e89b0c92030a10722b73b1cfae60af3f483aa82ddd7"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/App.test.tsx",
+      "sha256": "257720cd6d7454cb7b0617ca7a80629d91e4a9f722fd7038e7a2e179a8627369"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/AuthApp.test.tsx",
+      "sha256": "c00bb0443bef72e1549da179dfd4e5efb8b41bc27ec44d141687b95c1dadb0a4"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/IdToken.test.tsx",
+      "sha256": "f66059f3a18b3aeddba0b28e9d6ed42ee3175c9bb914a5cd6a2dd3e1bc623f9e"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/OidcProtocol.test.tsx",
+      "sha256": "948b4c7c8d19ed760661ee40ebf7ecdeef89c201dc4ee652f4fccfbc8813f3aa"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/OidcSession.test.tsx",
+      "sha256": "ed1008ccefb9551b27883306eed088dc593930b40a8440a356b0a01943dc8323"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/oidcHarness.ts",
+      "sha256": "73aeab87f85ebcfc65622ffaf8b746fcbbae8010636e64fbbfe9d0e22924a151"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/test/setup.ts",
+      "sha256": "93d2fc16e15d8747817d09b3fa1bffad0889dc263bbd33ff9015af8f44d5c1c2"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/tsconfig.json",
+      "sha256": "e721551f9284931c90ea08317c6b76faeea740967242cb0b882ed96b588c028e"
+    },
+    {
+      "path": "apps/octocat-supply/frontend/vite.config.ts",
+      "sha256": "5f230a3c583bb9007c3f05d84a3070f982997efeb8573edc4f6c51d3e2672778"
+    },
+    {
+      "path": "apps/octocat-supply/package-lock.json",
+      "sha256": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+    },
+    {
+      "path": "apps/octocat-supply/package.json",
+      "sha256": "f88f146c429368bda995700d6100731ecb8abc771738dd62a248b4aa8e5da00c"
+    },
+    {
+      "path": "apps/octocat-supply/playwright.config.ts",
+      "sha256": "7313764403d65b89e80d0342c10a56fc5705a4240471e6942cbb6bab63f830e9"
+    },
+    {
+      "path": "apps/octocat-supply/playwright.oidc.config.ts",
+      "sha256": "faee55a5e5e2becd9ee90234816c8300296ad8eca198d5e4c9fc2c41487234af"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/container-smoke.mjs",
+      "sha256": "623e898d0c5ba8dfef61c43e15ea3b53ecb564e57e56c12cae7ef0a4a0113c7b"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/e2e-server.mjs",
+      "sha256": "daad4a12e490fc527de0feb3d7bbc1964506670b9b319f3636f97e9a50cacac7"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/licenses.mjs",
+      "sha256": "6f671991fca4660f7202bea0fb5992547853cd6acb5c53cc2b18c0a3821f900c"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/oidc-e2e-server.mjs",
+      "sha256": "28d05aa891a30f8151447008cfa12713d934f2a63a61e723155687f808bccfb4"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/oidc-reporter.mjs",
+      "sha256": "f838b16818897b05e722e3e26c655dbd20290935756da4a3d90561576702c045"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/verify-auth-capture.d.mts",
+      "sha256": "03b825e9c9902b070805040672123193d54798eebc7b4d0222927fa4e8b77126"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/verify-auth-capture.mjs",
+      "sha256": "4b4dc46822a7d513fbfe776343e92ecbec313c145b2e58e804044a49b59a6d3d"
+    },
+    {
+      "path": "apps/octocat-supply/scripts/verify-auth-mutations.mjs",
+      "sha256": "782597beb08ae1db4ff668d061b5b1359280baf7c07f31a77fbd79c6667ecd91"
+    },
+    {
+      "path": "apps/octocat-supply/test/fixtures/oidc-provider.test.ts",
+      "sha256": "a272346db8791bd056e71c8e21aeb5a490945a1ce02e8369e9964ab4df9a1793"
+    },
+    {
+      "path": "apps/octocat-supply/test/fixtures/oidc-provider.ts",
+      "sha256": "687af01e5845f841ed0755e1d6e1d3f8161f17039dd5504ea4acc5fcc39230af"
+    },
+    {
+      "path": "apps/octocat-supply/tsconfig.tests.json",
+      "sha256": "64769f5583b822cd973514028a63505748bd7a88fd88a27ee900d1c76f22486e"
+    },
+    {
+      "path": "apps/octocat-supply/vitest.config.ts",
+      "sha256": "b86f587a9680583a37741cad90478be3070efa62dac18be27e82950ed87a2da8"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "51a0e89179773dd1bcffb0c1912c0e4b4413eaa1c2af0a96d16b59363cba9260"
+    },
+    {
+      "path": "docs/capability-status.md",
+      "sha256": "08123f27deb21f8e1eee855e6d2b51fcee583e229df8e1fee638c928d5ab0629"
+    },
+    {
+      "path": "docs/decisions/0001-start-fresh.md",
+      "sha256": "a2f98a97b488445c4ac5a9fe28ca66d93374ad10ef220e95c7cf61f5b88f3a32"
+    },
+    {
+      "path": "docs/decisions/0002-source-reuse.md",
+      "sha256": "8bb050d0dcbfb7808640f9ace32d4476c0f84be5c0389de8edc9991efcc749f0"
+    },
+    {
+      "path": "docs/decisions/0003-persistence.md",
+      "sha256": "c819f4c278d14d18ac3b5b0a4c415268b2a2dc8b0dba88a1a892207f6f791b54"
+    },
+    {
+      "path": "docs/decisions/0004-agent-execution-permissions.md",
+      "sha256": "28878643d3d92778d7cb6a388fe394bd9063ae3e7bba4a2e18bf11274f21a683"
+    },
+    {
+      "path": "docs/decisions/0005-delivery-identity.md",
+      "sha256": "7f71e1fdf83cb73bb3f7e165e7da9b22f95c4f05e7ba057fad53d09c15ccc13a"
+    },
+    {
+      "path": "docs/decisions/0006-observability.md",
+      "sha256": "95ef78b6d2e59caf5bb3c46d9ff0e95edeaf46e34a6c2af76201b18c9ced62b2"
+    },
+    {
+      "path": "docs/decisions/0007-application-identity.md",
+      "sha256": "47f47bb03ea7c6000d6251c32d05089255b0d224c597ed1c61c71d90941f2230"
+    },
+    {
+      "path": "docs/delivery.md",
+      "sha256": "5f5efdfe8dd7b21ff64b939dda9bd4210f75090ae884dce15c38b048620a1cc2"
+    },
+    {
+      "path": "docs/evidence/images/m2-desktop.png",
+      "sha256": "d6211f0cff1db00dc5bd30954d60d2dc9c15b641f47b6787390e2520f1fcb150"
+    },
+    {
+      "path": "docs/evidence/images/m2-mobile.png",
+      "sha256": "a78dab47824918c31a41b15be84258aa1e633df56248e414c4f19f14eb997085"
+    },
+    {
+      "path": "docs/evidence/m0-assessment.md",
+      "sha256": "b28a2f97265a907945fc418d0f14cd92cbeab4eee06ded5bf5892617a020d20f"
+    },
+    {
+      "path": "docs/evidence/m1-design-review.md",
+      "sha256": "f54c7c9225b93d704de483fd194ee8d476ff5b465db20d51eac7d70e422c1b1b"
+    },
+    {
+      "path": "docs/evidence/m2-baseline.md",
+      "sha256": "ebe6bf25e1f16aabe44a233e381f0f95cdedd66d3f9f5c33988ddf21cd006fd1"
+    },
+    {
+      "path": "docs/evidence/m2-clean-container-smoke.json",
+      "sha256": "e18702917f49c5145f0178f7e03a962952bd7415a4872def924a1e00f9247aee"
+    },
+    {
+      "path": "docs/evidence/m2-clean-setup.json",
+      "sha256": "6f97422fffe1517e99d80f333ce2b001a63ea46ed1da231718d963746880998d"
+    },
+    {
+      "path": "docs/evidence/m2-cli-checks.json",
+      "sha256": "265c34b0c3b0945ec3b0871c519a3c941761af0715cde3620cbc40828c63b7b0"
+    },
+    {
+      "path": "docs/evidence/m2-production-audit.json",
+      "sha256": "a84f369ca953c0ba519385cb0b37fa133837f57ea6dd732b203b233b0d2081bc"
+    },
+    {
+      "path": "docs/evidence/m2-source-fingerprint.json",
+      "sha256": "f24db59912c6f1cdeb6d324c665a458ee2777d3645823e376f9d354d97f2560b"
+    },
+    {
+      "path": "docs/evidence/m3-local-results.json",
+      "sha256": "3ad115efd90b7e79e13125299afb1344303c82faca930c6fd4a01b3266976cb5"
+    },
+    {
+      "path": "docs/evidence/m3-secure-delivery.md",
+      "sha256": "91987f245f74122f8e02b5dfe33a9a7357c9d3948bcfbe5c597cfd7a7101cec0"
+    },
+    {
+      "path": "docs/evidence/m4a-preflight.json",
+      "sha256": "f5c9043880569a4d185212c8aa09bb5a4f07a031ce620a74bbddb9b399c539b4"
+    },
+    {
+      "path": "docs/evidence/m4b-ci-repair.json",
+      "sha256": "ad136b91c90921203f8b4210d826b6a7070d3f1fc6205e9db58f5188c1143ced"
+    },
+    {
+      "path": "docs/evidence/m4b-ci-repair.md",
+      "sha256": "5d80f2d4ae0bd07ef66b0055d2956d42c2d8729f2f6ec1f9301afefca29f9cd2"
+    },
+    {
+      "path": "docs/evidence/m4b-frontend-image-repair.json",
+      "sha256": "f9441463490434a55783dffd9af6107fe2be9b0b437e6fef188622c0946d79e9"
+    },
+    {
+      "path": "docs/evidence/m4b-frontend-image-repair.md",
+      "sha256": "fc9c17c6b5e9288f75b6a272d1b5bae279eec34373cc0627dac953caa2988458"
+    },
+    {
+      "path": "docs/evidence/m4b-local-preparation.md",
+      "sha256": "a926a30932e975f11eaece3b95b38cac00fb3cf5ba47b766b5d024a06c900a9a"
+    },
+    {
+      "path": "docs/evidence/m4b-local-results.json",
+      "sha256": "660001529cc9a52167451eecdbe15541dd54961e884424c414e73d3fc8bd8c2d"
+    },
+    {
+      "path": "docs/evidence/m4b-playwright-ci-repair.json",
+      "sha256": "4846aa51fdc5320583558887600759c2e64f8f6c8ade8e8e1374c9e818f00ec4"
+    },
+    {
+      "path": "docs/evidence/m4b-playwright-ci-repair.md",
+      "sha256": "cd23d7176d3bf60a00ce18d253899ecce1e43dffa15d2449494e31f85c358b0e"
+    },
+    {
+      "path": "docs/evidence/m4c-c1-repository-contracts.json",
+      "sha256": "eba9cc2feb8bb8474311858070c0b3a59e895a1926a85b2d92dadfa0954c0536"
+    },
+    {
+      "path": "docs/evidence/m4c-c1-repository-contracts.md",
+      "sha256": "dc2570c6c11ea205276208f79c1b36d9c19cae97f7e97003ca502e73e437a4cf"
+    },
+    {
+      "path": "docs/evidence/m4c-c3-oidc.json",
+      "sha256": "94d833cd4d7218a254cd5fc71d52819e7e51e1e0f0bab9f7459ff4ada8bc849b"
+    },
+    {
+      "path": "docs/evidence/m4c-c3-oidc.md",
+      "sha256": "b5f0773c8e2e0404fb7da314ad35bf6c048e5df3e94a7a0fa56eb3ec4b21327c"
+    },
+    {
+      "path": "docs/evidence/m4c-c3-planning.json",
+      "sha256": "434b8708b5a790ede424121420d9bc9ba3f53b3ca5a2f6f1d7c25d42f7fbb17c"
+    },
+    {
+      "path": "docs/evidence/m4c-c4-infrastructure.md",
+      "sha256": "36fc2deae39e9e1dc208486d65b035655b5a2a93a19f12e54c4eea21f702af40"
+    },
+    {
+      "path": "docs/evidence/m4c-readiness-assessment.json",
+      "sha256": "f267644a22d861e4fead9f6140500ceef4954a74d1177a86a92c24bc3f3ee1b4"
+    },
+    {
+      "path": "docs/evidence/m4c-readiness-assessment.md",
+      "sha256": "b36bb9ad7319157f4572c243ec0a2c70df1ad1629589a79fb8b4ecb480515f13"
+    },
+    {
+      "path": "docs/historical-reuse.md",
+      "sha256": "a206a33054d31ac3197b92e3863f103bfb9708cd9105fcfdebe627ccc410996b"
+    },
+    {
+      "path": "docs/milestones/m1-scope.md",
+      "sha256": "7b048351bc53fbda34280af9a5771a653ff54dc6aff1fbcc7f8716571c40bdef"
+    },
+    {
+      "path": "docs/milestones/m2-scope.md",
+      "sha256": "69c1fed4fc13bb3d2a569e6d0053f65f54f475209943d08e3b5fa135941474d6"
+    },
+    {
+      "path": "docs/milestones/m3-scope.md",
+      "sha256": "76f421297ae354b0ce5f77c67ad3634b120f8761b52ab85856d091c774e23230"
+    },
+    {
+      "path": "docs/milestones/m4a-preflight.md",
+      "sha256": "3f5e73ad6701ff41d9fa234718e792bb73648c6de5add9348f5462ebe5cdf254"
+    },
+    {
+      "path": "docs/milestones/m4b-scope.md",
+      "sha256": "24c87e07903779c5cd34babf767ec9cf9886ea80518d143bd21f563931af8f52"
+    },
+    {
+      "path": "docs/milestones/m4c-c3-oidc-plan.md",
+      "sha256": "5b207dd9a483eedef75414d5de8798777e024e3002466d4e42485b6d9399efe8"
+    },
+    {
+      "path": "docs/milestones/m4c-scope.md",
+      "sha256": "9df17f0bbc4535b7a1d00937cb8a663a445d81e0ffd8afec6b9fe3de69c186c4"
+    },
+    {
+      "path": "docs/project-charter.md",
+      "sha256": "d47b17bf64b14aa230d50e16e92bd879732a3dc0cae13ccfb49faba5b6f58594"
+    },
+    {
+      "path": "docs/project/azure-cost-estimate.md",
+      "sha256": "c441f6d60f85994e631fffcf69a50434d34b4385829b1cee1cb3bef4dce45e03"
+    },
+    {
+      "path": "docs/project/master-brief.md",
+      "sha256": "7a134402d9ba237de415c73a7a7e427866798edc73b77d142b4ec0fec50c5ee6"
+    },
+    {
+      "path": "docs/requirements.md",
+      "sha256": "911dfba15bbe1903257b32bf1226e942c5c04bdc95d70b7909bade988fd9981a"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "sha256": "445f01ace2bdfaeacd58258adb26651b486f07c1b4f2f4a9fc90966f6c778666"
+    },
+    {
+      "path": "docs/source-assessment.md",
+      "sha256": "022d3c0343337a8372433079e7dacefc213bed21311a892245864e1eb7613d56"
+    },
+    {
+      "path": "docs/threat-model.md",
+      "sha256": "5990994e2d60a0d8d8e4e04145ad0a380f2fcdd1b1cdea633692df299fb388c3"
+    },
+    {
+      "path": "docs/validation-strategy.md",
+      "sha256": "5256ad127ec3acddc7fe1a6efab8b4f8d6dfe22edb040da1a5fb5b2275cef51c"
+    },
+    {
+      "path": "infra/README.md",
+      "sha256": "5103911acc9353f9a2c3c9601bd8e1ff141bee9def471eff63f05b0beba04c50"
+    },
+    {
+      "path": "infra/apps.bicep",
+      "sha256": "98da5cdb6b414430e97fe3b580dd086e7356d39ca89916ef380f5ba824e2dbbc"
+    },
+    {
+      "path": "infra/bicepconfig.json",
+      "sha256": "dcec22b04c210ea11f37175dc0ab5e2c35226f4ef6afb99f16ea105b5905850b"
+    },
+    {
+      "path": "infra/diagnostics-console.kql",
+      "sha256": "39d60f3461b915822f080132345b1467720bd64ae3fd0aa064d3178e8fa434b1"
+    },
+    {
+      "path": "infra/diagnostics-system.kql",
+      "sha256": "3889262203f62b1441e9bab899a172f0b633f5e64568f36f59bb201aebfab1fd"
+    },
+    {
+      "path": "infra/diagnostics.bicep",
+      "sha256": "e47bf9c5689abf7b62bf877ccd9551eb20f521e675111aaa3ac6b4745a78cca9"
+    },
+    {
+      "path": "infra/federation.bicep",
+      "sha256": "7ecba9eb94674a3fff87c5f684ea6a6f525f0ceaab16d7d8ebeb1b091fc0e3c6"
+    },
+    {
+      "path": "infra/foundation.bicep",
+      "sha256": "3387fadd9a36db3a7d0afb2f2d67a0264b978a9352f53ebd04e91a8584280aa4"
+    },
+    {
+      "path": "infra/identity-contract.json",
+      "sha256": "0cd8730160355ba7e4181d58ca460f5709f66b6a39b832445904506ce47cc338"
+    },
+    {
+      "path": "infra/migrator.bicep",
+      "sha256": "2b50016752a3160fc3a087b95a4bed5fe4212b2784a46fb4f7cb65bb5552d8a4"
+    },
+    {
+      "path": "infra/network.bicep",
+      "sha256": "9e73aae95748b941b845a742fdc1b415b280df6d1f1b3656cde55e75a93ed96c"
+    },
+    {
+      "path": "infra/registry-access.bicep",
+      "sha256": "006f9ac55fd40d3907d512c01bd6780e08841df5fa0e6829b6f8147982761436"
+    },
+    {
+      "path": "infra/release-role.example.json",
+      "sha256": "75b12bcad74b0b8d09f3ce546b9641952233fc857d55218399368f0820517fc3"
+    },
+    {
+      "path": "infra/secret-reference-contract.json",
+      "sha256": "8f9b9e4253cbeb96a9100aa07475acac498cd2f1d503a4ac6983d67e79dbd7d2"
+    },
+    {
+      "path": "infra/sql.bicep",
+      "sha256": "ca768997a367b3d470891853e795e45ee63fb8ab4acd634e05ad152cdfe277b1"
+    },
+    {
+      "path": "requirements-delivery.txt",
+      "sha256": "0969da99a0bc2a1b71ed50584560f4588a37567ac63af3ddbaf3c4617ca5621a"
+    },
+    {
+      "path": "scripts/check_repository.py",
+      "sha256": "d8688895ab1a190f61769b4c2ec965ca61d54ddfef6fcfb87ba969ddb9387c93"
+    },
+    {
+      "path": "scripts/delivery/TLS_FIXTURE_NOTICE.txt",
+      "sha256": "b49e8a41652eb266c055833df3ab5c31d9a1760730ab9d14b4b31ea1678e7484"
+    },
+    {
+      "path": "scripts/delivery/diagnostics.py",
+      "sha256": "4df0acca7d6df5fa7b40d476704769ab3da7a837224f8c5db160d70cbc1428c7"
+    },
+    {
+      "path": "scripts/delivery/install_tools.py",
+      "sha256": "1b81aa2b840a85cb99b520cd4c92698d02e10c4615773b6e9eab14e6763c258f"
+    },
+    {
+      "path": "scripts/delivery/policy.py",
+      "sha256": "856d8b7e0ed9fba135caa6eda3bff4ee9ae41b0f1a22cb59277c5f8de29dca02"
+    },
+    {
+      "path": "scripts/delivery/provenance.py",
+      "sha256": "405fe93b1d04792a87bfcad50b10ec0f2aea7115a6d535d241c8af8b8b6fc467"
+    },
+    {
+      "path": "scripts/delivery/scan_config.py",
+      "sha256": "1141caa8a725f1de2d70175566c32195760865a1a14468001c19120c77c7ce44"
+    },
+    {
+      "path": "scripts/delivery/scan_images.py",
+      "sha256": "827a9e9de64947312faab3f4fe500c210652d1ed1a60f976c048e68fe55bc211"
+    },
+    {
+      "path": "scripts/delivery/validate_infra.py",
+      "sha256": "9e913fd315a73a47bfdfea75cdd32cbdd131e7fe7ae1ad10f14866fa15f0389d"
+    },
+    {
+      "path": "scripts/delivery/validate_parameters.py",
+      "sha256": "13ffc7d2424ec4471bf8289d5492aee5c65a849f373064750b491469a55c0c1d"
+    },
+    {
+      "path": "scripts/delivery/verify_containers.py",
+      "sha256": "8bfd7ab76fb3ff481866c839650d422464383896c8e3e7a77c4913a688848b8d"
+    },
+    {
+      "path": "scripts/delivery/verify_proxy.py",
+      "sha256": "7899bda4faa9af34550b10c8bf5dc088acba9dc67f2026ea3a83ece3e81251a8"
+    },
+    {
+      "path": "security/compose.verify.yaml",
+      "sha256": "1394cc029c6b2483fbbc48f1b05be96cd763299418b99aaf0da6dbdda5090cc9"
+    },
+    {
+      "path": "security/exceptions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "security/tools.json",
+      "sha256": "e386f5165c4463fe420b2c0ccd66b25905334fb837f1c1796985291a46b0c719"
+    },
+    {
+      "path": "tests/delivery/test_infra_c4.py",
+      "sha256": "deb3e5f13daf42758ccc5869a9d5c6f3a38ad7450a80f8c60237f83044217e11"
+    },
+    {
+      "path": "tests/delivery/test_proxy.py",
+      "sha256": "df48e22e881e02203e12739b476c79dc42e9e903f5f0058a15d371778a693d93"
+    },
+    {
+      "path": "tests/delivery/test_security.py",
+      "sha256": "9179dede51af2d97ce7bb4351a26b183e5281fe734fa28dbe4d69a73e022d659"
+    }
+  ],
+  "evidenceSelfHashExcluded": true,
+  "templates": {
+    "count": 8,
+    "files": [
+      "apps",
+      "diagnostics",
+      "federation",
+      "foundation",
+      "migrator",
+      "network",
+      "registry-access",
+      "sql"
+    ],
+    "resourceDeclarations": {
+      "federation": 1,
+      "diagnostics": 3,
+      "registry-access": 2,
+      "migrator": 1,
+      "sql": 7,
+      "network": 5,
+      "foundation": 10,
+      "apps": 2
+    },
+    "freshnessBindings": [
+      {
+        "path": "infra/apps.bicep",
+        "sha256": "98da5cdb6b414430e97fe3b580dd086e7356d39ca89916ef380f5ba824e2dbbc"
+      },
+      {
+        "path": "infra/diagnostics.bicep",
+        "sha256": "e47bf9c5689abf7b62bf877ccd9551eb20f521e675111aaa3ac6b4745a78cca9"
+      },
+      {
+        "path": "infra/federation.bicep",
+        "sha256": "7ecba9eb94674a3fff87c5f684ea6a6f525f0ceaab16d7d8ebeb1b091fc0e3c6"
+      },
+      {
+        "path": "infra/foundation.bicep",
+        "sha256": "3387fadd9a36db3a7d0afb2f2d67a0264b978a9352f53ebd04e91a8584280aa4"
+      },
+      {
+        "path": "infra/migrator.bicep",
+        "sha256": "2b50016752a3160fc3a087b95a4bed5fe4212b2784a46fb4f7cb65bb5552d8a4"
+      },
+      {
+        "path": "infra/network.bicep",
+        "sha256": "9e73aae95748b941b845a742fdc1b415b280df6d1f1b3656cde55e75a93ed96c"
+      },
+      {
+        "path": "infra/registry-access.bicep",
+        "sha256": "006f9ac55fd40d3907d512c01bd6780e08841df5fa0e6829b6f8147982761436"
+      },
+      {
+        "path": "infra/sql.bicep",
+        "sha256": "ca768997a367b3d470891853e795e45ee63fb8ab4acd634e05ad152cdfe277b1"
+      },
+      {
+        "path": "infra/diagnostics-console.kql",
+        "sha256": "39d60f3461b915822f080132345b1467720bd64ae3fd0aa064d3178e8fa434b1"
+      },
+      {
+        "path": "infra/diagnostics-system.kql",
+        "sha256": "3889262203f62b1441e9bab899a172f0b633f5e64568f36f59bb201aebfab1fd"
+      },
+      {
+        "path": "infra/bicepconfig.json",
+        "sha256": "dcec22b04c210ea11f37175dc0ab5e2c35226f4ef6afb99f16ea105b5905850b"
+      },
+      {
+        "path": "artifacts/m3/infra/apps.json",
+        "sha256": "3df1746cc79c7128c5b9ca0bc64aaaaf40f34ef8dcb3f8db49d0abf1c26c46b2"
+      },
+      {
+        "path": "artifacts/m3/infra/diagnostics.json",
+        "sha256": "87a4fc6043ea5b072f95101340d86f0eb9cda20d435604ef3c151efc14232d55"
+      },
+      {
+        "path": "artifacts/m3/infra/federation.json",
+        "sha256": "17cf606196913d4ac389ed937bbd3381ddd9cc1506ca5e9a252f7608fc3962ae"
+      },
+      {
+        "path": "artifacts/m3/infra/foundation.json",
+        "sha256": "dfb3e15114781225f851f7efcb0651b5dcec6a3c786d5f0c82b83563921755b1"
+      },
+      {
+        "path": "artifacts/m3/infra/migrator.json",
+        "sha256": "e333407733c37cd8d454c84d3f9a992d32d350483fe4568b29011233376a1181"
+      },
+      {
+        "path": "artifacts/m3/infra/network.json",
+        "sha256": "c4bd20ac5147829278684a7e2bc892139250bc2fb76efeba0dc7d180750b3b4d"
+      },
+      {
+        "path": "artifacts/m3/infra/registry-access.json",
+        "sha256": "0ff598fdf22812cb588027cae82f42139716137a5816db169f09a1b6bff9dc95"
+      },
+      {
+        "path": "artifacts/m3/infra/sql.json",
+        "sha256": "9311c9f5a038edade4b2e4adb4f33d3f878bb57549e887474158df815cabdd01"
+      }
+    ],
+    "meaning": "Compiled declarations only. Foundation/diagnostics describe two phases of the same workspace, not two deployed workspaces."
+  },
+  "invariants": [
+    "Separate required RFC1918 VNet and non-overlapping delegated ACA/PE subnets; NSG policies enabled; DNS link/SQL PE zone association.",
+    "SQL public access Disabled, Entra group-only admin and authentication, TLS 1.2 minimum, Proxy 1433, Basic 5-DTU/2-GB, TDE, seven-day Local backups.",
+    "Five distinct UAIs, pull endpoint None, runtime/migrator Main only, dedicated registry pull/push grants and unapplied app/environment/identity/operations/SQL grant manifests.",
+    "Internal API and client-CIDR-restricted TLS frontend; exact registry digests; no sidecar/startup override; bounded probes and max one replica; SQL schema label pinned to version 1.",
+    "Manual migrate/seed definition only: one replica/completion, 600s, zero retry, separate migrator; no scheduler/start grant.",
+    "Current secret slots/references empty; no credential/key vault/Graph fallback or secret output.",
+    "30-day Analytics tables/workspace, workspace-only query, local auth off, 0.1-GB daily safeguard, console/system DCR, export default false and forbidden by C4 preflight until live proof.",
+    "Every source/resource/output covered; stale/missing/extra outputs/defaults and unsafe compiled/parameter/manifest/CI mutations rejected; old gates retained."
+  ],
+  "applicationTests": {
+    "passed": 195,
+    "failed": 0,
+    "skipped": 0,
+    "files": 13,
+    "allPrior195CaseNamesPreserved": true,
+    "realSQLiteCases": 33,
+    "sqlRecordingCases": 8,
+    "sqlRecordingClassification": "Simulated",
+    "cases": [
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P01/P04: independently verifies real PKCE and enforces one-use authorization code",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P04: denies wrong code_verifier",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P04: denies wrong client_id",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P04: denies wrong redirect_uri",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P04: denies wrong code",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P04: denies wrong grant_type",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P01/P14: does not accept credentials or emit private JWK components",
+        "status": "passed"
+      },
+      {
+        "file": "test/fixtures/oidc-provider.test.ts",
+        "name": "C3 Node-only simulated authorization server P01 negative control: nonce omission cannot satisfy the actual protocol fixture",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P08/P10: preserves distinct status 401 without automatic retries",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P08/P10: preserves distinct status 403 without automatic retries",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P08/P10: preserves distinct status 503 without automatic retries",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P10: same-subject reauthentication uses a fresh token, with no replay of the rejected mutation",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P12/P13: rejects a delayed response from a logged-out generation and cancels owned requests",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/ApiSession.test.tsx",
+        "name": "C3 protected API sessions P13: keeps encoded cart IDs on the approved API and omits owner/cookie/token URL data",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states preserves the saved basket during an outage and retries without creating a replacement",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states announces loading and renders a keyboard-operable search/category flow",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states shows an API error and can retry without reloading the page",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states uses canonical server totals, validates quantity, updates/removes and remembers the cart",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states restores an existing basket and requires explicit recovery from a reset/stale cart",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/App.test.tsx",
+        "name": "collection and accessible basket states ignores out-of-order aborted catalogue results",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/AuthApp.test.tsx",
+        "name": "browser identity boundaries never falls back to anonymous when runtime authentication config is unavailable",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/AuthApp.test.tsx",
+        "name": "browser identity boundaries rejects missing/insecure provider configuration and separates remembered carts by issuer/subject",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/AuthApp.test.tsx",
+        "name": "browser identity boundaries adds bearer tokens only through the configured client and never sends owner fields",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid signature without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid algorithm without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid key without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid issuer without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent issuer without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid audience without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent audience without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid subject without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent subject without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid nonce without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent nonce without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid expiry without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent expiry without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid future issued time without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid absent issued time without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid not before without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid authorized party without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: rejects invalid extra audience without publishing or calling the API",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/IdToken.test.tsx",
+        "name": "C3 cryptographic ID-token gate P06: ignores token-controlled key URLs and consults only the trusted JWKS",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P01/P04: uses real S256/state/nonce, consumes once and never persists tokens",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans missing state callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans wrong state callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans duplicate state callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans duplicate code callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans duplicate error callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans code plus error callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans fragment callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans foreign origin callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans wrong path callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: closes and cleans no code callback before exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: rejects expired transaction",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: rejects future transaction",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: rejects corrupt transaction",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: rejects missing transaction",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03/P04: rejects unsolicited and another context's callback, preserving unrelated storage",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: unavailable redirect storage fails closed without a memory fallback",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects consent denial",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects login required",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects invalid grant",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects malformed JSON",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects missing ID token",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects missing access token",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects wrong type",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects nonpositive lifetime",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects invalid lifetime",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects refresh token",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P05: safely rejects token outage",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P06: userLoaded is not acceptance; rejects wrong issuer before any signed-in publication",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects issuer metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects missing token metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects missing JWKS metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects HTTP metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects foreign endpoint metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects plain PKCE metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects implicit metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects fragment mode metadata before navigation or exchange",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects untrusted configuration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects untrusted configuration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects untrusted configuration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects untrusted configuration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P02: rejects untrusted configuration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcProtocol.test.tsx",
+        "name": "C3 actual client protocol P03: snapshots and scrubs callback before asynchronous bootstrap",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P10: expires memory tokens via timer before dispatch",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P10: expires memory tokens via resume before dispatch",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P05/P09: bounds metadata outage without accepting a late callback",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P05/P09: bounds token outage without accepting a late callback",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P05/P09: bounds jwks outage without accepting a late callback",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P05/P12: aggregate deadline closes the session even if an unabortable verification response arrives late",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P12: logout while callback is pending cannot restore a user or API token",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P11: isolates hashed client/user namespaces and never claims anonymous references",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P12: a cancelled callback cannot erase a newer sign-in's pending state",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P12: component unmount during exchange prevents protected API calls and late restoration",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P11: migrates a legacy reference only after actual API approval status 200",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P11: migrates a legacy reference only after actual API approval status 404",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P11: migrates a legacy reference only after actual API approval status 503",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P03: cleans a callback even if runtime configuration cannot load",
+        "status": "passed"
+      },
+      {
+        "file": "frontend/test/OidcSession.test.tsx",
+        "name": "C3 session lifecycle P04/P12: StrictMode effect replay processes once, unmount clears access",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts lists twelve products, reads details, and filters/searches/sorts/pages deterministically",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products/0",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products/1.2",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products/9007199254740992",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?limit=101",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?offset=-1",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?sort=sql",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?sort=name&sort=price",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?category=unknown",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?unknown=1",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts rejects invalid input: /api/products?search=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "validated catalogue contracts returns safe missing-resource and body/media/origin errors",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "cart integrity, pricing and cleanup persists absolute quantities, canonical prices and an automatic deterministic discount",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "cart integrity, pricing and cleanup retains all concurrent product updates and never creates duplicate cart lines",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/app.test.ts",
+        "name": "separates process liveness from database/seed readiness and fails safely",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries upgrades M2 carts without assigning an authenticated owner or changing old migrations",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries uses only a verified issuer/subject, independent of principal headers",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"iss\":\"https://attacker.example.test\"}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"aud\":\"other\"}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"exp\":1}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"nbf\":9999999999}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"iat\":1}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"roles\":[]}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"scope\":\"read\"}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects invalid claims {\"sub\":\"\"}",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects absent/oversized/tampered tokens and refreshes a rotated JWKS kid",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries fails closed with a safe dependency error when the trusted JWKS is unavailable",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries isolates all cart methods across authenticated users and anonymous mode",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries rejects incomplete/unsafe cloud configuration without opening a database or authenticating",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P10: preserves API audience, delegated scp, exact permissions and the one-hour age cap",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P09: cached valid key survives outage, cold/expired unresolved key fails 503, healthy unknown kid fails 401",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P09: real HTTP preserves safe missing bearer denial",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P09: real HTTP preserves safe ID-token audience denial",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P09: real HTTP preserves safe role denial",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P09: real HTTP preserves safe scope denial",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/auth.test.ts",
+        "name": "OIDC signature/claims and anonymous namespace boundaries P07/P08/P09: real HTTP preserves safe trusted key outage denial",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/database.test.ts",
+        "name": "SQLite lifecycle and integrity migrates and seeds twice, preserves carts across a fresh connection, and resets deterministically",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/database.test.ts",
+        "name": "SQLite lifecycle and integrity rejects edited, reordered and unknown migrations without damaging existing data",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/database.test.ts",
+        "name": "SQLite lifecycle and integrity enforces foreign keys and rejects unsafe local database/reset paths, including dangling links",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing handles an empty basket and the specified multi-line example",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing applies the threshold/floor rule at 29999 pence",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing applies the threshold/floor rule at 30000 pence",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing applies the threshold/floor rule at 30001 pence",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing applies the threshold/floor rule at 30009 pence",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing applies the threshold/floor rule at 30010 pence",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity 0",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity -1",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity 1.5",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity 100",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity NaN",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity Infinity",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity 2",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing rejects an invalid quantity null",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/pricing.test.ts",
+        "name": "authoritative integer pricing accepts quantity boundaries, and rejects fractional/unsafe prices or oversized carts",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R01: exposes the exact seeded catalogue and product details on a ready database",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R02: combines case-insensitive search/category filters and counts before pagination",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R03: treats wildcard and SQL-like search input as literal data",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R04: sorts and pages equal prices deterministically by product ID",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R05: reports a missing product with the safe domain error",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R06: creates distinct empty carts, including two for the same owner",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R07/cart: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R07/setQuantity: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R07/removeItem: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R07/deleteCart: both owners receive the same denial as a missing cart, without mutation",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R08: isolates same-product mutations and removals across carts and owners",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R09: sets absolute quantities at both bounds, deduplicates retries and orders lines",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R10: computes authoritative integer prices, floors the discount and reprices after removal",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R11: applies the exact discount threshold and removes it below the threshold",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/0: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/-1: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/1.5: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/100: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/NaN: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/Infinity: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R12/-Infinity: rejects invalid quantities without changing committed state or poisoning the connection",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R13: missing-product failure preserves the cart and allows a subsequent transaction",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R14: removing a line is idempotent, including absent products, and leaves a usable empty cart",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R15: deletes only the chosen cart and a repeated delete reports not found",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R16: retains ownership, changes and deletions after every connection closes and reopens",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R17: two connections retain distinct-product absolute updates over 20 scheduled rounds",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Repository acceptance — real file-backed SQLite R18: scheduled same-product writes produce one serialized absolute value and duplicate retries stay idempotent",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S01/INSERT: rolls back a post-write failure and releases the transaction",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S01/UPDATE: rolls back a post-write failure and releases the transaction",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S01/DELETE: rolls back a post-write failure and releases the transaction",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S02: enforces foreign keys/quantity/uniqueness and cascades only the deleted cart's lines",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S03: hides uncommitted changes, rejects a contending writer and recovers after rollback",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/repository-sqlite.contract.test.ts",
+        "name": "Real SQLite transaction/constraint regressions S04: rolls back a failed cart deletion including its cascaded line deletions",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine bounds total SQL readiness to one second and shares outstanding dependency reads",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine keeps search input in parameters, escapes wildcard syntax and bounds sorting",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine checks/locks the owner before every cart mutation and returns no existence disclosure",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine returns canonical integer totals from transactional mutation results",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine replays/checksums migrations and rejects edited, removed or reordered history before DDL",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine seeds only exact synthetic rows and fails on drift instead of destructive reset",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine fails readiness safely on missing schema, drift or unavailable database without DDL",
+        "status": "passed"
+      },
+      {
+        "file": "api/test/sql.test.ts",
+        "name": "SQL adapter contracts — recording driver simulation, not a SQL engine requires a pinned managed identity, verified TLS and a separate migrator; no password/default credential fallback",
+        "status": "passed"
+      }
+    ]
+  },
+  "browserTests": {
+    "nativePassed": 3,
+    "oidcPassed": 7,
+    "containerPassed": 3,
+    "retries": 0,
+    "skipped": 0,
+    "oidcCases": [
+      {
+        "cases": [
+          "P01",
+          "P11"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "2,1,1,2,1,1"
+      },
+      {
+        "cases": [
+          "P03",
+          "P04",
+          "P05"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "2,1,1,2,1,1"
+      },
+      {
+        "cases": [
+          "P11",
+          "P12"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "4,2,2,3,1,1"
+      },
+      {
+        "cases": [
+          "P10"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "2,1,1,2,1,1"
+      },
+      {
+        "cases": [
+          "P12"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "4,2,2,3,1,1"
+      },
+      {
+        "cases": [
+          "P02",
+          "P06"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "2,1,1,1,1,1"
+      },
+      {
+        "cases": [
+          "P13"
+        ],
+        "outcome": "passed",
+        "protocolCounts": "2,1,1,2,1,1"
+      }
+    ],
+    "providerClassification": "Simulated responses/virtual HTTPS; actual pinned client/JOSE/API/SQLite."
+  },
+  "deliverySecurityTests": {
+    "passed": 22,
+    "skipped": 0,
+    "originalTestsPreserved": 13,
+    "newC4Tests": 9,
+    "log": "artifacts/m4c-c4/delivery-4.log"
+  },
+  "sqlGrantManifest": {
+    "bootstrap": "Existing approved Entra admin group; never runtime/migrator/pipeline admin. No SQL server directory identity or Graph grant is selected.",
+    "api-runtime": {
+      "SELECT": [
+        "dbo.products",
+        "dbo.schema_migrations",
+        "dbo.carts",
+        "dbo.cart_items"
+      ],
+      "INSERT": [
+        "dbo.carts",
+        "dbo.cart_items"
+      ],
+      "UPDATE": [
+        "dbo.carts",
+        "dbo.cart_items"
+      ],
+      "DELETE": [
+        "dbo.carts",
+        "dbo.cart_items"
+      ],
+      "DDL": false,
+      "db_owner": false
+    },
+    "migrator": {
+      "databasePermissions": [
+        "CONNECT",
+        "CREATE TABLE"
+      ],
+      "schemaPermissions": {
+        "dbo": [
+          "ALTER",
+          "REFERENCES"
+        ]
+      },
+      "initialCreationOnlySchemaPermissions": {
+        "dbo": [
+          "SELECT",
+          "INSERT"
+        ]
+      },
+      "replaceInitialSchemaDataGrantsWithObjectGrants": true,
+      "objectPermissions": {
+        "dbo.schema_migrations": [
+          "SELECT",
+          "INSERT"
+        ],
+        "dbo.products": [
+          "SELECT",
+          "INSERT"
+        ]
+      },
+      "applicationLock": "sys.sp_getapplock with Transaction owner and default public database principal; verify actual engine permission/ownership behavior.",
+      "boundary": "Time-bound migration grant in a dedicated synthetic-only database whose dbo schema contains only the four application tables. Initial schema SELECT/INSERT lets the unmodified migration read newly created tables; replace those data grants with the listed object grants after creation. ALTER dbo is broad within that schema; no unrelated objects or permanent shared schema data grant. Revoke DDL after the approved migration window.",
+      "runtimeAttachment": false,
+      "db_owner": false
+    },
+    "creation": "Separate reviewed bootstrap using approved object IDs/SIDs; no CREATE USER execution or grants occur in C4. Graph lookup rights are not inferred."
+  },
+  "diagnosticTests": {
+    "classification": "Python restricted projection reference model; not Kusto execution",
+    "classes": [
+      "DNS",
+      "TLS",
+      "SQL",
+      "SCHEMA",
+      "REDACTED"
+    ],
+    "canaryFields": [
+      "Log",
+      "Authorization",
+      "ConnectionString",
+      "owner",
+      "body"
+    ],
+    "knownMetadata": "Reviewed platform app/revision/image/resource metadata; not arbitrary user-supplied values.",
+    "rawSourceAndTransportStillPossible": true,
+    "exportEnabled": false
+  },
+  "mutationResults": [
+    {
+      "mutation": "nonce-omission",
+      "rejected": true,
+      "failedContract": "P01/P04",
+      "assertions": 1
+    },
+    {
+      "mutation": "id-verification-bypass",
+      "rejected": true,
+      "failedContract": "P06",
+      "assertions": 15
+    },
+    {
+      "mutation": "early-session-publication",
+      "rejected": true,
+      "failedContract": "P06",
+      "assertions": 1
+    },
+    {
+      "mutation": "external-api-target",
+      "rejected": true,
+      "failedContract": "P13",
+      "assertions": 1
+    }
+  ],
+  "npmAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 10,
+    "high": 0,
+    "critical": 0,
+    "total": 10
+  },
+  "imageScans": [
+    {
+      "image": "api",
+      "imageId": "sha256:5cbcb057ed88703cd75ac5a85fbfdaa805c1d3804c53281d3265fa2f4aef9308",
+      "reportedHigh": 0,
+      "reportedCritical": 0,
+      "createdAt": "2026-11-13T04:57:31.05185Z",
+      "report": {
+        "path": "artifacts/m4c-c4/api-vulnerabilities.json",
+        "sha256": "ab0fbb932f3ee77cc9abed24530a9c222642dd7f04cee20fb36833db322800dc"
+      },
+      "sbom": {
+        "path": "artifacts/m4c-c4/api-sbom.cdx.json",
+        "sha256": "dd91724cc614629099b08b347aecd0e53b4942b5c5bf2819c2b27d3cf0e333bf"
+      },
+      "policy": "Unchanged HIGH,CRITICAL exit-code 1; no ignore-unfixed/suppression/exception"
+    },
+    {
+      "image": "frontend",
+      "imageId": "sha256:7378940c7e1d9e9a168cdd5f55179180715909aa753eeb19cb0f239dad880f08",
+      "reportedHigh": 0,
+      "reportedCritical": 0,
+      "createdAt": "2026-11-13T04:57:31.273924Z",
+      "report": {
+        "path": "artifacts/m4c-c4/frontend-vulnerabilities.json",
+        "sha256": "4a8dd0c4850b8df9d7a02da2a308d494d6c50641765633fb596073791caabeeb"
+      },
+      "sbom": {
+        "path": "artifacts/m4c-c4/frontend-sbom.cdx.json",
+        "sha256": "85b44477a75e5ffa4e95f26263fb476b7659988eccf42ef060de5f57d964b581"
+      },
+      "policy": "Unchanged HIGH,CRITICAL exit-code 1; no ignore-unfixed/suppression/exception"
+    }
+  ],
+  "configurationScans": [
+    {
+      "input": "infra",
+      "targets": [
+        "network.json",
+        "registry-access.json",
+        "sql.json"
+      ],
+      "reportedHighCritical": 0,
+      "report": {
+        "path": "artifacts/m4c-c4/infra-configuration.json",
+        "sha256": "7df41f9d5e362a1853bbd23739b0fc9d3b984db2ea1bc4b8d84836c1120a64df"
+      }
+    },
+    {
+      "input": "api",
+      "targets": [
+        "Dockerfile"
+      ],
+      "reportedHighCritical": 0,
+      "report": {
+        "path": "artifacts/m4c-c4/api-configuration.json",
+        "sha256": "51ad442a97818ba148c20cd1b253b47897b020f5bdf668eda996d563944d614d"
+      }
+    },
+    {
+      "input": "frontend",
+      "targets": [
+        "Dockerfile"
+      ],
+      "reportedHighCritical": 0,
+      "report": {
+        "path": "artifacts/m4c-c4/frontend-configuration.json",
+        "sha256": "b1fb9195c5ad1ae97294734ca07a88fdb237bbc159c53660971a6a7f36a351f0"
+      }
+    }
+  ],
+  "containerSmoke": {
+    "started": "2026-11-13T04:57:06.492282+00:00",
+    "project": "morrow-supply-m3-verify",
+    "actor": "deterministic local delivery verification",
+    "checks": [
+      "12 fixtures and authoritative discount total via built proxy",
+      "non-root/read-only/cap-drop; only loopback frontend published",
+      "cart persisted across API container replacement",
+      "all three unchanged M2 browser cases passed through production images"
+    ],
+    "result": "PASS",
+    "finished": "2026-11-13T04:57:25.752102+00:00"
+  },
+  "proxy": {
+    "started": "2026-11-13T04:57:25.850790+00:00",
+    "actor": "local deterministic TLS fixture test",
+    "checks": [
+      "verified HTTPS/SNI/CA; bearer forwarded, spoofed identity/forwarding stripped; dependency readiness 200",
+      "wrong TLS peer name rejected: static 200, API/readiness 503; no TLS bypass",
+      "seven unsafe proxy/auth/DNS/port/CSP configurations rejected before startup"
+    ],
+    "result": "PASS",
+    "finished": "2026-11-13T04:57:30.586840+00:00"
+  },
+  "provenance": {
+    "path": "artifacts/m4c-c4/provenance.json",
+    "sha256": "8d13563d0633854611804398741dcdd0653c63b0735135e7f5518307ce32d6b8"
+  },
+  "versions": {
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "bicep": "Bicep CLI version 0.48.1 (cec7951cf6)",
+    "trivy": "Version: 0.72.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-11-12 18:57:38.498853214 +0000 UTC\n  NextUpdate: 2026-11-13 18:57:38.498852944 +0000 UTC\n  DownloadedAt: 2026-11-12 19:19:23.559546 +0000 UTC\nCheck Bundle:\n  Digest: sha256:b591e9190cff4aa4e385b1a25bccfd9ecf178d3c77fd194e1410b7ce7e1df058\n  DownloadedAt: 2026-11-12 19:19:02.010079 +0000 UTC",
+    "gitleaks": "8.30.1",
+    "actionlint": "1.7.12\ninstalled by downloading from release page\nbuilt with go1.26.1 compiler for darwin/arm64",
+    "docker": "28.3.3 linux/arm64"
+  },
+  "python": "3.12.8",
+  "hostMachine": "arm64",
+  "localImages": "Linux arm64; ordinary Docker content-addressed build cache reused.",
+  "validation": [
+    {
+      "name": "apps-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/apps.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:42.188228+00:00",
+      "finishedUtc": "2026-11-13T05:46:42.730045+00:00",
+      "elapsedSeconds": 0.542,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/apps-format-4.log"
+    },
+    {
+      "name": "diagnostics-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/diagnostics.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:42.731238+00:00",
+      "finishedUtc": "2026-11-13T05:46:43.077901+00:00",
+      "elapsedSeconds": 0.347,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/diagnostics-format-4.log"
+    },
+    {
+      "name": "federation-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/federation.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:43.078228+00:00",
+      "finishedUtc": "2026-11-13T05:46:43.409063+00:00",
+      "elapsedSeconds": 0.331,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/federation-format-4.log"
+    },
+    {
+      "name": "foundation-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/foundation.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:43.409413+00:00",
+      "finishedUtc": "2026-11-13T05:46:43.758742+00:00",
+      "elapsedSeconds": 0.349,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/foundation-format-4.log"
+    },
+    {
+      "name": "migrator-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/migrator.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:43.759119+00:00",
+      "finishedUtc": "2026-11-13T05:46:44.109727+00:00",
+      "elapsedSeconds": 0.351,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/migrator-format-4.log"
+    },
+    {
+      "name": "network-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/network.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:44.110031+00:00",
+      "finishedUtc": "2026-11-13T05:46:44.436741+00:00",
+      "elapsedSeconds": 0.327,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/network-format-4.log"
+    },
+    {
+      "name": "registry-access-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/registry-access.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:44.437066+00:00",
+      "finishedUtc": "2026-11-13T05:46:44.762711+00:00",
+      "elapsedSeconds": 0.326,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/registry-access-format-4.log"
+    },
+    {
+      "name": "sql-format",
+      "command": [
+        "bicep",
+        "format",
+        "/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/infra/sql.bicep"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:46:44.763182+00:00",
+      "finishedUtc": "2026-11-13T05:46:45.092655+00:00",
+      "elapsedSeconds": 0.329,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/sql-format-4.log"
+    },
+    {
+      "name": "bicep",
+      "command": [
+        "python3",
+        "scripts/delivery/validate_infra.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T06:06:38.868053+00:00",
+      "finishedUtc": "2026-11-13T06:06:51.323678+00:00",
+      "elapsedSeconds": 12.455,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/bicep-5.log"
+    },
+    {
+      "name": "policy",
+      "command": [
+        "python3",
+        "scripts/delivery/policy.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T09:36:25.222525+00:00",
+      "finishedUtc": "2026-11-13T09:36:25.272513+00:00",
+      "elapsedSeconds": 0.05,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/policy-5.log"
+    },
+    {
+      "name": "delivery",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/delivery",
+        "-v"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T09:36:25.273822+00:00",
+      "finishedUtc": "2026-11-13T09:36:25.650406+00:00",
+      "elapsedSeconds": 0.377,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/delivery-4.log"
+    },
+    {
+      "name": "format:check",
+      "command": [
+        "npm",
+        "run",
+        "format:check"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:17.427566+00:00",
+      "finishedUtc": "2026-11-13T04:46:18.319260+00:00",
+      "elapsedSeconds": 0.892,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/format:check-1.log"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:18.319847+00:00",
+      "finishedUtc": "2026-11-13T04:46:19.165444+00:00",
+      "elapsedSeconds": 0.846,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/lint-1.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:19.165797+00:00",
+      "finishedUtc": "2026-11-13T04:46:21.169698+00:00",
+      "elapsedSeconds": 2.004,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/typecheck-1.log"
+    },
+    {
+      "name": "licenses",
+      "command": [
+        "npm",
+        "run",
+        "licenses"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:21.170035+00:00",
+      "finishedUtc": "2026-11-13T04:46:21.283873+00:00",
+      "elapsedSeconds": 0.114,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/licenses-1.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:21.284129+00:00",
+      "finishedUtc": "2026-11-13T04:46:22.151918+00:00",
+      "elapsedSeconds": 0.868,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/build-1.log"
+    },
+    {
+      "name": "application",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile=/Users/privilege/Desktop/GitHub_repository/enterprise-agentic-sdlc-reliability-platform/artifacts/m4c-c4/application.json"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:22.152177+00:00",
+      "finishedUtc": "2026-11-13T04:46:23.994911+00:00",
+      "elapsedSeconds": 1.843,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/application-1.log"
+    },
+    {
+      "name": "mutations",
+      "command": [
+        "npm",
+        "run",
+        "test:auth-mutations"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:23.995266+00:00",
+      "finishedUtc": "2026-11-13T04:46:26.203151+00:00",
+      "elapsedSeconds": 2.208,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/mutations-1.log"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--audit-level=high",
+        "--json"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:26.203454+00:00",
+      "finishedUtc": "2026-11-13T04:46:27.429901+00:00",
+      "elapsedSeconds": 1.226,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/audit-1.log"
+    },
+    {
+      "name": "native",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:27.430115+00:00",
+      "finishedUtc": "2026-11-13T04:46:30.981518+00:00",
+      "elapsedSeconds": 3.551,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/native-1.log"
+    },
+    {
+      "name": "capture-before",
+      "command": [
+        "npm",
+        "run",
+        "test:auth-capture"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:30.981961+00:00",
+      "finishedUtc": "2026-11-13T04:46:31.312306+00:00",
+      "elapsedSeconds": 0.33,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/capture-before-1.log"
+    },
+    {
+      "name": "oidc",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e:oidc"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:31.312619+00:00",
+      "finishedUtc": "2026-11-13T04:46:35.030746+00:00",
+      "elapsedSeconds": 3.718,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/oidc-1.log"
+    },
+    {
+      "name": "capture-after",
+      "command": [
+        "npm",
+        "run",
+        "test:auth-capture"
+      ],
+      "cwd": "apps/octocat-supply",
+      "startedUtc": "2026-11-13T04:46:35.031089+00:00",
+      "finishedUtc": "2026-11-13T04:46:35.357011+00:00",
+      "elapsedSeconds": 0.326,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/capture-after-1.log"
+    },
+    {
+      "name": "actionlint",
+      "command": [
+        "actionlint",
+        "-shellcheck="
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T06:06:51.729655+00:00",
+      "finishedUtc": "2026-11-13T06:06:51.745870+00:00",
+      "elapsedSeconds": 0.016,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/actionlint-2.log"
+    },
+    {
+      "name": "config-scan",
+      "command": [
+        "python3",
+        "scripts/delivery/scan_config.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T06:06:51.746040+00:00",
+      "finishedUtc": "2026-11-13T06:06:53.383935+00:00",
+      "elapsedSeconds": 1.638,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/config-scan-2.log"
+    },
+    {
+      "name": "secrets-history",
+      "command": [
+        "gitleaks",
+        "git",
+        "--redact",
+        "--exit-code",
+        "1",
+        "--log-opts=--all",
+        "."
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T06:06:53.384238+00:00",
+      "finishedUtc": "2026-11-13T06:06:53.680527+00:00",
+      "elapsedSeconds": 0.296,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/secrets-history-2.log"
+    },
+    {
+      "name": "secrets-tree",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact",
+        "--exit-code",
+        "1",
+        "."
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T06:06:53.680884+00:00",
+      "finishedUtc": "2026-11-13T06:06:53.936522+00:00",
+      "elapsedSeconds": 0.256,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/secrets-tree-2.log"
+    },
+    {
+      "name": "containers",
+      "command": [
+        "python3",
+        "scripts/delivery/verify_containers.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:57:06.139682+00:00",
+      "finishedUtc": "2026-11-13T04:57:25.760236+00:00",
+      "elapsedSeconds": 19.62,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/containers-1.log"
+    },
+    {
+      "name": "proxy",
+      "command": [
+        "python3",
+        "scripts/delivery/verify_proxy.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:57:25.761261+00:00",
+      "finishedUtc": "2026-11-13T04:57:30.593023+00:00",
+      "elapsedSeconds": 4.832,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/proxy-1.log"
+    },
+    {
+      "name": "image-scan",
+      "command": [
+        "python3",
+        "scripts/delivery/scan_images.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:57:30.593456+00:00",
+      "finishedUtc": "2026-11-13T04:57:31.377757+00:00",
+      "elapsedSeconds": 0.784,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/image-scan-1.log"
+    },
+    {
+      "name": "provenance",
+      "command": [
+        "python3",
+        "scripts/delivery/provenance.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T09:36:25.650627+00:00",
+      "finishedUtc": "2026-11-13T09:36:25.921554+00:00",
+      "elapsedSeconds": 0.271,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/provenance-4.log"
+    },
+    {
+      "name": "node-version",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:40.670607+00:00",
+      "finishedUtc": "2026-11-13T05:41:40.726599+00:00",
+      "elapsedSeconds": 0.056,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/node-version-1.log"
+    },
+    {
+      "name": "npm-version",
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:40.726882+00:00",
+      "finishedUtc": "2026-11-13T05:41:40.892888+00:00",
+      "elapsedSeconds": 0.166,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/npm-version-1.log"
+    },
+    {
+      "name": "bicep-version",
+      "command": [
+        "bicep",
+        "--version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:40.893125+00:00",
+      "finishedUtc": "2026-11-13T05:41:41.314753+00:00",
+      "elapsedSeconds": 0.422,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/bicep-version-1.log"
+    },
+    {
+      "name": "trivy-version",
+      "command": [
+        "trivy",
+        "--version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:41.314955+00:00",
+      "finishedUtc": "2026-11-13T05:41:41.583674+00:00",
+      "elapsedSeconds": 0.269,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/trivy-version-1.log"
+    },
+    {
+      "name": "gitleaks-version",
+      "command": [
+        "gitleaks",
+        "version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:41.583861+00:00",
+      "finishedUtc": "2026-11-13T05:41:41.615084+00:00",
+      "elapsedSeconds": 0.031,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/gitleaks-version-1.log"
+    },
+    {
+      "name": "actionlint-version",
+      "command": [
+        "actionlint",
+        "--version"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:41.615253+00:00",
+      "finishedUtc": "2026-11-13T05:41:41.629700+00:00",
+      "elapsedSeconds": 0.014,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/actionlint-version-1.log"
+    },
+    {
+      "name": "docker-version",
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:41:41.629838+00:00",
+      "finishedUtc": "2026-11-13T05:41:41.752607+00:00",
+      "elapsedSeconds": 0.123,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/docker-version-1.log"
+    },
+    {
+      "name": "repository",
+      "command": [
+        "python3",
+        "scripts/check_repository.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:45:13.591677+00:00",
+      "finishedUtc": "2026-11-13T05:45:14.443165+00:00",
+      "elapsedSeconds": 0.851,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/repository-1.log"
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:45:14.444268+00:00",
+      "finishedUtc": "2026-11-13T05:45:14.463726+00:00",
+      "elapsedSeconds": 0.019,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/whitespace-1.log"
+    },
+    {
+      "name": "secrets-final",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact",
+        "--exit-code",
+        "1",
+        "."
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T05:45:14.463913+00:00",
+      "finishedUtc": "2026-11-13T05:45:14.790934+00:00",
+      "elapsedSeconds": 0.327,
+      "exitCode": 0,
+      "log": "artifacts/m4c-c4/secrets-final-1.log"
+    }
+  ],
+  "developmentFailures": [
+    {
+      "name": "bicep",
+      "command": [
+        "python3",
+        "scripts/delivery/validate_infra.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:31:00.661768+00:00",
+      "finishedUtc": "2026-11-13T04:31:01.697769+00:00",
+      "elapsedSeconds": 1.036,
+      "exitCode": 1,
+      "log": null,
+      "rawLogRetained": false,
+      "reason": "Early development rerun reused its output filename; final successful evidence is separately bound."
+    },
+    {
+      "name": "bicep",
+      "command": [
+        "python3",
+        "scripts/delivery/validate_infra.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:34:05.320541+00:00",
+      "finishedUtc": "2026-11-13T04:34:05.859686+00:00",
+      "elapsedSeconds": 0.539,
+      "exitCode": 1,
+      "log": null,
+      "rawLogRetained": false,
+      "reason": "Early development rerun reused its output filename; final successful evidence is separately bound."
+    },
+    {
+      "name": "policy",
+      "command": [
+        "python3",
+        "scripts/delivery/policy.py"
+      ],
+      "cwd": ".",
+      "startedUtc": "2026-11-13T04:42:38.822121+00:00",
+      "finishedUtc": "2026-11-13T04:42:38.914147+00:00",
+      "elapsedSeconds": 0.092,
+      "exitCode": 1,
+      "log": null,
+      "rawLogRetained": false,
+      "reason": "Early development rerun reused its output filename; final successful evidence is separately bound."
+    }
+  ],
+  "resolvedDevelopmentIssues": [
+    "Initial sandbox .NET extraction restriction resolved with authorized local cache access, no Azure auth.",
+    "Bicep environment symbol/function collision fixed by explicit az.environment().",
+    "Post-edit Bicep formatting rerun before successful strict format/lint/build.",
+    "Bicep-generated KQL literal variables handled by a narrow literal trim expansion; no generic ARM evaluator or redaction bypass."
+  ],
+  "costs": {
+    "azureServiceConsumptionInitiated": false,
+    "currentQuoteOrBudgetApproved": false,
+    "historicalModelPreserved": true,
+    "changes": "Explicit Local seven-day SQL backups; 30-day Analytics/0.1-GB safeguard and transform costs need current quoting. Historical-rate ingestion sensitivity about £6.61/month at 3.04 GB; not forecast/hard cap. Public ACR/Monitor retained; no paid resolver/NAT/Firewall/Premium/AMPLS added."
+  },
+  "limits": [
+    "No Azure auth/ARM validate/what-if/apply, network/SQL/MI/RBAC/restore/region/SKU/quota or real-provider execution.",
+    "Unapplied grant manifests do not prove Azure/SQL rights. ALTER dbo is broad inside dedicated synthetic-only schema; bootstrap/revocation/engine proof remain open.",
+    "Public outbound HTTPS, authenticated public ACR/Monitor and external ACA environment remain. NSG is not an FQDN firewall or public endpoint filter; actual ACR/NSG compatibility may require new scope/repricing.",
+    "Diagnostic export stays off; local grammar/model/canaries do not prove KQL/schema/order/ingestion/retention or universal redaction. Raw source/live stream/provider transport can retain sensitive data.",
+    "Trivy evaluated only listed ARM targets and Dockerfiles; explicit policy covers all resource declarations but is not Azure enforcement or SAST.",
+    "Ten MODERATE npm findings remain; HIGH/CRITICAL filters do not assert absence of lower image/config findings.",
+    "Daily cap may overshoot/stop visibility; replicas/expiry tags are not spend caps or teardown.",
+    "No new hosted/x86_64 verification, signed attestation, independent governance or release approval. C2/C5/C6/C7/C8 remain separately gated."
+  ],
+  "deployment": "NO-GO; stop at C4",
+  "cloudOrGithubMutationPerformed": false,
+  "commitOrPushPerformed": false,
+  "otherRepositoryAccessed": false,
+  "finalChecks": {
+    "checkedUtc": "2026-11-13T09:37:18.646047+00:00",
+    "checks": [
+      {
+        "name": "repository",
+        "command": [
+          "/usr/local/bin/python3",
+          "scripts/check_repository.py"
+        ],
+        "startedUtc": "2026-11-13T09:37:17.215251+00:00",
+        "finishedUtc": "2026-11-13T09:37:17.848782+00:00",
+        "exitCode": 0,
+        "output": "PASS: 68 text files, 45 Markdown files, 402 relative file links; UTF-8/LF, final newlines, and trailing whitespace checked.\nScope: includes untracked files and local heading anchors; external URLs are not checked.\nPASS: all 13 roadmap milestone titles/order match the authoritative master brief.\nPASS: M1 journey, non-functional, validation and threat references resolve.\n"
+      },
+      {
+        "name": "tracked-whitespace",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "startedUtc": "2026-11-13T09:37:17.848793+00:00",
+        "finishedUtc": "2026-11-13T09:37:17.863737+00:00",
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "gitleaks-history",
+        "command": [
+          "/opt/homebrew/bin/gitleaks",
+          "git",
+          "--redact",
+          "--exit-code",
+          "1",
+          "--log-opts=--all",
+          "."
+        ],
+        "startedUtc": "2026-11-13T09:37:17.863774+00:00",
+        "finishedUtc": "2026-11-13T09:37:18.189984+00:00",
+        "exitCode": 0,
+        "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n9:37AM INF 14 commits scanned.\n9:37AM INF scanned ~1865330 bytes (1.87 MB) in 292ms\n9:37AM INF no leaks found\n"
+      },
+      {
+        "name": "gitleaks-tree",
+        "command": [
+          "/opt/homebrew/bin/gitleaks",
+          "dir",
+          "--redact",
+          "--exit-code",
+          "1",
+          "."
+        ],
+        "startedUtc": "2026-11-13T09:37:18.189996+00:00",
+        "finishedUtc": "2026-11-13T09:37:18.436082+00:00",
+        "exitCode": 0,
+        "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n9:37AM INF scanned ~1993597 bytes (1.99 MB) in 227ms\n9:37AM INF no leaks found\n"
+      }
+    ],
+    "untrackedTextChecks": [
+      {
+        "path": "docs/evidence/m4c-c4-infrastructure.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "docs/evidence/m4c-c4-infrastructure.md",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/diagnostics-console.kql",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/diagnostics-system.kql",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/diagnostics.bicep",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/identity-contract.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/migrator.bicep",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/network.bicep",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/secret-reference-contract.json",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "infra/sql.bicep",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "scripts/delivery/diagnostics.py",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "scripts/delivery/validate_parameters.py",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      },
+      {
+        "path": "tests/delivery/test_infra_c4.py",
+        "exitCode": 1,
+        "whitespaceDiagnostics": false
+      }
+    ],
+    "jsonAndAllSourceArtifactBindings": "Pass",
+    "normalNoIndexDifferenceMayExitOne": true
+  },
+  "artifactBindings": [
+    {
+      "path": "artifacts/m4c-c4/actionlint-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/actionlint-2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/actionlint-version-1.log",
+      "sha256": "2f40fa9e505771c4dd7ff4b6ed601e587f52744935b72906e55b21a9a7c1ce1b"
+    },
+    {
+      "path": "artifacts/m4c-c4/api-configuration.json",
+      "sha256": "51ad442a97818ba148c20cd1b253b47897b020f5bdf668eda996d563944d614d"
+    },
+    {
+      "path": "artifacts/m4c-c4/api-sbom.cdx.json",
+      "sha256": "dd91724cc614629099b08b347aecd0e53b4942b5c5bf2819c2b27d3cf0e333bf"
+    },
+    {
+      "path": "artifacts/m4c-c4/api-vulnerabilities.json",
+      "sha256": "ab0fbb932f3ee77cc9abed24530a9c222642dd7f04cee20fb36833db322800dc"
+    },
+    {
+      "path": "artifacts/m4c-c4/application-1.log",
+      "sha256": "2f333ca0bb72455d4dfa9807d613e368486744a9495e8abea335b5ae92042124"
+    },
+    {
+      "path": "artifacts/m4c-c4/application.json",
+      "sha256": "fdcf117ee32b2d172558c181909c162b88a828eae4627f879ab771d0d4691fd2"
+    },
+    {
+      "path": "artifacts/m4c-c4/apps-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/apps-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/audit-1.log",
+      "sha256": "b0876b9193ce02cdd0cd099d3f4ea341bd6cd5b6c0ee69cf4edecd629de2300a"
+    },
+    {
+      "path": "artifacts/m4c-c4/bicep-5.log",
+      "sha256": "412acb6ea2251d230e0b7de9bcfe91a504a2cbba34f25d26f5bb5eaf576317f8"
+    },
+    {
+      "path": "artifacts/m4c-c4/bicep-version-1.log",
+      "sha256": "83bf0052e641e78e2ac97e7709c9e1356f95d2c98fa403bc33d1212862394884"
+    },
+    {
+      "path": "artifacts/m4c-c4/bicep.log",
+      "sha256": "412acb6ea2251d230e0b7de9bcfe91a504a2cbba34f25d26f5bb5eaf576317f8"
+    },
+    {
+      "path": "artifacts/m4c-c4/build-1.log",
+      "sha256": "0aec9e6c2fb896e196531f33f56d9dda9be2b77d3f4df2943645288f8d8c35d2"
+    },
+    {
+      "path": "artifacts/m4c-c4/capture-after-1.log",
+      "sha256": "c9d78ef4a28078708406d40d8e4ff8743f3aadcd8610043e0ecbd9f62c6a1453"
+    },
+    {
+      "path": "artifacts/m4c-c4/capture-before-1.log",
+      "sha256": "c9d78ef4a28078708406d40d8e4ff8743f3aadcd8610043e0ecbd9f62c6a1453"
+    },
+    {
+      "path": "artifacts/m4c-c4/commands.jsonl",
+      "sha256": "61059bbe58e775d65cbd4ad516c90a7e7ce9379fdb85786925344e2f5971cdaf"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/apps.json",
+      "sha256": "3df1746cc79c7128c5b9ca0bc64aaaaf40f34ef8dcb3f8db49d0abf1c26c46b2"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/diagnostics.json",
+      "sha256": "87a4fc6043ea5b072f95101340d86f0eb9cda20d435604ef3c151efc14232d55"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/federation.json",
+      "sha256": "17cf606196913d4ac389ed937bbd3381ddd9cc1506ca5e9a252f7608fc3962ae"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/foundation.json",
+      "sha256": "dfb3e15114781225f851f7efcb0651b5dcec6a3c786d5f0c82b83563921755b1"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/migrator.json",
+      "sha256": "e333407733c37cd8d454c84d3f9a992d32d350483fe4568b29011233376a1181"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/network.json",
+      "sha256": "c4bd20ac5147829278684a7e2bc892139250bc2fb76efeba0dc7d180750b3b4d"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/registry-access.json",
+      "sha256": "0ff598fdf22812cb588027cae82f42139716137a5816db169f09a1b6bff9dc95"
+    },
+    {
+      "path": "artifacts/m4c-c4/compiled/sql.json",
+      "sha256": "9311c9f5a038edade4b2e4adb4f33d3f878bb57549e887474158df815cabdd01"
+    },
+    {
+      "path": "artifacts/m4c-c4/config-scan-1.log",
+      "sha256": "51ffa56fced646c13af7533461fe909df32f3de247dda51fa68db06a7dbe07bf"
+    },
+    {
+      "path": "artifacts/m4c-c4/config-scan-2.log",
+      "sha256": "94016e2171bcdf2ad4c38425fd7f01e86611fcf7a57ef83deeb6b23cb16467ad"
+    },
+    {
+      "path": "artifacts/m4c-c4/container-smoke.json",
+      "sha256": "6e41fe367f38dbeb30696e0ffcac23aa285aaeefac4dd7287fe24218530bee14"
+    },
+    {
+      "path": "artifacts/m4c-c4/containers-1.log",
+      "sha256": "e23476074dd5df756aeaa2ce7e337c15cd0ca3382a675519e80e3ed8a12c9259"
+    },
+    {
+      "path": "artifacts/m4c-c4/delivery-2.log",
+      "sha256": "f2faa91da0b2a74b0980b0a644905e9700b96074b5b20534df68d767b8cc55e8"
+    },
+    {
+      "path": "artifacts/m4c-c4/delivery-3.log",
+      "sha256": "311d7f29d13e77961eb5afadb009ace5fb7bdde9482774e63f6156570a11bbd6"
+    },
+    {
+      "path": "artifacts/m4c-c4/delivery-4.log",
+      "sha256": "4fae715234361d1a3749b4937bfcf6cc0c4ed1caf59a336c2fae17102bc3fe40"
+    },
+    {
+      "path": "artifacts/m4c-c4/delivery.log",
+      "sha256": "1d1b48b353779a1ffb84388611c14d40bfa2c91768c75ee047fcf164b2dfb092"
+    },
+    {
+      "path": "artifacts/m4c-c4/diagnostics-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/diagnostics-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/docker-version-1.log",
+      "sha256": "70d667290ee23e01c59fb97869fcf536297970df12153ce743d6e611ce71b093"
+    },
+    {
+      "path": "artifacts/m4c-c4/federation-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/federation-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/format:check-1.log",
+      "sha256": "13ae1be45dbd6c36315890cab4ccd661095ac2fb94468fd0b4bbb97355dbe6ef"
+    },
+    {
+      "path": "artifacts/m4c-c4/foundation-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/foundation-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/frontend-configuration.json",
+      "sha256": "b1fb9195c5ad1ae97294734ca07a88fdb237bbc159c53660971a6a7f36a351f0"
+    },
+    {
+      "path": "artifacts/m4c-c4/frontend-sbom.cdx.json",
+      "sha256": "85b44477a75e5ffa4e95f26263fb476b7659988eccf42ef060de5f57d964b581"
+    },
+    {
+      "path": "artifacts/m4c-c4/frontend-vulnerabilities.json",
+      "sha256": "4a8dd0c4850b8df9d7a02da2a308d494d6c50641765633fb596073791caabeeb"
+    },
+    {
+      "path": "artifacts/m4c-c4/gitleaks-version-1.log",
+      "sha256": "c9fd9ccb6682c54b5fcb0363757b6c6873564e7c067f70b3b5581b611528b9f4"
+    },
+    {
+      "path": "artifacts/m4c-c4/image-scan-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/infra-bindings.json",
+      "sha256": "bde6b3213ea4e404d8cfc6b5eedd516c064517fc00e614bd865fee5d3a5c9eb1"
+    },
+    {
+      "path": "artifacts/m4c-c4/infra-configuration.json",
+      "sha256": "7df41f9d5e362a1853bbd23739b0fc9d3b984db2ea1bc4b8d84836c1120a64df"
+    },
+    {
+      "path": "artifacts/m4c-c4/initial.json",
+      "sha256": "66c7334eb400eb2121617c6f7b17befa30046e7127e72640d41d2d7fed598073"
+    },
+    {
+      "path": "artifacts/m4c-c4/licenses-1.log",
+      "sha256": "ae2ef0422f0e9f88573270d00de8b5516ddcf8c5a6b13132f485141cd8fb3eed"
+    },
+    {
+      "path": "artifacts/m4c-c4/lint-1.log",
+      "sha256": "a635835d0449a69213ab706e87fc3208f8f5c9ca9a5ed9b8d59ad85e4be0a662"
+    },
+    {
+      "path": "artifacts/m4c-c4/migrator-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/migrator-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/mutations-1.log",
+      "sha256": "dcca6719cc97896d91865cfcaf95524bbc39f7d96251c94612e00914b0cae4a9"
+    },
+    {
+      "path": "artifacts/m4c-c4/native-1.log",
+      "sha256": "83d73aa95642bb5231ce1ec04e99b1c34552f41b5b231d3b03abf2a22ebe71c3"
+    },
+    {
+      "path": "artifacts/m4c-c4/network-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/network-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/node-version-1.log",
+      "sha256": "6a0cec2e157365c1a8ac6d1715733b7c3321a7c5565862a701ca71ef00359d04"
+    },
+    {
+      "path": "artifacts/m4c-c4/npm-version-1.log",
+      "sha256": "acb90e420303a6e949fec90f74faf64cc372894b3964e310a261689b898f41b0"
+    },
+    {
+      "path": "artifacts/m4c-c4/oidc-1.log",
+      "sha256": "b718e512bc12bff03004a07ac49a044c4ecc84acd48619b3ef99a28b7685e109"
+    },
+    {
+      "path": "artifacts/m4c-c4/policy-3.log",
+      "sha256": "0dd56a583b7aec6210cda9413db0b4b917e783f4c446cf4b026966fd3ad13ab7"
+    },
+    {
+      "path": "artifacts/m4c-c4/policy-4.log",
+      "sha256": "0dd56a583b7aec6210cda9413db0b4b917e783f4c446cf4b026966fd3ad13ab7"
+    },
+    {
+      "path": "artifacts/m4c-c4/policy-5.log",
+      "sha256": "0dd56a583b7aec6210cda9413db0b4b917e783f4c446cf4b026966fd3ad13ab7"
+    },
+    {
+      "path": "artifacts/m4c-c4/policy.log",
+      "sha256": "0dd56a583b7aec6210cda9413db0b4b917e783f4c446cf4b026966fd3ad13ab7"
+    },
+    {
+      "path": "artifacts/m4c-c4/provenance-1.log",
+      "sha256": "5aa9ded9924ca55caae98e895740df98b3c13752636967650ccb0b3975f8b9bc"
+    },
+    {
+      "path": "artifacts/m4c-c4/provenance-2.log",
+      "sha256": "5aa9ded9924ca55caae98e895740df98b3c13752636967650ccb0b3975f8b9bc"
+    },
+    {
+      "path": "artifacts/m4c-c4/provenance-3.log",
+      "sha256": "5aa9ded9924ca55caae98e895740df98b3c13752636967650ccb0b3975f8b9bc"
+    },
+    {
+      "path": "artifacts/m4c-c4/provenance-4.log",
+      "sha256": "5aa9ded9924ca55caae98e895740df98b3c13752636967650ccb0b3975f8b9bc"
+    },
+    {
+      "path": "artifacts/m4c-c4/provenance.json",
+      "sha256": "8d13563d0633854611804398741dcdd0653c63b0735135e7f5518307ce32d6b8"
+    },
+    {
+      "path": "artifacts/m4c-c4/proxy-1.log",
+      "sha256": "1f33829205355c96cc29846ef9680b3207fb056fc987a5ca452eb1636dd414fa"
+    },
+    {
+      "path": "artifacts/m4c-c4/proxy.json",
+      "sha256": "1f33829205355c96cc29846ef9680b3207fb056fc987a5ca452eb1636dd414fa"
+    },
+    {
+      "path": "artifacts/m4c-c4/registry-access-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/registry-access-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/repository-1.log",
+      "sha256": "0efb811efeeb2de91b713c54543d14d553c90df7d550d834c961c98c6d976522"
+    },
+    {
+      "path": "artifacts/m4c-c4/run.py",
+      "sha256": "bc76337884a086a0934a3f04aa019cd97d4bd5ca517ce0c9187262e79e795efc"
+    },
+    {
+      "path": "artifacts/m4c-c4/secrets-final-1.log",
+      "sha256": "f97571ae41215c64fff5a46f68c9b4132bb52359df3e959390843fd873b93dc5"
+    },
+    {
+      "path": "artifacts/m4c-c4/secrets-history-1.log",
+      "sha256": "86deee842090dfab81d6b9ab6ef44f8ef41b79d2c4838f99b76b558b39e49864"
+    },
+    {
+      "path": "artifacts/m4c-c4/secrets-history-2.log",
+      "sha256": "b222f000dedb0a901d7a3e06b2016ebb791e830e81ae84609eb0dac6a23ca41c"
+    },
+    {
+      "path": "artifacts/m4c-c4/secrets-tree-1.log",
+      "sha256": "444e404baf1787f83642cad1aaecf0066275810f94d391aacd47b0296d3c127b"
+    },
+    {
+      "path": "artifacts/m4c-c4/secrets-tree-2.log",
+      "sha256": "c3f00cb1e3cb3409219989210d5da7beb2ad3ff683aa5856cea9d16f0e072ca8"
+    },
+    {
+      "path": "artifacts/m4c-c4/sql-format-4.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/sql-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/trivy-version-1.log",
+      "sha256": "179d155136a6be8c9b85cca2359a8f420399e936bd7e8aa584a73c00d66c429b"
+    },
+    {
+      "path": "artifacts/m4c-c4/typecheck-1.log",
+      "sha256": "9fa758f66dbd9517122906c8fb888b06622468b48348aca5ba1f0b7545a4ede1"
+    },
+    {
+      "path": "artifacts/m4c-c4/whitespace-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/m4c-c4/final-results.json",
+      "sha256": "219605694598f661c2ef4d79d02fa4a3613befaae61605a155928cf7bfc9522d"
+    },
+    {
+      "path": "artifacts/m4c-c4/verify_final.py",
+      "sha256": "fbe0baf1443e3198232af4a0f492a6325d59550497ef627298c0197a1a8e5de6"
+    }
+  ]
+}

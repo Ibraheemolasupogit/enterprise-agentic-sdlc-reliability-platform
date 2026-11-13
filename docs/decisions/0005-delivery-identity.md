@@ -102,3 +102,22 @@ action pin and TLS check added to the existing containers job. M4A's hosted succ
 does not validate those edits. CodeQL remains conditional, skipped historically
 and unexecuted. No GitHub settings/entitlements/protections or Azure credentials,
 federation, resource or release were created. The deployment NO-GO remains.
+
+## C4 identity definition boundary
+
+C4 defines exactly five distinct user-assigned identities: pull, API runtime,
+migrator, publisher and release. Pull endpoints are hidden from application code;
+runtime/migrator endpoints are Main-only in their respective workloads. Registry
+bootstrap defines AcrPull/AcrPush at the one registry. The
+[grant manifest](../../infra/identity-contract.json) retains the unapplied custom
+app updater, separate environment join/identity attach scopes and an existing
+operations group's table-specific read rights. No SQL data/admin grant, broad
+Contributor/Owner, Graph grant, live stream/exec/listSecrets or migration start
+permission is inferred for release/operations. No identity is created in Azure.
+
+These manifests are static design evidence. Azure action support/effective denials,
+SQL contained users, actual federation subject/issuer/audience, governance and a
+scoped human migration-start route still need separately authorized verification.
+The app write action is coarse: actual field constraints require reviewed diffs/
+Azure Policy and live tests. C4 adds no release workflow or Azure token issuance.
+See [C4 evidence](../evidence/m4c-c4-infrastructure.md). Deployment remains NO-GO.

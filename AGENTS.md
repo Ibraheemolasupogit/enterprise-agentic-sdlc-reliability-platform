@@ -5,9 +5,9 @@
   authoritative specification; the owner's task sets the authorized milestone.
 - This repository starts fresh. Do not assume the unavailable personal OctoCAT
   repository, historical deployments, or local application code exists here.
-- Current authorized work is M4C-C3 local OIDC client/PKCE implementation only,
-  per the owner's bounded request, superseding planning-only authority. Retain
-  pinned libraries and follow the approved P01–P15 plan with local simulated providers.
+- Current authorized work is M4C-C4 local infrastructure definitions and static
+  validation only, per the owner's subsequent bounded request at `e537eff`.
+  Preserve completed C1/C3 and pinned libraries/P01–P15 simulated-provider tests.
   Preserve M4A's deployment NO-GO. The
   owner selected independent original implementation and MIT; do not copy OctoCAT
   source/assets. Use [M2 scope](docs/milestones/m2-scope.md) and
@@ -16,10 +16,14 @@
   and [M4B scope](docs/milestones/m4b-scope.md).
   The [M4C plan](docs/milestones/m4c-scope.md) and
   [assessment](docs/evidence/m4c-readiness-assessment.md) define the remaining
-  boundaries; C2/C4/C5/C6/C7/C8 implementation and all cloud execution need new authorization.
+  boundaries; C2/C5/C6/C7/C8 implementation and all cloud execution need new authorization.
   Preserve [C1 evidence](docs/evidence/m4c-c1-repository-contracts.md); current
-  [C3 plan](docs/milestones/m4c-c3-oidc-plan.md) defines the currently authorized local slice.
-  Preserve all M2 application behaviour/tests and M3 workflow/IaC.
+  [C3 plan](docs/milestones/m4c-c3-oidc-plan.md) defines the preserved identity slice.
+  C4's network/SQL/identity/migrator/diagnostic definitions and adversarial local
+  policy/parameter/redaction checks are authorized; no actual SQL/provider/cloud
+  connection, account, credential, resource or deployment is authorized.
+  Preserve all M2 application behaviour/tests and M3 workflow/security gates;
+  extend IaC only within C4's authorized definition/static-validation boundary.
   Later milestones need owner direction.
 - Keep Claims Processing separate; do not import its code, data, or configuration.
 - Distinguish proposed, implemented, locally verified, and historically validated
@@ -33,11 +37,12 @@
 - Do not import upstream application code/assets or add agents. Prior M4B work covered
   local OIDC/cart ownership, SQL adapter/migrations, HTTPS proxy, deterministic tests
   and bounded workflow fixes. C1's reusable contracts/real SQLite tests are complete.
-  Current C3 work covers verified browser sessions, simulated protocol/adversarial
+  Completed C3 covers verified browser sessions, simulated protocol/adversarial
   tests, capture controls, frontend JOSE notices and mandatory CI/policy wiring.
   No package upgrades, SQL engine, real provider, other milestone or cloud changes.
-  Keep SQLite and all M2/C1 tests operational. Stop after C3; record its results in
-  [C3 evidence](docs/evidence/m4c-c3-oidc.md). No other milestone is authorized.
+  Keep SQLite and all M2/C1/C3 tests operational. Preserve
+  [C3 evidence](docs/evidence/m4c-c3-oidc.md). Stop after C4; record results in
+  [C4 evidence](docs/evidence/m4c-c4-infrastructure.md). No other milestone is authorized.
   Published non-live test vectors are not operational credentials; never register them.
   Do not sign in to real providers/cloud services, refresh operational credentials,
   change GitHub settings, create cloud credentials,
@@ -53,6 +58,9 @@
   skipped. Real SQL/provider/Azure integration and governance gates remain open.
   Read-only C3 planning checks confirm run 42805606271 at `b56d9bd` passed those
   mandatory jobs and all 97 application tests; CodeQL skipped again.
+  The owner supplies verified baseline `e537eff`, run 43308294860: mandatory
+  policy/application/containers/required passed; CodeQL skipped. This C4 task
+  does not independently re-read hosted artifacts/settings or establish Azure readiness.
 - Do not commit or push; the owner performs both manually.
 - Run `python3 scripts/check_repository.py` and `git diff --check` for documentation
   changes. Include untracked files in whitespace checks with

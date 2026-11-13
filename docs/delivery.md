@@ -285,10 +285,10 @@ migrations, fixture drift, failed-transaction rollback, concurrency, collation,
 reconnect/cold start and compatibility. Recording doubles do not execute T-SQL.
 Start with fresh synthetic SQL data; no SQLite export or user-cart adoption exists.
 
-Private SQL/network/Entra admin/users and a dedicated migrator job remain absent.
+At the M4B snapshot, private SQL/network/Entra admin/users and a dedicated migrator job were absent.
 `infra/apps.bicep` now binds fail-closed OIDC/SQL/HTTPS modes and required non-secret
-inputs. It cannot provision missing SQL/private DNS/network/diagnostics or establish
-permissions, capacity or runtime interoperability.
+inputs. C4 subsequently adds SQL/private DNS/network/diagnostic and migrator
+definitions; actual permissions, capacity and runtime interoperability remain unverified.
 
 ### Workflow changes and warning review
 
@@ -313,3 +313,51 @@ TLS name/CA/SNI, CSP, forwarding, dependency failure and seven rejected configs;
 a coverage notice when CodeQL is skipped. No publish/deploy/OIDC job or new
 permission is introduced. Hosted execution passed at `40a6353`; the original
 dated M4B repair records remain historical snapshots.
+
+## C4 static infrastructure validation
+
+The owner authorized local C4 definitions/static checks at `e537eff`; supplied
+hosted run 43308294860 passed policy/application/containers/required with CodeQL
+skipped. It was not independently re-read here and is not a hosted result for C4.
+[C4 evidence](evidence/m4c-c4-infrastructure.md) records the new local results.
+
+The same `validate_infra.py` command now requires all **eight** Bicep sources,
+checks formatter output, lints/builds without warnings and binds exact source/KQL/
+config/output hashes. `policy.py` rejects stale/missing/extra outputs and enforces
+all original app/registry/federation/workflow invariants plus C4 network/SQL/PE/DNS/
+identity/migration/retention/redaction bounds. Explicit resource counts reject
+uncovered resource additions. Existing unittest discovery automatically runs the
+nine new C4 tests with compiled, parameter, grant, diagnostic and CI mutations;
+mandatory compilation/tests/scanning cannot be conditional or omitted. No CI
+permission, job, timeout, image, action pin or release gate was changed.
+
+`python3 scripts/delivery/validate_parameters.py <review-manifest.json>` is an
+offline contract check for a later owner-supplied flat parameter handoff; it never
+discovers an account or loads credentials. No real manifest is supplied. Its input
+is the union of compiled parameters and reviewed surrounding-network context;
+invalid/missing input exits nonzero without printing values. Tests exercise
+synthetic values, not a live SQL/provider/network profile. The complete parameter
+surface and required order are in [infra/README](../infra/README.md).
+
+Runtime/migrator/pull/publisher/release identities are separate. Registry grants
+remain privileged bootstrap; release/operations and contained-SQL user/grant
+manifests are unapplied. No workload receives Owner/Contributor/Graph rights.
+Secret slots/references are currently empty; adding any needs a separate review.
+The manual migration definition has no scheduler, retry, API/operations/release
+start grant or execution step. No migration is started by deployment/startup.
+
+The candidate uses Azure Monitor workspace transformations, no workspace shared
+key or HTTP/query/audit export. Diagnostic export defaults OFF until separately
+authorized live table/KQL/payload-canary verification. C4 tests bind the KQL grammar
+to a small Python projection model; they cannot establish Kusto syntax/runtime or
+collection-time protection. Transformations occur after transport to Azure Monitor,
+so source no-sensitive-logging and restricted live-stream access remain mandatory.
+Complete workspace updates/diagnostic settings and external sources need live
+review; do not replay the initial workspace bootstrap over a linked live workspace.
+
+Trivy's HIGH/CRITICAL/no-exception gate is unchanged. Its finite ARM coverage does
+not prove all new resources safe, so explicit compiled-resource policies remain
+mandatory. No live parameter/ARM/what-if, DNS, SQL, MI/RBAC, region/SKU/quota, grant,
+restore or ingestion proof follows. Existing application/crypto/SQLite/proxy tests
+remain local; real SQL/provider, SAST/governance and cloud gates remain open.
+Deployment stays NO-GO; stop at C4.

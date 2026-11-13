@@ -1,0 +1,1 @@
+source | project TimeGenerated, ContainerAppName, RevisionName, ContainerImage, Log = case(Log contains "ENOTFOUND", "DNS", Log contains "certificate", "TLS", Log contains "DATABASE_UNAVAILABLE", "SQL", Log contains "schema", "SCHEMA", "REDACTED"), _ResourceId

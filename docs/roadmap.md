@@ -3,7 +3,8 @@
 Authority: [master brief](project/master-brief.md), section 16. This roadmap
 replaces the initial M0 proposal and the event challenge sequence. Current authority
 is M4C-C3 local OIDC client/PKCE implementation/evidence; C1 is complete.
-C2/C4/C5/C6/C7/C8 implementation and deployment require new direction. M4A's deployment NO-GO
+C4 local definitions/static validation are now separately authorized; see
+[C4 evidence](evidence/m4c-c4-infrastructure.md). C2/C5/C6/C7/C8 implementation and deployment require new direction. M4A's deployment NO-GO
 remains. Hosted mandatory checks passed at `b56d9bd`; CodeQL has not run.
 Security and evidence apply throughout. The [M1 review](evidence/m1-design-review.md)
 records historical design/source gates. The owner selected independent code/MIT;

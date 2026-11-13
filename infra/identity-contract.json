@@ -1,0 +1,32 @@
+{
+  "status": "Design only; unapplied grant manifest. SQL/RBAC/Entra enforcement requires separately authorized live proof.",
+  "dedicatedManagedIdentities": ["pull", "api-runtime", "migrator", "publisher", "release"],
+  "grants": [
+    {"principal": "pull", "role": "AcrPull", "scope": "registry", "excluded": ["push", "application token endpoint", "SQL", "RBAC"]},
+    {"principal": "publisher", "role": "AcrPush", "scope": "registry", "excluded": ["apps", "SQL", "RBAC", "federation"]},
+    {"principal": "release", "role": "release-role.example.json", "scope": "each-api-and-frontend-app", "excluded": ["delete", "listSecrets", "exec", "RBAC", "federation", "SQL", "migrator-start"]},
+    {"principal": "release", "actions": ["Microsoft.App/managedEnvironments/read", "Microsoft.App/managedEnvironments/join/action"], "scope": "environment"},
+    {"principal": "release", "actions": ["Microsoft.ManagedIdentity/userAssignedIdentities/read", "Microsoft.ManagedIdentity/userAssignedIdentities/assign/action"], "scope": "each-pull-and-api-runtime-identity"},
+    {"principal": "approved-operations-group", "actions": ["Microsoft.App/containerApps/read", "Microsoft.App/containerApps/revisions/read"], "scope": "each-api-and-frontend-app"},
+    {"principal": "approved-operations-group", "actions": ["Microsoft.OperationalInsights/workspaces/read", "Microsoft.OperationalInsights/workspaces/query/ContainerAppConsoleLogs/read", "Microsoft.OperationalInsights/workspaces/query/ContainerAppSystemLogs/read"], "scope": "workspace"}
+  ],
+  "sqlContainedUsers": {
+    "bootstrap": "Existing approved Entra admin group; never runtime/migrator/pipeline admin. No SQL server directory identity or Graph grant is selected.",
+    "api-runtime": {"SELECT": ["dbo.products", "dbo.schema_migrations", "dbo.carts", "dbo.cart_items"], "INSERT": ["dbo.carts", "dbo.cart_items"], "UPDATE": ["dbo.carts", "dbo.cart_items"], "DELETE": ["dbo.carts", "dbo.cart_items"], "DDL": false, "db_owner": false},
+    "migrator": {
+      "databasePermissions": ["CONNECT", "CREATE TABLE"],
+      "schemaPermissions": {"dbo": ["ALTER", "REFERENCES"]},
+      "initialCreationOnlySchemaPermissions": {"dbo": ["SELECT", "INSERT"]},
+      "replaceInitialSchemaDataGrantsWithObjectGrants": true,
+      "objectPermissions": {"dbo.schema_migrations": ["SELECT", "INSERT"], "dbo.products": ["SELECT", "INSERT"]},
+      "applicationLock": "sys.sp_getapplock with Transaction owner and default public database principal; verify actual engine permission/ownership behavior.",
+      "boundary": "Time-bound migration grant in a dedicated synthetic-only database whose dbo schema contains only the four application tables. Initial schema SELECT/INSERT lets the unmodified migration read newly created tables; replace those data grants with the listed object grants after creation. ALTER dbo is broad within that schema; no unrelated objects or permanent shared schema data grant. Revoke DDL after the approved migration window.",
+      "runtimeAttachment": false,
+      "db_owner": false
+    },
+    "creation": "Separate reviewed bootstrap using approved object IDs/SIDs; no CREATE USER execution or grants occur in C4. Graph lookup rights are not inferred."
+  },
+  "bootstrap": "Time-bound approved human for one dedicated RG; separate privileged RBAC/federation administrator. No pipeline Owner/Contributor grant is defined.",
+  "migrationExecution": "Separate approved human starts the manual job; release/operations have no job-start grant.",
+  "operations": "Existing approved human group, not a sixth managed identity; no raw logstream, exec, sharedKeys, query-all-tables, SQL data or mutation authority."
+}

@@ -1,7 +1,7 @@
 # M4C — Engineering-readiness work packages
 
-Date: 2026-11-12. Status: **C1 complete; C3 local client/crypto tests pass with
-Simulated provider responses; P01–P15 and overall C3 acceptance met locally after the authorized libxslt patch; C2/C4/C5/C6/C7/C8 implementation unauthorized**.
+Date: 2026-11-13. Status: **C1/C3 local acceptance preserved; C4 local infrastructure
+definitions/static validation authorized and implemented; C2/C5/C6/C7/C8 unauthorized**.
 Authority: owner's bounded C1, C3 planning and subsequent C3 implementation requests,
 [master brief](../project/master-brief.md),
 [M4A preflight](m4a-preflight.md), [M4B scope](m4b-scope.md) and
@@ -17,7 +17,10 @@ commit or push is part of these proposals. Deployment remains **NO-GO**.
 
 ## Dependency order and authority
 
-The owner authorized C1, then C3 planning and local implementation. Every other implementation
+The owner authorized C1, C3 and subsequently **C4 definitions/static validation only**
+at baseline `e537eff`. Owner-supplied hosted run 43308294860 passed mandatory jobs
+with CodeQL skipped; this task does not independently re-read it. C4 results and
+limits are in [C4 evidence](../evidence/m4c-c4-infrastructure.md). Every other implementation
 package needs a new bounded owner request. “Local” below
 means no Azure/Entra/GitHub settings access is intrinsically required, not permission
 to implement later packages under C1. Local test credentials/engine licenses also
@@ -28,7 +31,7 @@ need an explicit decision; local execution is not automatically credential-free.
 | C1 Repository contract foundation | Confirmed baseline | Locally tested: credential-free reusable contracts and real SQLite regressions; [evidence](../evidence/m4c-c1-repository-contracts.md) | No SQL connection or engine claim; missing real SQL proof remains Blocked |
 | C2 Real SQL engine/driver rehearsal | C1 | Supported isolated local x64 SQL Server or specifically authorized existing test engine | Owner-approved host, pinned image/version/license, TLS and test-principal setup. Current ARM Mac cannot supply a supported SQL Server container |
 | C3 OIDC protocol harness | Baseline; independent of C2 | [Local implementation](../evidence/m4c-c3-oidc.md): actual pinned client/JOSE, verified-session gate, protocol fixtures, capture controls and mandatory CI | Provider responses Simulated; no real account, provider registration, operational signing key or cloud login |
-| C4 Private SQL/network/identity/diagnostic definitions | C1/C3 configuration contracts; parallel with C2 | Local Bicep, compiled policy/mutations and diagnostic redaction tests only | Actual IDs/CIDRs/SKUs, effective routing/grants and ARM validation remain Blocked |
+| C4 Private SQL/network/identity/diagnostic definitions | C1/C3 configuration contracts; independent of real C2 execution | Implemented local Bicep, compiled policies/mutations, parameter checks and diagnostic reference-model canaries; [evidence](../evidence/m4c-c4-infrastructure.md) | Static checks only; actual IDs/CIDRs/SKUs, effective routing/grants, KQL ingestion and ARM validation remain Blocked |
 | C5 SAST and governance route | Baseline; begin decision work early | Local coverage/rights/approval design; later bounded SAST execution if authorized | Owner selects eligible entitlement or supported alternative, review route and reviewer. Settings/billing/visibility changes are separate human actions |
 | C6 Real provider token-flow rehearsal | C3; owner-approved identity scope | Real Entra/provider validation with local HTTPS application first | Exact tenant/SPA/API registration, test users/roles/consent and explicit sign-in/token-use authorization; no Azure infrastructure required for this isolated stage |
 | C7 Azure preflight and private integration | C4; C7B additionally C2/C5/C6 | C7A read/ARM assessment; C7B separately authorized closed synthetic resource rehearsal | Two distinct cloud approvals; missing session must not cause refresh/login. C7A never authorizes apply; C7B never authorizes production promotion |
@@ -179,14 +182,18 @@ No insecure TLS, expanded wildcard CSP, default issuer discovery or token endpoi
 selected from caller data is allowed. Evidence is **Simulated protocol behavior**
 plus actual local library execution, never Entra-verified identity.
 
-## C4 — Offline Bicep, identity and minimum diagnostic completion
+## C4 — Authorized offline Bicep, identity and minimum diagnostics
 
-Proposed surface: `infra/network.bicep`, `infra/sql.bicep`,
+Implemented surface: `infra/network.bicep`, `infra/sql.bicep`,
 `infra/diagnostics.bicep`, `infra/migrator.bicep`; minimal wiring in existing
 foundation/apps/bootstrap definitions, parameter-contract docs and corresponding
 delivery validation/policy/mutations. Add no deployment workflow or real parameter
 file. New resource coverage must supplement every existing invariant; the current
-four-template validation must not silently omit new templates.
+four-template validation now explicitly covers all eight templates, with source/
+output freshness bindings. The current ingress contract additionally requires one
+approved frontend IPv4 client CIDR (/24 or narrower); this does not authorize any
+real address/identity selection or public rehearsal. Definitions are **Design only**
+with **Locally tested static checks**, never real SQL/Azure integration evidence.
 
 Acceptance C4-A1: define a dedicated non-overlapping VNet with delegated ACA subnet
 at least /27 and separate SQL PE subnet; reviewed NSG/DNS/route/required-platform
@@ -217,6 +224,17 @@ bad trust, overbroad grants, runtime/migrator sharing, missing private DNS, capa
 and unsafe logs. Record Trivy's finite coverage and supplement it with explicit
 policy tests. Compile success remains **Design only/static local validation**,
 not ARM validation or effective Azure enforcement.
+
+Implementation uses explicit SQL Proxy policy/TCP 1433 and a Basic/2-GB candidate
+with TDE/seven-day Local backups; no RPO/RTO/geo-recovery claim. Five identities,
+separate unapplied release/operations/SQL grant manifests and a bounded manual
+migrator are defined without creating any principal/grant or starting a job.
+Console/system export defaults OFF pending live transform proof. KQL projection/
+payload canaries execute a Python reference model only; Azure Monitor transport,
+schema and enforcement remain unverified. Required public HTTPS egress and public
+ACR/Monitor endpoints are explicit limits, not private/FQDN firewall claims.
+See [infrastructure contracts](../../infra/README.md) and the C4 evidence for
+phased prerequisites, actual checks, failures corrected and acceptance status.
 
 ## C5 — SAST and governance route, decided early
 
@@ -350,5 +368,5 @@ Each package's evidence must record actor/authorization, source and environment,
 UTC times/commands, case IDs, expected/actual statuses, failures, scanner coverage,
 sanitized hashes and explicit limits. Keep raw sensitive artifacts out of Git;
 update only relevant summaries and capability status. Current authority stops at
-C3 local implementation/evidence. C2/C4/C5/C6/C7/C8 require new bounded requests;
+C4 local definitions/static validation/evidence. C2/C5/C6/C7/C8 require new bounded requests;
 no engine, real provider/cloud credentials, IaC, settings or release authority follows.

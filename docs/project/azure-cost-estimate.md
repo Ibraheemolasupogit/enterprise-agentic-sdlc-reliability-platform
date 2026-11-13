@@ -128,3 +128,37 @@ Final authorization must name the actual subscription/tenant/region, exact resou
 scope, expiry, financial ceiling, operator, rollback/data handling and teardown
 verification. Those fields remain unresolved until a usable existing Azure
 session and owner decisions are available.
+
+## C4 definition assumptions — 2026-11-13, no spend or quote
+
+C4 implements local definitions only; it incurred no Azure/provider service usage
+and created no resource or budget. The earlier tables/rates and arithmetic remain
+the **2026-10-31 historical model**, not a current price, approved ceiling or quote.
+No retail meters, subscription offer or regional SKU/quota were re-verified in C4.
+[C4 evidence](../evidence/m4c-c4-infrastructure.md) and
+[infrastructure contract](../../infra/README.md) record exact limits.
+
+| Defined assumption | Cost/review consequence before a live rehearsal |
+| --- | --- |
+| One VNet, two subnets/two NSGs, one SQL PE and DNS zone/link; system routes/Azure DNS | Retains the model's one endpoint/zone footprint, subject to actual endpoint, data-processing and managed ACA IP/LB charges. No paid resolver, NAT, Firewall, environment PE or ACR Premium is selected |
+| Public authenticated ACR Basic and outbound Internet HTTPS | A private registry/FQDN firewall is not provided. Confirm current ACR/NSG/platform/policy compatibility in C7; a requirement for ACR PE/Premium or egress appliances triggers new scope/repricing, never an automatic upgrade |
+| Basic SQL, 5 DTU/2 GB, seven-day Local backups/TDE | Same compute/size candidate, with explicit local backup redundancy. Retained backups, restore overlap and overage need pricing; no geo-recovery, LTR/CMK, performance or RPO/RTO claim |
+| Two 0.25-vCPU/0.5-GiB Consumption apps, min 0/max 1 | Same steady-state candidate; health activity and revision overlap can add active compute. One required frontend client CIDR limits admitted sources, not the bill |
+| Manual 0.25-vCPU/0.5-GiB migrator, 600 seconds, one replica, no retry | Every separately approved migrate/seed execution consumes compute; two operations are two executions. A definition is not execution and a failed/repeated job needs fresh approval |
+| One Analytics workspace/two tables, 30-day retention and 0.1-GB/day safeguard; one workspace-transform DCR | Diagnostic export defaults off. Once separately enabled, ingestion, transformation processing and retention/query pricing must be quoted for actual tables/region. No dashboards, extra collectors, Event Hub, storage archive, AMPLS or private Monitor endpoints are added |
+| Five managed identities; existing admin/operations groups and separate grant manifests | No new credential or sixth SQL directory identity/Graph permission is selected. Any premium identity/governance entitlement remains outside this model and needs its own decision |
+
+As a **historical-rate sensitivity only**, 0.1 GB/day × 730/24 days is about
+3.04 GB/month. At the old £2.173667/GB meter that is about **£6.61/month ingestion**
+instead of the old 1-GB assumption's £2.17, before transformation/other costs.
+This is not a cap-based forecast or a refreshed whole-project estimate. A
+[Log Analytics daily cap](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/daily-cap)
+can overshoot and stop collection; neither it nor expiry tags/max replicas enforces
+a spending ceiling. [Transformation processing](https://learn.microsoft.com/en-us/azure/azure-monitor/data-collection/data-collection-transformations)
+has its own billing considerations, to be requoted before export is enabled.
+
+The old proposed £10/48-hour and £55/month envelopes remain unapproved. C7 must
+reprice the exact design, including actual managed RG/network costs, backup/data
+transfer, diagnostic volumes/transforms and teardown/retained assets, then obtain
+an owner-approved ceiling/expiry/review/teardown scope. C4 does not begin C7 or
+authorize a paid-service query, sign-in, ARM call or apply.

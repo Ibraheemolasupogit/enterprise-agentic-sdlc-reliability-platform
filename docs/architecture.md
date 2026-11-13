@@ -7,7 +7,9 @@ CI was confirmed by M4A on the earlier baseline. Hosted M4B run 42794873352 at
 [M4C assessment](evidence/m4c-readiness-assessment.md). C1 and C3 now have local
 implementation evidence. C3 uses real client/crypto/API/SQLite execution with
 **Simulated provider responses**; no actual Entra/Azure integration. Other M4C
-implementation is unauthorized. Agent/Azure/observability diagrams remain **Design only**.
+implementation is unauthorized except the subsequently authorized C4 local
+infrastructure/static-validation slice. [C4 evidence](evidence/m4c-c4-infrastructure.md)
+records that boundary. Agent/Azure/observability diagrams remain **Design only**.
 Authority: [master brief](project/master-brief.md).
 Local execution and limitations are recorded in [M2 evidence](evidence/m2-baseline.md). [Requirements](requirements.md)
 define behaviour; [validation strategy](validation-strategy.md) defines proof.
@@ -173,27 +175,59 @@ separates build, deploy, bootstrap, database migration and runtime identities.
 
 ## Azure target — M4, subject to cost/identity gates
 
-M3 [Bicep definitions](../infra/README.md) compile the intended service/identity
-boundaries plus fail-closed M4B OIDC/SQL/HTTPS configuration. They still omit private
-SQL/network/Entra provisioning and are validation-only. Deployment remains NO-GO.
+The [eight Bicep contracts](../infra/README.md) now define C4 networking/private SQL,
+identity/migrator/diagnostic boundaries alongside preserved M4B OIDC/SQL/HTTPS
+settings. They are locally compiled/static-checked definitions; no resource,
+database principal, connection or live enforcement is established. Deployment
+remains NO-GO. The owner-supplied hosted baseline is `e537eff`, run 43308294860
+(mandatory jobs passed, CodeQL skipped), not a hosted result for the C4 diff.
 
 
 ```mermaid
 flowchart LR
-    U["Browser + Entra sign-in"] -->|"HTTPS / bearer token"| F
-    subgraph AZ["Dedicated personal Azure environment"]
-        F["ACA frontend: external ingress / Nginx"]
-        A["ACA API: internal ingress / token validation"]
-        SQL[("Azure SQL Database")]
-        REG["Azure Container Registry"]
-        F -->|"/api, forwards bearer token"| A
-        A -->|"TLS / runtime managed identity"| SQL
-        REG -.->|"AcrPull identities"| F
-        REG -.->|"AcrPull identities"| A
+    U["Approved client CIDR + separately gated provider"] -->|"HTTPS"| F
+    subgraph AZ["C4 definitions only — no Azure execution"]
+        REG["Public authenticated ACR Basic"]
+        subgraph VN["Dedicated VNet / system routes / Azure DNS"]
+            subgraph ACA["Delegated ACA subnet / NSG / Consumption environment"]
+                F["External HTTPS frontend / IP allow rule"]
+                A["Internal HTTPS API / JWT owner"]
+                M["Manual migrator / separate identity / 600s / no retry"]
+                F -->|"Fixed host + CA/SNI / bearer"| A
+            end
+            PE["Separate endpoint subnet / NSG / SQL PE"]
+            DNS["SQL private zone + VNet link"] -.-> PE
+            A -->|"TLS / runtime MI / Proxy 1433"| PE
+            M -->|"TLS / migrator MI / Proxy 1433"| PE
+        end
+        SQL[("Entra-only Basic SQL / public access disabled / TDE / 7-day Local backups")]
+        PE --> SQL
+        REG -.->|"Pull identity hidden from app code"| ACA
+        D["Console/system DCR + 30-day workspace / export OFF"]
+        ACA -.->|"Future live transform/canary gate"| D
     end
-    REL["Approved release identity"] -->|"Digests + reviewed config"| F
-    REL --> A
+    REL["Unapplied app-scoped release grant manifest"] -.-> F
+    REL -.-> A
 ```
+
+C4 adds no deploy executor. Its NSGs restrict subnet traffic and SQL ports, while
+the external environment public ingress uses the app IP restriction rather than
+NSG filtering. Outbound Internet HTTPS remains for public ACR/provider/platform
+dependencies; this is not FQDN-restricted egress. Only SQL has a private endpoint;
+there is no ACR Premium, environment PE, NAT, Firewall or private Monitor endpoint.
+Five separate identities are defined: pull, runtime, migrator, publisher, release.
+Operations requires an owner-approved existing human group under an unapplied
+read-only manifest; no such principal was selected or verified here.
+No Graph/directory identity, SQL user or role is created.
+
+Diagnostics bootstrap defines workspace/tables without export, then a separate
+contract links the workspace DCR. Export remains off until live schema/KQL/canary
+and grant proof. Metadata correlation uses release/config/schema revision labels;
+payload is reduced to fixed classes in the proposed transforms. The local Python
+projection is a **reference model**, not a Kusto runtime. Source/live streams and
+provider transport still need safe logging; real ingestion/order/permissions and
+unrelated diagnostic settings remain C7 gates. See the phased prerequisite and
+redaction limits in the infrastructure documentation.
 
 Select Azure Container Apps (ACA): two apps in the same environment, external TLS
 frontend, API with **internal app ingress**, not a second public API. Internal app
