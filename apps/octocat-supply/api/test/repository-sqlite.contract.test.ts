@@ -56,6 +56,17 @@ describe("Real SQLite transaction/constraint regressions", () => {
     }
   });
 
+  // Complete literal statements per operation: no SQL text is assembled from
+  // test parameters, so the C5 SQL-construction rule needs no exception.
+  const failureTriggers = {
+    INSERT:
+      "CREATE TRIGGER contract_failure AFTER INSERT ON cart_items BEGIN SELECT RAISE(FAIL, 'contract injected post-write failure'); END;",
+    UPDATE:
+      "CREATE TRIGGER contract_failure AFTER UPDATE ON cart_items BEGIN SELECT RAISE(FAIL, 'contract injected post-write failure'); END;",
+    DELETE:
+      "CREATE TRIGGER contract_failure AFTER DELETE ON cart_items BEGIN SELECT RAISE(FAIL, 'contract injected post-write failure'); END;",
+  } as const;
+
   it.each(["INSERT", "UPDATE", "DELETE"] as const)(
     "S01/%s: rolls back a post-write failure and releases the transaction",
     (operation) => {
@@ -64,9 +75,7 @@ describe("Real SQLite transaction/constraint regressions", () => {
       const before = observer.cart(id, owner);
       // RAISE(FAIL) leaves the statement's earlier changes intact unless the
       // repository rolls back its transaction. ABORT would mask that regression.
-      store.db
-        .exec(`CREATE TRIGGER contract_failure AFTER ${operation} ON cart_items
-        BEGIN SELECT RAISE(FAIL, 'contract injected post-write failure'); END;`);
+      store.db.exec(failureTriggers[operation]);
       expect(() => {
         if (operation === "DELETE") store.removeItem(id, 1, owner);
         else store.setQuantity(id, 1, 3, owner);

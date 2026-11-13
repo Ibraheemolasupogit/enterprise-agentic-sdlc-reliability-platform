@@ -17,6 +17,7 @@ recorded below. This register does not replace their own licenses or grant right
 | microsoft/sre-agent | Brief-designated operational labs/resources and federation discovery | None | MIT license inspected; service access is separate |
 | Azure-Samples/github-copilot-hands-on | Brief-designated engineering/educational reference | None | MIT license inspected; contribution guidance includes CLA requirements |
 | github/gh-aw | Brief-designated M5 maintenance execution model | None | MIT license inspected; contribution process must be checked before submission |
+| semgrep/semgrep 1.185.0 (Semgrep CE) | C5-F1 local SAST feasibility tool; hash-locked in `requirements-sast-*.txt`, installed only in a disposable venv | None (no engine source, rules or registry content copied; rules are original MIT) | LGPL-2.1-or-later; 66 dependencies inventoried in `security/sast/toolchain.json`; bundled native libraries inventoried in `security/sast/native-libraries.json` (no notices/SBOM shipped; still required before adoption) |
 | MngEnvMCAP447224/microhack-sdlc-labuser-0039 | Historical evidence cited by the master brief | None | Current connection returned 404; file rights and artifacts unverified |
 
 Exact revisions, source links and obligations are in the

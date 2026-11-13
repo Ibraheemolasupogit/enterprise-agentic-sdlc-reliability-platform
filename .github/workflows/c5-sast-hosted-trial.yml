@@ -1,0 +1,80 @@
+name: C5-F4 hosted SAST feasibility trial (non-blocking)
+
+# Owner-dispatched trial only. It is not referenced by ci.yml or its `required`
+# job, has no push/PR trigger, and its result can never authorize release,
+# deployment or C5 acceptance. G2/G5 risks stay open; nothing here waives them.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type run-c5-f4-hosted-trial to confirm explicit owner authorization"
+        required: true
+        type: string
+      authorization_reference:
+        description: "Owner authorization reference (8-80 chars; letters, digits, space . _ : / -)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: c5-f4-hosted-sast-trial
+  cancel-in-progress: false
+
+jobs:
+  hosted-sast-trial:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Require explicit owner confirmation
+        env:
+          CONFIRM: ${{ inputs.confirm }}
+          AUTH_REF: ${{ inputs.authorization_reference }}
+        run: |
+          if [ "$CONFIRM" != "run-c5-f4-hosted-trial" ]; then
+            echo "::error title=C5-F4 not confirmed::confirmation phrase mismatch; nothing executed"
+            exit 2
+          fi
+          if ! printf '%s' "$AUTH_REF" | grep -Eqx '[A-Za-z0-9._:/ -]{8,80}'; then
+            echo "::error title=C5-F4 not authorized::authorization_reference missing or malformed"
+            exit 2
+          fi
+          echo "C5-F4 hosted trial confirmed; non-blocking; no release, deployment or acceptance authority."
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Record runner facts (read-only)
+        env:
+          TRIAL_AUTHORIZATION_REFERENCE: ${{ inputs.authorization_reference }}
+        run: python3 -I scripts/sast/hosted_trial.py facts
+
+      - name: Download hash-locked Linux wheels (no install, no execution)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/c5-download"
+          "$RUNNER_TEMP/c5-download/bin/python" -m pip download --disable-pip-version-check --require-hashes --no-deps --only-binary=:all: --platform manylinux_2_34_x86_64 --platform manylinux_2_28_x86_64 --platform manylinux_2_17_x86_64 --platform manylinux2014_x86_64 --platform manylinux_2_5_x86_64 --platform manylinux1_x86_64 --python-version 3.12 --implementation cp --abi cp312 --abi abi3 --abi none -d "$RUNNER_TEMP/c5-wheels" -r requirements-sast-linux.txt
+
+      - name: Offline hash-required install and fatal pip check
+        run: |
+          python3 -m venv "$RUNNER_TEMP/c5-sast"
+          "$RUNNER_TEMP/c5-sast/bin/python" -m pip install --disable-pip-version-check --no-index --no-deps --only-binary=:all: --require-hashes --find-links "$RUNNER_TEMP/c5-wheels" -r requirements-sast-linux.txt
+          "$RUNNER_TEMP/c5-sast/bin/python" -m pip check
+
+      - name: Run hardened harness under OS network isolation (fails closed with exit 5)
+        env:
+          TRIAL_AUTHORIZATION_REFERENCE: ${{ inputs.authorization_reference }}
+        run: python3 -I scripts/sast/hosted_trial.py run --semgrep "$RUNNER_TEMP/c5-sast/bin/semgrep" --repeat 5
+
+      - name: Upload allowlisted trial evidence (never raw engine reports)
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2 (Node 24)
+        with:
+          name: c5-f4-hosted-sast-trial-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/sast/hosted-runner-facts.json
+            artifacts/sast/hosted-trial.json
+            artifacts/sast/c5-summary.json
+          retention-days: 7
+          if-no-files-found: warn

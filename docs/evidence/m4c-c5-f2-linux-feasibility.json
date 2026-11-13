@@ -1,0 +1,218 @@
+{
+  "milestone": "M4C-C5-F2",
+  "status": "locally executed Linux x86_64 verification under Rosetta emulation; not hosted-runner evidence",
+  "date_utc": "2026-11-13",
+  "base_commit": "8ffb62d",
+  "f1_changes": "preserved; F1 code/rules/manifest/locks/fixtures byte-identical",
+  "recommendation": {
+    "linux_technical_feasibility": "GO",
+    "mandatory_sast_ci": "NO-GO",
+    "c5_acceptance": "NO-GO",
+    "azure": "NO-GO"
+  },
+  "blockers": {
+    "G1": "open; reconciled as rule-correct non-exploitable test finding; scratch candidate clears without suppression; needs owner-authorized test change",
+    "G2": "open; 5 MODERATE unchanged at 2026-11-13T11:22:58Z; no newer semgrep release; affected mcp/opentelemetry modules imported (not invoked) during scans",
+    "G3": "partially verified; unshare --net works with user namespaces allowed, blocked under default Docker seccomp (fail-closed, misleading message); hosted AppArmor policy unverifiable locally",
+    "G4": "reconfirmed",
+    "G5": "broadened: 26 bundled native libs on Linux, no notices/SBOM",
+    "G6": "new: harness fail-open on deleted control fixtures and unknown extensions; missing manifest exits 1 via traceback"
+  },
+  "runtime": {
+    "host": "macOS 15 arm64, Docker Desktop 28.3.3, linuxkit 6.10.14, builtin seccomp, no AppArmor",
+    "emulation": "Rosetta (VirtualApple)",
+    "image": "ubuntu@sha256:2198e4c65076e9cb0b3d695219df667c0e3b0072da64ca3c2648aca17dcecaf5",
+    "os": "Ubuntu 24.04.5 LTS, glibc 2.39",
+    "python": "3.12.3-0ubuntu2.1",
+    "util_linux": "2.39.3-9ubuntu6.6",
+    "scan_user": "uid 1001",
+    "local_images": {
+      "c5f2-ubuntu-python:local": "sha256:2c69a924d8cbd9518af480ffd845c9372c775b02bbf9875ae2040d882fe39f42",
+      "c5f2-sast:local": "sha256:d5a756a9f122eb0b0fb40f6a15bc28d81c4d274fc201211992474095462b5db3"
+    }
+  },
+  "toolchain": {
+    "wheels_verified": 67,
+    "wheelhouse_mb": 84,
+    "offline_install": "pass",
+    "pip_check": "clean",
+    "venv_mb": 375,
+    "semgrep_version": "1.185.0",
+    "semgrep_core_sha256": "38fd08794fa488263b4a324f1b71eb6c0817f0ddaff372d46fe3629b3f78672d",
+    "matches_f1_manifest": true,
+    "bundled_native_libraries": 26,
+    "string_derived_versions_unverified": {
+      "OpenSSL": "3.5.8",
+      "zstd": "1.5.5",
+      "bzip2": "1.0.8",
+      "gmp": "6.2.0"
+    }
+  },
+  "parity_with_macos_f1": {
+    "rule_ids": "identical",
+    "rules_sha256": "identical",
+    "flags": "identical",
+    "inventory": "identical",
+    "python_ast_gate": "identical",
+    "controls.cases": "identical",
+    "controls.unexpected_findings": "identical",
+    "controls.parser_gaps": "identical",
+    "malformed": "identical",
+    "source.findings": "identical",
+    "source.classes": "identical",
+    "source.targets": "identical",
+    "source.source_sha256": "identical",
+    "source.exit": "identical"
+  },
+  "controls": {
+    "cases": 64,
+    "detected": 40,
+    "clean": 19,
+    "known_miss": 5,
+    "unexpected": 0,
+    "malformed_rejected": "4/4 exit 3",
+    "parser_gaps_silently_accepted": "4/4"
+  },
+  "source": {
+    "targets": 65,
+    "findings": [
+      {
+        "class": "app-test",
+        "line": 67,
+        "path": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+        "rule": "morrow.ts.sql-built-query"
+      }
+    ],
+    "excluded": [
+      "apps/octocat-supply/frontend/start.sh",
+      "apps/octocat-supply/scripts/verify-auth-capture.d.mts"
+    ],
+    "inventory_total": 89
+  },
+  "fail_closed": {
+    "F01_rule_changed": "BLOCKED 2",
+    "F02_manifest_core_hash": "BLOCKED 2",
+    "F03_core_tampered": "BLOCKED 2",
+    "F04_core_missing": "BLOCKED 2",
+    "F05_rule_missing": "BLOCKED 2",
+    "F06_manifest_missing": "traceback exit 1 (G6)",
+    "F07_positive_fixture_deleted": "PASS with 57 cases - fail-open (G6)",
+    "F08_malformed_fixture_deleted": "PASS - fail-open (G6)",
+    "F09_source_deleted": "64 targets; no reviewed target manifest",
+    "F10_malformed_py": "BLOCKED 2 (ast)",
+    "F11_malformed_ts_engine_accepted": "not blocked (G4)",
+    "F12_malformed_ts_engine_rejected": "BLOCKED 2",
+    "F13_mts": "BLOCKED 2",
+    "F14_cts": "BLOCKED 2",
+    "F15_d_cts": "excluded by classification",
+    "F16_go_unsafe": "silently ignored (G6)",
+    "F17_pyw_unsafe": "silently ignored (G6)",
+    "F18_symlink": "BLOCKED 2",
+    "F19_oversize": "BLOCKED 2",
+    "I1_tampered_wheel": "pip hash mismatch",
+    "I2_missing_wheel": "not installable",
+    "I3_wrong_engine_version": "not installable",
+    "I4_lock_missing_dependency": "installs; pip check reports missing mcp"
+  },
+  "network": {
+    "L1_root_default_seccomp": "unshare EPERM; harness BLOCKED (misleading 'malformed or empty engine JSON')",
+    "L2_uid1001_default_seccomp": "same as L1",
+    "L4_root_network_none": "same as L1",
+    "L3_uid1001_seccomp_unconfined": "unshare ok; only lo + inactive tunnel devices; connect gaierror; harness full pass",
+    "control_without_namespace": "network reachable",
+    "apparmor": "absent on host kernel; hosted restriction not reproducible",
+    "sudo_unshare_fallback": "not exercised (harness lacks option)"
+  },
+  "performance_emulated": {
+    "source_scan_seconds": [
+      3.548,
+      3.343,
+      3.297,
+      3.547,
+      3.384
+    ],
+    "control_scan_seconds": 2.626,
+    "harness_total_seconds": 25.59,
+    "engine_max_memory_bytes": 152386944,
+    "peak_child_rss_kib": 288636,
+    "offline_install_seconds": 9.6,
+    "jobs": 2,
+    "container_cpus": 14
+  },
+  "g1": {
+    "location": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts:67",
+    "rule": "morrow.ts.sql-built-query",
+    "reproduced_linux": true,
+    "candidate_scratch_only": "constant lookup failureTriggers[operation]; 0 errors, parsed, no finding; not compiled/tested; not applied",
+    "recommended_option": "A (owner-authorized test change)"
+  },
+  "g2": {
+    "osv_query_utc": "2026-11-13T11:22:58Z",
+    "advisories": {
+      "mcp 1.29.0": [
+        "GHSA-5h93-6whr-6q8j",
+        "GHSA-84m7-p3x7-pcfv",
+        "GHSA-rwrf-2pqf-9j8j",
+        "GHSA-w4fh-qvv9-3v23"
+      ],
+      "opentelemetry-api 1.37.0": [
+        "GHSA-xcq7-p3pf-p88h"
+      ]
+    },
+    "pypi_latest_semgrep": "1.185.0 (2026-11-10)",
+    "latest_requires": [
+      "mcp==1.29.0",
+      "opentelemetry-api~=1.37.0"
+    ],
+    "import_reachability": "~1400 modules imported per scan incl. mcp.client.streamable_http, mcp.server.auth.middleware.bearer_auth, opentelemetry; via semgrep/cli.py:25 eager mcp command import; not invoked",
+    "status": "open; not waived"
+  },
+  "f1_files_sha256_unchanged": {
+    "docs/evidence/m4c-c5-f1-semgrep-feasibility.json": "a8ce84da4282962701ce7922f36a8221cf9cf5b082ed5c999d702ef12cc5ccfb",
+    "requirements-sast-linux.txt": "8d7d13b691f4df781c9730b40344441fcf30ff59d3ac3d9ad495ee791a8b8b15",
+    "requirements-sast-macos.txt": "ca6756ce9ce3aeb8746acf3ff4d3bc7fb4922930104d43c67f6762563277cefa",
+    "scripts/sast/feasibility.py": "b60641ede18c4c9ab9e806ac40015d778479f170e93239a32e585e9980afa54c",
+    "security/sast/rules/python.yml": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73",
+    "security/sast/rules/typescript.yml": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c",
+    "security/sast/toolchain.json": "b23256500738111d57a1f791012e6343d109c7ef008c527c1b3d9fe1a87ceade",
+    "tests/security/sast/fixtures/malformed/broken.mjs": "ef0a09e6ca40e286ab9dc657e4cf64f55f6abc3080be00e508dd8d2949f382c9",
+    "tests/security/sast/fixtures/malformed/broken.py": "c09f9af83888e499679afcf20efb9b65b44b93efd6aa8ae8ff195548cf77d9ed",
+    "tests/security/sast/fixtures/malformed/broken.ts": "e0d60cbacb96fd5ee074305f586a34e4d67d200f3fafd8a5bef6ae409d0c79c2",
+    "tests/security/sast/fixtures/malformed/broken.tsx": "662e99dc2d49e69b9aaa7b5b54252d4d2bbffc2c002e25a266879a82211debd4",
+    "tests/security/sast/fixtures/parser-gaps/double-comma.ts": "793110be1eb18174ec19e10c6333e4c3794a25a3f3a799a67cea07c559a34850",
+    "tests/security/sast/fixtures/parser-gaps/missing-parameter.py": "01d572e3b5b21ed2b503ca5c4b6588f95803a16f9c3b283ae2998fecb1915574",
+    "tests/security/sast/fixtures/parser-gaps/unclosed-condition.ts": "94ec812f3a39f46a9873b7c850991010f7b52a2e70c460b2496e96c8b9dbfed6",
+    "tests/security/sast/fixtures/parser-gaps/unclosed-parameters.ts": "1a1c38739753d8f0f1fd2050aec77394505f34fef4f6e8dcfc64bad04f0a11e3",
+    "tests/security/sast/fixtures/python/deserialize.py": "ebacb329533f02909c64302d953985b068bd942717c346fe388ba1816e1ff5c2",
+    "tests/security/sast/fixtures/python/logging_controls.py": "14087c63c7cf16af5fe273746a0f2343b1b771c29dda87be5a1e889deb7a7aaa",
+    "tests/security/sast/fixtures/python/process.py": "8aba128a840bae18e69032cdac0935aee5ddfb3c593d5574f03bf11c62cd12bd",
+    "tests/security/sast/fixtures/python/sql.py": "88175e36abd307afee788b2588d2b7089e07c27beb4a9fb1230d6fd44c208381",
+    "tests/security/sast/fixtures/python/suppressed.py": "43560799de744586fe85a8a901e9605d6a1fb8cd622cd93a9e586292dff49732",
+    "tests/security/sast/fixtures/python/tls.py": "cbec2fe6920ef45657229f71d25b97ecf4754736d2d5d16eb0d397f24839838f",
+    "tests/security/sast/fixtures/README.md": "d588f4fb1f54789a76ac5691853e98509871e7ab64fc03aeaa3c97e2dd38e95d",
+    "tests/security/sast/fixtures/typescript/html.tsx": "b76f4632d09e6c29a20f59a94cae5be42c672520092aa56fc3f0823e45302351",
+    "tests/security/sast/fixtures/typescript/jwt.ts": "f91674e834de65fdcf936d0b3f6b515d9ce2778e61532ae5d6289eaf25b3f829",
+    "tests/security/sast/fixtures/typescript/logging.ts": "cb8af07fff5b9ad7fab917314380b224b7ad73d59eb2c9abce0a527e4ffc7fc6",
+    "tests/security/sast/fixtures/typescript/process.mjs": "6851f4891d013a767e9d46ccb102d31b0cd1300e78094af656818b19a869cbf8",
+    "tests/security/sast/fixtures/typescript/process.ts": "ed424a3665c48c0f590a9020be8563246daa9716a22705d1de6c9f8dc85dd793",
+    "tests/security/sast/fixtures/typescript/sql.ts": "17f718879d0156c7126018ff452e80d9b2caa45a834c6e5e53a89c86335ad3da",
+    "tests/security/sast/fixtures/typescript/suppressed.ts": "bc110ed8af4bac0a103404eeabe1ba9b625b5128f8242e4db6e91b0fd39ae5f0",
+    "tests/security/sast/fixtures/typescript/tls.ts": "7fd7715cb9ed7d33bfd9a6756c3842d619e65c4f3201ac2816dd8d40951e1de7"
+  },
+  "f1_evidence_correction": {
+    "finding": "gitleaks 8.30.1 generic-api-key x11 false positives on path->sha256 pairs in F1 JSON",
+    "fix": "source_sha256 map -> source_sha256sum list of 'sha256  path' lines; 65 entries preserved",
+    "allowlist_or_waiver": false,
+    "post_fix_gitleaks_dir": "no leaks"
+  },
+  "changed_files": [
+    "docs/evidence/m4c-c5-f2-linux-feasibility.md",
+    "docs/evidence/m4c-c5-f2-linux-feasibility.json",
+    "docs/evidence/m4c-c5-f1-semgrep-feasibility.json",
+    "docs/evidence/m4c-c5-f1-semgrep-feasibility.md",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ]
+}

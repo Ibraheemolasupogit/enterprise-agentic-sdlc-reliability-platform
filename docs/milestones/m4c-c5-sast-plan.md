@@ -7,6 +7,27 @@ Authority is assessment/planning only at `e9b5704`; the
 This proposal refines C5-A1/A2 in [M4C scope](m4c-scope.md), without lowering either.
 No step below has been executed. Stop after planning.
 
+**C5-F1 execution update (2026-11-13, separately owner-authorized):** local Semgrep CE
+feasibility only. See the [C5-F1 evidence](../evidence/m4c-c5-f1-semgrep-feasibility.md).
+It adds the locks, toolchain manifest, original rules, control fixtures and a local
+harness (`scripts/sast/feasibility.py`, not the planned `scripts/delivery/*` CI runner).
+It records a non-clean source scan, parser/inventory gaps and conditions G1–G5. No
+CI, policy or governance step was executed, and the matrix below stays as planned.
+
+**C5-F2 update (2026-11-13):** the F1 harness ran unchanged on emulated Linux x86_64.
+See the [C5-F2 evidence](../evidence/m4c-c5-f2-linux-feasibility.md): results match F1;
+it found fail-open gaps (G6) and an egress-namespace dependency; mandatory CI is NO-GO.
+
+**C5-F3 update (2026-11-13):** see the [C5-F3 evidence](../evidence/m4c-c5-f3-harness-hardening.md).
+It adds the local harness hardening (catalogue, classification, exit codes, pip check/RECORD,
+isolation probe), a literal-SQL test fix for G1 and a native-library inventory for G5.
+F3 is ready for a separately authorized hosted trial; mandatory CI is not wired.
+
+**C5-F4 update (2026-11-13):** see the [C5-F4 evidence](../evidence/m4c-c5-f4-hosted-trial-preparation.md).
+It prepares, but does not run, a separate workflow_dispatch-only, read-only, non-blocking
+hosted trial. `ci.yml` and the `required` gate are unchanged. Dispatching it needs owner
+authorization.
+
 ## Entry decision and bounded scope
 
 Recommend a local **Semgrep CE 1.185.0** feasibility slice with original MIT rules,

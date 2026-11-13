@@ -1,0 +1,218 @@
+# Original Morrow Supply Semgrep CE rules for TypeScript/TSX/JavaScript/MJS.
+# Authored for C5-F1 feasibility under the repository MIT license. No Semgrep
+# Registry or maintained rule-pack content was copied. Local use only.
+# Every rule is single-function/single-file; see the C5-F1 evidence for limits.
+rules:
+  - id: morrow.parse-probe.typescript
+    languages: [typescript]
+    severity: WARNING
+    message: Self-assignment has no effect. This structural rule also forces every TS/TSX target to be parsed so syntax errors cannot pass unseen.
+    metadata:
+      category: parse-coverage
+      cwe: "CWE-480: Use of Incorrect Operator"
+      rationale: Literal-free pattern defeats prefiltering, so Semgrep reports PartialParsing for malformed targets.
+    pattern: $A = $A
+
+  - id: morrow.parse-probe.javascript
+    languages: [javascript]
+    severity: WARNING
+    message: Self-assignment has no effect. This structural rule also forces every JS/MJS target to be parsed so syntax errors cannot pass unseen.
+    metadata:
+      category: parse-coverage
+      cwe: "CWE-480: Use of Incorrect Operator"
+      rationale: Literal-free pattern defeats prefiltering, so Semgrep reports PartialParsing for malformed targets.
+    pattern: $A = $A
+
+  - id: morrow.ts.sql-built-query
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: SQL text is built from a non-constant value. Use bound parameters or constant fragments only.
+    metadata:
+      category: security
+      control: C5-M01
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command"
+      limits: Single-function only; SQL built in another function or module is not traced.
+    patterns:
+      - pattern-either:
+          - pattern: $DB.$SINK(`...${$X}...`, ...)
+          - pattern: $DB.$SINK($A + $B, ...)
+          - pattern: $DB.$SINK($S.concat(...), ...)
+          - patterns:
+              - pattern-either:
+                  - pattern-inside: |
+                      $V = `...${$X}...`;
+                      ...
+                  - pattern-inside: |
+                      $V = $A + $B;
+                      ...
+              - pattern: $DB.$SINK($V, ...)
+      - metavariable-regex:
+          metavariable: $SINK
+          regex: ^(prepare|exec|query|unsafe|raw|execute)$
+      # Import resolution lets a bare imported child_process exec(...) match
+      # $DB.$SINK; those calls belong to morrow.ts.child-process-shell.
+      - pattern-not: exec(...)
+      - pattern-not: execSync(...)
+      - pattern-not: $DB.$SINK("...", ...)
+
+  - id: morrow.ts.tls-verification-disabled
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: TLS certificate or hostname verification is disabled.
+    metadata:
+      category: security
+      control: C5-M02
+      cwe: "CWE-295: Improper Certificate Validation"
+    pattern-either:
+      - pattern: |
+          {..., rejectUnauthorized: false, ...}
+      - pattern: process.env.NODE_TLS_REJECT_UNAUTHORIZED = $V
+      - pattern: process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = $V
+      - pattern: |
+          {..., checkServerIdentity: () => undefined, ...}
+      - pattern: |
+          {..., checkServerIdentity: () => {}, ...}
+
+  - id: morrow.ts.jwt-decoded-without-verification
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: A JWT is decoded without signature verification. Trust claims only from jwtVerify with pinned algorithms, issuer and audience.
+    metadata:
+      category: security
+      control: C5-M03
+      cwe: "CWE-345: Insufficient Verification of Data Authenticity"
+    pattern-either:
+      - pattern: decodeJwt(...)
+      - pattern: $JOSE.decodeJwt(...)
+      - pattern: UnsecuredJWT.decode(...)
+      - pattern: $JOSE.UnsecuredJWT.decode(...)
+      - pattern: jwt.decode(...)
+      - pattern: jsonwebtoken.decode(...)
+
+  - id: morrow.ts.jwt-verify-incomplete
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: JWT verification does not pin algorithms, issuer and audience in an inline options object, or permits the none algorithm.
+    metadata:
+      category: security
+      control: C5-M03
+      cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      limits: Options built outside the call (variables, spreads, wrappers) are not evaluated.
+    pattern-either:
+      - pattern: jwtVerify($T, $K)
+      - patterns:
+          - pattern: jwtVerify($T, $K, {...})
+          - pattern-not: 'jwtVerify($T, $K, {..., issuer: $I, ...})'
+      - patterns:
+          - pattern: jwtVerify($T, $K, {...})
+          - pattern-not: 'jwtVerify($T, $K, {..., audience: $AUD, ...})'
+      - patterns:
+          - pattern: jwtVerify($T, $K, {...})
+          - pattern-not: 'jwtVerify($T, $K, {..., algorithms: $ALG, ...})'
+      - pattern: |
+          {..., algorithms: [..., "none", ...], ...}
+
+  - id: morrow.ts.child-process-shell
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: A process is started through a shell or from a non-constant command string. Use execFile/spawn with a fixed program and an argv array, without shell.
+    metadata:
+      category: security
+      control: C5-M04
+      cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command"
+    pattern-either:
+      - patterns:
+          - pattern-either:
+              - pattern-inside: |
+                  import { ..., exec, ... } from "$MOD";
+                  ...
+              - pattern-inside: |
+                  import { ..., execSync, ... } from "$MOD";
+                  ...
+              - pattern-inside: |
+                  const { ..., exec, ... } = require("$MOD");
+                  ...
+              - pattern-inside: |
+                  const { ..., execSync, ... } = require("$MOD");
+                  ...
+          - metavariable-regex:
+              metavariable: $MOD
+              regex: ^(node:)?child_process$
+          - pattern-either:
+              - pattern: exec($CMD, ...)
+              - pattern: execSync($CMD, ...)
+          - pattern-not: exec("...", ...)
+          - pattern-not: execSync("...", ...)
+      - patterns:
+          - pattern-either:
+              - pattern-inside: |
+                  import * as $CP from "$MOD";
+                  ...
+              - pattern-inside: |
+                  import $CP from "$MOD";
+                  ...
+              - pattern-inside: |
+                  const $CP = require("$MOD");
+                  ...
+          - metavariable-regex:
+              metavariable: $MOD
+              regex: ^(node:)?child_process$
+          - pattern-either:
+              - pattern: $CP.exec($CMD, ...)
+              - pattern: $CP.execSync($CMD, ...)
+          - pattern-not: $CP.exec("...", ...)
+          - pattern-not: $CP.execSync("...", ...)
+      - pattern: '$F($CMD, $ARGS, {..., shell: true, ...})'
+      - pattern: '$F($CMD, {..., shell: true, ...})'
+      - pattern: '$O.$F($CMD, $ARGS, {..., shell: true, ...})'
+      - pattern: '$O.$F($CMD, {..., shell: true, ...})'
+
+  - id: morrow.ts.unsafe-html-or-eval
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: Raw HTML insertion or dynamic code evaluation. Render through escaped JSX/text and never evaluate strings as code.
+    metadata:
+      category: security
+      control: C5-M05
+      cwe: "CWE-79/CWE-95: Cross-site Scripting / Eval Injection"
+    pattern-either:
+      - pattern: <$EL dangerouslySetInnerHTML={$H} />
+      - pattern: <$EL dangerouslySetInnerHTML={$H}>...</$EL>
+      - pattern: $E.innerHTML = $V
+      - pattern: $E.outerHTML = $V
+      - pattern: $E.insertAdjacentHTML(...)
+      - pattern: document.write(...)
+      - pattern: document.writeln(...)
+      - pattern: eval(...)
+      - pattern: new Function(...)
+      - pattern: setTimeout("...", ...)
+      - pattern: setInterval("...", ...)
+
+  - id: morrow.ts.sensitive-value-logged
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: A credential, token, claim, nonce or authorization value is written to the console. Log fixed error codes and request identifiers only.
+    metadata:
+      category: security
+      control: C5-M06
+      cwe: "CWE-532: Insertion of Sensitive Information into Log File"
+      limits: Name-based; values renamed or passed through wrappers are not traced.
+    patterns:
+      - pattern-either:
+          - pattern: console.$LOG(...)
+          - pattern: logger.$LOG(...)
+      - pattern-either:
+          - patterns:
+              - pattern-either:
+                  - pattern: $C(..., <... $NAME ...>, ...)
+                  - pattern: $O.$C(..., <... $NAME ...>, ...)
+              - metavariable-regex:
+                  metavariable: $NAME
+                  regex: (?i)^([a-z0-9_$]*(token|secret|password|passwd|credential|authorization|cookie|claims|nonce|verifier|bearer|apikey|api_key|privatekey|private_key)[a-z0-9_$]*|payload|code|session)$
+          - patterns:
+              - pattern-either:
+                  - pattern: $C(..., <... $OBJ.$PROP ...>, ...)
+                  - pattern: $O.$C(..., <... $OBJ.$PROP ...>, ...)
+              - metavariable-regex:
+                  metavariable: $PROP
+                  regex: (?i)^([a-z0-9_$]*(token|secret|password|passwd|credential|authorization|cookie|claims|nonce|verifier|bearer|apikey|api_key|privatekey|private_key)[a-z0-9_$]*|payload|code|session)$

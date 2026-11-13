@@ -1,0 +1,529 @@
+{
+  "schema": "c5-controls/1",
+  "review": "C5-F3 reviewed catalogue: exact fixture set, hashes, kinds, 64 expected cases and parser-gap engine expectations (engine_rejected=false verified on macOS F1 and Linux F2). Regenerate only with --emit-catalogue plus human review; its SHA-256 is pinned in toolchain.json.",
+  "fixtures": [
+    {
+      "path": "tests/security/sast/fixtures/README.md",
+      "sha256": "d588f4fb1f54789a76ac5691853e98509871e7ab64fc03aeaa3c97e2dd38e95d",
+      "kind": "documentation"
+    },
+    {
+      "path": "tests/security/sast/fixtures/malformed/broken.mjs",
+      "sha256": "ef0a09e6ca40e286ab9dc657e4cf64f55f6abc3080be00e508dd8d2949f382c9",
+      "kind": "malformed"
+    },
+    {
+      "path": "tests/security/sast/fixtures/malformed/broken.py",
+      "sha256": "c09f9af83888e499679afcf20efb9b65b44b93efd6aa8ae8ff195548cf77d9ed",
+      "kind": "malformed"
+    },
+    {
+      "path": "tests/security/sast/fixtures/malformed/broken.ts",
+      "sha256": "e0d60cbacb96fd5ee074305f586a34e4d67d200f3fafd8a5bef6ae409d0c79c2",
+      "kind": "malformed"
+    },
+    {
+      "path": "tests/security/sast/fixtures/malformed/broken.tsx",
+      "sha256": "662e99dc2d49e69b9aaa7b5b54252d4d2bbffc2c002e25a266879a82211debd4",
+      "kind": "malformed"
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/double-comma.ts",
+      "sha256": "793110be1eb18174ec19e10c6333e4c3794a25a3f3a799a67cea07c559a34850",
+      "kind": "parser-gap"
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/missing-parameter.py",
+      "sha256": "01d572e3b5b21ed2b503ca5c4b6588f95803a16f9c3b283ae2998fecb1915574",
+      "kind": "parser-gap"
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/unclosed-condition.ts",
+      "sha256": "94ec812f3a39f46a9873b7c850991010f7b52a2e70c460b2496e96c8b9dbfed6",
+      "kind": "parser-gap"
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/unclosed-parameters.ts",
+      "sha256": "1a1c38739753d8f0f1fd2050aec77394505f34fef4f6e8dcfc64bad04f0a11e3",
+      "kind": "parser-gap"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "sha256": "ebacb329533f02909c64302d953985b068bd942717c346fe388ba1816e1ff5c2",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/logging_controls.py",
+      "sha256": "14087c63c7cf16af5fe273746a0f2343b1b771c29dda87be5a1e889deb7a7aaa",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/process.py",
+      "sha256": "8aba128a840bae18e69032cdac0935aee5ddfb3c593d5574f03bf11c62cd12bd",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/sql.py",
+      "sha256": "88175e36abd307afee788b2588d2b7089e07c27beb4a9fb1230d6fd44c208381",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/suppressed.py",
+      "sha256": "43560799de744586fe85a8a901e9605d6a1fb8cd622cd93a9e586292dff49732",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "sha256": "cbec2fe6920ef45657229f71d25b97ecf4754736d2d5d16eb0d397f24839838f",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "sha256": "b76f4632d09e6c29a20f59a94cae5be42c672520092aa56fc3f0823e45302351",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "sha256": "f91674e834de65fdcf936d0b3f6b515d9ce2778e61532ae5d6289eaf25b3f829",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "sha256": "cb8af07fff5b9ad7fab917314380b224b7ad73d59eb2c9abce0a527e4ffc7fc6",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.mjs",
+      "sha256": "6851f4891d013a767e9d46ccb102d31b0cd1300e78094af656818b19a869cbf8",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "sha256": "ed424a3665c48c0f590a9020be8563246daa9716a22705d1de6c9f8dc85dd793",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "sha256": "17f718879d0156c7126018ff452e80d9b2caa45a834c6e5e53a89c86335ad3da",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/suppressed.ts",
+      "sha256": "bc110ed8af4bac0a103404eeabe1ba9b625b5128f8242e4db6e91b0fd39ae5f0",
+      "kind": "annotated"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "sha256": "7fd7715cb9ed7d33bfd9a6756c3842d619e65c4f3201ac2816dd8d40951e1de7",
+      "kind": "annotated"
+    }
+  ],
+  "cases": [
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "line": 10,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "line": 15,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "line": 20,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "line": 25,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/deserialize.py",
+      "line": 30,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/logging_controls.py",
+      "line": 9,
+      "rule": "morrow.py.sensitive-value-logged",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/logging_controls.py",
+      "line": 14,
+      "rule": "morrow.py.sensitive-value-logged",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/logging_controls.py",
+      "line": 19,
+      "rule": "morrow.py.sensitive-value-logged",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/logging_controls.py",
+      "line": 24,
+      "rule": "morrow.py.sensitive-value-logged",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/process.py",
+      "line": 8,
+      "rule": "morrow.py.process-shell",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/process.py",
+      "line": 13,
+      "rule": "morrow.py.process-shell",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/process.py",
+      "line": 18,
+      "rule": "morrow.py.process-shell",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/process.py",
+      "line": 25,
+      "rule": "morrow.py.process-shell",
+      "expectation": "todoruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/sql.py",
+      "line": 7,
+      "rule": "morrow.py.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/sql.py",
+      "line": 12,
+      "rule": "morrow.py.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/sql.py",
+      "line": 18,
+      "rule": "morrow.py.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/sql.py",
+      "line": 23,
+      "rule": "morrow.py.sql-built-query",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/suppressed.py",
+      "line": 6,
+      "rule": "morrow.py.unsafe-eval-or-deserialization",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 10,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 15,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 22,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 24,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 30,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/python/tls.py",
+      "line": 36,
+      "rule": "morrow.py.tls-verification-disabled",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 4,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 9,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 14,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 19,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 24,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/html.tsx",
+      "line": 29,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 6,
+      "rule": "morrow.ts.jwt-decoded-without-verification",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 11,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 16,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 21,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 26,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 31,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/jwt.ts",
+      "line": 42,
+      "rule": "morrow.ts.jwt-verify-incomplete",
+      "expectation": "todoruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 6,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 11,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 16,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 21,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 26,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/logging.ts",
+      "line": 32,
+      "rule": "morrow.ts.sensitive-value-logged",
+      "expectation": "todoruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.mjs",
+      "line": 6,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.mjs",
+      "line": 11,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "line": 6,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "line": 11,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "line": 16,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "line": 21,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/process.ts",
+      "line": 27,
+      "rule": "morrow.ts.child-process-shell",
+      "expectation": "todoruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 12,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 17,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 23,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 28,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 33,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 40,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 45,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/sql.ts",
+      "line": 54,
+      "rule": "morrow.ts.sql-built-query",
+      "expectation": "todoruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/suppressed.ts",
+      "line": 4,
+      "rule": "morrow.ts.unsafe-html-or-eval",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "line": 6,
+      "rule": "morrow.ts.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "line": 11,
+      "rule": "morrow.ts.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "line": 16,
+      "rule": "morrow.ts.tls-verification-disabled",
+      "expectation": "ruleid"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "line": 21,
+      "rule": "morrow.ts.tls-verification-disabled",
+      "expectation": "ok"
+    },
+    {
+      "path": "tests/security/sast/fixtures/typescript/tls.ts",
+      "line": 28,
+      "rule": "morrow.ts.tls-verification-disabled",
+      "expectation": "ruleid"
+    }
+  ],
+  "parser_gaps": [
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/double-comma.ts",
+      "engine_rejected": false,
+      "ast_parse_rejected": null
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/missing-parameter.py",
+      "engine_rejected": false,
+      "ast_parse_rejected": true
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/unclosed-condition.ts",
+      "engine_rejected": false,
+      "ast_parse_rejected": null
+    },
+    {
+      "path": "tests/security/sast/fixtures/parser-gaps/unclosed-parameters.ts",
+      "engine_rejected": false,
+      "ast_parse_rejected": null
+    }
+  ]
+}

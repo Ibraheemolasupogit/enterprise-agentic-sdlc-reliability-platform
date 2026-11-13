@@ -1,0 +1,142 @@
+# Original Morrow Supply Semgrep CE rules for Python delivery/tooling code.
+# Authored for C5-F1 feasibility under the repository MIT license. No Semgrep
+# Registry or maintained rule-pack content was copied. Local use only.
+# Every rule is single-function/single-file; see the C5-F1 evidence for limits.
+rules:
+  - id: morrow.parse-probe.python
+    languages: [python]
+    severity: WARNING
+    message: Self-assignment has no effect. This structural rule also forces every Python target to be parsed so syntax errors cannot pass unseen.
+    metadata:
+      category: parse-coverage
+      cwe: "CWE-480: Use of Incorrect Operator"
+      rationale: Literal-free pattern defeats prefiltering, so Semgrep reports PartialParsing for malformed targets.
+    pattern: $A = $A
+
+  - id: morrow.py.process-shell
+    languages: [python]
+    severity: ERROR
+    message: A process is started through a shell. Use subprocess with a fixed argv list and shell=False.
+    metadata:
+      category: security
+      control: C5-M04
+      cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command"
+    pattern-either:
+      - pattern: subprocess.$F(..., shell=True, ...)
+      - pattern: os.system(...)
+      - pattern: os.popen(...)
+      - pattern: os.spawnlp(...)
+      - pattern: os.spawnvp(...)
+      - pattern: asyncio.create_subprocess_shell(...)
+      - pattern: commands.getoutput(...)
+
+  - id: morrow.py.tls-verification-disabled
+    languages: [python]
+    severity: ERROR
+    message: TLS certificate or hostname verification is disabled.
+    metadata:
+      category: security
+      control: C5-M02
+      cwe: "CWE-295: Improper Certificate Validation"
+    pattern-either:
+      - pattern: $MOD.$F(..., verify=False, ...)
+      - pattern: $MOD.$CLS(..., verify=False, ...).$F(...)
+      - pattern: ssl._create_unverified_context(...)
+      - pattern: ssl._create_default_https_context = $X
+      - pattern: $CTX.check_hostname = False
+      - pattern: $CTX.verify_mode = ssl.CERT_NONE
+      - pattern: ssl.wrap_socket(..., cert_reqs=ssl.CERT_NONE, ...)
+      - pattern: urllib3.disable_warnings(...)
+
+  - id: morrow.py.unsafe-eval-or-deserialization
+    languages: [python]
+    severity: ERROR
+    message: Dynamic code evaluation or unsafe deserialization. Parse data with json or yaml safe/base loaders.
+    metadata:
+      category: security
+      control: C5-M05
+      cwe: "CWE-95/CWE-502: Eval Injection / Deserialization of Untrusted Data"
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+      - pattern: pickle.loads(...)
+      - pattern: pickle.load(...)
+      - pattern: marshal.loads(...)
+      - pattern: yaml.unsafe_load(...)
+      - pattern: yaml.full_load(...)
+      - patterns:
+          - pattern: yaml.load(...)
+          - pattern-not: yaml.load(..., Loader=yaml.SafeLoader, ...)
+          - pattern-not: yaml.load(..., Loader=yaml.CSafeLoader, ...)
+          - pattern-not: yaml.load(..., Loader=yaml.BaseLoader, ...)
+          - pattern-not: yaml.load(..., Loader=yaml.CBaseLoader, ...)
+
+  - id: morrow.py.sql-built-query
+    languages: [python]
+    severity: ERROR
+    message: SQL text is built from a non-constant value. Use driver parameter binding.
+    metadata:
+      category: security
+      control: C5-M01
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command"
+      limits: Single-function only.
+    patterns:
+      - pattern-either:
+          - pattern: $C.$SINK(f"...", ...)
+          - pattern: $C.$SINK("..." % $X, ...)
+          - pattern: $C.$SINK("...".format(...), ...)
+          - pattern: $C.$SINK($A + $B, ...)
+          - patterns:
+              - pattern-either:
+                  - pattern-inside: |
+                      $V = f"..."
+                      ...
+                  - pattern-inside: |
+                      $V = "..." % $X
+                      ...
+                  - pattern-inside: |
+                      $V = "...".format(...)
+                      ...
+                  - pattern-inside: |
+                      $V = $A + $B
+                      ...
+              - pattern: $C.$SINK($V, ...)
+      - metavariable-regex:
+          metavariable: $SINK
+          regex: ^(execute|executemany|executescript|exec_driver_sql)$
+      - pattern-not: $C.$SINK("...", ...)
+
+  - id: morrow.py.sensitive-value-logged
+    languages: [python]
+    severity: ERROR
+    message: A credential, token, claim or authorization value is printed or logged. Log fixed error codes only.
+    metadata:
+      category: security
+      control: C5-M06
+      cwe: "CWE-532: Insertion of Sensitive Information into Log File"
+      limits: Name-based; values renamed or passed through wrappers are not traced.
+    patterns:
+      - pattern-either:
+          - pattern: print(...)
+          - pattern: logging.$LOG(...)
+          - pattern: logger.$LOG(...)
+          - pattern: log.$LOG(...)
+          - pattern: sys.stderr.write(...)
+          - pattern: sys.stdout.write(...)
+      - pattern-either:
+          - patterns:
+              - pattern-either:
+                  - pattern: $C(..., <... $NAME ...>, ...)
+                  - pattern: $O.$C(..., <... $NAME ...>, ...)
+                  - pattern: $O.$P.$C(..., <... $NAME ...>, ...)
+              - metavariable-regex:
+                  metavariable: $NAME
+                  regex: (?i)^([a-z0-9_]*(token|secret|password|passwd|credential|authorization|cookie|claims|nonce|verifier|bearer|apikey|api_key|privatekey|private_key)[a-z0-9_]*|payload)$
+          - patterns:
+              - pattern-either:
+                  - pattern: $C(..., <... $OBJ.$PROP ...>, ...)
+                  - pattern: $O.$C(..., <... $OBJ.$PROP ...>, ...)
+                  - pattern: $O.$P.$C(..., <... $OBJ.$PROP ...>, ...)
+              - metavariable-regex:
+                  metavariable: $PROP
+                  regex: (?i)^([a-z0-9_]*(token|secret|password|passwd|credential|authorization|cookie|claims|nonce|verifier|bearer|apikey|api_key|privatekey|private_key)[a-z0-9_]*|payload)$

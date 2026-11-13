@@ -1,0 +1,499 @@
+{
+  "purpose": "C5 local feasibility/hardening harness inputs (F1-F3); not a CI gate, not an adopted release control",
+  "engine": {
+    "name": "semgrep (Semgrep Community Edition)",
+    "version": "1.185.0",
+    "license": "LGPL-2.1-or-later",
+    "release": "https://github.com/semgrep/semgrep/releases/tag/v1.185.0",
+    "tag_object": "18866f410389ff28d02310adeb770e9b3c59da56",
+    "source_commit": "9240f708f8d7e2fbd38b67aa6cd17704b1f81e14",
+    "tag_signature": "unsigned (per C5 readiness assessment); PyPI hashes are integrity, not publisher identity",
+    "requires_python": ">=3.10",
+    "platforms": {
+      "Darwin-arm64": {
+        "lock": "requirements-sast-macos.txt",
+        "lock_sha256": "ca6756ce9ce3aeb8746acf3ff4d3bc7fb4922930104d43c67f6762563277cefa",
+        "wheel_sha256": "d54c7dc22f6f360e0f9f850b1ecdfe00ec755600f9cf2ec6be3928b42818f1b4",
+        "semgrep_core_sha256": "4bfb5ad15e695ea54cab9c9d507ff476815d52d891a36e3741a139cb496fe9f5",
+        "status": "installed and executed locally (CPython 3.12.8, macOS 15 arm64)"
+      },
+      "Linux-x86_64": {
+        "lock": "requirements-sast-linux.txt",
+        "lock_sha256": "8d7d13b691f4df781c9730b40344441fcf30ff59d3ac3d9ad495ee791a8b8b15",
+        "wheel_sha256": "0eb6aaadad5b957af96d1300487e10af1dc8016e8ef53072effb48cd4906c02b",
+        "semgrep_core_sha256": "38fd08794fa488263b4a324f1b71eb6c0817f0ddaff372d46fe3629b3f78672d",
+        "status": "resolved and hash-locked from wheel metadata only; not installed or executed"
+      }
+    },
+    "bundled_native_libraries_without_wheel_notices": [
+      "libdwarf",
+      "libpcre2-8",
+      "libzstd",
+      "libtree-sitter",
+      "libev",
+      "libgmp"
+    ]
+  },
+  "dependencies": {
+    "count_including_engine": 67,
+    "packages": [
+      {
+        "name": "annotated-types",
+        "version": "0.8.0",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "anyio",
+        "version": "4.16.0",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "attrs",
+        "version": "26.1.0",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "boltons",
+        "version": "21.0.0",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "bracex",
+        "version": "3.2.2",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "certifi",
+        "version": "2026.10.23",
+        "license": "Mozilla Public License 2.0 (MPL 2.0)",
+        "license_files": 1
+      },
+      {
+        "name": "cffi",
+        "version": "2.1.1",
+        "license": "MIT-0",
+        "license_files": 1
+      },
+      {
+        "name": "charset-normalizer",
+        "version": "3.5.2",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "click",
+        "version": "8.4.2",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "click-option-group",
+        "version": "0.5.9",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "colorama",
+        "version": "0.4.6",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "cryptography",
+        "version": "50.0.2",
+        "license": "Apache-2.0 OR BSD-3-Clause",
+        "license_files": 3
+      },
+      {
+        "name": "exceptiongroup",
+        "version": "1.2.2",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "face",
+        "version": "26.0.1",
+        "license": "UNDECLARED",
+        "license_files": 1
+      },
+      {
+        "name": "glom",
+        "version": "25.12.0",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "googleapis-common-protos",
+        "version": "1.76.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "h11",
+        "version": "0.16.0",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "httpcore",
+        "version": "1.0.9",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "httpx",
+        "version": "0.28.1",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "httpx-sse",
+        "version": "0.4.3",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "idna",
+        "version": "3.20",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "importlib-metadata",
+        "version": "8.7.1",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "jsonschema",
+        "version": "4.25.1",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "jsonschema-specifications",
+        "version": "2025.9.1",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "markdown-it-py",
+        "version": "4.3.0",
+        "license": "MIT License",
+        "license_files": 2
+      },
+      {
+        "name": "mcp",
+        "version": "1.29.0",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "mdurl",
+        "version": "0.1.2",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-api",
+        "version": "1.37.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-exporter-otlp-proto-common",
+        "version": "1.37.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-exporter-otlp-proto-http",
+        "version": "1.37.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-instrumentation",
+        "version": "0.58b0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-instrumentation-requests",
+        "version": "0.58b0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-instrumentation-threading",
+        "version": "0.58b0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-proto",
+        "version": "1.37.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-sdk",
+        "version": "1.37.0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-semantic-conventions",
+        "version": "0.58b0",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "opentelemetry-util-http",
+        "version": "0.58b0",
+        "license": "Apache-2.0",
+        "license_files": 0
+      },
+      {
+        "name": "packaging",
+        "version": "26.3",
+        "license": "Apache-2.0 OR BSD-2-Clause",
+        "license_files": 7
+      },
+      {
+        "name": "peewee",
+        "version": "3.19.0",
+        "license": "UNDECLARED",
+        "license_files": 1
+      },
+      {
+        "name": "protobuf",
+        "version": "6.33.6",
+        "license": "3-Clause BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "pycparser",
+        "version": "3.12",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "pydantic",
+        "version": "2.14.3",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "pydantic-core",
+        "version": "2.50.4",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "pydantic-settings",
+        "version": "2.16.2",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "pygments",
+        "version": "2.21.0",
+        "license": "BSD-2-Clause",
+        "license_files": 2
+      },
+      {
+        "name": "pyjwt",
+        "version": "2.15.1",
+        "license": "MIT",
+        "license_files": 2
+      },
+      {
+        "name": "python-dotenv",
+        "version": "1.2.4",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "python-multipart",
+        "version": "0.0.33",
+        "license": "Apache-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "referencing",
+        "version": "0.37.0",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "requests",
+        "version": "2.34.2",
+        "license": "Apache Software License",
+        "license_files": 2
+      },
+      {
+        "name": "rich",
+        "version": "15.0.0",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "rpds-py",
+        "version": "2026.9.1",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "ruamel.yaml",
+        "version": "0.19.1",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "ruamel.yaml.clib",
+        "version": "0.2.15",
+        "license": "MIT License",
+        "license_files": 1
+      },
+      {
+        "name": "semantic-version",
+        "version": "2.10.0",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "semgrep",
+        "version": "1.185.0",
+        "license": "LGPL-2.1-or-later",
+        "license_files": 1
+      },
+      {
+        "name": "sse-starlette",
+        "version": "3.7.0",
+        "license": "BSD-3-Clause",
+        "license_files": 2
+      },
+      {
+        "name": "starlette",
+        "version": "1.10.0",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "structlog",
+        "version": "26.1.0",
+        "license": "MIT OR Apache-2.0",
+        "license_files": 3
+      },
+      {
+        "name": "tomli",
+        "version": "2.4.1",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "typing-extensions",
+        "version": "4.16.0",
+        "license": "PSF-2.0",
+        "license_files": 1
+      },
+      {
+        "name": "typing-inspection",
+        "version": "0.4.5",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "urllib3",
+        "version": "2.8.0",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "uvicorn",
+        "version": "0.54.0",
+        "license": "BSD-3-Clause",
+        "license_files": 1
+      },
+      {
+        "name": "wcmatch",
+        "version": "8.5.2",
+        "license": "MIT",
+        "license_files": 1
+      },
+      {
+        "name": "wrapt",
+        "version": "1.17.3",
+        "license": "BSD License",
+        "license_files": 1
+      },
+      {
+        "name": "zipp",
+        "version": "4.1.2",
+        "license": "MIT",
+        "license_files": 1
+      }
+    ]
+  },
+  "advisories_osv_2026_11_13": [
+    {
+      "package": "mcp",
+      "version": "1.29.0",
+      "ids": [
+        "GHSA-5h93-6whr-6q8j",
+        "GHSA-84m7-p3x7-pcfv",
+        "GHSA-rwrf-2pqf-9j8j",
+        "GHSA-w4fh-qvv9-3v23"
+      ],
+      "severity": "MODERATE",
+      "fixed": "1.30.0",
+      "constraint": "semgrep pins mcp==1.29.0"
+    },
+    {
+      "package": "opentelemetry-api",
+      "version": "1.37.0",
+      "ids": [
+        "GHSA-xcq7-p3pf-p88h"
+      ],
+      "severity": "MODERATE",
+      "fixed": "1.45.1",
+      "constraint": "semgrep requires opentelemetry-api~=1.37.0"
+    }
+  ],
+  "rules": [
+    {
+      "path": "security/sast/rules/python.yml",
+      "sha256": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73"
+    },
+    {
+      "path": "security/sast/rules/typescript.yml",
+      "sha256": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c"
+    }
+  ],
+  "rule_ids": [
+    "morrow.parse-probe.javascript",
+    "morrow.parse-probe.python",
+    "morrow.parse-probe.typescript",
+    "morrow.py.process-shell",
+    "morrow.py.sensitive-value-logged",
+    "morrow.py.sql-built-query",
+    "morrow.py.tls-verification-disabled",
+    "morrow.py.unsafe-eval-or-deserialization",
+    "morrow.ts.child-process-shell",
+    "morrow.ts.jwt-decoded-without-verification",
+    "morrow.ts.jwt-verify-incomplete",
+    "morrow.ts.sensitive-value-logged",
+    "morrow.ts.sql-built-query",
+    "morrow.ts.tls-verification-disabled",
+    "morrow.ts.unsafe-html-or-eval"
+  ],
+  "controls_catalogue": "security/sast/controls.json",
+  "controls_catalogue_sha256": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+  "native_library_inventory": "security/sast/native-libraries.json"
+}

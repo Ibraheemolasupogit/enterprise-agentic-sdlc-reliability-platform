@@ -1,0 +1,103 @@
+{
+  "milestone": "M4C-C5-F4",
+  "status": "prepared and locally validated; hosted trial NOT executed",
+  "date_utc": "2026-11-13",
+  "base_commit": "8ffb62d",
+  "decisions": {
+    "hosted_trial": "ready to dispatch only after owner authorization",
+    "mandatory_sast_ci": "NO-GO",
+    "azure": "NO-GO",
+    "g2": "open, not waived",
+    "g5": "open, not waived"
+  },
+  "ci_yml_sha256_unchanged": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf",
+  "preserved_f1_f3_files_verified": 38,
+  "workflow": {
+    "file": ".github/workflows/c5-sast-hosted-trial.yml",
+    "sha256": "e6ce082eea18ded3ab41e68f5258318f8282cec8b8ecd3cfa2ac1e09034c5b66",
+    "trigger": "workflow_dispatch only",
+    "permissions": {
+      "contents": "read"
+    },
+    "runner": "ubuntu-24.04",
+    "timeout_minutes": 20,
+    "actions": [
+      "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+      "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9"
+    ],
+    "confirm_phrase": "run-c5-f4-hosted-trial",
+    "upload": [
+      "artifacts/sast/hosted-runner-facts.json",
+      "artifacts/sast/hosted-trial.json",
+      "artifacts/sast/c5-summary.json"
+    ],
+    "retention_days": 7
+  },
+  "local_validation": {
+    "check_trial_workflow": "PASS",
+    "trial_policy_mutation_tests": "13 OK",
+    "actionlint_1.7.12_ci_flags": "pass (after quoting fix)",
+    "harness_macos": "exit 0; 219 files; 68 targets; 0 findings; new test file first blocked as unclassified (exit 2)",
+    "f3_matrix_rerun": "34/34 as expected",
+    "simulation": {
+      "image": "c5f2-ubuntu-python:local (ubuntu:24.04 amd64 + python3 3.12.3, Rosetta)",
+      "unconfirmed": "step 0 exit 2; job failure",
+      "malformed_reference_with_$(id)": "step 0 exit 2; not evaluated",
+      "authorized_userns": {
+        "harness_exit": 0,
+        "result": "clean",
+        "harness_wall_seconds": 26.5,
+        "peak_child_rss_kib": 294744,
+        "isolation": "Linux unshare --net --map-root-user; loopback probe ENETUNREACH",
+        "source": {
+          "status": "clean",
+          "targets": 68,
+          "wall_seconds": [
+            3.077,
+            3.126,
+            3.135,
+            3.11,
+            3.114
+          ],
+          "max_memory_bytes": 158002944
+        },
+        "seccomp_mode": "0"
+      },
+      "authorized_default_seccomp": {
+        "harness_exit": 5,
+        "result": "isolation-unavailable",
+        "harness_wall_seconds": 2.63,
+        "peak_child_rss_kib": 294744,
+        "isolation": null,
+        "source": {},
+        "seccomp_mode": "2"
+      },
+      "artifact_leak_check": "gitleaks no leaks; no secret keys/snippets/env dump"
+    }
+  },
+  "changed_files": [
+    ".github/workflows/c5-sast-hosted-trial.yml",
+    "scripts/sast/hosted_trial.py",
+    "scripts/sast/check_trial_workflow.py",
+    "tests/security/sast/test_trial_workflow.py",
+    "scripts/sast/feasibility.py",
+    "docs/evidence/m4c-c5-f4-hosted-trial-preparation.md",
+    "docs/evidence/m4c-c5-f4-hosted-trial-preparation.json",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ],
+  "changed_file_sha256sum": [
+    "e6ce082eea18ded3ab41e68f5258318f8282cec8b8ecd3cfa2ac1e09034c5b66  .github/workflows/c5-sast-hosted-trial.yml",
+    "fb884f37e0145267b07897d04b5d655d03a376fd0b4db03a996d80ed1a561cec  scripts/sast/hosted_trial.py",
+    "7dee971fc828c193fea59ec9afbc404e70fe9f5544b381063f5e87aeb5e9e5dd  scripts/sast/check_trial_workflow.py",
+    "5947d2c2f5edef9f1a240f3f9e53c9c0ac81e3da9f25957370616b22b7a634a9  tests/security/sast/test_trial_workflow.py",
+    "a1c7c127eaf4ea309e59d87460a78c288a55c331fef64a67168ac3f6d6580ad7  scripts/sast/feasibility.py",
+    "323a0c1493665334e3abe92b055b6f4d460869bdf0f49fd43af39143723560b7  docs/evidence/m4c-c5-f4-hosted-trial-preparation.md",
+    "d23238ecf0f68c35ad50e814333573cd8f8371035546c08f06b10ca36697e5a2  README.md",
+    "4d0263445df4bc26d1895151d4e0e5d0e998adb53a17fd62af4254402027148f  AGENTS.md",
+    "a700658271732c37dc646897178a6a7e49212a094a8ce11f45b9baefa9f56139  docs/capability-status.md",
+    "7d019effe1f3dc097ae8ed2d8161cd03743ea62425e964b74bbf7317548a7696  docs/milestones/m4c-c5-sast-plan.md"
+  ]
+}

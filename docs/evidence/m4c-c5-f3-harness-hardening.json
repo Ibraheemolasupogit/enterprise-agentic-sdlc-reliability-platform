@@ -1,0 +1,674 @@
+{
+  "milestone": "M4C-C5-F3",
+  "status": "local harness hardening executed on macOS arm64 (native) and Linux x86_64 (Rosetta); not hosted CI; not C5-A1",
+  "date_utc": "2026-11-13",
+  "base_commit": "8ffb62d",
+  "f1_f2_work": "preserved; 31 earlier changed files untouched by F3",
+  "outcome": {
+    "G1": "resolved",
+    "G6": "resolved for F2 cases; residual limits recorded",
+    "G3": "diagnostics improved; hosted runner unverified",
+    "G5": "not resolved; inventory only",
+    "G2": "open, unchanged",
+    "G4": "open by design (T03)",
+    "hosted_trial": "ready for separately authorized dispatch-only non-blocking trial",
+    "mandatory_sast_ci": "NO-GO",
+    "azure": "NO-GO"
+  },
+  "exit_codes": {
+    "0": "clean",
+    "1": "findings",
+    "2": "configuration-error",
+    "3": "tool-error",
+    "4": "control-failure",
+    "5": "isolation-unavailable"
+  },
+  "controls_catalogue_sha256": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+  "toolchain_sha256": "6f78e663eac723cd347c1bad0c426ce257f3aadb3e3615b579718bbc6bc6dc72",
+  "harness_sha256": "3ded8955396622cb9c45afae1283cab05aac777e43c35f86e194583316f2c547",
+  "native_inventory_sha256": "f70a87188448568ab1418ab1de59c148ad366d15590f7e9a419ae0cb9594e866",
+  "macos_run": {
+    "result": "clean",
+    "exit": 0,
+    "platform": "Darwin-arm64",
+    "python": "3.12.8",
+    "isolation": "macOS sandbox-exec deny network*; loopback probe EPERM",
+    "toolchain": {
+      "distributions_match_lock": 67,
+      "lock": "requirements-sast-macos.txt",
+      "pip_check": "pass",
+      "record_files_verified": 3224
+    },
+    "inventory": {
+      "classes": {
+        "app-config": 5,
+        "app-test": 20,
+        "app-tooling": 7,
+        "delivery-python": 15,
+        "non-code:config-template": 1,
+        "non-code:container-outside-ce-claim (Trivy config)": 2,
+        "non-code:data-config": 48,
+        "non-code:documentation": 56,
+        "non-code:env-template": 1,
+        "non-code:iac-outside-ce-claim (C4 validation)": 8,
+        "non-code:image-asset": 2,
+        "non-code:proxy-config": 1,
+        "non-code:query-outside-ce-claim (C4 validation)": 2,
+        "non-code:web-asset": 1,
+        "non-code:web-markup-outside-ce-claim": 1,
+        "runtime-api": 12,
+        "runtime-frontend": 6,
+        "sast-control-fixture": 23,
+        "shell-outside-ce-claim": 1,
+        "type-declaration-outside-ce-claim": 1
+      },
+      "excluded_outside_claim": [
+        "apps/octocat-supply/frontend/start.sh",
+        "apps/octocat-supply/scripts/verify-auth-capture.d.mts"
+      ],
+      "total_files": 213
+    },
+    "controls": {
+      "status": "pass",
+      "fixtures": 23,
+      "failed_cases": 0,
+      "seconds": 1.555,
+      "parser_gap_drift": []
+    },
+    "source": {
+      "status": "clean",
+      "targets": 65,
+      "findings": [],
+      "wall_seconds": [
+        1.689,
+        2.016,
+        1.79,
+        1.891,
+        1.492
+      ],
+      "max_memory_bytes": 174753408
+    },
+    "harness_wall_s": 14.16,
+    "max_rss_bytes": 245399552
+  },
+  "linux_run": {
+    "result": "clean",
+    "exit": 0,
+    "platform": "Linux-x86_64",
+    "python": "3.12.3",
+    "isolation": "Linux unshare --net (operator-run as root); loopback probe ENETUNREACH",
+    "toolchain": {
+      "distributions_match_lock": 67,
+      "lock": "requirements-sast-linux.txt",
+      "pip_check": "pass",
+      "record_files_verified": 3310
+    },
+    "controls": {
+      "status": "pass",
+      "fixtures": 23,
+      "failed_cases": 0,
+      "seconds": 2.764,
+      "parser_gap_drift": []
+    },
+    "source": {
+      "status": "clean",
+      "targets": 65,
+      "findings": [],
+      "wall_seconds": [
+        3.578
+      ],
+      "max_memory_bytes": 151445824
+    },
+    "harness_wall_s": 27.45,
+    "peak_child_rss_kib": 294740,
+    "image": "c5f2-sast:local sha256:d5a756a9f122eb0b0fb40f6a15bc28d81c4d274fc201211992474095462b5db3",
+    "profiles": {
+      "L3_uid1001_unconfined": 0,
+      "L2_uid1001_default_seccomp": 5,
+      "L1_root_default_seccomp": 5,
+      "L5_root_cap_sys_admin": 0
+    }
+  },
+  "mutation_matrix": {
+    "disposable_dir": "scratchpad/f3-matrix.NOsDQY (session scratch, mktemp -d)",
+    "runner": "scratchpad/f3_matrix.py (not in repo)",
+    "base_refusals": [
+      "empty",
+      "repository path",
+      "scratchpad root",
+      "/tmp symlinked path"
+    ],
+    "results": {
+      "results-venv-darwin.json": [
+        {
+          "id": "P01",
+          "want": 2,
+          "got": 2,
+          "case": "dependency removed from venv (pip check fatal)",
+          "line": "STOP [2 configuration-error]: pip check failed (fatal): semgrep 1.185.0 requires mcp, which is not installed."
+        },
+        {
+          "id": "P02",
+          "want": 2,
+          "got": 2,
+          "case": "tampered semgrep Python file (RECORD)",
+          "line": "STOP [2 configuration-error]: installed files differ from their RECORD hashes (1): ['semgrep/cli.py']"
+        },
+        {
+          "id": "P03",
+          "want": 2,
+          "got": 2,
+          "case": "tampered semgrep-core (hash/RECORD)",
+          "line": "STOP [2 configuration-error]: semgrep-core binary hash mismatch or missing"
+        }
+      ],
+      "results-repo-darwin.json": [
+        {
+          "id": "B00",
+          "want": 0,
+          "got": 0,
+          "case": "baseline copy",
+          "line": "result: 0 clean; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "C01",
+          "want": 2,
+          "got": 2,
+          "case": "rule file altered",
+          "line": "STOP [2 configuration-error]: rule file changed or missing: security/sast/rules/python.yml"
+        },
+        {
+          "id": "C02",
+          "want": 2,
+          "got": 2,
+          "case": "toolchain manifest missing",
+          "line": "STOP [2 configuration-error]: toolchain manifest missing: security/sast/toolchain.json"
+        },
+        {
+          "id": "C03",
+          "want": 2,
+          "got": 2,
+          "case": "toolchain manifest malformed",
+          "line": "STOP [2 configuration-error]: toolchain manifest is not valid JSON: security/sast/toolchain.json"
+        },
+        {
+          "id": "C04",
+          "want": 2,
+          "got": 2,
+          "case": "controls catalogue missing",
+          "line": "STOP [2 configuration-error]: controls catalogue changed or missing (hash differs from toolchain manifest)"
+        },
+        {
+          "id": "C05",
+          "want": 2,
+          "got": 2,
+          "case": "catalogue altered, hash not re-pinned",
+          "line": "STOP [2 configuration-error]: controls catalogue changed or missing (hash differs from toolchain manifest)"
+        },
+        {
+          "id": "C06",
+          "want": 2,
+          "got": 2,
+          "case": "catalogue drops jwt cases + re-pinned",
+          "line": "STOP [2 configuration-error]: annotated control cases differ from the catalogue"
+        },
+        {
+          "id": "C07",
+          "want": 2,
+          "got": 2,
+          "case": "positive fixture deleted",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/typescript/jwt.ts']; uncatalogued 0: [])"
+        },
+        {
+          "id": "C08",
+          "want": 2,
+          "got": 2,
+          "case": "malformed fixture deleted",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/malformed/broken.py']; uncatalogued 0: [])"
+        },
+        {
+          "id": "C09",
+          "want": 2,
+          "got": 2,
+          "case": "fixture renamed",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/python/tls.py']; uncatalogued 1: ['tests/security/"
+        },
+        {
+          "id": "C10",
+          "want": 2,
+          "got": 2,
+          "case": "fixture annotation flipped",
+          "line": "STOP [2 configuration-error]: control fixtures altered since catalogue review: ['tests/security/sast/fixtures/typescript/jwt.ts']"
+        },
+        {
+          "id": "C11",
+          "want": 2,
+          "got": 2,
+          "case": "uncatalogued fixture added",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 0: []; uncatalogued 1: ['tests/security/sast/fixtures/python/extra.py'])"
+        },
+        {
+          "id": "C12",
+          "want": 2,
+          "got": 2,
+          "case": "unsupported fixture type",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 0: []; uncatalogued 1: ['tests/security/sast/fixtures/python/extra.go'])"
+        },
+        {
+          "id": "C13",
+          "want": 2,
+          "got": 2,
+          "case": ".go source",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .go: scripts/sast/tool.go"
+        },
+        {
+          "id": "C14",
+          "want": 2,
+          "got": 2,
+          "case": ".pyw source",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .pyw: scripts/sast/tool.pyw"
+        },
+        {
+          "id": "C15",
+          "want": 2,
+          "got": 2,
+          "case": "executable .mts",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .mts: apps/octocat-supply/scripts/tool.mts"
+        },
+        {
+          "id": "C16",
+          "want": 2,
+          "got": 2,
+          "case": "executable .cts",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .cts: apps/octocat-supply/scripts/tool.cts"
+        },
+        {
+          "id": "C17",
+          "want": 2,
+          "got": 2,
+          "case": "unknown extension .xyz",
+          "line": "STOP [2 configuration-error]: unknown file type (not reviewed): docs/notes.xyz"
+        },
+        {
+          "id": "C18",
+          "want": 2,
+          "got": 2,
+          "case": "extensionless shebang script",
+          "line": "STOP [2 configuration-error]: unknown file type (not reviewed): scripts/sast/runme"
+        },
+        {
+          "id": "C19",
+          "want": 2,
+          "got": 2,
+          "case": "non-code file with exec bit",
+          "line": "STOP [2 configuration-error]: executable bit on non-code file: docs/run.txt"
+        },
+        {
+          "id": "C20",
+          "want": 2,
+          "got": 2,
+          "case": "shebang inside .txt",
+          "line": "STOP [2 configuration-error]: shebang in non-code file: docs/tool.txt"
+        },
+        {
+          "id": "C21",
+          "want": 2,
+          "got": 2,
+          "case": "unreviewed shell script",
+          "line": "STOP [2 configuration-error]: unreviewed shell script: scripts/new.sh"
+        },
+        {
+          "id": "C22",
+          "want": 2,
+          "got": 2,
+          "case": "symlink escape",
+          "line": "STOP [2 configuration-error]: symlink or path escape: scripts/sast/link.py"
+        },
+        {
+          "id": "C23",
+          "want": 2,
+          "got": 2,
+          "case": "oversize target",
+          "line": "STOP [2 configuration-error]: oversize target: scripts/sast/big.py"
+        },
+        {
+          "id": "C24",
+          "want": 2,
+          "got": 2,
+          "case": "lock file altered",
+          "line": "STOP [2 configuration-error]: lock file changed or missing: requirements-sast-macos.txt"
+        },
+        {
+          "id": "T01",
+          "want": 3,
+          "got": 3,
+          "case": "malformed production Python (ast gate)",
+          "line": "STOP [3 tool-error]: python syntax error (ast.parse): scripts/delivery/broken_tool.py"
+        },
+        {
+          "id": "T02",
+          "want": 3,
+          "got": 3,
+          "case": "malformed production TS (engine error)",
+          "line": "STOP [3 tool-error]: source: engine reported 1 error(s)"
+        },
+        {
+          "id": "T03",
+          "want": 0,
+          "got": 0,
+          "case": "engine-accepted malformed TS (known G4 gap)",
+          "line": "result: 0 clean; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "F01",
+          "want": 1,
+          "got": 1,
+          "case": "unsafe production code with nosemgrep",
+          "line": "result: 1 findings; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "K01",
+          "want": 4,
+          "got": 4,
+          "case": "rule weakened + re-pinned (control missed)",
+          "line": "result: 4 control-failure; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "K02",
+          "want": 4,
+          "got": 4,
+          "case": "parser-gap expectation drift + re-pinned",
+          "line": "result: 4 control-failure; summary artifacts/sast/c5-summary.json"
+        }
+      ],
+      "results-repo-venv-linux.json": [
+        {
+          "id": "B00",
+          "want": 0,
+          "got": 0,
+          "case": "baseline copy",
+          "line": "result: 0 clean; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "C01",
+          "want": 2,
+          "got": 2,
+          "case": "rule file altered",
+          "line": "STOP [2 configuration-error]: rule file changed or missing: security/sast/rules/python.yml"
+        },
+        {
+          "id": "C02",
+          "want": 2,
+          "got": 2,
+          "case": "toolchain manifest missing",
+          "line": "STOP [2 configuration-error]: toolchain manifest missing: security/sast/toolchain.json"
+        },
+        {
+          "id": "C03",
+          "want": 2,
+          "got": 2,
+          "case": "toolchain manifest malformed",
+          "line": "STOP [2 configuration-error]: toolchain manifest is not valid JSON: security/sast/toolchain.json"
+        },
+        {
+          "id": "C04",
+          "want": 2,
+          "got": 2,
+          "case": "controls catalogue missing",
+          "line": "STOP [2 configuration-error]: controls catalogue changed or missing (hash differs from toolchain manifest)"
+        },
+        {
+          "id": "C05",
+          "want": 2,
+          "got": 2,
+          "case": "catalogue altered, hash not re-pinned",
+          "line": "STOP [2 configuration-error]: controls catalogue changed or missing (hash differs from toolchain manifest)"
+        },
+        {
+          "id": "C06",
+          "want": 2,
+          "got": 2,
+          "case": "catalogue drops jwt cases + re-pinned",
+          "line": "STOP [2 configuration-error]: annotated control cases differ from the catalogue"
+        },
+        {
+          "id": "C07",
+          "want": 2,
+          "got": 2,
+          "case": "positive fixture deleted",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/typescript/jwt.ts']; uncatalogued 0: [])"
+        },
+        {
+          "id": "C08",
+          "want": 2,
+          "got": 2,
+          "case": "malformed fixture deleted",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/malformed/broken.py']; uncatalogued 0: [])"
+        },
+        {
+          "id": "C09",
+          "want": 2,
+          "got": 2,
+          "case": "fixture renamed",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 1: ['tests/security/sast/fixtures/python/tls.py']; uncatalogued 1: ['tests/security/"
+        },
+        {
+          "id": "C10",
+          "want": 2,
+          "got": 2,
+          "case": "fixture annotation flipped",
+          "line": "STOP [2 configuration-error]: control fixtures altered since catalogue review: ['tests/security/sast/fixtures/typescript/jwt.ts']"
+        },
+        {
+          "id": "C11",
+          "want": 2,
+          "got": 2,
+          "case": "uncatalogued fixture added",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 0: []; uncatalogued 1: ['tests/security/sast/fixtures/python/extra.py'])"
+        },
+        {
+          "id": "C12",
+          "want": 2,
+          "got": 2,
+          "case": "unsupported fixture type",
+          "line": "STOP [2 configuration-error]: control fixtures differ from catalogue (missing/renamed 0: []; uncatalogued 1: ['tests/security/sast/fixtures/python/extra.go'])"
+        },
+        {
+          "id": "C13",
+          "want": 2,
+          "got": 2,
+          "case": ".go source",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .go: scripts/sast/tool.go"
+        },
+        {
+          "id": "C14",
+          "want": 2,
+          "got": 2,
+          "case": ".pyw source",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .pyw: scripts/sast/tool.pyw"
+        },
+        {
+          "id": "C15",
+          "want": 2,
+          "got": 2,
+          "case": "executable .mts",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .mts: apps/octocat-supply/scripts/tool.mts"
+        },
+        {
+          "id": "C16",
+          "want": 2,
+          "got": 2,
+          "case": "executable .cts",
+          "line": "STOP [2 configuration-error]: unsupported executable extension .cts: apps/octocat-supply/scripts/tool.cts"
+        },
+        {
+          "id": "C17",
+          "want": 2,
+          "got": 2,
+          "case": "unknown extension .xyz",
+          "line": "STOP [2 configuration-error]: unknown file type (not reviewed): docs/notes.xyz"
+        },
+        {
+          "id": "C18",
+          "want": 2,
+          "got": 2,
+          "case": "extensionless shebang script",
+          "line": "STOP [2 configuration-error]: unknown file type (not reviewed): scripts/sast/runme"
+        },
+        {
+          "id": "C19",
+          "want": 2,
+          "got": 2,
+          "case": "non-code file with exec bit",
+          "line": "STOP [2 configuration-error]: executable bit on non-code file: docs/run.txt"
+        },
+        {
+          "id": "C20",
+          "want": 2,
+          "got": 2,
+          "case": "shebang inside .txt",
+          "line": "STOP [2 configuration-error]: shebang in non-code file: docs/tool.txt"
+        },
+        {
+          "id": "C21",
+          "want": 2,
+          "got": 2,
+          "case": "unreviewed shell script",
+          "line": "STOP [2 configuration-error]: unreviewed shell script: scripts/new.sh"
+        },
+        {
+          "id": "C22",
+          "want": 2,
+          "got": 2,
+          "case": "symlink escape",
+          "line": "STOP [2 configuration-error]: symlink or path escape: scripts/sast/link.py"
+        },
+        {
+          "id": "C23",
+          "want": 2,
+          "got": 2,
+          "case": "oversize target",
+          "line": "STOP [2 configuration-error]: oversize target: scripts/sast/big.py"
+        },
+        {
+          "id": "C24",
+          "want": 2,
+          "got": 2,
+          "case": "lock file altered",
+          "line": "STOP [2 configuration-error]: lock file changed or missing: requirements-sast-linux.txt"
+        },
+        {
+          "id": "T01",
+          "want": 3,
+          "got": 3,
+          "case": "malformed production Python (ast gate)",
+          "line": "STOP [3 tool-error]: python syntax error (ast.parse): scripts/delivery/broken_tool.py"
+        },
+        {
+          "id": "T02",
+          "want": 3,
+          "got": 3,
+          "case": "malformed production TS (engine error)",
+          "line": "STOP [3 tool-error]: source: engine reported 1 error(s)"
+        },
+        {
+          "id": "T03",
+          "want": 0,
+          "got": 0,
+          "case": "engine-accepted malformed TS (known G4 gap)",
+          "line": "result: 0 clean; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "F01",
+          "want": 1,
+          "got": 1,
+          "case": "unsafe production code with nosemgrep",
+          "line": "result: 1 findings; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "K01",
+          "want": 4,
+          "got": 4,
+          "case": "rule weakened + re-pinned (control missed)",
+          "line": "result: 4 control-failure; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "K02",
+          "want": 4,
+          "got": 4,
+          "case": "parser-gap expectation drift + re-pinned",
+          "line": "result: 4 control-failure; summary artifacts/sast/c5-summary.json"
+        },
+        {
+          "id": "P01",
+          "want": 2,
+          "got": 2,
+          "case": "dependency removed from venv (pip check fatal)",
+          "line": "STOP [2 configuration-error]: pip check failed (fatal): semgrep 1.185.0 requires mcp, which is not installed."
+        },
+        {
+          "id": "P02",
+          "want": 2,
+          "got": 2,
+          "case": "tampered semgrep Python file (RECORD)",
+          "line": "STOP [2 configuration-error]: installed files differ from their RECORD hashes (1): ['semgrep/cli.py']"
+        },
+        {
+          "id": "P03",
+          "want": 2,
+          "got": 2,
+          "case": "tampered semgrep-core (hash/RECORD)",
+          "line": "STOP [2 configuration-error]: semgrep-core binary hash mismatch or missing"
+        }
+      ]
+    }
+  },
+  "g1": {
+    "file": "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+    "diff": "+12/-3",
+    "file_tests_before_after": "33/33 -> 33/33",
+    "intent_mutation": "UPDATE trigger on INSERT -> S01/UPDATE fails; restored by hash -> 3/3",
+    "scan": "0 findings macOS and Linux"
+  },
+  "regression": {
+    "npm_test": "13 files, 195/195",
+    "typecheck": "pass",
+    "lint": "pass",
+    "format_check": "pass",
+    "auth_mutations": "all rejected",
+    "npm_audit_high": "exit 0 (10 pre-existing moderate)",
+    "tests_delivery": "22 OK",
+    "actionlint_1.7.12": "pass",
+    "validate_infra_bicep_0.48.1": "8 templates pass",
+    "scan_config_trivy_0.72.0": "pass",
+    "gitleaks_dir_and_git_8.30.1": "no leaks",
+    "not_rerun": "Playwright e2e/OIDC, container builds/proxy/image scans (no runtime/container files changed)"
+  },
+  "changed_files": [
+    "scripts/sast/feasibility.py",
+    "security/sast/toolchain.json",
+    "security/sast/controls.json",
+    "security/sast/native-libraries.json",
+    "apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+    "docs/evidence/m4c-c5-f3-harness-hardening.md",
+    "docs/evidence/m4c-c5-f3-harness-hardening.json",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "changed_file_sha256sum": [
+    "3ded8955396622cb9c45afae1283cab05aac777e43c35f86e194583316f2c547  scripts/sast/feasibility.py",
+    "6f78e663eac723cd347c1bad0c426ce257f3aadb3e3615b579718bbc6bc6dc72  security/sast/toolchain.json",
+    "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6  security/sast/controls.json",
+    "f70a87188448568ab1418ab1de59c148ad366d15590f7e9a419ae0cb9594e866  security/sast/native-libraries.json",
+    "3ae61508c18bc990ca6c40535ef6bbb437cf847bbed0361aec33ed2b654617c4  apps/octocat-supply/api/test/repository-sqlite.contract.test.ts",
+    "85cb928865905cfd62a16992fe176ff064b3b87dabac291a994175eb4f0a4f17  docs/evidence/m4c-c5-f3-harness-hardening.md",
+    "6a4c7ed7c028f21650a67d0853603336bb5c921ce75a982f51f255f1e6cf9172  README.md",
+    "49cb238a924af93656136e995c151a7138ee66632b99cbda3d7515dddb92368c  AGENTS.md",
+    "f4f13b4cd7c3046381152e80cdfd950fff77b235956683ebde5aa7af292ef69e  docs/capability-status.md",
+    "44c6383ab743d72c743bc036616b83a785670cc1563a0a32d8cac0574ff0e31d  docs/milestones/m4c-c5-sast-plan.md",
+    "bc74ec76ea0d2450cdba266ada80f0a4bfde11d3480711d5c3a6f05c4ba14ab7  THIRD_PARTY_NOTICES.md"
+  ]
+}

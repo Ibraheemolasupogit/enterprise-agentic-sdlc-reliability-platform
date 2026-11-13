@@ -5,9 +5,16 @@
   authoritative specification; the owner's task sets the authorized milestone.
 - This repository starts fresh. Do not assume the unavailable personal OctoCAT
   repository, historical deployments, or local application code exists here.
-- Current authorized work is M4C-C5 read-only security/governance assessment and
-  planning ONLY, per the owner at C4 baseline `e9b5704`. Do not implement C5 or
-  modify application code/CI workflows. Preserve completed C1/C3/C4 and pinned
+- Current authorized work was M4C-C5-F1 local Semgrep CE feasibility, C5-F2
+  Linux verification and C5-F3 local harness hardening ONLY; all are complete per
+  [C5-F1 evidence](docs/evidence/m4c-c5-f1-semgrep-feasibility.md),
+  [C5-F2 evidence](docs/evidence/m4c-c5-f2-linux-feasibility.md) and
+  [C5-F3 evidence](docs/evidence/m4c-c5-f3-harness-hardening.md). C5-F4 prepared
+  (not executed) the dispatch-only hosted trial per
+  [C5-F4 evidence](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md); never
+  dispatch it, change ci.yml or make it blocking without new owner direction.
+  Do not wire SAST into CI, implement other C5 steps, or modify application
+  code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned
   libraries/P01–P15 simulated-provider tests.
   Preserve M4A's deployment NO-GO. The
   owner selected independent original implementation and MIT; do not copy OctoCAT
