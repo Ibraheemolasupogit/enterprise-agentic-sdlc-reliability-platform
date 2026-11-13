@@ -12,7 +12,13 @@
   [C5-F3 evidence](docs/evidence/m4c-c5-f3-harness-hardening.md). C5-F4 prepared
   (not executed) the dispatch-only hosted trial per
   [C5-F4 evidence](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md); never
-  dispatch it, change ci.yml or make it blocking without new owner direction.
+  dispatch it, change ci.yml or make it blocking without new owner direction. Owner
+  run 43432851816 at `188b8cd` failed closed (exit 5, AppArmor userns restriction) per
+  [diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md); no sudo/root isolation,
+  workflow change or rerun without explicit authorization. C5-F4R prepared (not
+  dispatched) the Docker `--network none` trial per
+  [F4R evidence](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md); dispatching it,
+  CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned
   libraries/P01–P15 simulated-provider tests.

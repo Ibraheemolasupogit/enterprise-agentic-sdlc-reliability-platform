@@ -27,12 +27,14 @@ from __future__ import annotations
 
 import argparse
 import ast
+import errno
 import hashlib
 import json
 import os
 import platform
 import re
 import shutil
+import socket
 import stat
 import subprocess
 import sys
@@ -287,7 +289,21 @@ def preflight(semgrep: Path, home: Path) -> dict:
 
 
 # ---------------------------------------------------------------- isolation
+# "auto": macOS sandbox-exec / Linux unshare wrapper (F1-F3 default).
+# "container": no wrapper; the harness must already run inside a Docker
+# --network none, non-root, capability-free, no-new-privileges, read-only
+# container, and verifies every one of those properties itself (C5-F4R).
+ISOLATION_MODE = "auto"
+NON_LOCAL_PROBES = (("192.0.2.1", 9), ("2001:db8::1", 9))  # RFC 5737 / RFC 3849 documentation ranges
+UNREACHABLE_ERRNOS = {"ENETUNREACH", "EHOSTUNREACH", "EADDRNOTAVAIL", "EAFNOSUPPORT", "EPERM", "EACCES"}
+# Kernel fallback devices created in every new network namespace when tunnel modules
+# are loaded; tolerated only while administratively down (no traffic possible).
+FALLBACK_TUNNELS = {"tunl0", "gre0", "gretap0", "erspan0", "ip_vti0", "ip6_vti0", "sit0", "ip6tnl0", "ip6gre0"}
+
+
 def isolation_wrapper() -> tuple[list[str], str]:
+    if ISOLATION_MODE == "container":
+        return [], "docker --network none (verified in-container)"
     system = platform.system()
     if system == "Darwin":
         if not Path("/usr/bin/sandbox-exec").exists():
@@ -325,7 +341,88 @@ def linux_diagnostics() -> str:
     return ", ".join(facts)
 
 
+def proc_status() -> dict[str, str]:
+    fields = {}
+    for line in Path("/proc/self/status").read_text().splitlines():
+        key, _, value = line.partition(":")
+        fields[key] = value.strip()
+    return fields
+
+
+def verify_container_sandbox() -> str:
+    """Fail closed unless this process is inside the expected hardened, network-less container."""
+    if platform.system() != "Linux":
+        raise Stop(EXIT_ISOLATION, "container isolation mode requires Linux")
+    problems = []
+    try:
+        net = Path("/sys/class/net")
+        interfaces = sorted(p.name for p in net.iterdir() if p.is_dir())
+        if "lo" not in interfaces:
+            problems.append("loopback interface missing")
+        for name in interfaces:
+            if name == "lo":
+                continue
+            flags = int((net / name / "flags").read_text().strip(), 16)
+            if name not in FALLBACK_TUNNELS:
+                problems.append(f"unexpected network interface {name}")
+            elif flags & 0x1:
+                problems.append(f"fallback tunnel {name} is up")
+    except (OSError, ValueError):
+        problems.append("network interfaces unreadable")
+    for host, port in NON_LOCAL_PROBES:
+        family = socket.AF_INET6 if ":" in host else socket.AF_INET
+        try:
+            sock = socket.socket(family, socket.SOCK_STREAM)
+        except OSError as exc:
+            if errno.errorcode.get(exc.errno) not in UNREACHABLE_ERRNOS:
+                problems.append(f"socket({host}) {exc}")
+            continue
+        sock.settimeout(3)
+        try:
+            sock.connect((host, port))
+            problems.append(f"connect {host} succeeded")
+        except OSError as exc:
+            name = errno.errorcode.get(exc.errno, "timeout" if isinstance(exc, TimeoutError) else str(exc.errno))
+            if name not in UNREACHABLE_ERRNOS:
+                problems.append(f"connect {host} returned {name} (route exists)")
+        finally:
+            sock.close()
+    try:
+        socket.getaddrinfo("pypi.org", 443)
+        problems.append("DNS resolution succeeded")
+    except OSError:
+        pass
+    try:
+        status = proc_status()
+    except OSError:
+        status = {}
+    uids = status.get("Uid", "0").split()
+    if not uids or "0" in uids:
+        problems.append("running as uid 0")
+    for cap in ("CapEff", "CapPrm", "CapBnd", "CapAmb"):
+        if status.get(cap, "x").strip("0"):
+            problems.append(f"{cap}={status.get(cap)} (capabilities not fully dropped)")
+    if status.get("NoNewPrivs") != "1":
+        problems.append("NoNewPrivs is not set")
+    if status.get("Seccomp") != "2":
+        problems.append(f"seccomp mode {status.get('Seccomp')} (filter expected)")
+    try:
+        root = next(line.split() for line in Path("/proc/self/mountinfo").read_text().splitlines()
+                    if line.split()[4] == "/")
+        if "ro" not in root[5].split(","):
+            problems.append("root filesystem is writable")
+    except (OSError, StopIteration, IndexError):
+        problems.append("root mount unreadable")
+    if problems:
+        raise Stop(EXIT_ISOLATION, "container sandbox insufficient: " + "; ".join(problems))
+    return ("docker --network none verified: only lo up (kernel fallback tunnels down), non-local IPv4/IPv6 "
+            "unreachable, DNS fails, "
+            "non-root, no capabilities, NoNewPrivs, seccomp filter, read-only root")
+
+
 def verify_isolation(home: Path) -> str:
+    if ISOLATION_MODE == "container":
+        return verify_container_sandbox()
     wrapper, label = isolation_wrapper()
     try:
         proc = subprocess.run([*wrapper, sys.executable, "-I", "-c", PROBE], env=tool_env(home),
@@ -582,9 +679,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--semgrep", type=Path, help="semgrep entry point in the verified venv")
     parser.add_argument("--repeat", type=int, default=3, help="source scan repetitions for timing")
+    parser.add_argument("--isolation", choices=("auto", "container"), default="auto",
+                        help="auto: sandbox-exec/unshare wrapper; container: verify an enclosing hardened "
+                             "--network none container instead (never falls back)")
     parser.add_argument("--emit-catalogue", action="store_true",
                         help="print a candidate controls catalogue for human review and exit (writes nothing)")
     args = parser.parse_args()
+    global ISOLATION_MODE
+    ISOLATION_MODE = args.isolation
     try:
         if args.emit_catalogue:
             print(json.dumps(build_catalogue(inventory()), indent=2))
@@ -617,7 +719,7 @@ def main() -> int:
         "semgrep_core_sha256": pre["core_sha256"], "rules_sha256": pre["rules"], "rule_ids": pre["expected_rule_ids"],
         "toolchain": {"lock": pre["lock"], "distributions_match_lock": pre["distributions"], "pip_check": "pass",
                       "record_files_verified": pre["record_files_verified"]},
-        "isolation": isolation, "flags": FLAGS, "inventory": summarise(inv),
+        "isolation": isolation, "isolation_mode": ISOLATION_MODE, "flags": FLAGS, "inventory": summarise(inv),
         "python_ast_syntax_gate": {"checked": py_checked, "status": "pass"}, "controls": controls, "source": source,
     }
     SUMMARY.parent.mkdir(parents=True, exist_ok=True)

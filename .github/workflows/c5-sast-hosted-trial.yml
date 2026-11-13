@@ -1,8 +1,11 @@
-name: C5-F4 hosted SAST feasibility trial (non-blocking)
+name: C5-F4R hosted SAST feasibility trial (Docker network isolation, non-blocking)
 
 # Owner-dispatched trial only. It is not referenced by ci.yml or its `required`
 # job, has no push/PR trigger, and its result can never authorize release,
 # deployment or C5 acceptance. G2/G5 risks stay open; nothing here waives them.
+# C5-F4R: no privilege escalation or host namespace tools. Install and scan run in a digest-pinned Ubuntu 24.04
+# container with --network none, uid 1001, all capabilities dropped,
+# no-new-privileges and a read-only root (scripts/sast/hosted_trial.py).
 on:
   workflow_dispatch:
     inputs:
@@ -56,24 +59,31 @@ jobs:
           python3 -m venv "$RUNNER_TEMP/c5-download"
           "$RUNNER_TEMP/c5-download/bin/python" -m pip download --disable-pip-version-check --require-hashes --no-deps --only-binary=:all: --platform manylinux_2_34_x86_64 --platform manylinux_2_28_x86_64 --platform manylinux_2_17_x86_64 --platform manylinux2014_x86_64 --platform manylinux_2_5_x86_64 --platform manylinux1_x86_64 --python-version 3.12 --implementation cp --abi cp312 --abi abi3 --abi none -d "$RUNNER_TEMP/c5-wheels" -r requirements-sast-linux.txt
 
-      - name: Offline hash-required install and fatal pip check
-        run: |
-          python3 -m venv "$RUNNER_TEMP/c5-sast"
-          "$RUNNER_TEMP/c5-sast/bin/python" -m pip install --disable-pip-version-check --no-index --no-deps --only-binary=:all: --require-hashes --find-links "$RUNNER_TEMP/c5-wheels" -r requirements-sast-linux.txt
-          "$RUNNER_TEMP/c5-sast/bin/python" -m pip check
+      - name: Build digest-pinned Ubuntu 24.04 runtime image (signed APT only)
+        run: python3 -I scripts/sast/hosted_trial.py container-build --iidfile "$RUNNER_TEMP/c5-image.iid"
 
-      - name: Run hardened harness under OS network isolation (fails closed with exit 5)
+      - name: Offline hash-required install in network-less container (pip check fatal)
+        run: python3 -I scripts/sast/hosted_trial.py container-install --image-id-file "$RUNNER_TEMP/c5-image.iid" --wheels "$RUNNER_TEMP/c5-wheels" --venv "$RUNNER_TEMP/c5-sast"
+
+      - name: Run hardened harness in network-less container (fails closed; exits 0-7)
         env:
           TRIAL_AUTHORIZATION_REFERENCE: ${{ inputs.authorization_reference }}
-        run: python3 -I scripts/sast/hosted_trial.py run --semgrep "$RUNNER_TEMP/c5-sast/bin/semgrep" --repeat 5
+        run: python3 -I scripts/sast/hosted_trial.py container-run --image-id-file "$RUNNER_TEMP/c5-image.iid" --venv "$RUNNER_TEMP/c5-sast" --repeat 5
+
+      - name: Summarize evidence (reports missing evidence as exit 7)
+        if: always()
+        run: python3 -I scripts/sast/hosted_trial.py summarize
 
       - name: Upload allowlisted trial evidence (never raw engine reports)
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2 (Node 24)
         with:
-          name: c5-f4-hosted-sast-trial-${{ github.run_id }}-${{ github.run_attempt }}
+          name: c5-f4r-hosted-sast-trial-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             artifacts/sast/hosted-runner-facts.json
+            artifacts/sast/container-image.json
+            artifacts/sast/container-install.json
+            artifacts/sast/container-run.json
             artifacts/sast/hosted-trial.json
             artifacts/sast/c5-summary.json
           retention-days: 7

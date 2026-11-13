@@ -64,11 +64,28 @@ class TrialWorkflowPolicy(unittest.TestCase):
         self.rejects(mutate=lambda t: steps(t).pop(0))
         self.rejects(mutate=lambda t: steps(t)[0].update(run="echo skip guard"))
 
-    def test_rejects_unhashed_online_or_unchecked_install(self):
-        for old, new in (("--require-hashes ", ""), ("--no-index ", ""), ("--no-deps ", ""),
+    def test_rejects_unhashed_download_or_host_install(self):
+        for old, new in (("--require-hashes ", ""), ("--no-deps ", ""),
                          ("--only-binary=:all: ", ""), ("requirements-sast-linux.txt", "requirements.txt")):
             self.rejects(trial_text=TRIAL_TEXT.replace(old, new))
-        self.rejects(trial_text=TRIAL_TEXT.replace('"$RUNNER_TEMP/c5-sast/bin/python" -m pip check\n', ""))
+        # Installing on the host (outside the network-less container) is rejected.
+        self.rejects(mutate=lambda t: steps(t).insert(4, {"run": "python3 -m pip install -r requirements-sast-linux.txt"}))
+
+    def test_rejects_raw_docker_and_namespace_tools(self):
+        for command in ("docker run --network host ubuntu true", "sudo docker ps", "unshare --net true",
+                        "sysctl kernel.apparmor_restrict_unprivileged_userns", "setpriv --reuid 1001 true",
+                        "docker run --privileged x"):
+            self.rejects(mutate=lambda t, c=command: steps(t).insert(4, {"run": c}))
+
+    def test_rejects_wrong_container_step_order_or_host_harness(self):
+        def swap(t):
+            s = steps(t)
+            s[4], s[5] = s[5], s[4]  # install before build
+        self.rejects(mutate=swap)
+        self.rejects(mutate=lambda t: steps(t).insert(7, {"run": "python3 -I scripts/sast/hosted_trial.py run --semgrep x"}))
+        self.rejects(mutate=lambda t: steps(t)[6].update(run=steps(t)[6]["run"] + " --isolation auto"))
+        self.rejects(mutate=lambda t: steps(t)[7].pop("if"))
+        self.rejects(mutate=lambda t: steps(t).pop(5))
 
     def test_rejects_privilege_network_tools_and_soft_failure(self):
         for addition in ("sudo true", "curl -fsSL https://example.invalid", "wget https://example.invalid"):

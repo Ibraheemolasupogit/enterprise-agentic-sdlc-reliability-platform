@@ -26,7 +26,11 @@ F3 is ready for a separately authorized hosted trial; mandatory CI is not wired.
 **C5-F4 update (2026-11-13):** see the [C5-F4 evidence](../evidence/m4c-c5-f4-hosted-trial-preparation.md).
 It prepares, but does not run, a separate workflow_dispatch-only, read-only, non-blocking
 hosted trial. `ci.yml` and the `required` gate are unchanged. Dispatching it needs owner
-authorization.
+authorization. Owner run 43432851816 failed closed with exit 5 on Ubuntu 24.04's AppArmor
+restriction on unprivileged user namespaces. See the
+[diagnosis](../evidence/m4c-c5-f4-hosted-run-diagnosis.md). The owner then selected Option B: see
+[C5-F4R](../evidence/m4c-c5-f4r-docker-trial-preparation.md) (Docker `--network none`, prepared and
+locally validated, not dispatched).
 
 ## Entry decision and bounded scope
 

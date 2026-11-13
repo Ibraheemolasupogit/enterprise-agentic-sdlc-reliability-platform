@@ -1,0 +1,401 @@
+{
+  "milestone": "M4C-C5-F4R",
+  "status": "prepared and locally validated; hosted trial NOT dispatched",
+  "date_utc": "2026-11-13",
+  "base_commit": "188b8cd",
+  "decisions": {
+    "second_hosted_trial": "justified, one dispatch, after explicit owner authorization",
+    "mandatory_sast_ci": "NO-GO",
+    "azure": "NO-GO",
+    "g2": "open",
+    "g4": "open",
+    "g5": "open"
+  },
+  "ci_yml_sha256": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf",
+  "preserved_sast_files_unchanged": [
+    ".github/workflows/ci.yml",
+    "requirements-sast-linux.txt",
+    "requirements-sast-macos.txt",
+    "security/sast/controls.json",
+    "security/sast/native-libraries.json",
+    "security/sast/rules/python.yml",
+    "security/sast/rules/typescript.yml",
+    "security/sast/toolchain.json",
+    "tests/security/sast/fixtures/README.md",
+    "tests/security/sast/fixtures/malformed/broken.mjs",
+    "tests/security/sast/fixtures/malformed/broken.py",
+    "tests/security/sast/fixtures/malformed/broken.ts",
+    "tests/security/sast/fixtures/malformed/broken.tsx",
+    "tests/security/sast/fixtures/parser-gaps/double-comma.ts",
+    "tests/security/sast/fixtures/parser-gaps/missing-parameter.py",
+    "tests/security/sast/fixtures/parser-gaps/unclosed-condition.ts",
+    "tests/security/sast/fixtures/parser-gaps/unclosed-parameters.ts",
+    "tests/security/sast/fixtures/python/deserialize.py",
+    "tests/security/sast/fixtures/python/logging_controls.py",
+    "tests/security/sast/fixtures/python/process.py",
+    "tests/security/sast/fixtures/python/sql.py",
+    "tests/security/sast/fixtures/python/suppressed.py",
+    "tests/security/sast/fixtures/python/tls.py",
+    "tests/security/sast/fixtures/typescript/html.tsx",
+    "tests/security/sast/fixtures/typescript/jwt.ts",
+    "tests/security/sast/fixtures/typescript/logging.ts",
+    "tests/security/sast/fixtures/typescript/process.mjs",
+    "tests/security/sast/fixtures/typescript/process.ts",
+    "tests/security/sast/fixtures/typescript/sql.ts",
+    "tests/security/sast/fixtures/typescript/suppressed.ts",
+    "tests/security/sast/fixtures/typescript/tls.ts"
+  ],
+  "image": {
+    "base": "ubuntu@sha256:77eb101c607d6e3d4f5ad0c8a02c2136c689b98aba1f359e6502ba517e5c57ec",
+    "index": "sha256:2198e4c65076e9cb0b3d695219df667c0e3b0072da64ca3c2648aca17dcecaf5",
+    "source": "git.launchpad.net/cloud-images/+oci/ubuntu-base@cb8ca376b19ad1ff943035430fbcb9d069789a5a",
+    "created": "2026-11-10",
+    "base_sbom": "SPDX-2.3, 131 deb packages, licences NOASSERTION",
+    "apt_snapshot": "20261110T000000Z",
+    "dockerfile_sha256": "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae",
+    "packages": 112,
+    "copyright_files_missing": 0,
+    "non_machine_readable_copyright": 21,
+    "top_licences": [
+      [
+        "GPL-2+",
+        48
+      ],
+      [
+        "GPL-2",
+        33
+      ],
+      [
+        "BSD-3-clause",
+        28
+      ],
+      [
+        "public-domain",
+        27
+      ],
+      [
+        "LGPL-2.1+",
+        26
+      ],
+      [
+        "GPL-3+",
+        24
+      ],
+      [
+        "LGPL-2+",
+        16
+      ],
+      [
+        "LGPL-3+",
+        16
+      ],
+      [
+        "X11",
+        13
+      ],
+      [
+        "Expat",
+        12
+      ],
+      [
+        "ISC",
+        11
+      ],
+      [
+        "MIT",
+        8
+      ],
+      [
+        "GPL-3",
+        8
+      ],
+      [
+        "GPL-3+ with Bison exception",
+        7
+      ]
+    ],
+    "image_id_reproducible": false,
+    "observed_image_ids": [
+      "sha256:e7dfbbf428d4372a6756cea9e0fc15988ae091b4c8bc99c5025cdd2c4f6484dc",
+      "sha256:7ad4598d6320976e93a573039398e420c76ca35d92ac98b32e71084a6bf04c8a",
+      "sha256:bc963300c7463a9ae17f7503b951482a6fdcd8c97ce1b5810e1f35fe817a753c",
+      "sha256:54285e6242fdb2fd314ec6747b6449bec8d4eb9ae9a7a9343fc6aa1c87b4c240"
+    ],
+    "trivy_0.72.0_dockerfile": "26/27 pass; DS-0026 LOW (no HEALTHCHECK) recorded, not waived"
+  },
+  "exit_codes": {
+    "0": "clean",
+    "1": "findings",
+    "2": "configuration-error",
+    "3": "tool-error",
+    "4": "control-failure",
+    "5": "isolation-unavailable",
+    "6": "container-runtime-error",
+    "7": "evidence-missing"
+  },
+  "isolation_tests": [
+    {
+      "case": "I00 exact driver hardening",
+      "want": 0,
+      "got": 0,
+      "ok": true,
+      "line": "result: 0 clean; summary artifacts/sast/c5-summary.json"
+    },
+    {
+      "case": "I01 bridge network (no --network none)",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: unexpected network interface eth0; connect 192.0.2.1 returned timeout (route exists); DNS resolution succeeded"
+    },
+    {
+      "case": "I02 host network",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: unexpected network interface bond0; unexpected network interface br-0c709bb30a59; unexpected network interface br-1a1ae0461d7d; unexpect"
+    },
+    {
+      "case": "I03 root user",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: running as uid 0"
+    },
+    {
+      "case": "I04 capabilities not dropped",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: CapBnd=00000000a80425fb (capabilities not fully dropped)"
+    },
+    {
+      "case": "I05 no-new-privileges absent",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: NoNewPrivs is not set"
+    },
+    {
+      "case": "I06 writable root filesystem",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: root filesystem is writable"
+    },
+    {
+      "case": "I07 seccomp unconfined",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: seccomp mode 0 (filter expected)"
+    },
+    {
+      "case": "I08 extra capability NET_RAW",
+      "want": 5,
+      "got": 5,
+      "ok": true,
+      "line": "STOP [5 isolation-unavailable]: container sandbox insufficient: CapBnd=0000000000002000 (capabilities not fully dropped)"
+    },
+    {
+      "case": "N+ network none (hardened)",
+      "expect": "blocked",
+      "output": "blocked gaierror",
+      "ok": true
+    },
+    {
+      "case": "N- bridge control",
+      "expect": "REACHABLE",
+      "output": "REACHABLE",
+      "ok": true
+    }
+  ],
+  "mutation_matrix": {
+    "darwin_default_mode": "34/34",
+    "linux_container_mode": "34/34"
+  },
+  "workflow_simulation": {
+    "authorized": {
+      "conclusion": "success",
+      "evidence": {
+        "container-image": {
+          "exit": 0,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 49.38,
+          "image_id": "sha256:bc963300c7463a9ae17f7503b951482a6fdcd8c97ce1b5810e1f35fe817a753c",
+          "package_count": 112
+        },
+        "container-install": {
+          "exit": 0,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 15.27,
+          "image_id": null,
+          "package_count": null
+        },
+        "container-run": {
+          "exit": 0,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 39.66,
+          "image_id": null,
+          "package_count": null
+        },
+        "hosted-trial": {
+          "exit": null,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": 0,
+          "harness_wall_seconds": 39.22,
+          "peak_child_rss_kib": 294516,
+          "seconds": null,
+          "image_id": null,
+          "package_count": null
+        }
+      },
+      "step_exits": {
+        "Require explicit owner confirmation": 0,
+        "Record runner facts (read-only)": 0,
+        "Download hash-locked Linux wheels (no install, no execution)": 0,
+        "Build digest-pinned Ubuntu 24.04 runtime image (signed APT only)": 0,
+        "Offline hash-required install in network-less container (pip check fatal)": 0,
+        "Run hardened harness in network-less container (fails closed; exits 0-7)": 0,
+        "Summarize evidence (reports missing evidence as exit 7)": 0
+      }
+    },
+    "unconfirmed": {
+      "conclusion": "failure",
+      "evidence": {},
+      "step_exits": {
+        "Require explicit owner confirmation": 2,
+        "Summarize evidence (reports missing evidence as exit 7)": 7
+      }
+    },
+    "docker-missing": {
+      "conclusion": "failure",
+      "evidence": {
+        "container-image": {
+          "exit": 6,
+          "result": "container-runtime-error",
+          "reason": "docker CLI not found",
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 0.0,
+          "image_id": null,
+          "package_count": null
+        }
+      },
+      "step_exits": {
+        "Require explicit owner confirmation": 0,
+        "Record runner facts (read-only)": 0,
+        "Download hash-locked Linux wheels (no install, no execution)": 0,
+        "Build digest-pinned Ubuntu 24.04 runtime image (signed APT only)": 6,
+        "Summarize evidence (reports missing evidence as exit 7)": 7
+      }
+    },
+    "rule-tampered": {
+      "conclusion": "failure",
+      "evidence": {
+        "container-image": {
+          "exit": 0,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 44.77,
+          "image_id": "sha256:54285e6242fdb2fd314ec6747b6449bec8d4eb9ae9a7a9343fc6aa1c87b4c240",
+          "package_count": 112
+        },
+        "container-install": {
+          "exit": 0,
+          "result": "clean",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 16.66,
+          "image_id": null,
+          "package_count": null
+        },
+        "container-run": {
+          "exit": 2,
+          "result": "configuration-error",
+          "reason": null,
+          "harness_exit": null,
+          "harness_wall_seconds": null,
+          "peak_child_rss_kib": null,
+          "seconds": 4.5,
+          "image_id": null,
+          "package_count": null
+        },
+        "hosted-trial": {
+          "exit": null,
+          "result": "configuration-error",
+          "reason": null,
+          "harness_exit": 2,
+          "harness_wall_seconds": 4.08,
+          "peak_child_rss_kib": 294548,
+          "seconds": null,
+          "image_id": null,
+          "package_count": null
+        }
+      },
+      "step_exits": {
+        "Require explicit owner confirmation": 0,
+        "Record runner facts (read-only)": 0,
+        "Download hash-locked Linux wheels (no install, no execution)": 0,
+        "Build digest-pinned Ubuntu 24.04 runtime image (signed APT only)": 0,
+        "Offline hash-required install in network-less container (pip check fatal)": 0,
+        "Run hardened harness in network-less container (fails closed; exits 0-7)": 2,
+        "Summarize evidence (reports missing evidence as exit 7)": 0
+      }
+    }
+  },
+  "local_tests": {
+    "tests_security_sast": "23 OK",
+    "check_trial_workflow": "PASS",
+    "actionlint_1.7.12": "pass",
+    "real_tampered_wheel": "container-install exit 2 (pip-install hash mismatch)"
+  },
+  "changed_files": [
+    "security/sast/container/Dockerfile",
+    "tests/security/sast/test_container_trial.py",
+    "scripts/sast/feasibility.py",
+    "scripts/sast/hosted_trial.py",
+    "scripts/sast/check_trial_workflow.py",
+    ".github/workflows/c5-sast-hosted-trial.yml",
+    "tests/security/sast/test_trial_workflow.py",
+    "docs/evidence/m4c-c5-f4r-docker-trial-preparation.md",
+    "docs/evidence/m4c-c5-f4r-docker-trial-preparation.json",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ],
+  "changed_file_sha256sum": [
+    "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae  security/sast/container/Dockerfile",
+    "423813e9bd3396e3f748163eba69617286027785c41071bd97dd81fe4ad2885f  tests/security/sast/test_container_trial.py",
+    "d84a7c3aa8cfc2b9bcfe288b13433713d839137fd45c55492bbe895763af3579  scripts/sast/feasibility.py",
+    "de11bf975bd0f7c49a7fc8a2454cab21ef3fde7ebfe56ee00cc407332d2e586e  scripts/sast/hosted_trial.py",
+    "f424232c0454c3c1ccc3dfe3aea7de27d4131d91aa7d173334ad8c10733ebf15  scripts/sast/check_trial_workflow.py",
+    "dd9cfc73531f0cb25408153fa98612f952df55695a16dccbe992e4f9549c3c63  .github/workflows/c5-sast-hosted-trial.yml",
+    "e8da47a217026f9e1d4140fe33cf42f8a66020a438e88d5786ba3ec87e53154a  tests/security/sast/test_trial_workflow.py",
+    "d53a34241b6607081108402b17a618b6facb79870bda9caf80d6415239d7567b  docs/evidence/m4c-c5-f4r-docker-trial-preparation.md",
+    "e312d80d1764faf01ec14108f0bb6356fa25e75d842b3d85242cbf4e8b21f2c0  README.md",
+    "32bb3db4dc414b7147cb57aae974badec5c3c1f07f29f74208938bfc3f248086  AGENTS.md",
+    "dbe3dae8c849f3d75a5ac73d28203e28d6dbd8a1dcdcb5a37fbc892b31049e08  docs/capability-status.md",
+    "7239c27dec2089472eaf5122b278845a4d9892ed185db96097366c0afe3a8053  docs/milestones/m4c-c5-sast-plan.md"
+  ]
+}

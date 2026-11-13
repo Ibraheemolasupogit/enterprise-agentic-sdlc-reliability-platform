@@ -4,9 +4,9 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current stage: M4C-C5-F4 — hosted Linux SAST trial prepared and locally validated,
-NOT executed; owner dispatch requires separate authorization; mandatory SAST CI and
-deployment remain NO-GO.**
+**Current stage: M4C-C5-F4R — network-isolated Docker SAST trial prepared and locally
+validated (not dispatched) after hosted run 43432851816 failed closed on Ubuntu 24.04
+AppArmor userns restriction. Mandatory SAST CI and deployment NO-GO.**
 C1/C3 local acceptance and C4 static validation are preserved. Read-only checks
 confirm C4 commit `e9b5704`, hosted run 43407086701: policy/application/containers/
 required passed, CodeQL skipped. CodeQL's opt-in flag is absent; private eligibility
@@ -20,7 +20,10 @@ restriction. [C5-F3](docs/evidence/m4c-c5-f3-harness-hardening.md) closed those
 harness gaps and the test-file finding (clean scans on both platforms); hosted-runner
 isolation, tool advisories and native-library notices remain open, so mandatory SAST
 CI remains NO-GO. [C5-F4](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md) adds a
-dispatch-only, read-only, non-blocking trial workflow that has not been run. C5 acceptance and C2/C6/C7/C8 remain open; no live
+dispatch-only, read-only, non-blocking trial workflow; its first hosted run failed closed on
+AppArmor user-namespace restriction ([diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md)).
+[C5-F4R](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md) moves install and scan into a
+digest-pinned `--network none` hardened container; a second dispatch awaits owner authorization. C5 acceptance and C2/C6/C7/C8 remain open; no live
 network/SQL/provider/identity enforcement or Azure readiness follows from CI.
 Azure session/permission/quota checks remain blocked. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
@@ -42,6 +45,8 @@ Agents, cloud deployment and release execution remain planned.
 | [C5-F2 Linux verification](docs/evidence/m4c-c5-f2-linux-feasibility.md) | Linux toolchain/harness parity, fail-closed matrix, namespace isolation, time/memory, G1/G2 reconciliation and mandatory-CI NO-GO |
 | [C5-F3 harness hardening](docs/evidence/m4c-c5-f3-harness-hardening.md) | Control catalogue, exhaustive classification, exit codes, toolchain/RECORD integrity, isolation diagnostics, G1 fix, native-library inventory, 34-case mutation matrix |
 | [C5-F4 hosted trial preparation](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md) | Dispatch-only trial workflow, validator/mutations, local Ubuntu simulation, G2/G5 risk register and owner run steps (not executed) |
+| [C5-F4 hosted run diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md) | Run 43432851816 exit 5 cause (AppArmor userns restriction), runner facts vs expectations, alternatives and proposed C5-F4R plan |
+| [C5-F4R Docker trial preparation](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md) | Pinned Ubuntu 24.04 runtime image, hardened network-less containers, in-container isolation proof, exit codes 0–7, provenance/licences, local results and owner steps (not dispatched) |
 | [C5 proposed implementation plan](docs/milestones/m4c-c5-sast-plan.md) | Unexecuted local SAST pilot, fail-closed controls, adversarial cases and independent-governance acceptance gates |
 | [C4 infrastructure evidence](docs/evidence/m4c-c4-infrastructure.md) | Eight local Bicep contracts, parameter/redaction/security mutations, regression results, costs and open integration gates |
 | [M4B local evidence](docs/evidence/m4b-local-preparation.md) | Executed local checks, SQL simulation limits and remaining NO-GO gates |
@@ -86,7 +91,7 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stopped after C5-F4 hosted-trial preparation (not dispatched); CI wiring and other C5 work need new direction.
+delivery dependency here. Current authorization stopped after C5-F4R preparation (not dispatched); CI wiring and other C5 work need new direction.
 Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.
