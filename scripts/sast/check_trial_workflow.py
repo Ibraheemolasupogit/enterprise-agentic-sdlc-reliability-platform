@@ -111,8 +111,9 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_vers
     require(re.fullmatch(r"\d+\.\d+\.\d+", want_node), "apps/octocat-supply/.node-version must be an exact version")
     setup = [i for i, s in enumerate(steps) if s.get("uses", "").startswith("actions/setup-node@")]
     require(len(setup) == 1, "Exactly one pinned actions/setup-node step expected")
-    require(steps[setup[0]].get("with") == {"node-version": want_node},
-            "setup-node must set only node-version equal to apps/octocat-supply/.node-version (no cache/registry/token)")
+    require(steps[setup[0]].get("with") == {"node-version": want_node, "package-manager-cache": "false"},
+            "setup-node must set only node-version equal to apps/octocat-supply/.node-version and "
+            "package-manager-cache: false (no cache/registry/token)")
     npm_lines = [line.strip() for r in runs for line in r.splitlines() if re.search(r"(^|[\s;&|(])npm\b", line)]
     require(npm_lines == [NPM_INSTALL], "The only npm command allowed is a single `npm ci --ignore-scripts`")
     install = index(NPM_INSTALL)

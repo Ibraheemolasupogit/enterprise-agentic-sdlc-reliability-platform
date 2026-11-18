@@ -141,7 +141,8 @@ class HostedTypeScriptGatePolicy(unittest.TestCase):
                  find(t, "hosted_trial.py container-run")]
         self.assertEqual(order, sorted(order))
         node = steps(t)[order[0]]
-        self.assertEqual(node["with"], {"node-version": (ROOT / "apps/octocat-supply/.node-version").read_text().strip()})
+        self.assertEqual(node["with"], {"node-version": (ROOT / "apps/octocat-supply/.node-version").read_text().strip(),
+                                        "package-manager-cache": "false"})
         self.assertEqual(node["uses"].split("@")[1].split()[0], "249970729cb0ef3589644e2896645e5dc5ba9c38")
         self.assertEqual(steps(t)[order[1]]["working-directory"], "apps/octocat-supply")
         for i in (order[2], order[6]):
@@ -157,6 +158,12 @@ class HostedTypeScriptGatePolicy(unittest.TestCase):
                       {"check-latest": "true"}, {"always-auth": "true"}):
             with self.subTest(extra=extra):
                 self.rejects(mutate=lambda t, e=extra: steps(t)[find(t, "actions/setup-node@")]["with"].update(e))
+        # setup-node v6 enables package-manager caching by default: the explicit opt-out is mandatory.
+        self.rejects(mutate=lambda t: steps(t)[find(t, "actions/setup-node@")]["with"].pop("package-manager-cache"))
+        for value in ("true", "", "False ", "0", "npm"):
+            with self.subTest(package_manager_cache=value):
+                self.rejects(mutate=lambda t, v=value: steps(t)[find(t, "actions/setup-node@")]["with"].update(
+                    {"package-manager-cache": v}))
         for version in ("24", "24.x", "lts/*", "24.22.1", "22.17.1"):
             with self.subTest(version=version):
                 self.rejects(mutate=lambda t, v=version: steps(t)[find(t, "actions/setup-node@")]["with"].update(
