@@ -1,0 +1,141 @@
+{
+  "milestone": "M4C-C5-U1D (LT-U1, second fresh run)",
+  "start_utc": "2026-11-18T15:38:48Z",
+  "end_utc": "2026-11-18T15:48:51Z",
+  "base_commit": "268bc75",
+  "result": "ALL STAGES S0-S8 PASSED; no retries; no deviations",
+  "engine_version": "1.186.0",
+  "adopted": false,
+  "authorisation": {
+    "lt_u1": "owner, one fresh run, expires 2026-11-20",
+    "coverage_decision": "existing G2 (V1,V2) and G5 V3-V6/V8 accepted for this run only under hardened controls; consumed; not adoption or waiver"
+  },
+  "stages": {
+    "S0": {
+      "result": "PASS",
+      "osv": {
+        "queries": 335,
+        "ids_moderate_only": 6,
+        "new": 0,
+        "high_or_critical": 0
+      },
+      "kev": {
+        "catalog": "2026.11.17",
+        "entries": 1782,
+        "cves": 15,
+        "hits": 0
+      },
+      "upstream": {
+        "semgrep": "1.186.0",
+        "cryptography": "50.0.2",
+        "semgrep_ocaml_head": "eb2978e6385b4581a3d0173f48efd4233794de82"
+      },
+      "consistency": "237/237",
+      "suite": "88 run, 58 pass, 30 skipped",
+      "snapshot_files": 261
+    },
+    "S1": {
+      "result": "PASS",
+      "exit": 0,
+      "isolation": "sandbox-exec deny network*; loopback EPERM",
+      "record_files": 3224,
+      "ts_gate": "49/5",
+      "controls": "59/64 (5 known-miss, 0 missed)",
+      "parser_gap_drift": 0,
+      "targets": 73,
+      "findings": 0
+    },
+    "S2": {
+      "result": "PASS",
+      "tests": "9/9"
+    },
+    "S3": {
+      "result": "PASS",
+      "tests": "29/29",
+      "skipped": 0,
+      "seconds": 172.8
+    },
+    "S4": {
+      "result": "PASS",
+      "tests": "14/14",
+      "skipped": 0,
+      "end_to_end": "malformed TypeScript stops with zero Semgrep processes"
+    },
+    "S5": {
+      "result": "PASS",
+      "matrix": "34/34 as expected",
+      "runner_sha256": "bd0f88e09f46c7e8eaa82e4da44199e481f1c23a24accabaa1232cbe64323007"
+    },
+    "S6": {
+      "result": "PASS",
+      "tests": "88/88",
+      "skipped": 0,
+      "seconds": 193.3,
+      "note": "plan stated 87; +1 owner-approved G2 guard test"
+    },
+    "S7": {
+      "result": "PASS",
+      "exit": 0,
+      "isolation": "--network none verified: only lo up, no non-local IPv4/IPv6, DNS fails, non-root, no caps, NoNewPrivs, seccomp, read-only root",
+      "record_files": 3310,
+      "semgrep_core_sha256": "dcaa53ef689d5e0145e6d418016ed40561a11ad6fa2c9472a760ed8131131e68",
+      "ts_gate": "host gate pass; in-container host-attestation 49/5",
+      "controls": "59/64",
+      "parser_gap_drift": 0,
+      "targets": 73,
+      "findings": 0,
+      "image": "sha256:e7dfbbf428d4372a6756cea9e0fc15988ae091b4c8bc99c5025cdd2c4f6484dc"
+    },
+    "S8": {
+      "result": "PASS",
+      "head_unchanged": true,
+      "git_status_unchanged": true,
+      "tree_files_unchanged": 261,
+      "writes_since_s0": 0,
+      "c5_containers": 0,
+      "consistency": "237/237",
+      "unexpected_output_fields_or_canary": 0
+    }
+  },
+  "output_sha256": {
+    "s0_osv": "3acf5b1cb38d12eb7e449695751086bab14eb63920c39e7ae52380f240f66243",
+    "s0_tree": "8be50c3d0fa83dfa78cc1729813ca78eacf31d1fcf1938f66c5085069802ff0b",
+    "s1_console": "9aaf2072bb783edf1d5aab829c4d14020cabc4a725fa871291c3359f48575ca7",
+    "s1_summary": "c99a9e0cfeda7f74afb5819ea3f809336ed4d9c81721aa2af5e6d0bb4b1cfdcd",
+    "s2": "f85d455b86cf1d7be38039b75103f4e696e5a8caa27bfc4c26e81f2e99c80eb7",
+    "s3": "ba287e38a987f6332c1732f6411c1a09d4ebc0e5b6405effda778825ec2bc8a1",
+    "s4": "60a778f2e00dd0cb01b8236cc031579d63d501829b8b5ecca3e075c6cc5db549",
+    "s5": "3ce0ba7c992b2297d7098d9eee32389fe89b8b851e224ebe59bf4659def0e15e",
+    "s6": "cc3e7b44262d4713c1a4c3de914fc14865bde8c6d517e232f3eeb2358b36a4d3",
+    "s7_console": "451f7bdeccfd9203c998ef0c33004abc7e8d371d97869558e33580303eaaecfc",
+    "s7_summary": "477db8855a9cb8f408fc83274a5c74ef200c5b6300d24d7891f33a76b34cf841",
+    "s7_container_run": "943e66af51f91b24c3cc7be498032c9ed59eb06b32289f862c4906229f11a4c4",
+    "s7_runner": "c6c67ba5b921e26fda0b442a248fcf4808b1dbf54c2103ec210e953818fdd1fe"
+  },
+  "residual_risks": [
+    "local only (Docker Desktop linux/amd64), hosted behaviour and G4H steps unverified",
+    "node v22.17.1 locally (hosted pins 24.22.2); --repeat 1",
+    "E03 auto mode only",
+    "test_engine_invocation_platform_wrapper still inherits caller environment (PATH pin covered by 5 tests)",
+    "G2/V3-V6/V8 present, open, not waived; G5D section 7 unmet",
+    "macOS libtree-sitter identity as in v2 (inferred)",
+    "mandatory CI red (picomatch), not waived",
+    "run-scoped coverage decision consumed"
+  ],
+  "go_no_go": {
+    "adopt_1_186_0": "NO-GO; technically ready for owner decision (renewed acceptance for 1.186.0 hashes + A6)",
+    "g4h_hosted_1_186_0": "NO-GO",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "OPEN",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO",
+    "G5D_D1_D6": "unchanged"
+  }
+}

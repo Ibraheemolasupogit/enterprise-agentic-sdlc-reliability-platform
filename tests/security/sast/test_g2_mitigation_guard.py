@@ -43,7 +43,7 @@ G2_REQUIRED_FLAGS = ("--oss-only", "--metrics=off", "--disable-version-check", "
 # registry rules, Pro/AppSec-platform features or network fetches.
 FORBIDDEN_ARGS = re.compile(
     r"^(mcp|login|logout|ci|publish|install-semgrep-pro|lsp|show|--trace(-endpoint)?(=.*)?|--metrics(=(on|auto).*)?"
-    r"|--enable-version-check|--pro.*|--secrets|--supply-chain|--allow-untrusted-validators|--dryrun"
+    r"|--enable-version-check|--pro.*|--secrets|--compute-secret-hash|--supply-chain|--allow-untrusted-validators|--dryrun"
     r"|--config=.*|auto|p/.*|r/.*|https?://.*|--use-git-ignore|--x-.*)$")
 TOOL_ENV = {"PATH": "/usr/bin:/bin", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "PIP_DISABLE_PIP_VERSION_CHECK": "1",
             "PIP_NO_INDEX": "1", "PIP_NO_INPUT": "1", "PIP_CONFIG_FILE": os.devnull, "PYTHONNOUSERSITE": "1"}
@@ -54,18 +54,23 @@ RULE_FILES = ("security/sast/rules/python.yml", "security/sast/rules/typescript.
 ALLOWED_WRAPPERS = ((), ("/usr/bin/sandbox-exec", "-p", "(version 1)(allow default)(deny network*)"))
 UNSHARE = re.compile(r"^/(usr/)?bin/unshare$")
 CONTAINER_ENV_NAMES = frozenset({*driver.CONTEXT_KEYS, "TRIAL_AUTHORIZATION_REFERENCE", "C5_TRIAL_NONCE"})
-SECRETISH = re.compile(r"TOKEN|SECRET|PASSW|CREDENTIAL|_KEY$|^AUTH|OTEL|SEMGREP_APP|SEMGREP_TRACE|MCP|PROXY|"
+SECRETISH = re.compile(r"TOKEN|SECRET|PASSW|CREDENTIAL|_KEY$|^AUTH|OTEL|SEMGREP_APP|SEMGREP_TRACE|SEMGREP_METRICS_URL|MCP|PROXY|"
                        r"^AWS_|^AZURE_|^ARM_|^ACTIONS_|PYTHON(PATH|STARTUP|HOME)", re.I)
 # Hostile caller environment: none of this may reach the engine or the container.
 HOSTILE = {
     "GITHUB_TOKEN": "C5G2CANARY", "GH_TOKEN": "C5G2CANARY", "SEMGREP_APP_TOKEN": "C5G2CANARY",
-    "SEMGREP_APP_URL": "https://c5g2.invalid", "OTEL_EXPORTER_OTLP_ENDPOINT": "https://c5g2.invalid",
+    "SEMGREP_APP_URL": "https://c5g2.invalid", "SEMGREP_METRICS_URL": "https://c5g2.invalid",  # read since 1.186.0
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "https://c5g2.invalid",
     "OTEL_TRACES_EXPORTER": "otlp", "OTEL_RESOURCE_ATTRIBUTES": "c5g2=1", "SEMGREP_TRACE_PARENT_TRACE_ID": "1" * 32,
     "SEMGREP_TRACE_PARENT_SPAN_ID": "2" * 16, "SEMGREP_SEND_METRICS": "on", "SEMGREP_ENABLE_VERSION_CHECK": "1",
     "SEMGREP_SETTINGS_FILE": "/c5g2/settings.yml", "SEMGREP_MCP_TOKEN": "C5G2CANARY", "HTTPS_PROXY": "http://c5g2.invalid",
     "PYTHONPATH": "/c5g2", "PYTHONSTARTUP": "/c5g2/x.py", "AZURE_CLIENT_SECRET": "C5G2CANARY",
     "AWS_SECRET_ACCESS_KEY": "C5G2CANARY", "ACTIONS_ID_TOKEN_REQUEST_TOKEN": "C5G2CANARY",
     "ACTIONS_RUNTIME_TOKEN": "C5G2CANARY", "PATH": "/c5g2/bin:/usr/bin:/bin", "HOME": "/c5g2/home"}
+# Caller environment for harness mutations: a canary value plus a caller PATH that always differs from the pinned tool
+# PATH, so mutations that inherit the caller's environment are detectable whatever PATH the test itself runs with.
+CALLER_PATH = HOSTILE["PATH"]
+MUTATION_CALLER_ENV = {"X": "C5G2CANARY", "PATH": CALLER_PATH}
 
 
 class Drift(AssertionError):
@@ -188,10 +193,24 @@ class PositivePolicy(unittest.TestCase):
             self.assertEqual(harness.FLAGS.count(flag), 1, flag)
 
     def test_engine_invocation_container_mode(self):
+        # Deterministic caller environment (C5-U1C): with an inherited caller PATH equal to the pin, a harness that
+        # forwards the caller's PATH would be indistinguishable from one that pins it.
         harness = load_harness(tag="container")
-        argv, env, home, semgrep, tool = capture_engine(harness)
+        argv, env, home, semgrep, tool = capture_engine(harness, environ=MUTATION_CALLER_ENV)
+        self.assertNotEqual(CALLER_PATH, TOOL_ENV["PATH"])
+        self.assertEqual(tool["PATH"], TOOL_ENV["PATH"])
+        self.assertEqual(env["PATH"], TOOL_ENV["PATH"])
         check_engine(argv, env, harness.ROOT, home, semgrep)
         check_tool_env(tool, home)
+
+    def test_pinned_path_ignores_distinct_caller_path(self):
+        """Control for the PATH mutation: the unmutated harness keeps the pinned PATH under a distinct caller PATH."""
+        harness = load_harness(tag="caller_path")
+        argv, env, home, semgrep, tool = capture_engine(harness, environ=MUTATION_CALLER_ENV)
+        self.assertEqual(tool["PATH"], TOOL_ENV["PATH"])
+        self.assertEqual(env["PATH"], TOOL_ENV["PATH"])
+        check_tool_env(tool, home)
+        check_engine(argv, env, harness.ROOT, home, semgrep)
 
     def test_engine_invocation_platform_wrapper(self):
         harness = load_harness(tag="auto")
@@ -274,11 +293,17 @@ class NegativePolicy(unittest.TestCase):
         "otel endpoint forwarded": ('"NO_COLOR": "1"}', '"NO_COLOR": "1", "OTEL_EXPORTER_OTLP_ENDPOINT": "http://x"}'),
         "tool PATH widened": ('{"PATH": "/usr/bin:/bin",', '{"PATH": os.environ.get("PATH", ""),'),
         "tool env inherits token": ('"PYTHONNOUSERSITE": "1"}', '"PYTHONNOUSERSITE": "1", "GITHUB_TOKEN": "x"}'),
+        # Semgrep 1.186.0 surfaces (C5-U1): a configurable metrics endpoint and secret-hash computation.
+        "metrics endpoint redirected": ('"NO_COLOR": "1"}', '"NO_COLOR": "1", "SEMGREP_METRICS_URL": "https://x"}'),
+        "secret hash computation enabled": ('"--oss-only",', '"--oss-only", "--compute-secret-hash",'),
         "isolation wrapper weakened": ('SANDBOX_PROFILE = "(version 1)(allow default)(deny network*)"',
                                        'SANDBOX_PROFILE = "(version 1)(allow default)"'),
     }
 
     def test_every_mutation_is_rejected(self):
+        # The caller environment is fixed here, never inherited: a PATH-inheriting mutation is only observable when the
+        # caller's PATH differs from the pin (C5-U1C: under `env -i PATH=/usr/bin:/bin` the check was vacuous).
+        self.assertNotEqual(CALLER_PATH, TOOL_ENV["PATH"])
         rejected = 0
         for name, (old, new) in self.MUTATIONS.items():
             isolation = "auto" if "wrapper" in name else "container"
@@ -289,7 +314,12 @@ class NegativePolicy(unittest.TestCase):
                 mutated = self.SOURCE.replace(old, new)
                 self.assertNotEqual(mutated, self.SOURCE)
                 harness = load_harness(mutated, tag=re.sub(r"\W", "_", name))
-                argv, env, home, semgrep, tool = capture_engine(harness, isolation, environ={"X": "C5G2CANARY"})
+                argv, env, home, semgrep, tool = capture_engine(harness, isolation, environ=MUTATION_CALLER_ENV)
+                if name == "tool PATH widened":
+                    # Non-vacuity: the mutation must really change PATH to the caller's value, away from the pin.
+                    self.assertEqual(tool["PATH"], CALLER_PATH)
+                    self.assertNotEqual(tool["PATH"], TOOL_ENV["PATH"])
+                    self.assertNotEqual(env["PATH"], TOOL_ENV["PATH"])
                 with self.assertRaises(Drift):
                     check_tool_env(tool, home)
                     check_engine(argv, env, harness.ROOT, home, semgrep)
@@ -316,6 +346,8 @@ class NegativePolicy(unittest.TestCase):
             "trace parent": (argv, {**env, "SEMGREP_TRACE_PARENT_TRACE_ID": "1" * 32}),
             "proxy": (argv, {**env, "HTTPS_PROXY": "http://x"}),
             "metrics env on": (argv, {**env, "SEMGREP_SEND_METRICS": "on"}),
+            "metrics endpoint override (1.186.0)": (argv, {**env, "SEMGREP_METRICS_URL": "http://x"}),
+            "secret hash flag (1.186.0)": (argv[:sep] + ["--compute-secret-hash"] + argv[sep:], env),
             "version check env on": (argv, {**env, "SEMGREP_ENABLE_VERSION_CHECK": "1"}),
             "PATH widened": (argv, {**env, "PATH": "/opt/x:/usr/bin:/bin"}),
             "real HOME": (argv, {**env, "HOME": os.path.expanduser("~")}),

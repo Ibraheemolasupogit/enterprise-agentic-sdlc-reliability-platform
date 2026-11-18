@@ -1,0 +1,170 @@
+{
+  "milestone": "M4C-C5-U1E",
+  "date_utc": "2026-11-18",
+  "base_commit": "268bc75",
+  "status": "APPROVED 2026-11-18 (E1-E8 subject to documented scope, expiry and stop conditions); section 4 edits applied",
+  "recorded_owner_decisions": {
+    "A6": "path B (2026-11-18)",
+    "X1": "WITHDRAWN (never approved or used)"
+  },
+  "toolchain_hashes": {
+    "wheel_linux": "54ebaf79adf4e5855c54d5e4457d8d03f27cc6bf73d79642281790b833d92e4f",
+    "wheel_macos": "94b473227b1abe89d104bf87a50e257b3c47f0e09483e4290babc99c01e3aea8",
+    "semgrep_core_linux": "dcaa53ef689d5e0145e6d418016ed40561a11ad6fa2c9472a760ed8131131e68",
+    "semgrep_core_macos": "8a41e91cef264cef399853606e0600c34bb11145afc10fc181e96cc92795cd46",
+    "requirements-sast-linux.txt": "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25",
+    "requirements-sast-macos.txt": "c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2",
+    "security/sast/native-libraries-1.186.0.json": "2e7cb87088dca3d9c5068fd1b53a35fa91c4b02ba04ff8b601a22dd9cac2ceaa",
+    "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json": "7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca",
+    "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
+    "tests/security/sast/test_g2_mitigation_guard.py": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "security/sast/controls.json": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+    "security/sast/rules/python.yml": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73",
+    "security/sast/rules/typescript.yml": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c",
+    "security/sast/toolchain.json": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d"
+  },
+  "evidence_reverification": {
+    "u1d_output_hashes": "13/13",
+    "stage_exits": "all 0",
+    "core_hashes_equal_manifest": true,
+    "changed_since_lt_u1_s0": [
+      "AGENTS.md",
+      "README.md",
+      "docs/capability-status.md",
+      "docs/milestones/m4c-c5-sast-plan.md",
+      "docs/evidence/m4c-c5-u1d-lt-u1-verification.md",
+      "docs/evidence/m4c-c5-u1d-lt-u1-verification.json"
+    ],
+    "consistency": "237/237"
+  },
+  "changeset_audit": {
+    "security_regressions": "none",
+    "unrelated_modifications": "none",
+    "ci_thresholds_or_npm_audit_changed": false,
+    "unchanged_verified": [
+      "ci.yml",
+      "c5-sast-hosted-trial.yml",
+      "hosted_trial.py",
+      "check_trial_workflow.py",
+      "ts_syntax_gate.mjs",
+      "typescript-gate.json",
+      "Dockerfile",
+      "controls.json",
+      "rules",
+      "apps/",
+      "SBOM v1/v2",
+      "native-libraries.json",
+      "G5D record"
+    ],
+    "stale_text": [
+      "toolchain.json platform status strings"
+    ],
+    "historical_text_kept": [
+      "parser-gap fixture comments (catalogue-hashed)",
+      "README/delivery F1 history"
+    ]
+  },
+  "files_to_commit": {
+    "modified": [
+      "AGENTS.md",
+      "README.md",
+      "THIRD_PARTY_NOTICES.md",
+      "docs/capability-status.md",
+      "docs/milestones/m4c-c5-sast-plan.md",
+      "requirements-sast-linux.txt",
+      "requirements-sast-macos.txt",
+      "scripts/sast/feasibility.py",
+      "security/sast/toolchain.json",
+      "tests/security/sast/test_g2_mitigation_guard.py"
+    ],
+    "new": [
+      "docs/evidence/m4c-c5-g5d-addendum-a1.md",
+      "docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md",
+      "docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.json",
+      "docs/evidence/m4c-c5-u1b-pre-execution-assurance.md",
+      "docs/evidence/m4c-c5-u1b-pre-execution-assurance.json",
+      "docs/evidence/m4c-c5-u1c-lt-u1-execution.md",
+      "docs/evidence/m4c-c5-u1c-lt-u1-execution.json",
+      "docs/evidence/m4c-c5-u1d-lt-u1-verification.md",
+      "docs/evidence/m4c-c5-u1d-lt-u1-verification.json",
+      "docs/evidence/m4c-c5-u1e-adoption-decision.md",
+      "docs/evidence/m4c-c5-u1e-adoption-decision.json",
+      "security/sast/native-libraries-1.186.0.json",
+      "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json"
+    ],
+    "never_commit": [
+      "artifacts/",
+      "session scratch (wheels, venvs, RPMs, rebuilt library, LT-U1 outputs)"
+    ]
+  },
+  "remaining_risks": [
+    "hosted behaviour and G4H steps unverified (local Docker Desktop, node 22, repeat 1)",
+    "push triggers mandatory CI expected red on npm audit (picomatch), not waived",
+    "G2 V1/V2 and G5 V3-V6, V8 open; conditional to 2026-12-17; G5D section 7 unmet",
+    "test_engine_invocation_platform_wrapper inherits caller environment",
+    "macOS libtree-sitter identity inferred (v2)",
+    "toolchain.json status edit changes a trial input hash after LT-U1 (status-only)"
+  ],
+  "go_no_go": {
+    "commit": "GO for the owner to commit the 23-file inventory (no further agent changes required)",
+    "push": "owner action; expected to trigger red mandatory CI (npm audit, picomatch), not waived",
+    "prepare_g4h": "NO-GO until pushed; then same-day recheck and per-run authorisation",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "approved": {
+    "date": "2026-11-18",
+    "by": "owner",
+    "decisions": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8"
+    ],
+    "scope": "E1 uses only",
+    "expiry": "2026-12-17"
+  },
+  "decisions": {
+    "E1": "adopt Semgrep CE 1.186.0 (section 3 hashes) for local trusted-repo scans via hardened harness and separately authorised non-blocking trials only; 1.185.0 retired",
+    "E2": "SBOM v3 baseline sha256 7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca; v1 frozen, v2 preserved",
+    "E3": "conditional acceptance of G2 V1/V2 and G5 V3-V6, V8 for E1 uses only, scoped to section 3 hashes; not a waiver; OPEN",
+    "E4": "expiry 2026-12-17 unchanged",
+    "E5": "G5D section 6 stop conditions 1-7 with section 3 hashes + hash change, LT-U1 gate failure, out-of-scope use; early review triggers",
+    "E6": "V7: no open advisory in 1.186.0 (17/17 identities verified); ALSA advisories historical for 1.185.0; G5 OPEN",
+    "E7": "G5D D1-D6 unchanged; G2/G4/G5 OPEN; E04/E05/E06/release/redistribution NO-GO; mandatory CI red not waived; npm audit and CI thresholds unchanged",
+    "E8": "G4H dispatch requires commit/push by owner, same-day recheck, per-run authorisation, input hashes = committed files"
+  },
+  "toolchain_json_status_only_difference": {
+    "lt_u1_tested_sha256": "32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357",
+    "current_sha256": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d",
+    "changed_values": [
+      "engine.platforms.Darwin-arm64.status",
+      "engine.platforms.Linux-x86_64.status"
+    ],
+    "changed_lines": [
+      19,
+      26
+    ],
+    "readers": "harness preflight reads only engine.platforms[platform].lock/lock_sha256/semgrep_core_sha256, rules, rule_ids, controls_catalogue_sha256; status never read; hosted driver records hash only",
+    "preflight_equivalence": {
+      "identical_results": true,
+      "identical_subprocess_calls": true,
+      "semgrep_invoked": false,
+      "distributions": 67,
+      "record_files": 3224
+    }
+  },
+  "post_approval_edits": {
+    "applied": true,
+    "date": "2026-11-18",
+    "items": [
+      "toolchain.json platform status strings (stale 'NOT executed')",
+      "THIRD_PARTY_NOTICES Semgrep row 'candidate' -> 'adopted (U1E)'",
+      "status lines: replace A1/X1 and U1 'never run engine' rules with E1/E3/E5; SBOM v3 baseline",
+      "U1E marked APPROVED"
+    ]
+  }
+}

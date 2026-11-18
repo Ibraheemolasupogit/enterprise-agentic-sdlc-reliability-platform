@@ -1,4 +1,4 @@
-# Semgrep CE 1.185.0 C5-F1 feasibility lock: macOS arm64 (macosx_11_0_arm64), CPython 3.12.
+# Semgrep CE 1.186.0 C5-F1 feasibility lock (C5-U1 upgrade from 1.185.0): macOS arm64 (macosx_11_0_arm64), CPython 3.12.
 # Binary wheels only; install with --require-hashes --no-deps --no-index --only-binary=:all:
 # from a verified local wheelhouse. Not a CI or application dependency.
 
@@ -112,8 +112,8 @@ ruamel-yaml-clib==0.2.15 \
     --hash=sha256:64da03cbe93c1e91af133f5bec37fd24d0d4ba2418eaf970d7166b0a26a148a2  # ruamel_yaml_clib-0.2.15-cp312-cp312-macosx_11_0_arm64.whl
 semantic-version==2.10.0 \
     --hash=sha256:de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177  # semantic_version-2.10.0-py2.py3-none-any.whl
-semgrep==1.185.0 \
-    --hash=sha256:d54c7dc22f6f360e0f9f850b1ecdfe00ec755600f9cf2ec6be3928b42818f1b4  # semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-macosx_11_0_arm64.whl
+semgrep==1.186.0 \
+    --hash=sha256:94b473227b1abe89d104bf87a50e257b3c47f0e09483e4290babc99c01e3aea8  # semgrep-1.186.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-macosx_11_0_arm64.whl
 sse-starlette==3.7.0 \
     --hash=sha256:f1d3136caa12d129284fca3d2ded79bc9af943320b6472712955fea52a6d3eea  # sse_starlette-3.7.0-py3-none-any.whl
 starlette==1.10.0 \

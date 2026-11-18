@@ -1,4 +1,4 @@
-# Semgrep CE 1.185.0 C5-F1 feasibility lock: Linux x86_64 manylinux (glibc>=2.34), CPython 3.12.
+# Semgrep CE 1.186.0 C5-F1 feasibility lock (C5-U1 upgrade from 1.185.0): Linux x86_64 manylinux (glibc>=2.34), CPython 3.12.
 # Binary wheels only; install with --require-hashes --no-deps --no-index --only-binary=:all:
 # from a verified local wheelhouse. Not a CI or application dependency.
 
@@ -112,8 +112,8 @@ ruamel-yaml-clib==0.2.15 \
     --hash=sha256:11e5499db1ccbc7f4b41f0565e4f799d863ea720e01d3e99fa0b7b5fcd7802c9  # ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
 semantic-version==2.10.0 \
     --hash=sha256:de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177  # semantic_version-2.10.0-py2.py3-none-any.whl
-semgrep==1.185.0 \
-    --hash=sha256:0eb6aaadad5b957af96d1300487e10af1dc8016e8ef53072effb48cd4906c02b  # semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl
+semgrep==1.186.0 \
+    --hash=sha256:54ebaf79adf4e5855c54d5e4457d8d03f27cc6bf73d79642281790b833d92e4f  # semgrep-1.186.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl
 sse-starlette==3.7.0 \
     --hash=sha256:f1d3136caa12d129284fca3d2ded79bc9af943320b6472712955fea52a6d3eea  # sse_starlette-3.7.0-py3-none-any.whl
 starlette==1.10.0 \

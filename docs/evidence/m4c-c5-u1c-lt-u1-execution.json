@@ -1,0 +1,190 @@
+{
+  "milestone": "M4C-C5-U1C (LT-U1)",
+  "date_utc": "2026-11-18",
+  "start_utc": "2026-11-18T11:09:31Z",
+  "stop_utc": "2026-11-18T11:12:51Z",
+  "base_commit": "268bc75",
+  "result": "STOPPED AT S2 (FAIL); not retried",
+  "engine_version": "1.186.0",
+  "authorisation": {
+    "lt_u1": "owner, one execution, expires 2026-11-20",
+    "coverage_decision": "G2 (V1,V2) and V3-V6, V8 accepted for this single LT-U1 local run only under existing G5D controls; ALSA-2026:98475 recorded as not applicable to 1.186.0; not adoption, not a waiver; consumed"
+  },
+  "preconditions": {
+    "1": "given",
+    "2": "given before S1",
+    "3": "satisfied (U1B R1)",
+    "4": "clean",
+    "5": "237/237",
+    "6": "env -i minimal; empty scratch HOME; no sensitive variables in parent shell",
+    "7": "snapshot taken; no hosted run in progress"
+  },
+  "stages": {
+    "S0": {
+      "result": "PASS",
+      "osv": {
+        "queries": 335,
+        "ids": [
+          "GHSA-5h93-6whr-6q8j",
+          "GHSA-84m7-p3x7-pcfv",
+          "GHSA-mf5v-w3w3-f6cg",
+          "GHSA-rwrf-2pqf-9j8j",
+          "GHSA-w4fh-qvv9-3v23",
+          "GHSA-xcq7-p3pf-p88h"
+        ],
+        "new": [],
+        "high_or_critical": []
+      },
+      "kev": {
+        "catalog_version": "2026.11.17",
+        "entries": 1782,
+        "cves_checked": 15,
+        "hits": []
+      },
+      "upstream": {
+        "semgrep_latest": "1.186.0",
+        "cryptography_latest": "50.0.2",
+        "semgrep_ocaml_5_4_0_semgrep_head": "eb2978e6385b4581a3d0173f48efd4233794de82"
+      },
+      "consistency": "237/237",
+      "engine_free_suite": "87 run, 57 pass, 30 skipped"
+    },
+    "S1": {
+      "result": "PASS",
+      "exit": 0,
+      "isolation": "macOS sandbox-exec deny network*; loopback probe EPERM",
+      "toolchain": {
+        "distributions": 67,
+        "pip_check": "pass",
+        "record_files": 3224,
+        "semgrep_core_sha256": "8a41e91cef264cef399853606e0600c34bb11145afc10fc181e96cc92795cd46"
+      },
+      "inventory_files": 259,
+      "ast_gate_python_files": 22,
+      "typescript_gate": {
+        "status": "pass",
+        "accepted": 49,
+        "rejected_controls": 5,
+        "typescript": "6.0.3",
+        "node": "v22.17.1"
+      },
+      "controls": {
+        "as_expected": "59/64",
+        "known_miss": 5,
+        "missed": 0,
+        "fixtures": 23,
+        "malformed_all_rejected": true,
+        "baseline": "identical to hosted run 43478654843 (known-miss 5, MISSED 0)"
+      },
+      "parser_gaps": {
+        "drift": 0,
+        "engine_rejected": [
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "source": {
+        "targets": 73,
+        "findings": 0
+      },
+      "unexpected_output_fields": "none (no secret_hash/Pro/Secrets)"
+    },
+    "S2": {
+      "result": "FAIL",
+      "exit": 1,
+      "passed": "7/8",
+      "failure": "NegativePolicy.test_every_mutation_is_rejected [mutation='tool PATH widened']: Drift not raised",
+      "analysis": "test-design defect: the mutation inherits the caller PATH via mock.patch.dict(os.environ, ..., clear=False); under LT-U1 env -i PATH=/usr/bin:/bin the inherited PATH equals the pinned PATH, so no drift exists; passes under the normal shell PATH (S0); harness control, engine and U1 changes not implicated",
+      "proposed_fix": "inject a distinct caller PATH (e.g. /c5g2/bin:/usr/bin:/bin) for the mutation cases; optionally assert the mutated environment differs before expecting Drift (owner approval required)"
+    },
+    "S3": "not run",
+    "S4": "not run",
+    "S5": "not run",
+    "S6": "not run",
+    "S7": "not run",
+    "S8_post_stop_integrity": {
+      "result": "PASS",
+      "head_unchanged": true,
+      "git_status_unchanged": true,
+      "tree_files_unchanged": 259,
+      "ignored_path_writes": 0,
+      "c5_containers_running": 0,
+      "consistency": "237/237"
+    }
+  },
+  "output_sha256": {
+    "s1_console": "ee25c5f0d7f5a7ede7dc4139a6d13417605980fe3abd31b24eaa66c42a14c57d",
+    "s1_summary": "f9f389715dc4600ed73c004eb6e6af32966801b228cb2fd782cf927253f89535",
+    "s2_console": "610cfc1669233b4c9ea0052f81a27e1ea0705435a315694d505248573389edde",
+    "s0_osv": "f1eeec123d4b3e7db0b3269a52052c1f07ae8fd6de7265b67df7ef2d4a7efb44",
+    "s0_tree_snapshot": "ef3c500f6cfc7dcabd04f31d0d0e6eff672b62779f7e2215509d94620230b976",
+    "scratch_u1_consistency.py": "5670fb170d05333c5599946ac094a94390b24f738107a51bd7e65ccaad4883ba"
+  },
+  "residual_risks": [
+    "E03, F3 matrix, G4 end-to-end, full suite and Linux container unverified on 1.186.0",
+    "S1 single macOS run only",
+    "G2 guard PATH mutation vacuous under caller PATH=/usr/bin:/bin until fixed",
+    "coverage decision consumed; new decision needed for any further engine run",
+    "G2, V3-V6, V8 present and not waived; mandatory CI red (picomatch)"
+  ],
+  "go_no_go": {
+    "new_lt_u1": "READY for a fresh owner authorisation (from S0, coverage decision restated); fix validated engine-free",
+    "adopt_1_186_0": "NO-GO",
+    "hosted_dispatch": "NO-GO",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "OPEN",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO",
+    "G5D_D1_D6": "unchanged"
+  },
+  "fix_after_stop": {
+    "file": "tests/security/sast/test_g2_mitigation_guard.py",
+    "sha256": "2ff0e830080ed7839d3e2fdc20d4a8d3ee2c2e893a9281aa404cab82efeedc24",
+    "previous_sha256": "c03a73020d40cd372df3e8f1b1580bcb0bcfb799dd2b3ea72a16eb67e35eab9f",
+    "changes": [
+      "mutation loop uses MUTATION_CALLER_ENV {X canary, PATH /c5g2/bin:/usr/bin:/bin}",
+      "assert CALLER_PATH != pinned PATH",
+      "non-vacuity: 'tool PATH widened' mutated tool and engine PATH equal the caller PATH and differ from the pin",
+      "new positive control test_pinned_path_ignores_distinct_caller_path"
+    ],
+    "removed_or_relaxed": [],
+    "harness_changed": false,
+    "validation": {
+      "g2_guard": {
+        "normal_shell": "9/9",
+        "lt_u1_env": "9/9",
+        "unusual_caller_path": "9/9"
+      },
+      "sast_suite": "88 run, 58 pass, 30 skipped (both environments)",
+      "engine_invoked": false
+    },
+    "negative_controls": {
+      "a_prefix_under_env_i": "FAIL as intended (Drift not raised)",
+      "b_caller_path_equals_pin": "FAIL as intended",
+      "c_ineffective_mutation": "FAIL as intended (non-vacuity)",
+      "d_harness_pin_removed": "FAIL as intended (4 tests)"
+    },
+    "observation": "PositivePolicy.test_engine_invocation_container_mode is caller-PATH dependent (optional hardening; covered by the new positive control)",
+    "followup_container_mode": {
+      "sha256": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+      "test": "PositivePolicy.test_engine_invocation_container_mode uses MUTATION_CALLER_ENV and asserts the pinned PATH",
+      "unchanged_harness": "pass (normal and LT-U1 env)",
+      "pin_removed_copy": "fails (both environments)",
+      "guard_tests_detecting_pin_removal": 5,
+      "g2_guard": "9/9 both environments",
+      "sast_suite": "88 run, 58 pass, 30 skipped (both)",
+      "engine_invoked": false,
+      "removed_or_relaxed": [],
+      "remaining_observation": "test_engine_invocation_platform_wrapper still inherits caller environment; PATH pin covered by 5 other tests"
+    }
+  }
+}

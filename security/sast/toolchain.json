@@ -1,28 +1,29 @@
 {
-  "purpose": "C5 local feasibility/hardening harness inputs (F1-F3); not a CI gate, not an adopted release control",
+  "purpose": "C5 local feasibility/hardening harness inputs (F1-F3; engine pin updated by C5-U1 to 1.186.0, 2026-11-18); not a CI gate, not an adopted release control",
   "engine": {
     "name": "semgrep (Semgrep Community Edition)",
-    "version": "1.185.0",
+    "version": "1.186.0",
     "license": "LGPL-2.1-or-later",
-    "release": "https://github.com/semgrep/semgrep/releases/tag/v1.185.0",
-    "tag_object": "18866f410389ff28d02310adeb770e9b3c59da56",
-    "source_commit": "9240f708f8d7e2fbd38b67aa6cd17704b1f81e14",
+    "release": "https://github.com/semgrep/semgrep/releases/tag/v1.186.0",
+    "tag_object": "fbdca2da09575dffcc69b8245626567e2ab34c57",
+    "source_commit": "a5844e7c2d9d04548f86048f525d467a00742656",
+    "previous_pin": {"version": "1.185.0", "tag_object": "18866f410389ff28d02310adeb770e9b3c59da56", "source_commit": "9240f708f8d7e2fbd38b67aa6cd17704b1f81e14"},
     "tag_signature": "unsigned (per C5 readiness assessment); PyPI hashes are integrity, not publisher identity",
     "requires_python": ">=3.10",
     "platforms": {
       "Darwin-arm64": {
         "lock": "requirements-sast-macos.txt",
-        "lock_sha256": "ca6756ce9ce3aeb8746acf3ff4d3bc7fb4922930104d43c67f6762563277cefa",
-        "wheel_sha256": "d54c7dc22f6f360e0f9f850b1ecdfe00ec755600f9cf2ec6be3928b42818f1b4",
-        "semgrep_core_sha256": "4bfb5ad15e695ea54cab9c9d507ff476815d52d891a36e3741a139cb496fe9f5",
-        "status": "installed and executed locally (CPython 3.12.8, macOS 15 arm64)"
+        "lock_sha256": "c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2",
+        "wheel_sha256": "94b473227b1abe89d104bf87a50e257b3c47f0e09483e4290babc99c01e3aea8",
+        "semgrep_core_sha256": "8a41e91cef264cef399853606e0600c34bb11145afc10fc181e96cc92795cd46",
+        "status": "C5-U1: hash-locked; installed offline and executed in LT-U1 (U1D 2026-11-18: harness exit 0, E03 29/29, G4 14/14, F3 34/34, suite 88/88); adopted by U1E"
       },
       "Linux-x86_64": {
         "lock": "requirements-sast-linux.txt",
-        "lock_sha256": "8d7d13b691f4df781c9730b40344441fcf30ff59d3ac3d9ad495ee791a8b8b15",
-        "wheel_sha256": "0eb6aaadad5b957af96d1300487e10af1dc8016e8ef53072effb48cd4906c02b",
-        "semgrep_core_sha256": "38fd08794fa488263b4a324f1b71eb6c0817f0ddaff372d46fe3629b3f78672d",
-        "status": "resolved and hash-locked from wheel metadata only; not installed or executed"
+        "lock_sha256": "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25",
+        "wheel_sha256": "54ebaf79adf4e5855c54d5e4457d8d03f27cc6bf73d79642281790b833d92e4f",
+        "semgrep_core_sha256": "dcaa53ef689d5e0145e6d418016ed40561a11ad6fa2c9472a760ed8131131e68",
+        "status": "C5-U1: hash-locked; installed offline in the hardened container and executed in LT-U1 S7 (U1D 2026-11-18: --network none, exit 0); adopted by U1E"
       }
     },
     "bundled_native_libraries_without_wheel_notices": [
@@ -369,7 +370,7 @@
       },
       {
         "name": "semgrep",
-        "version": "1.185.0",
+        "version": "1.186.0",
         "license": "LGPL-2.1-or-later",
         "license_files": 1
       },
@@ -495,5 +496,7 @@
   ],
   "controls_catalogue": "security/sast/controls.json",
   "controls_catalogue_sha256": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
-  "native_library_inventory": "security/sast/native-libraries.json"
+  "advisories_osv_2026_11_18": {"source": "OSV.dev querybatch, 67 PyPI lock entries with semgrep==1.186.0 (C5-U1)", "results": [{"package": "mcp", "version": "1.29.0", "ids": ["GHSA-5h93-6whr-6q8j", "GHSA-84m7-p3x7-pcfv", "GHSA-rwrf-2pqf-9j8j", "GHSA-w4fh-qvv9-3v23"], "severity": "MODERATE", "constraint": "semgrep 1.186.0 still pins mcp==1.29.0"}, {"package": "opentelemetry-api", "version": "1.37.0", "ids": ["GHSA-mf5v-w3w3-f6cg", "GHSA-xcq7-p3pf-p88h"], "severity": "MODERATE", "constraint": "semgrep 1.186.0 still requires opentelemetry-api~=1.37.0"}], "semgrep_1_186_0": "no advisories", "status": "G2 unchanged by the upgrade; OPEN, not waived"},
+  "native_library_inventory": "security/sast/native-libraries-1.186.0.json",
+  "native_library_inventory_previous": "security/sast/native-libraries.json"
 }

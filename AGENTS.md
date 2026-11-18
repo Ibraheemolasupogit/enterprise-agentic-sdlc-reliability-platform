@@ -39,7 +39,7 @@
   conditionally accepted ONLY for local trusted-repository scans and separately authorised non-blocking trials,
   expiring 2026-12-17; G5D early-stop conditions and mandatory controls apply (stop scanning if any trips or on
   lapse). SBOM v2 (`security/sast/sbom/semgrep-toolchain-1.185.0.v2-candidate.cdx.json`, CycloneDX 1.6.2
-  schema-valid) is the current assessment baseline; never modify frozen v1. G2/G5 OPEN, advisories visible,
+  schema-valid) was the 1.185.0 baseline; never modify v1 or v2. G5D governs the retired 1.185.0 toolchain; 1.186.0 is governed by U1E (below). G2/G5 OPEN, advisories visible,
   nothing waived; E04, release and redistribution NO-GO.
   [G4 assessment](docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) (not implemented): recommends a
   syntax-only gate with the pinned typescript 6.0.3 plus CI ordering on lint/typecheck.
@@ -50,6 +50,19 @@
   container ([G4H preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md); not dispatched; keep
   check_trial_workflow.py and its tests passing). E04
   requirement: SAST job must hard-depend on lint/typecheck. G4 open pending hosted verification.
+  [G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475); the owner chose
+  path B on 2026-11-18 and exception X1 is WITHDRAWN (never approved or used). Mandatory CI is red (picomatch GHSA-fc5q-39xc-vjpf,
+  dev-only, no fixed release); never waive it or change the audit gate or CI thresholds without owner direction.
+  Semgrep CE 1.186.0 is ADOPTED per the owner-approved [U1E decision](docs/evidence/m4c-c5-u1e-adoption-decision.md) (2026-11-18),
+  based on [C5-U1](docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md),
+  [U1B](docs/evidence/m4c-c5-u1b-pre-execution-assurance.md) (17/17 rebuilt libraries verified; never accept inferred identities),
+  [U1C](docs/evidence/m4c-c5-u1c-lt-u1-execution.md) and [U1D](docs/evidence/m4c-c5-u1d-lt-u1-verification.md) (LT-U1 S0–S8 passed).
+  G2 V1/V2 and G5 V3–V6/V8 are conditionally accepted ONLY for local trusted-repository scans through the hardened harness and
+  separately authorised non-blocking trials, scoped to the U1E section 3 hashes, expiring 2026-12-17; G5D section 6 and U1E E5 stop
+  conditions apply (stop scanning if any trips, any pinned hash changes, or on lapse). SBOM v3
+  (`security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json`) is the current baseline. G2/G4/G5 OPEN, nothing waived;
+  E04, release and redistribution NO-GO. Hosted dispatch needs owner commit/push, a same-day recheck and per-run authorisation;
+  keep tests/security/sast/test_g2_mitigation_guard.py passing in normal and `env -i` environments.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned

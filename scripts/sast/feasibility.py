@@ -56,7 +56,7 @@ CATALOGUE = ROOT / "security/sast/controls.json"
 FIXTURES = "tests/security/sast/fixtures/"
 PRIVATE = ROOT / "artifacts/sast-private/c5"
 SUMMARY = ROOT / "artifacts/sast/c5-summary.json"
-ENGINE_VERSION = "1.185.0"
+ENGINE_VERSION = "1.186.0"
 
 EXIT_CLEAN, EXIT_FINDINGS, EXIT_CONFIG, EXIT_TOOL, EXIT_CONTROL, EXIT_ISOLATION = 0, 1, 2, 3, 4, 5
 EXIT_NAMES = {0: "clean", 1: "findings", 2: "configuration-error", 3: "tool-error",

@@ -7,14 +7,17 @@ engineering handoffs.
 **Current stage: M4C-C5-F4R closed out — hosted Docker SAST trial run 43478654843 at
 `2b050a1` passed (exit 0, 69 targets, 0 findings, controls as catalogued); hosted SAST
 feasibility accepted; [E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) met locally;
-per the [G5D owner decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) (2026-11-17),
-[G2](docs/evidence/m4c-c5-g2-dependency-assessment.md) (incl. GHSA-mf5v) and
-[G5](docs/evidence/m4c-c5-g5-native-library-assessment.md)/[G5C](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md)
-findings V3–V8 are conditionally accepted for local trusted-repository scans and separately authorised
-non-blocking trials until 2026-12-17 (G2/G5 OPEN, not waived); schema-valid SBOM v2 is the assessment baseline
-([G5B](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) v1 frozen);
+the [G5D owner decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) (2026-11-17) covered the now-retired 1.185.0 toolchain
+([G2](docs/evidence/m4c-c5-g2-dependency-assessment.md), [G5](docs/evidence/m4c-c5-g5-native-library-assessment.md)/[G5C](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md); SBOM v2, [G5B](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) v1 frozen);
 [G4 TypeScript syntax gate](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) implemented and verified locally
 ([G4H](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md): trial workflow prepared with pinned Node + `npm ci` preflight, not dispatched; G4 open).
+[G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475); path B chosen, exception X1 WITHDRAWN (never used).
+**Semgrep CE 1.186.0 is ADOPTED** per the owner-approved [U1E decision](docs/evidence/m4c-c5-u1e-adoption-decision.md) (2026-11-18), based on
+[C5-U1](docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md), [U1B](docs/evidence/m4c-c5-u1b-pre-execution-assurance.md) (17/17 rebuilt libraries verified),
+[U1C](docs/evidence/m4c-c5-u1c-lt-u1-execution.md) and [U1D](docs/evidence/m4c-c5-u1d-lt-u1-verification.md) (LT-U1 S0–S8 passed): G2 V1/V2 and G5 V3–V6/V8 are
+conditionally accepted only for local trusted-repository scans and separately authorised non-blocking trials, scoped to the U1E hashes,
+until 2026-12-17 under the G5D/U1E stop conditions; schema-valid SBOM v3 is the baseline (G2/G5 OPEN, not waived).
+Mandatory CI is red on picomatch GHSA-fc5q-39xc-vjpf (dev-only, no fixed release), not waived; hosted G4H on 1.186.0 not yet dispatched.
 Mandatory SAST CI (E04), release, redistribution, C5 acceptance and deployment remain NO-GO.**
 C1/C3 local acceptance and C4 static validation are preserved. Read-only checks
 confirm C4 commit `e9b5704`, hosted run 43407086701: policy/application/containers/
@@ -63,6 +66,12 @@ Agents, cloud deployment and release execution remain planned.
 | [C5 G4H hosted gate preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md) | Trial workflow: pinned setup-node 24.22.2, `npm ci --ignore-scripts`, TypeScript preflight before any container, exact six-file allowlist; validator + 22 workflow and 14 driver tests; hosted verification procedure (not dispatched) |
 | [C5 G4 TypeScript syntax-gate implementation](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) | Pinned typescript 6.0.3 gate before Semgrep (lockfile-verified compiler, self-test, post-scan re-hash; host attestation for container trials); 77/77 SAST tests, 34/34 matrix (T03 now exit 3), 5 real-Docker scenarios; E04 lint/typecheck dependency recorded |
 | [C5 G4 TypeScript syntax-gate assessment](docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) | Semgrep silently accepted 188/755 malformed TS mutants and all 4 G4 cases; TypeScript syntax-only and ESLint parser caught all with 0 false positives; esbuild missed 2; recommends pinned typescript 6.0.3 gate plus CI ordering (not implemented) |
+| [C5 U1 Semgrep 1.186.0 upgrade preparation](docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md) | Pins and verified hashes, offline install/RECORD checks (macOS + hardened Linux container), behaviour/telemetry review, strengthened G2 guard, SBOM v3 candidate (0 schema errors; 6 ALSA cleared), G2/G5 reassessment, blockers and GO/NO-GO; engine NOT executed, not adopted |
+| [C5 U1E adoption decision](docs/evidence/m4c-c5-u1e-adoption-decision.md) | APPROVED 2026-11-18: adopt Semgrep 1.186.0 (exact hashes), SBOM v3 baseline, G2 V1/V2 + G5 V3–V6/V8 conditional acceptance for local scans and authorised non-blocking trials until 2026-12-17 with G5D stop conditions; path B recorded, X1 withdrawn; status-only toolchain.json edit verified; changeset audit, 23-file commit inventory, risks |
+| [C5 U1D LT-U1 verification](docs/evidence/m4c-c5-u1d-lt-u1-verification.md) | Fresh owner-authorised LT-U1 of Semgrep 1.186.0: S0 clean (OSV/KEV/upstream, 237 checks), S1 harness exit 0, S2 9/9, S3 E03 29/29, S4 G4 14/14, S5 F3 34/34, S6 88/88, S7 hardened Linux container exit 0, S8 repository unchanged; residual risks; adopted via U1E |
+| [C5 U1C LT-U1 execution](docs/evidence/m4c-c5-u1c-lt-u1-execution.md) | Owner-authorised local run of Semgrep 1.186.0: S0 clean (OSV/KEV/upstream), S1 harness exit 0 (isolation EPERM, 59/64 controls as baseline, parser-gap drift 0, 73 targets, 0 findings); S2 G2 guard 7/8 FAIL (test-design defect, analysis and proposed fix); S3-S7 not run; repository unchanged |
+| [C5 U1B pre-execution assurance](docs/evidence/m4c-c5-u1b-pre-execution-assurance.md) | Signed-RPM verification (repomd signature, metadata and package hashes, header signatures, file digests, build-id and code sections): 16/16 AlmaLinux libraries VERIFIED, libtree-sitter VERIFIED by reproducible build; 217 consistency checks; SBOM v3 regenerated (0 schema errors); LT-U1 plan, preconditions, stop conditions; X1 reconciliation; not executed |
+| [C5 G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) | 2026-11-18, historical 1.185.0 record: ALSA-2026:98475 CVSS HIGH with static reachability evidence; path B chosen, exception X1 WITHDRAWN (never used); Semgrep 1.186.0 early review; picomatch HIGH and red mandatory CI recorded without waiver; dispatch and stop conditions |
 | [C5 G5D security-risk decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) | Owner decision recorded 2026-11-17 (G2 incl. GHSA-mf5v and V3–V8 conditionally accepted for local trusted-repository scans and authorised non-blocking trials until 2026-12-17; SBOM v2 baseline); confirmed vulnerabilities, reachability, controls, gaps, early-stop conditions, minimum pre-E04 remediation; SBOM schema validation |
 | [C5 G5C vulnerability assessment](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md) | Online OSV/upstream research on the SBOM: OCaml 5.4.0 fork (public; lacks OSEC fixes), OpenSSL 4.0.3 in cryptography (6 CVEs), new opentelemetry-api GHSA; libyaml corrected to 0.2.5; 229 locked opam and 147 Rust crates clean; none shown reachable; v2 SBOM candidate; G5 not closable |
 | [C5 G5B SBOM and static inventory](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) | CycloneDX 1.6 toolchain SBOM (418 components, classed confirmed/build-metadata/inferred/claim/unknown); semgrep-core static inventory from DWARF and symbols (OCaml 5.4.0 Semgrep fork, 84 opam packages, libyaml 0.1.7 claim, 34 grammars; SQLite/Mbed TLS not linked); tree-sitter runtime reassessed |
@@ -111,7 +120,7 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stopped after the C5 G4H hosted gate preparation (not dispatched); CI wiring and other C5 work need new direction.
+delivery dependency here. Current authorization stopped after the owner-approved C5-U1E adoption of Semgrep CE 1.186.0 (locally verified; not committed, pushed or hosted-dispatched by the agent); CI wiring and other C5 work need new direction.
 Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.

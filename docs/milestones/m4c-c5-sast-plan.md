@@ -45,13 +45,18 @@ and release remain NO-GO; its findings and the v2 SBOM candidate were decided in
 [G5D](../evidence/m4c-c5-g5d-security-risk-decision.md) records the owner decision (2026-11-17): G2 incl. GHSA-mf5v
 and G5 V3–V8 conditionally accepted for local trusted-repository scans and separately authorised non-blocking
 trials until 2026-12-17 under its early-stop conditions and controls; SBOM v2 adopted as assessment baseline
-(v1 frozen); G2/G5 OPEN; E04, release and redistribution NO-GO until its minimum remediation is met.
+(v1 frozen) for the now-retired 1.185.0 toolchain; G2/G5 OPEN; E04, release and redistribution NO-GO until its minimum remediation is met.
 The [G4 assessment](../evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) recommends a syntax-only gate using the
 pinned typescript 6.0.3 plus CI ordering on lint/typecheck. The [G4 implementation](../evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md)
 adds that gate to the harness (host attestation for container trials) and is verified locally. **E04 requirement:** the SAST
 job must hard-depend (`needs:`) on the mandatory lint/typecheck job and provide the lock-pinned compiler. G4 stays open
 until hosted verification, which [G4H](../evidence/m4c-c5-g4h-hosted-gate-preparation.md) prepares (trial workflow only;
-not dispatched). E04–E06 and release remain NO-GO.
+not dispatched). [G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
+waived); the owner chose path B and exception X1 is withdrawn. [C5-U1](../evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md) prepared Semgrep 1.186.0,
+[U1B](../evidence/m4c-c5-u1b-pre-execution-assurance.md) verified all 17 rebuilt libraries, [U1C](../evidence/m4c-c5-u1c-lt-u1-execution.md) and
+[U1D](../evidence/m4c-c5-u1d-lt-u1-verification.md) record LT-U1 (S0–S8 passed), and the owner-approved [U1E](../evidence/m4c-c5-u1e-adoption-decision.md)
+(2026-11-18) adopts 1.186.0 with SBOM v3 as baseline and G2 V1/V2 + G5 V3–V6/V8 conditionally accepted for local scans and authorised
+non-blocking trials until 2026-12-17 (G2/G4/G5 OPEN). E04–E06 and release remain NO-GO.
 
 ## Entry decision and bounded scope
 

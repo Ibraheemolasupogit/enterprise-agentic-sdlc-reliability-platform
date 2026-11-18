@@ -1,0 +1,196 @@
+{
+  "milestone": "M4C-C5-U1",
+  "date_utc": "2026-11-18",
+  "base_commit": "268bc75",
+  "status": "PREPARED, NOT ADOPTED, NOT EXECUTED (engine not run; no dispatch, commit, push or release)",
+  "gate": {
+    "g5d_stop_condition_1": "tripped (ALSA-2026:98475 CVSS HIGH, addendum A1 proposed); scanning BLOCKED",
+    "g5d_stop_condition_7": "new pins are outside the G5D acceptance; 1.186.0 scanning needs a new owner decision",
+    "x1_exception": "proposed, not approved; covers 1.185.0 only; voided if U1 is committed first"
+  },
+  "permitted_activities_done": [
+    "upstream metadata and hashes",
+    "static wheel analysis in session scratch",
+    "pin/manifest/inventory/SBOM/test/doc edits",
+    "OSV queries",
+    "CycloneDX schema validation",
+    "offline pip install + pip check + RECORD + core hash (macOS venv; Linux hardened container-install)",
+    "engine-free unit tests, actionlint, validators, repository checks, gitleaks"
+  ],
+  "not_run": [
+    "semgrep/pysemgrep/semgrep-core",
+    "feasibility.py harness",
+    "hosted_trial run/container-run",
+    "E03 real-engine suite",
+    "F3 34-case matrix",
+    "G4 end-to-end harness test",
+    "hosted dispatch"
+  ],
+  "engine": {
+    "from": "1.185.0",
+    "to": "1.186.0",
+    "tag_object": "fbdca2da09575dffcc69b8245626567e2ab34c57",
+    "source_commit": "a5844e7c2d9d04548f86048f525d467a00742656",
+    "tag_signature": "unsigned",
+    "requires_dist_identical": true,
+    "license": "LGPL-2.1-or-later",
+    "requires_python": ">=3.10",
+    "opam_lockfiles_identical_between_tags": true,
+    "ocaml_fork_commit": "4046c817ed2ed5c2431300902d1bd306230bf3dd"
+  },
+  "sha256": {
+    "wheel_linux": "54ebaf79adf4e5855c54d5e4457d8d03f27cc6bf73d79642281790b833d92e4f",
+    "wheel_macos": "94b473227b1abe89d104bf87a50e257b3c47f0e09483e4290babc99c01e3aea8",
+    "semgrep_core_linux": "dcaa53ef689d5e0145e6d418016ed40561a11ad6fa2c9472a760ed8131131e68",
+    "semgrep_core_macos": "8a41e91cef264cef399853606e0600c34bb11145afc10fc181e96cc92795cd46",
+    "requirements-sast-linux.txt": "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25",
+    "requirements-sast-macos.txt": "c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2",
+    "security/sast/toolchain.json": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d",
+    "security/sast/native-libraries-1.186.0.json": "2e7cb87088dca3d9c5068fd1b53a35fa91c4b02ba04ff8b601a22dd9cac2ceaa",
+    "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json": "7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca",
+    "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
+    "tests/security/sast/test_g2_mitigation_guard.py": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "scratch_u1_sbom_v3.py": "5e9f0f7692659323b95b1ae04d1693f49231ec3b938722c60ded42611a3b4591",
+    "scratch_u1_native.py": "3afd3e3d81df1d15fa79c0dc1012ad47af5bfb8395811de80d1e46ef89f1a64e"
+  },
+  "preserved_unchanged_sha256": {
+    "security/sast/sbom/semgrep-toolchain-1.185.0.cdx.json": "499477a22a78fe309b83fa289acf47cb93140fdd192f7a3509ecb4953ac93d81",
+    "security/sast/sbom/semgrep-toolchain-1.185.0.v2-candidate.cdx.json": "70a38b40fddcb7a460d96b5e1b5170927d2f695f4128cf50ba0c8eab5d668fe7",
+    "security/sast/native-libraries.json": "f70a87188448568ab1418ab1de59c148ad366d15590f7e9a419ae0cb9594e866",
+    "docs/evidence/m4c-c5-g5d-security-risk-decision.md": "f18293b765e255c2c91d8a6c3ec87383302fcac1b6aa83e19220be7d1ecb5499",
+    ".github/workflows/ci.yml": "26e08322d3782a7861f9dacdd47e2a0dcc20eedccf9ce6c37db3501827014fbf",
+    ".github/workflows/c5-sast-hosted-trial.yml": "0fc6f22dafec175426ff4dff1d910077dbbe182a86dfc155c60300cdf7fabb4b",
+    "security/sast/container/Dockerfile": "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae",
+    "security/sast/controls.json": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+    "scripts/sast/hosted_trial.py": "6dde3e0d6fd665cc761379ba62aa8c68339b2641755178ba71c5cfd7d537d66a",
+    "apps/octocat-supply/package-lock.json": "811c6683412ec606b159bc6e411f22594bd77a66997f264ceb1db41cd175a7fc"
+  },
+  "install_verification": {
+    "Darwin-arm64": {
+      "wheels": 67,
+      "pip_check": "clean",
+      "distributions_equal_lock": true,
+      "record_files": 3224,
+      "record_bad": 0,
+      "core_hash_matches": true,
+      "lock_hash_matches": true
+    },
+    "Linux-x86_64": {
+      "method": "hosted_trial.py container-install in hardened --network none container (disposable copy)",
+      "exit": 0,
+      "pip_check": "clean",
+      "distributions_equal_lock": true,
+      "record_files": 3310,
+      "record_bad": 0,
+      "core_hash_matches": true,
+      "lock_hash_matches": true
+    }
+  },
+  "behaviour_review": {
+    "python_files_changed": 14,
+    "diff_lines": 585,
+    "semdep_changed": false,
+    "changes": [
+      "SEMGREP_METRICS_URL read (metrics off; env allowlist; no network)",
+      "--compute-secret-hash and optional secret_hash output (not used; now forbidden in G2 guard)",
+      "MCP telemetry redaction and SEMGREP_SEND_METRICS honoured (MCP forbidden)",
+      "cross-module inlining; C/C++ via GCC 11.5.0-17"
+    ],
+    "otel_extract_traceparent_paths_changed": false,
+    "harness_flags_env_isolation_changed": false
+  },
+  "tests_strengthened": {
+    "file": "tests/security/sast/test_g2_mitigation_guard.py",
+    "added": [
+      "--compute-secret-hash forbidden",
+      "SEMGREP_METRICS_URL hostile/secretish",
+      "mutation: metrics endpoint redirected",
+      "mutation: secret hash computation enabled",
+      "synthetic: metrics endpoint override",
+      "synthetic: secret hash flag"
+    ],
+    "removed_or_relaxed": []
+  },
+  "sbom_v3": {
+    "components": 601,
+    "vulnerabilities": 23,
+    "removed": [
+      "ALSA-2026:98484",
+      "ALSA-2026:92907",
+      "ALSA-2026:98524",
+      "ALSA-2026:98486",
+      "ALSA-2026:95618",
+      "ALSA-2026:98512"
+    ],
+    "native_linux_carried_verified": 9,
+    "macos_dylibs_byte_identical": 7,
+    "schema": {
+      "v3_errors": 0,
+      "v2_errors": 0,
+      "negative_controls_rejected": "5/5"
+    },
+    "osv": {
+      "unique_queries": 335,
+      "by_ecosystem": {
+        "PyPI": 67,
+        "AlmaLinux:9": 19,
+        "opam": 102,
+        "crates.io": 147
+      },
+      "hits": {
+        "mcp@1.29.0": 4,
+        "opentelemetry-api@1.37.0": 2
+      },
+      "osv_ids_missing_from_v3": 0
+    },
+    "native_linux_changed": 17,
+    "native_linux_changed_confirmed_signed_rpm": 16,
+    "native_linux_changed_confirmed_reproducible_build": [
+      "libtree-sitter.so.0.26"
+    ]
+  },
+  "reassessment": {
+    "G2_V1_V2": "unchanged, OPEN",
+    "V3_V5": "unchanged (same OCaml fork commit)",
+    "V6": "unchanged",
+    "V7": "remediated (16 rebuilt AlmaLinux libraries verified against signed RPMs; libtree-sitter verified by reproducible build; U1B)",
+    "V8": "unchanged",
+    "G5D_section_7": "not met"
+  },
+  "mandatory_ci": {
+    "run": 44216318120,
+    "status": "failed (npm audit high: GHSA-fc5q-39xc-vjpf, picomatch <=4.0.7, no fixed release)",
+    "waived": false
+  },
+  "blockers": [
+    "engine execution blocked (G5D stop 1 and 7)",
+    "engine-dependent verification pending",
+    "X1 sequencing conflict (3 trial inputs changed)",
+    "G2/V3-V6/V8 open; G5D section 7 unmet",
+    "mandatory CI red"
+  ],
+  "go_no_go": {
+    "commit_u1": "owner choice of sequencing (A: X1 first; B recommended: withdraw X1, proceed with U1)",
+    "local_engine_verification": "NO-GO until explicit owner authorisation",
+    "adopt_1_186_0_and_sbom_v3": "NO-GO",
+    "hosted_dispatch_1_186_0": "NO-GO",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "OPEN",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO",
+    "G5D_D1_D6": "unchanged"
+  },
+  "superseded_details": "see docs/evidence/m4c-c5-u1b-pre-execution-assurance.json",
+  "notes": [
+    "2026-11-18: G2 guard hash updated for the U1C test-design fix (see m4c-c5-u1c-lt-u1-execution.md)",
+    "2026-11-18: G2 guard hash updated for the U1C container-mode caller-PATH follow-up",
+    "2026-11-18 (U1E post-approval): toolchain.json changed status-only (engine.platforms.*.status); LT-U1-tested hash was 32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357; current 91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d; harness preflight results identical (U1E section 9)"
+  ]
+}

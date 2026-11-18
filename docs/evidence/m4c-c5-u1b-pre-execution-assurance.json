@@ -1,0 +1,638 @@
+{
+  "milestone": "M4C-C5-U1B",
+  "date_utc": "2026-11-18",
+  "base_commit": "268bc75",
+  "status": "assurance complete: 17/17 rebuilt library identities verified (16 signed RPM, 1 reproducible build); LT-U1 plan prepared, NOT executed",
+  "rpm_verification": {
+    "tool": "scratch u1_rpm_verify.py",
+    "tool_sha256": "eee867d0e2597c3b5a9aaa3d22ece6646d5262d2ccb1a26f041bfdc555fcbfa5",
+    "trust_anchor": {
+      "file_sha256": "387a8be6b70ecff4949d28778bf8abd06231654283b6e9515afc9305a1391458",
+      "fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+    },
+    "repositories": [
+      {
+        "base": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os",
+        "repomd_sha256": "e17b1486c84fb019c011f7450da00c477d4fb9e76312a26c8cb1fcbf443ed825",
+        "repomd_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "sigtype": 0
+        },
+        "revision": "1794920685",
+        "primary_sha256_ok": true,
+        "packages": 1255
+      }
+    ],
+    "results": [
+      {
+        "rpm": "openssl-libs-3.5.9-1.el9_9.x86_64",
+        "epoch": "1",
+        "rpm_sha256": "eb84165f8d20afa3aa122c630725c0059ff4a2bc6aa0be599ff5be45d7218d1a",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/openssl-libs-3.5.9-1.el9_9.x86_64.rpm",
+        "source_rpm": "openssl-3.5.9-1.el9_9.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 10,
+        "libraries": [
+          {
+            "wheel_lib": "libcrypto.so.3",
+            "wheel_sha256": "5f5b2f6cd18b4608a62c1bf4ef94c7de516b190ccb06dc2bf212ad2b9f8d5aef",
+            "build_id": "c59dfc4ec28993ecd8ea6ad4967e4295341a8130",
+            "rpm_file": "/usr/lib64/libcrypto.so.3.5.9",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          },
+          {
+            "wheel_lib": "libssl.so.3",
+            "wheel_sha256": "6d37a29022e8e7736fdb5d8592a526a09f839fc1121a1b8c9ba84abf8c0418be",
+            "build_id": "2f70c67b7e1b8e473af90f5fdcd8f1f1ae2f61de",
+            "rpm_file": "/usr/lib64/libssl.so.3.5.9",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "libcurl-minimal-7.76.1-43.el9.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "d12cbbe2211615a2ed3009d9bd4c7664fc9c7e49f86227308d1249fc839f6b13",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libcurl-minimal-7.76.1-43.el9.x86_64.rpm",
+        "source_rpm": "curl-7.76.1-43.el9.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 2,
+        "libraries": [
+          {
+            "wheel_lib": "libcurl.so.4",
+            "wheel_sha256": "ce86504a9f384b57404c5f64915d8b022e7fafdc7eb6e14874a98f59ab878683",
+            "build_id": "f4caefe79eb36b956352c5bacdcc9f2aadffb591",
+            "rpm_file": "/usr/lib64/libcurl.so.4.7.0",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "elfutils-libs-0.195-1.el9.alma.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "ffbf9ffed4efed740824e529bb87aacb1939d9eba2c46d83aad15b1043b88239",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/elfutils-libs-0.195-1.el9.alma.1.x86_64.rpm",
+        "source_rpm": "elfutils-0.195-1.el9.alma.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 4,
+        "libraries": [
+          {
+            "wheel_lib": "libdw.so.1",
+            "wheel_sha256": "dcadbf5f305b865ca20769890a1581e0f003e5a9932a5d749f289172e21f04fa",
+            "build_id": "c5fef94fa74a57d52a0b481546e924b5826a6468",
+            "rpm_file": "/usr/lib64/libdw-0.195.so",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "elfutils-libelf-0.195-1.el9.alma.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "8f56c2c48c436d89001f6adbcbd6fbf60d3415a600f3caf374cd581ea7ed5f2f",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/elfutils-libelf-0.195-1.el9.alma.1.x86_64.rpm",
+        "source_rpm": "elfutils-0.195-1.el9.alma.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 10,
+        "libraries": [
+          {
+            "wheel_lib": "libelf.so.1",
+            "wheel_sha256": "c1de3f4c32fbce0c5f2a074885051331db83defbb45b67129885ea414343b3b9",
+            "build_id": "4edd90d03ae5c29897f046f40186487f908206e6",
+            "rpm_file": "/usr/lib64/libelf-0.195.so",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "libgcc-11.5.0-17.el9_9.alma.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "1248acf03287807e448174d8753b7b8a9b2cc46f40f237281c91f20fa2339386",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libgcc-11.5.0-17.el9_9.alma.1.x86_64.rpm",
+        "source_rpm": "gcc-11.5.0-17.el9_9.alma.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 6,
+        "libraries": [
+          {
+            "wheel_lib": "libgcc_s.so.1",
+            "wheel_sha256": "6c34345941f845e3148b4f789548b602cf62fa9545c220bd3f1fdd39c3fcf72f",
+            "build_id": "de66c231927c675427c41b2aa7fd4176c97630e3",
+            "rpm_file": "/lib64/libgcc_s-11-20240719.so.1",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "libstdc++-11.5.0-17.el9_9.alma.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "204dea020caa78db9c8a6a39ccb0d7f105f33dc0f7931b7a06ed91ae6096d98c",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libstdc++-11.5.0-17.el9_9.alma.1.x86_64.rpm",
+        "source_rpm": "gcc-11.5.0-17.el9_9.alma.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 16,
+        "libraries": [
+          {
+            "wheel_lib": "libstdc++.so.6",
+            "wheel_sha256": "952d5efc9d97cff05bde7edc48e5aadee0c40dd003a21f800938a3b62927cb7c",
+            "build_id": "37d61e38f0dda4dcf39c89f7d7f17d121207c613",
+            "rpm_file": "/usr/lib64/libstdc++.so.6.0.29",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "krb5-libs-1.21.1-10.el9_8.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "3c66fd5032b5c01b7ab4606615d5333059e177fcd8cb77a399fef2f6254cf162",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/krb5-libs-1.21.1-10.el9_8.1.x86_64.rpm",
+        "source_rpm": "krb5-1.21.1-10.el9_8.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 22,
+        "libraries": [
+          {
+            "wheel_lib": "libgssapi_krb5.so.2",
+            "wheel_sha256": "2a24a70fc494738e4ef5a19da46d7a7345069dfc374e2f29098bac8a0b0435ea",
+            "build_id": "fb4bcf5e8f11765df58700de47c53455bd230fb1",
+            "rpm_file": "/usr/lib64/libgssapi_krb5.so.2.2",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          },
+          {
+            "wheel_lib": "libk5crypto.so.3",
+            "wheel_sha256": "eefc52f3a56e9812d06593a667a19e73ac6a8410c55488e55dd4b48379aab581",
+            "build_id": "52832c703cbbeb348aba2175799a97fd1deff0b7",
+            "rpm_file": "/usr/lib64/libk5crypto.so.3.1",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          },
+          {
+            "wheel_lib": "libkrb5.so.3",
+            "wheel_sha256": "15372c7a70953490518ff3d3993e3ce1178f9ce9f0870eeab3aa7028ac4cf5a7",
+            "build_id": "bc623562319fe5aead03661b1149a2c102b9a622",
+            "rpm_file": "/usr/lib64/libkrb5.so.3.3",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          },
+          {
+            "wheel_lib": "libkrb5support.so.0",
+            "wheel_sha256": "bc1a190f895368766ae128f93408035beaf79e19f579a58fefd2b76231c82660",
+            "build_id": "62dd57f95d17c53287adeb1942d82da46713c72a",
+            "rpm_file": "/usr/lib64/libkrb5support.so.0.1",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "xz-libs-5.2.5-8.el9_9.1.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "ae121db95242bdb889ea6a6d1e8fef3f0f512b280d4d3f23d7695159ef857a3c",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/xz-libs-5.2.5-8.el9_9.1.x86_64.rpm",
+        "source_rpm": "xz-5.2.5-8.el9_9.1.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 2,
+        "libraries": [
+          {
+            "wheel_lib": "liblzma.so.5",
+            "wheel_sha256": "318727e0ec8349431d45d5ab9120bb680fdec80c4f64fcf598a3e844cbf75cec",
+            "build_id": "4f7abf9a3f14551751e88b4847c0244b0a81e999",
+            "rpm_file": "/usr/lib64/liblzma.so.5.2.5",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "glibc-2.34-290.el9_9.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "6d0951f0e84df8f716f3f0736be376209a5c0cf9053aaa19e56a30b9b2e96401",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/glibc-2.34-290.el9_9.x86_64.rpm",
+        "source_rpm": "glibc-2.34-290.el9_9.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 40,
+        "libraries": [
+          {
+            "wheel_lib": "libm.so.6",
+            "wheel_sha256": "736f9f29b109eb1c15d7ea1d3db6f174c1c274770498032042e3e10b4f374779",
+            "build_id": "1127be0ada8b38e12bd83d789407157d59877509",
+            "rpm_file": "/usr/lib64/libm.so.6",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          },
+          {
+            "wheel_lib": "libresolv.so.2",
+            "wheel_sha256": "2880dd9a0764fcb13bdcae4572d2b6ddca191612227edac154838a7430fcaa6b",
+            "build_id": "47d5fb4a51146843aea94e19c598c09534a06c80",
+            "rpm_file": "/usr/lib64/libresolv.so.2",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".bss",
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "libnghttp2-1.43.0-8.el9.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "2848147039321aa4b0d2c1fbc2a6e45ab1b05540eb5c31c938aba249cb9bb44a",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libnghttp2-1.43.0-8.el9.x86_64.rpm",
+        "source_rpm": "nghttp2-1.43.0-8.el9.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 2,
+        "libraries": [
+          {
+            "wheel_lib": "libnghttp2.so.14",
+            "wheel_sha256": "b3559ee69b958e019f979363ce328e25c0de45a2ecece422e4578b4c36ee2238",
+            "build_id": "6717cb9ddccb0b525fddc4ea0ef43c8d66b3f27f",
+            "rpm_file": "/usr/lib64/libnghttp2.so.14.20.1",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".dynamic",
+              ".dynstr",
+              ".dynsym"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      },
+      {
+        "rpm": "libselinux-3.6-4.el9.x86_64",
+        "epoch": "0",
+        "rpm_sha256": "5a2a6183d18be0ceb9fd91a75f5af8caea7531fe9f94408268ceb19a44e66d5e",
+        "url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libselinux-3.6-4.el9.x86_64.rpm",
+        "source_rpm": "libselinux-3.6-4.el9.src.rpm",
+        "metadata_checksum_ok": true,
+        "header_signature": {
+          "verified": true,
+          "hash": "sha256",
+          "key_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716",
+          "reason": null
+        },
+        "header_nevra_ok": true,
+        "header_file_digests_ok": true,
+        "files_checked": 3,
+        "libraries": [
+          {
+            "wheel_lib": "libselinux.so.1",
+            "wheel_sha256": "4c44094ec2e733514fed7a14eb35ee17b6007967f04877ffd87fc880e61017d1",
+            "build_id": "959c268bdee1d540a40ef24885dc1be055524579",
+            "rpm_file": "/usr/lib64/libselinux.so.1",
+            "code_sections_identical": true,
+            "differing_sections": [
+              ".bss",
+              ".dynamic",
+              ".dynstr",
+              ".dynsym",
+              ".tbss"
+            ],
+            "result": "VERIFIED"
+          }
+        ],
+        "result": "VERIFIED"
+      }
+    ],
+    "summary": {
+      "libraries_verified": 16,
+      "claims_contradicted": 0
+    },
+    "nobits_note": "libresolv .bss and libselinux .bss/.tbss are SHT_NOBITS with identical address and size",
+    "negative_controls": {
+      "old_libstdcxx_vs_new_rpm_build_id_match": false,
+      "tampered_rpm_header_verifies": false,
+      "epel_key_verifies_almalinux_rpm": false,
+      "tampered_repomd_verifies": false
+    }
+  },
+  "discrepancies_resolved": [
+    "glibc licence declaration truncated at 200 chars in v2 (G5B generator); v3 carries the full signed-header License for all 16 verified libraries; v2 unchanged",
+    "identity INFERRED -> CONFIRMED for 16 libraries in v3 and native-libraries-1.186.0.json",
+    "openssl-libs epoch 1 confirmed; v3 purl carries epoch=1"
+  ],
+  "libtree_sitter": {
+    "status": "CONFIRMED",
+    "method": "reproducible build (R1, owner-authorised 2026-11-18)",
+    "permission_history": "first copy-out/compare step denied by local permission policy (not worked around); after explicit owner authorisation a single narrowly scoped build-and-copy-to-scratch request was permitted",
+    "code_identical_to_1_185_0": true,
+    "source": {
+      "repo": "tree-sitter/tree-sitter",
+      "tag": "v0.26.3",
+      "tarball_url": "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.26.3.tar.gz",
+      "tarball_sha256": "7f4a7cf0a2cd217444063fe2a4d800bc9d21ed609badc2ac20c0841d67166550",
+      "semgrep_pin": "libs/ocaml-tree-sitter-semgrep/core/tree-sitter-version = 0.26.3 (blob 3f45a644) and download-tree-sitter sha256 at tags v1.185.0 and v1.186.0"
+    },
+    "build": {
+      "image": "almalinux@sha256:02df05719ef287ebd0df0a1eedb9172a00bd70703aed7b25660e426b8e0d6047",
+      "platform": "linux/amd64",
+      "packages": [
+        "gcc-11.5.0-17.el9_9.alma.1",
+        "glibc-devel-2.34-290.el9_9",
+        "make-4.3-8.el9",
+        "binutils-2.35.2-72.el9"
+      ],
+      "command": "make libtree-sitter.so (upstream Makefile defaults: -O3 -Wall -Wextra -Wshadow -Wpedantic -Werror=incompatible-pointer-types -std=c11 -fPIC -fvisibility=hidden)",
+      "rebuilt_sha256": "9e43a1a4e5670698d11d8b74f1a0196cf5b7492c9f355f56815b81b46fd29c43",
+      "rebuilt_bytes": 239200
+    },
+    "wheel_library": {
+      "sha256": "06e18ff1e241d7cf7a87039f08a89e84f5a5126229b836bdafbd2ac7f188e19e",
+      "bytes": 247472
+    },
+    "comparison": {
+      "gnu_build_id": "80426ca18274dff89275c472b63846fa8cb889f3 (identical)",
+      "byte_identical_sections": [
+        ".text",
+        ".rodata",
+        ".data",
+        ".data.rel.ro",
+        ".bss(NOBITS, same addr/size)",
+        ".init",
+        ".fini",
+        ".init_array",
+        ".fini_array",
+        ".eh_frame",
+        ".eh_frame_hdr",
+        ".got",
+        ".got.plt",
+        ".plt",
+        ".rela.dyn",
+        ".rela.plt",
+        ".gnu.version",
+        ".gnu.version_r",
+        ".gnu.hash",
+        ".note.gnu.build-id",
+        ".gnu.build.attributes",
+        ".comment",
+        ".strtab",
+        ".shstrtab"
+      ],
+      "dynsym": "177 symbols semantically identical in order (only st_shndx renumbered)",
+      "symtab": "530 symbols; only the 4 STT_SECTION symbols of relocated sections (.dynamic, .dynstr, .gnu.hash, .note.gnu.build-id) differ in st_value; st_shndx renumbered",
+      "dynamic": "wheel adds DT_RUNPATH $ORIGIN; STRSZ 4011->4019 (+'$ORIGIN\\0'); STRTAB and GNU_HASH addresses moved; all other entries identical",
+      "soname": "libtree-sitter.so.0.26 (both)",
+      "needed": "libc.so.6 (both)",
+      "conclusion": "the wheel library is the upstream tree-sitter 0.26.3 build with GCC 11.5.0-17, post-processed only by patchelf (RUNPATH)"
+    },
+    "result_record_sha256": "26135d987d2113cabe49988650ed14fc2998aad332997bc77e42be0093f5abc7",
+    "out_of_scope": "macOS libtree-sitter dylibs: byte-identical to 1.185.0; v2 identity statement (inferred) carried unchanged"
+  },
+  "consistency_check": {
+    "checks": 237,
+    "failures": 0,
+    "note": "extended after R1"
+  },
+  "artifacts_sha256": {
+    "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json": "7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca",
+    "security/sast/native-libraries-1.186.0.json": "2e7cb87088dca3d9c5068fd1b53a35fa91c4b02ba04ff8b601a22dd9cac2ceaa",
+    "requirements-sast-linux.txt": "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25",
+    "requirements-sast-macos.txt": "c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2",
+    "security/sast/toolchain.json": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d",
+    "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
+    "tests/security/sast/test_g2_mitigation_guard.py": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "scratch_u1_sbom_v3.py": "5e9f0f7692659323b95b1ae04d1693f49231ec3b938722c60ded42611a3b4591",
+    "scratch_u1_native.py": "3afd3e3d81df1d15fa79c0dc1012ad47af5bfb8395811de80d1e46ef89f1a64e",
+    "scratch_f3_matrix_g4.py": "bd0f88e09f46c7e8eaa82e4da44199e481f1c23a24accabaa1232cbe64323007"
+  },
+  "sbom_v3": {
+    "schema_errors": 0,
+    "linux_native_identity": {
+      "confirmed_signed_rpm": 16,
+      "confirmed_reproducible_build": 1,
+      "confirmed_carried": 9,
+      "unresolved": 0
+    },
+    "vulnerabilities": 23
+  },
+  "test_plan_LT_U1": {
+    "executed": false,
+    "budget_minutes": 90,
+    "attempts_per_stage": 1,
+    "authorisation_expiry": "2026-11-20T23:59:00Z",
+    "stages": {
+      "S0": "OSV recheck; 217-check script; engine-free suite; git status snapshot",
+      "S1": "harness exit 0; toolchain/isolation/TS gate 49/5; controls 64 as catalogued; 4 parser gaps engine_rejected false; 0 findings",
+      "S2": "G2 guard 8/8",
+      "S3": "E03 29/29, 0 skipped",
+      "S4": "G4 14/14 incl end-to-end (exit 3, zero Semgrep processes)",
+      "S5": "F3 matrix 34/34 (B00=0; C01-C24=2; T01-T03=3; F01=1; K01-K02=4; P01-P03=2)",
+      "S6": "87/87, 0 skipped",
+      "S7": "Linux hardened container_run on disposable copy: exit 0, host-attestation 49/5",
+      "S8": "git status unchanged; nothing uploaded"
+    }
+  },
+  "preconditions": [
+    "explicit owner authorisation for LT-U1 (one execution, expires 2026-11-20 23:59 UTC)",
+    "owner decision accepting G2/V3-V6/V8 for LT-U1 only and recording that ALSA-2026:98475 does not apply to 1.186.0",
+    "libtree-sitter identity resolved: SATISFIED by R1",
+    "same-day OSV/upstream recheck clean",
+    "hashes equal record (217 checks)",
+    "env -i minimal environment; empty scratch HOME",
+    "clean state; disposable copies; no concurrent hosted trial"
+  ],
+  "stop_conditions": [
+    "unexpected stage result",
+    "exit 5 or any network attempt",
+    "exit 2 hash/RECORD/pip check",
+    "exit 4 parser-gap/control drift",
+    "canary or secret in output",
+    "unexpected engine output fields (secret_hash, Pro/Secrets)",
+    "write outside scratch / git status change",
+    "any G5D section 6 condition for 1.186.0",
+    "budget or expiry exceeded"
+  ],
+  "x1_reconciliation": {
+    "alsa_2026_98475_applies_to_1_186_0": false,
+    "x1_conditions_satisfiable_after_u1_commit": false,
+    "recommended": "path B: withdraw X1 (A6), run LT-U1, adopt if criteria met, then G4H hosted on 1.186.0"
+  },
+  "go_no_go": {
+    "execute_LT_U1": "NO-GO until owner authorisation",
+    "adopt_1_186_0": "NO-GO (LT-U1 results and owner acceptance decision pending; libtree-sitter resolved)",
+    "g4h_hosted_1_186_0": "NO-GO",
+    "x1_dispatch_1_185_0": "NO-GO (path A only, before U1 commit)",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "OPEN",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO",
+    "mandatory_ci": "red (picomatch), not waived",
+    "G5D_D1_D6": "unchanged"
+  },
+  "notes": [
+    "2026-11-18: G2 guard hash updated for the U1C test-design fix (see m4c-c5-u1c-lt-u1-execution.md)",
+    "2026-11-18: G2 guard hash updated for the U1C container-mode caller-PATH follow-up",
+    "2026-11-18 (U1E post-approval): toolchain.json changed status-only (engine.platforms.*.status); LT-U1-tested hash was 32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357; current 91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d; harness preflight results identical (U1E section 9)"
+  ]
+}
