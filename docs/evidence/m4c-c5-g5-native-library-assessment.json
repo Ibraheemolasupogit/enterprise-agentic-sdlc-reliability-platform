@@ -1,0 +1,1565 @@
+{
+ "milestone": "M4C-C5-G5",
+ "date_utc": "2026-11-17",
+ "base_commit": "2b050a1",
+ "status": "assessed; G5 open; not waived",
+ "authority": "owner direction: investigation and evidence documentation only",
+ "inputs": {
+  "inventory": "security/sast/native-libraries.json (F3, unchanged)",
+  "wheels_sha256": {
+   "Darwin-arm64": "d54c7dc22f6f360e0f9f850b1ecdfe00ec755600f9cf2ec6be3928b42818f1b4",
+   "Linux-x86_64": "0eb6aaadad5b957af96d1300487e10af1dc8016e8ef53072effb48cd4906c02b"
+  },
+  "semgrep_public_source": "semgrep/semgrep tag v1.185.0 -> 9240f708f8d7e2fbd38b67aa6cd17704b1f81e14"
+ },
+ "trust_anchors": {
+  "AlmaLinux 9": {
+   "url": "https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux-9",
+   "file_sha256": "387a8be6b70ecff4949d28778bf8abd06231654283b6e9515afc9305a1391458",
+   "verified_fpr": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  "EPEL 9": {
+   "url": "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9",
+   "file_sha256": "fcf0eab4f05a1c0de6363ac4b707600a27a9d774e9b491059e59e6921b255a84",
+   "verified_fpr": "FF8AD1344597106ECE813B918A3872BF3228467C"
+  },
+  "Homebrew": "GHCR content-addressed blobs (sha256 verified) over TLS; Homebrew build attestations not verified"
+ },
+ "summary": {
+  "libraries": 33,
+  "linux": 26,
+  "macos": 7,
+  "provenance_confirmed": 30,
+  "provenance_inferred": 3,
+  "with_licence_text_available": 33,
+  "libraries_with_open_advisories": [
+   "Darwin-arm64:libdwarf.2.dylib",
+   "Darwin-arm64:libpcre2-8.0.dylib",
+   "Linux-x86_64:libcrypto.so.3",
+   "Linux-x86_64:libcurl.so.4",
+   "Linux-x86_64:libgcc_s.so.1",
+   "Linux-x86_64:liblzma.so.5",
+   "Linux-x86_64:libm.so.6",
+   "Linux-x86_64:libresolv.so.2",
+   "Linux-x86_64:libssl.so.3",
+   "Linux-x86_64:libstdc++.so.6"
+  ],
+  "superseded_in_almalinux_repository": [
+   "elfutils-libelf-0.194-1.el9.alma.1",
+   "elfutils-libs-0.194-1.el9.alma.1",
+   "glibc-2.34-283.el9_8",
+   "krb5-libs-1.21.1-10.el9_8",
+   "libcurl-minimal-7.76.1-40.el9_8.8",
+   "libgcc-11.5.0-14.el9.alma.1",
+   "libnghttp2-1.43.0-6.el9_8.2",
+   "libselinux-3.6-3.el9",
+   "libstdc++-11.5.0-14.el9.alma.1",
+   "openssl-libs-1:3.5.8-2.el9_8",
+   "xz-libs-5.2.5-8.el9_8.1"
+  ]
+ },
+ "libraries": [
+  {
+   "platform": "Linux-x86_64",
+   "file": "libbz2.so.1",
+   "sha256": "bfbfcdf5306531d7b2a0167ce92a31d9aeac2c433376df9036e97e82852cbf70",
+   "upstream_project": "bzip2",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "bzip2-1.0.6 (BSD-style)",
+   "build_id": "401a5c99e8b92c2b14e73d99d2866457c924db9b",
+   "debuglink": "libbz2.so.1.0.8-1.0.8-11.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "bzip2-libs-1.0.8-11.el9",
+   "source_rpm": "bzip2-1.0.8-11.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/bzip2-libs-1.0.8-11.el9.x86_64.rpm",
+   "rpm_sha256": "7acf05eba06fc6aa63f7f83f974c4b178fc00c6ec13e9702d6233e02468565f4",
+   "rpm_member": "usr/lib64/libbz2.so.1.0.8",
+   "rpm_member_sha256": "2b6e2c055a33f71883a66a454b1e0ef4e8cd523e3952e2e9e42620e63a07560c",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.0.8-11.el9 (package build; upstream base 1.0.8 with distribution backports)",
+   "licence_declared_by_packager": "BSD",
+   "upstream_url": "http://www.bzip.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/bzip2-libs/LICENSE",
+     "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libcom_err.so.2",
+   "sha256": "380eaefae7b198294c6b0873476036e1834cb9abd3a56cea9648b36f06f53258",
+   "upstream_project": "e2fsprogs (com_err)",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT-style",
+   "build_id": "acd04fd568b3ad74dbbfa0126b94159822206a21",
+   "debuglink": "libcom_err.so.2.1-1.46.5-8.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libcom_err-1.46.5-8.el9",
+   "source_rpm": "e2fsprogs-1.46.5-8.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libcom_err-1.46.5-8.el9.x86_64.rpm",
+   "rpm_sha256": "009bbd42ff1bb9f8810db18bbfac5114a31faab0ad02929a58fa266fc67b3132",
+   "rpm_member": "usr/lib64/libcom_err.so.2.1",
+   "rpm_member_sha256": "d6076f2489f0be254c874657261c00f93fee2d1170e792f78107887b82db3b77",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.46.5-8.el9 (package build; upstream base 1.46.5 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "http://e2fsprogs.sourceforge.net/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libcom_err/NOTICE",
+     "sha256": "5da5ef153e559c1d990d4c3eedbedd4442db892d37eae1f35fff069de8ec9020"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libcrypto.so.3",
+   "sha256": "07a130186693461dc4e485c08548f180d4199aebba53fdef4323f4585fdbfa62",
+   "upstream_project": "OpenSSL",
+   "f3_version_heuristic": "3.5.8",
+   "f3_licence_expected_unverified": "Apache-2.0",
+   "build_id": "9570610c51be4d383e381167f2527d038513da1e",
+   "debuglink": "libcrypto.so.3.5.8-3.5.8-2.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "openssl-libs-1:3.5.8-2.el9_8",
+   "source_rpm": "openssl-3.5.8-2.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/openssl-libs-3.5.8-2.el9_8.x86_64.rpm",
+   "rpm_sha256": "0dc8692e5eb52946e5dca0f3f885f4c05a19451d19cf728506f305eae4d97dbf",
+   "rpm_member": "usr/lib64/libcrypto.so.3.5.8",
+   "rpm_member_sha256": "c37e28d8705c4e7b6ff12d3fe461beb34847279228fb7e38390085d1c7ca2a3e",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "3.5.8-2.el9_8 (package build; upstream base 3.5.8 with distribution backports)",
+   "licence_declared_by_packager": "Apache-2.0",
+   "upstream_url": "http://www.openssl.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/openssl-libs/LICENSE.txt",
+     "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:98484",
+     "cves": [
+      "CVE-2026-35189",
+      "CVE-2026-35191",
+      "CVE-2026-42772",
+      "CVE-2026-54872",
+      "CVE-2026-54873",
+      "CVE-2026-54875",
+      "CVE-2026-72897",
+      "CVE-2026-75804",
+      "CVE-2026-75805",
+      "CVE-2026-75806",
+      "CVE-2026-77696",
+      "CVE-2026-84784"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "openssl-libs 1:3.5.9-1.el9_9",
+     "component": "TLS/DTLS/QUIC, CMP client, CRL DP processing, EC/SM2 timing",
+     "reachable_in_offline_scan": "no (all need a network peer or attacker-supplied certificates/keys)"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libcurl.so.4",
+   "sha256": "363caca072e148c6de2a55a8ffd127765e76232fc852571c5d61da4a05d15bac",
+   "upstream_project": "curl",
+   "f3_version_heuristic": "7.76.1",
+   "f3_licence_expected_unverified": "curl (MIT-style)",
+   "build_id": "3cadb348dd417caf10ae08c584240f2905f78884",
+   "debuglink": "libcurl.so.4.7.0.minimal-7.76.1-40.el9_8.8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libcurl-minimal-7.76.1-40.el9_8.8",
+   "source_rpm": "curl-7.76.1-40.el9_8.8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/libcurl-minimal-7.76.1-40.el9_8.8.x86_64.rpm",
+   "rpm_sha256": "79cd5179f761bc04114b510b2d3c563eca5e6c5bbcd3ba34b281d0c9f5fe7c0f",
+   "rpm_member": "usr/lib64/libcurl.so.4.7.0",
+   "rpm_member_sha256": "3c3effab7c663000ece923b5addcc7b8abc2b10689b1a92754931a42ec048380",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "7.76.1-40.el9_8.8 (package build; upstream base 7.76.1 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://curl.se/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libcurl-minimal/COPYING",
+     "sha256": "6fd1a1c008b5ef4c4741dd188c3f8af6944c14c25afa881eb064f98fb98358e7"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:92907",
+     "cves": [
+      "CVE-2026-8932"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "libcurl-minimal 7.76.1-40.el9_8.9",
+     "component": "mTLS connection reuse",
+     "reachable_in_offline_scan": "no (no network peer; egress denied)"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libdw.so.1",
+   "sha256": "0235527783235a19574bd039da593b70db4c04ae5abf29b2b810b8c64444f4d4",
+   "upstream_project": "elfutils",
+   "f3_version_heuristic": "0.194",
+   "f3_licence_expected_unverified": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+   "build_id": "79df8324dc8af1bf4b7727e804b7060a5d16f1f8",
+   "debuglink": "libdw-0.194.so-0.194-1.el9.alma.1.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "elfutils-libs-0.194-1.el9.alma.1",
+   "source_rpm": "elfutils-0.194-1.el9.alma.1.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/elfutils-libs-0.194-1.el9.alma.1.x86_64.rpm",
+   "rpm_sha256": "f685d272d7146f6b263777812d9d3e931552859ec99e7f32975ba65332fe0b27",
+   "rpm_member": "usr/lib64/libdw-0.194.so",
+   "rpm_member_sha256": "ea06700dbe951b267a1c60f3bc23d077e342562d22e92fc5398c5cb079c21899",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "0.194-1.el9.alma.1 (package build; upstream base 0.194 with distribution backports)",
+   "licence_declared_by_packager": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+   "upstream_url": "http://elfutils.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/elfutils-libs/COPYING-GPLV2",
+     "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+     "path": "/usr/share/licenses/elfutils-libs/COPYING-LGPLV3",
+     "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libelf.so.1",
+   "sha256": "524b8218e0ea837fa429c623aa46b88144cb2b3e9e3da17806ddd5fb05e55a9b",
+   "upstream_project": "elfutils",
+   "f3_version_heuristic": "0.194",
+   "f3_licence_expected_unverified": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+   "build_id": "6117c0814d0c1b62fa871e91ddd5505ea0584cd8",
+   "debuglink": "libelf-0.194.so-0.194-1.el9.alma.1.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "elfutils-libelf-0.194-1.el9.alma.1",
+   "source_rpm": "elfutils-0.194-1.el9.alma.1.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/elfutils-libelf-0.194-1.el9.alma.1.x86_64.rpm",
+   "rpm_sha256": "f048082a1b72e8932d3fd9de94a3d0a6fa882d1ca1f79bbe6317f83d8f723811",
+   "rpm_member": "usr/lib64/libelf-0.194.so",
+   "rpm_member_sha256": "7e1418e14d4e28af12b80b8cda38647c87c8e37d35232388d0380d8973e3c3d9",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "0.194-1.el9.alma.1 (package build; upstream base 0.194 with distribution backports)",
+   "licence_declared_by_packager": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+   "upstream_url": "http://elfutils.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/elfutils-libelf/COPYING-GPLV2",
+     "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+     "path": "/usr/share/licenses/elfutils-libelf/COPYING-LGPLV3",
+     "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libev.so.4",
+   "sha256": "45d8ade6463eb2cf75810e01f86df23745dea47398d202c3e2d16e1948ef85cd",
+   "upstream_project": "libev",
+   "f3_version_heuristic": "4.33",
+   "f3_licence_expected_unverified": "BSD-2-Clause OR GPL-2.0-or-later",
+   "build_id": "e7052693cece70b5b645b8647891b7527d485d79",
+   "debuglink": "libev.so.4.0.0-4.33-6.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libev-4.33-6.el9",
+   "source_rpm": "libev-4.33-6.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libev-4.33-6.el9.x86_64.rpm",
+   "rpm_sha256": "c0c99c2b5e559846386ef81654fe3869cd327d3b26856b97e20d0b74ef442d55",
+   "rpm_member": "usr/lib64/libev.so.4.0.0",
+   "rpm_member_sha256": "96b6e2e3ccb2fee72d327c2d218ddb3cc7e1000b9ba66249385b1f6ade92752d",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "4.33-6.el9 (package build; upstream base 4.33 with distribution backports)",
+   "licence_declared_by_packager": "BSD or GPLv2+",
+   "upstream_url": "http://software.schmorp.de/pkg/libev.html",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libev/LICENSE",
+     "sha256": "c4dd1a5bc38b041a320b93c5d6c08f5c41a63f2ce718ee16cfcb757fad448199"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libgcc_s.so.1",
+   "sha256": "54e2e322fa795060d8c5a1c4d56382a96bf123b8787a16b640eda9e948137788",
+   "upstream_project": "GCC runtime",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "GPL-3.0-or-later WITH GCC-exception-3.1",
+   "build_id": "6b33fbb18e1a48783167267ffa756d81ed9466ca",
+   "debuglink": "libgcc_s-11-20240719.so.1-11.5.0-14.el9.alma.1.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libgcc-11.5.0-14.el9.alma.1",
+   "source_rpm": "gcc-11.5.0-14.el9.alma.1.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/libgcc-11.5.0-14.el9.alma.1.x86_64.rpm",
+   "rpm_sha256": "946d1b5d32e729f6d5d8160ccc9f721b6f427f99b5d13b1621e2860b30bc6a7f",
+   "rpm_member": "lib64/libgcc_s-11-20240719.so.1",
+   "rpm_member_sha256": "7074679107af381bb9cd0915e835668eb94f238df649f508f32199285eb38823",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "11.5.0-14.el9.alma.1 (package build; upstream base 11.5.0 with distribution backports)",
+   "licence_declared_by_packager": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+   "upstream_url": "http://gcc.gnu.org",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING",
+     "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING.LIB",
+     "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING.RUNTIME",
+     "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING3",
+     "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING3.LIB",
+     "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:98524",
+     "cves": [
+      "CVE-2026-114690",
+      "CVE-2026-114691",
+      "CVE-2026-115456"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "libgcc/libstdc++ 11.5.0-17.el9_9.alma.1",
+     "component": "libstdc++ (parallel algorithms, integer wrap, std::from_chars); package-level advisory also lists libgcc",
+     "reachable_in_offline_scan": "not determined: template code may be compiled into semgrep-core; use by semgrep-core not established"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libgmp.so.10",
+   "sha256": "a7154a5e29bc3ac9c1799996635cbb86fb75ba4f02cb08ce01457bc6c3957937",
+   "upstream_project": "GMP",
+   "f3_version_heuristic": "6.2.0",
+   "f3_licence_expected_unverified": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+   "build_id": "56710ad4beb4461457be62b64e65f328d46502a0",
+   "debuglink": "libgmp.so.10.4.0-6.2.0-13.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "gmp-1:6.2.0-13.el9",
+   "source_rpm": "gmp-6.2.0-13.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/gmp-6.2.0-13.el9.x86_64.rpm",
+   "rpm_sha256": "babe0b1385e723476a216d5f4b72453e031c3d683b19344786c2bddf7203cb04",
+   "rpm_member": "usr/lib64/libgmp.so.10.4.0",
+   "rpm_member_sha256": "2e206048c568727f71f81c8a91471b4e5a822560b9375069a1388f83d8961868",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "6.2.0-13.el9 (package build; upstream base 6.2.0 with distribution backports)",
+   "licence_declared_by_packager": "LGPLv3+ or GPLv2+",
+   "upstream_url": "http://gmplib.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/gmp/COPYING",
+     "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+     "path": "/usr/share/licenses/gmp/COPYING.LESSERv3",
+     "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+    },
+    {
+     "path": "/usr/share/licenses/gmp/COPYINGv2",
+     "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+     "path": "/usr/share/licenses/gmp/COPYINGv3",
+     "sha256": "e6037104443f9a7829b2aa7c5370d0789a7bda3ca65a0b904cdc0c2e285d9195"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libgssapi_krb5.so.2",
+   "sha256": "9274e5961d72284cd39377fc9f2007a33bda4ca890b1c2dc7d268efea6c96b29",
+   "upstream_project": "MIT Kerberos",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT-style",
+   "build_id": "845a88bd34efe5f995ecb77880406521e7443ced",
+   "debuglink": "libgssapi_krb5.so.2.2-1.21.1-10.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "krb5-libs-1.21.1-10.el9_8",
+   "source_rpm": "krb5-1.21.1-10.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/krb5-libs-1.21.1-10.el9_8.x86_64.rpm",
+   "rpm_sha256": "64ee4ce9b42a4d05270a55226366ef979c861efae070a4f6997f1aab2d7fd287",
+   "rpm_member": "usr/lib64/libgssapi_krb5.so.2.2",
+   "rpm_member_sha256": "109e9c002227ddfbbc8d8f9d4cf5ae890960ac42adb5b8aef136eeb8f7ceef8c",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.21.1-10.el9_8 (package build; upstream base 1.21.1 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://web.mit.edu/kerberos/www/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/krb5-libs/LICENSE",
+     "sha256": "0d5373486138cb176c063db98274b4c4ab6ef3518c4191360736384b780306c2"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libk5crypto.so.3",
+   "sha256": "74db02ce6b688fb3a9528ccfa0fdc6002735bd105db93d3ab6b11f48c7ab113e",
+   "upstream_project": "MIT Kerberos",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT-style",
+   "build_id": "6c5accd06a78340243d5b8bab9c771a028155ce4",
+   "debuglink": "libk5crypto.so.3.1-1.21.1-10.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "krb5-libs-1.21.1-10.el9_8",
+   "source_rpm": "krb5-1.21.1-10.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/krb5-libs-1.21.1-10.el9_8.x86_64.rpm",
+   "rpm_sha256": "64ee4ce9b42a4d05270a55226366ef979c861efae070a4f6997f1aab2d7fd287",
+   "rpm_member": "usr/lib64/libk5crypto.so.3.1",
+   "rpm_member_sha256": "415bf74534c183a8d9ee6f1facedd4a9f18032cf98c3fe1dc023f19433a074cb",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.21.1-10.el9_8 (package build; upstream base 1.21.1 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://web.mit.edu/kerberos/www/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/krb5-libs/LICENSE",
+     "sha256": "0d5373486138cb176c063db98274b4c4ab6ef3518c4191360736384b780306c2"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libkeyutils.so.1",
+   "sha256": "338049f8e2686318fdeb35ed5eaa6f4609d3712bb6e25b4bd4af72ab3fcc9f89",
+   "upstream_project": "keyutils",
+   "f3_version_heuristic": "1.6.3",
+   "f3_licence_expected_unverified": "LGPL-2.1-or-later",
+   "build_id": "670a9cf3891e28048f1d0766c6740b0dd58fc202",
+   "debuglink": "libkeyutils.so.1.10-1.6.3-1.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "keyutils-libs-1.6.3-1.el9",
+   "source_rpm": "keyutils-1.6.3-1.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/keyutils-libs-1.6.3-1.el9.x86_64.rpm",
+   "rpm_sha256": "b0f15b1712150c0634ebc4aba29671539dd9c94f2350190a83e34e678168d0ac",
+   "rpm_member": "usr/lib64/libkeyutils.so.1.10",
+   "rpm_member_sha256": "81e5c45716b8393b7c8fc7aba62b899537c21ac14f75b1410adbfe18c0230aeb",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.6.3-1.el9 (package build; upstream base 1.6.3 with distribution backports)",
+   "licence_declared_by_packager": "GPLv2+ and LGPLv2+",
+   "upstream_url": "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/keyutils-libs/LICENCE.LGPL",
+     "sha256": "0d15593e3a8ad90917f8509b5ac1e4b5e5d196434a68029aa9dc0858a4a4c521"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libkrb5.so.3",
+   "sha256": "9774b400ae75ac1fb5da3fe39c7f18621ab70596c31b1e6a76b93bdc58ecc048",
+   "upstream_project": "MIT Kerberos",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT-style",
+   "build_id": "807a1cbb6821250f4d7729d0f8b1a79f49b2a4fa",
+   "debuglink": "libkrb5.so.3.3-1.21.1-10.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "krb5-libs-1.21.1-10.el9_8",
+   "source_rpm": "krb5-1.21.1-10.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/krb5-libs-1.21.1-10.el9_8.x86_64.rpm",
+   "rpm_sha256": "64ee4ce9b42a4d05270a55226366ef979c861efae070a4f6997f1aab2d7fd287",
+   "rpm_member": "usr/lib64/libkrb5.so.3.3",
+   "rpm_member_sha256": "7f1931535d5e129db3439d2ecab4686c31924b56c9a5b1c324c71f5908eeda63",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.21.1-10.el9_8 (package build; upstream base 1.21.1 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://web.mit.edu/kerberos/www/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/krb5-libs/LICENSE",
+     "sha256": "0d5373486138cb176c063db98274b4c4ab6ef3518c4191360736384b780306c2"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libkrb5support.so.0",
+   "sha256": "97a35fb97535bbaafeaed4265326244a1ff2ec72d1429b5c642e9e29201075f8",
+   "upstream_project": "MIT Kerberos",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT-style",
+   "build_id": "baed3be56329a4d4495961e9cc9bd2b27435ad4b",
+   "debuglink": "libkrb5support.so.0.1-1.21.1-10.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "krb5-libs-1.21.1-10.el9_8",
+   "source_rpm": "krb5-1.21.1-10.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/krb5-libs-1.21.1-10.el9_8.x86_64.rpm",
+   "rpm_sha256": "64ee4ce9b42a4d05270a55226366ef979c861efae070a4f6997f1aab2d7fd287",
+   "rpm_member": "usr/lib64/libkrb5support.so.0.1",
+   "rpm_member_sha256": "fb7704f41756765d876f44712e72ba9a8fdc85573bca3f1d523913d1e8f4fc9e",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.21.1-10.el9_8 (package build; upstream base 1.21.1 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://web.mit.edu/kerberos/www/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/krb5-libs/LICENSE",
+     "sha256": "0d5373486138cb176c063db98274b4c4ab6ef3518c4191360736384b780306c2"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "liblzma.so.5",
+   "sha256": "4bce30342620957de1932459787ae44f6c774c933e3735a1eae7dc007af0dbf9",
+   "upstream_project": "XZ Utils",
+   "f3_version_heuristic": "5.2.5",
+   "f3_licence_expected_unverified": "Public domain (liblzma 5.2.x)",
+   "build_id": "30321467d1ab9744b726c0d13c35ea91bf52b8ee",
+   "debuglink": "liblzma.so.5.2.5-5.2.5-8.el9_8.1.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "xz-libs-5.2.5-8.el9_8.1",
+   "source_rpm": "xz-5.2.5-8.el9_8.1.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/xz-libs-5.2.5-8.el9_8.1.x86_64.rpm",
+   "rpm_sha256": "5e82e31942b3f00ef8e95ecd2e0811b268eecc7829b215db2b5c4eccb9c98cfb",
+   "rpm_member": "usr/lib64/liblzma.so.5.2.5",
+   "rpm_member_sha256": "b5092483e66266a4fb3b3bdbbf3dfb817fe0f07757b52d4a33d10eb4b91599ee",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "5.2.5-8.el9_8.1 (package build; upstream base 5.2.5 with distribution backports)",
+   "licence_declared_by_packager": "Public Domain",
+   "upstream_url": "https://tukaani.org/xz/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/xz-libs/COPYING",
+     "sha256": "bcb02973ef6e87ea73d331b3a80df7748407f17efdb784b61b47e0e610d3bb5c"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:98486",
+     "cves": [
+      "CVE-2026-34743"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "xz-libs 5.2.5-8.el9_9.1",
+     "component": "lzma index decoding",
+     "reachable_in_offline_scan": "not determined; reached via libdw/libelf compressed-section decoding of ELF objects, not of scanned source files; low"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libm.so.6",
+   "sha256": "236c35ff145c93cbabf0c7bc6a58a84c487734f56499ad999285d7ea403545e7",
+   "upstream_project": "GNU C Library",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "LGPL-2.1-or-later",
+   "build_id": "25c2a650e3e6c2f325c8ad803dbb58b313899c93",
+   "debuglink": "libm.so.6-2.34-283.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "glibc-2.34-283.el9_8",
+   "source_rpm": "glibc-2.34-283.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/glibc-2.34-283.el9_8.x86_64.rpm",
+   "rpm_sha256": "ccaa3e5bae82c0ef04cdb9a6ec60bebe385bed77a29c1a10a7d32a3a0abff244",
+   "rpm_member": "usr/lib64/libm.so.6",
+   "rpm_member_sha256": "8a43ba563e88fa8c38a41e623360caedde2518a009c52e9b6096c77856ac0518",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "2.34-283.el9_8 (package build; upstream base 2.34 with distribution backports)",
+   "licence_declared_by_packager": "LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception",
+   "upstream_url": "http://www.gnu.org/software/glibc/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/glibc/COPYING",
+     "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+     "path": "/usr/share/licenses/glibc/COPYING.LIB",
+     "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    {
+     "path": "/usr/share/licenses/glibc/LICENSES",
+     "sha256": "b33d0bd9f685b46853548814893a6135e74430d12f6d94ab3eba42fc591f83bc"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:95618",
+     "cves": [
+      "CVE-2026-8674",
+      "CVE-2026-86805",
+      "CVE-2026-89092",
+      "CVE-2026-95818"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "glibc 2.34-284.el9_8.4",
+     "component": "DNS stub resolver, nscd, dynamic loader (AT_SECURE $ORIGIN)",
+     "reachable_in_offline_scan": "no for the bundled file: nscd and ld.so are not bundled (host ld.so is used), DNS fails offline, semgrep-core is not setuid"
+    },
+    {
+     "id": "ALSA-2026:98512",
+     "cves": [
+      "CVE-2026-86805",
+      "CVE-2026-89092",
+      "CVE-2026-95818"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "glibc 2.34-290.el9_9",
+     "component": "nscd, dynamic loader",
+     "reachable_in_offline_scan": "no (components not bundled)"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libnghttp2.so.14",
+   "sha256": "97845cf43088276e2a902c0faa361abc7d67ae3c287a31a3d28c8f986ed478a8",
+   "upstream_project": "nghttp2",
+   "f3_version_heuristic": "1.43.0",
+   "f3_licence_expected_unverified": "MIT",
+   "build_id": "3626d2bcc34fc1cd5f29ce97a26b91426b84ec24",
+   "debuglink": "libnghttp2.so.14.20.1-1.43.0-6.el9_8.2.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libnghttp2-1.43.0-6.el9_8.2",
+   "source_rpm": "nghttp2-1.43.0-6.el9_8.2.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/libnghttp2-1.43.0-6.el9_8.2.x86_64.rpm",
+   "rpm_sha256": "aea89ed34a5866b687b5170befc44c5f3def3a8e9de38c651785bda28e121a92",
+   "rpm_member": "usr/lib64/libnghttp2.so.14.20.1",
+   "rpm_member_sha256": "39a5c42a2854abad120fe032285299513685df761a9840a20ac1f44490b5aa81",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.43.0-6.el9_8.2 (package build; upstream base 1.43.0 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "https://nghttp2.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libnghttp2/COPYING",
+     "sha256": "6b94f3abc1aabd0c72a7c7d92a77f79dda7c8a0cb3df839a97890b4116a2de2a"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libpcre2-8.so.0",
+   "sha256": "52c60cabd23b6fcbb96666c101445938cbb372ff14a8338f635df81d97857ba1",
+   "upstream_project": "PCRE2",
+   "f3_version_heuristic": "10.40",
+   "f3_licence_expected_unverified": "BSD-3-Clause WITH PCRE2-exception",
+   "build_id": "6acd06611f3c1103d4342ab852f9d08cc7ae23a1",
+   "debuglink": "libpcre2-8.so.0.11.0-10.40-7.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "pcre2-10.40-7.el9_8",
+   "source_rpm": "pcre2-10.40-7.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/pcre2-10.40-7.el9_8.x86_64.rpm",
+   "rpm_sha256": "9b3a2901ccfc4d9191ae3987d1560edc8e4e1b94f2c7362b8a38d313cbd890b7",
+   "rpm_member": "usr/lib64/libpcre2-8.so.0.11.0",
+   "rpm_member_sha256": "9ce72b62a03b1cb9b3de54e73986ff525480f9818a7a88936ca5e723512cd943",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "10.40-7.el9_8 (package build; upstream base 10.40 with distribution backports)",
+   "licence_declared_by_packager": "BSD",
+   "upstream_url": "https://www.pcre.org/",
+   "licence_texts": [
+    {
+     "path": "upstream PCRE2Project/pcre2@pcre2-10.40:LICENCE",
+     "url": "https://raw.githubusercontent.com/PCRE2Project/pcre2/pcre2-10.40/LICENCE",
+     "sha256": "87d884eceb7fc54611470ce9f74280d28612b0c877adfc767e9676892a638987"
+    }
+   ],
+   "superseded_in_repository": false,
+   "licence_text_note": "binary RPM ships no licence file; upstream LICENCE at the base tag (BSD-3-Clause with binary library-like package exemption) fetched",
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libresolv.so.2",
+   "sha256": "b11bd873dba48894db8a9fa01d4038f614f8253f6866437ea1c0ba1e99342300",
+   "upstream_project": "GNU C Library",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "LGPL-2.1-or-later",
+   "build_id": "739b71d1587002efae11dcf121f1e018bb0b6a8a",
+   "debuglink": "libresolv.so.2-2.34-283.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "glibc-2.34-283.el9_8",
+   "source_rpm": "glibc-2.34-283.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/glibc-2.34-283.el9_8.x86_64.rpm",
+   "rpm_sha256": "ccaa3e5bae82c0ef04cdb9a6ec60bebe385bed77a29c1a10a7d32a3a0abff244",
+   "rpm_member": "usr/lib64/libresolv.so.2",
+   "rpm_member_sha256": "82a9f2d5bc4e435f8235d9f50eb02c160e2e97a2536ae04f4b65af3d0684ffd0",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "2.34-283.el9_8 (package build; upstream base 2.34 with distribution backports)",
+   "licence_declared_by_packager": "LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception",
+   "upstream_url": "http://www.gnu.org/software/glibc/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/glibc/COPYING",
+     "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+     "path": "/usr/share/licenses/glibc/COPYING.LIB",
+     "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    {
+     "path": "/usr/share/licenses/glibc/LICENSES",
+     "sha256": "b33d0bd9f685b46853548814893a6135e74430d12f6d94ab3eba42fc591f83bc"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:95618",
+     "cves": [
+      "CVE-2026-8674",
+      "CVE-2026-86805",
+      "CVE-2026-89092",
+      "CVE-2026-95818"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "glibc 2.34-284.el9_8.4",
+     "component": "DNS stub resolver, nscd, dynamic loader (AT_SECURE $ORIGIN)",
+     "reachable_in_offline_scan": "no for the bundled file: nscd and ld.so are not bundled (host ld.so is used), DNS fails offline, semgrep-core is not setuid"
+    },
+    {
+     "id": "ALSA-2026:98512",
+     "cves": [
+      "CVE-2026-86805",
+      "CVE-2026-89092",
+      "CVE-2026-95818"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "glibc 2.34-290.el9_9",
+     "component": "nscd, dynamic loader",
+     "reachable_in_offline_scan": "no (components not bundled)"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libselinux.so.1",
+   "sha256": "1da7979dddc35e8408577e9349c046b1d6f696b877528a2ca8f033d433fdfd8c",
+   "upstream_project": "SELinux userspace",
+   "f3_version_heuristic": "3.6",
+   "f3_licence_expected_unverified": "Public domain",
+   "build_id": "d9889f5fab4b6ec4d9e88dabb526b530b8b6e658",
+   "debuglink": "libselinux.so.1-3.6-3.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libselinux-3.6-3.el9",
+   "source_rpm": "libselinux-3.6-3.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/libselinux-3.6-3.el9.x86_64.rpm",
+   "rpm_sha256": "636371a0ead5a8c5e5dfcad34c35d95d1ad2c328a654fa2c2cbd12b7bd6948c3",
+   "rpm_member": "usr/lib64/libselinux.so.1",
+   "rpm_member_sha256": "a1ff09bffe20f97168af3ac53a6a024a1f897d8e6e3d1281f01d8344308cfa08",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "3.6-3.el9 (package build; upstream base 3.6 with distribution backports)",
+   "licence_declared_by_packager": "Public Domain",
+   "upstream_url": "https://github.com/SELinuxProject/selinux/wiki",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libselinux/LICENSE",
+     "sha256": "86657b4c0fe868d7cbd977cb04c63b6c667e08fa51595a7bc846ad4bed8fc364"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libssl.so.3",
+   "sha256": "553c2bdb423bb772f5c74c905aec5646d8f72af58af4d2a8e1d5901baa737170",
+   "upstream_project": "OpenSSL",
+   "f3_version_heuristic": "3.5.8",
+   "f3_licence_expected_unverified": "Apache-2.0",
+   "build_id": "b18e1bc650d1b70d7ba615b7941173120a217db2",
+   "debuglink": "libssl.so.3.5.8-3.5.8-2.el9_8.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "openssl-libs-1:3.5.8-2.el9_8",
+   "source_rpm": "openssl-3.5.8-2.el9_8.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/openssl-libs-3.5.8-2.el9_8.x86_64.rpm",
+   "rpm_sha256": "0dc8692e5eb52946e5dca0f3f885f4c05a19451d19cf728506f305eae4d97dbf",
+   "rpm_member": "usr/lib64/libssl.so.3.5.8",
+   "rpm_member_sha256": "f7f0969b8b5de26723efa968acdb30c6174face2bf95779883f90e7c9b233629",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "3.5.8-2.el9_8 (package build; upstream base 3.5.8 with distribution backports)",
+   "licence_declared_by_packager": "Apache-2.0",
+   "upstream_url": "http://www.openssl.org/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/openssl-libs/LICENSE.txt",
+     "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    }
+   ],
+   "superseded_in_repository": true,
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:98484",
+     "cves": [
+      "CVE-2026-35189",
+      "CVE-2026-35191",
+      "CVE-2026-42772",
+      "CVE-2026-54872",
+      "CVE-2026-54873",
+      "CVE-2026-54875",
+      "CVE-2026-72897",
+      "CVE-2026-75804",
+      "CVE-2026-75805",
+      "CVE-2026-75806",
+      "CVE-2026-77696",
+      "CVE-2026-84784"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "openssl-libs 1:3.5.9-1.el9_9",
+     "component": "TLS/DTLS/QUIC, CMP client, CRL DP processing, EC/SM2 timing",
+     "reachable_in_offline_scan": "no (all need a network peer or attacker-supplied certificates/keys)"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libstdc++.so.6",
+   "sha256": "f500e57dde683cc1ca31c6b2fb6d8959bfdbbac77f36efc84501ee3fcac8427b",
+   "upstream_project": "GCC libstdc++",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "GPL-3.0-or-later WITH GCC-exception-3.1",
+   "build_id": "c5aa6adf9b2ba8abda8c7fca21dd12511b4c41c0",
+   "debuglink": "libstdc++.so.6.0.29-11.5.0-14.el9.alma.1.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libstdc++-11.5.0-14.el9.alma.1",
+   "source_rpm": "gcc-11.5.0-14.el9.alma.1.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://vault.almalinux.org/9.8/BaseOS/x86_64/os/Packages/libstdc++-11.5.0-14.el9.alma.1.x86_64.rpm",
+   "rpm_sha256": "3864ac910193a6d28bb18049c73b36ca1414445a691904f57a97520daba5fa77",
+   "rpm_member": "usr/lib64/libstdc++.so.6.0.29",
+   "rpm_member_sha256": "95d70798b44b492fb46402ab43aed570558480a21cbc04449da1a15467daf603",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "11.5.0-14.el9.alma.1 (package build; upstream base 11.5.0 with distribution backports)",
+   "licence_declared_by_packager": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+   "upstream_url": "http://gcc.gnu.org",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING",
+     "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING.LIB",
+     "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING.RUNTIME",
+     "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING3",
+     "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+     "path": "/usr/share/licenses/libgcc/COPYING3.LIB",
+     "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+    }
+   ],
+   "superseded_in_repository": true,
+   "licence_text_note": "binary RPM ships no licence file; texts taken from libgcc built from the same gcc SRPM",
+   "vulnerabilities": [
+    {
+     "id": "ALSA-2026:98524",
+     "cves": [
+      "CVE-2026-114690",
+      "CVE-2026-114691",
+      "CVE-2026-115456"
+     ],
+     "vendor_severity": "Moderate",
+     "fixed_in": "libgcc/libstdc++ 11.5.0-17.el9_9.alma.1",
+     "component": "libstdc++ (parallel algorithms, integer wrap, std::from_chars); package-level advisory also lists libgcc",
+     "reachable_in_offline_scan": "not determined: template code may be compiled into semgrep-core; use by semgrep-core not established"
+    }
+   ],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libtree-sitter.so.0.26",
+   "sha256": "9eae85a7bb175a174048370c29e085a7d9b38c928b8ea56785761b9465198544",
+   "upstream_project": "tree-sitter",
+   "f3_version_heuristic": "0.26 (soname)",
+   "f3_licence_expected_unverified": "MIT",
+   "build_id": "1af4135835d9a1eaa40da0892167e5773173b0a2",
+   "debuglink": null,
+   "provenance": "INFERRED",
+   "provenance_method": "Semgrep-built; no distribution package; .comment GCC Red Hat 11.5.0-14",
+   "version_inferred": "0.26.3 (public pin libs/ocaml-tree-sitter-semgrep/core/tree-sitter-version at semgrep v1.185.0 = 9240f708); soname 0.26",
+   "licence_upstream_at_inferred_version": "MIT",
+   "licence_texts": [
+    {
+     "path": "upstream tree-sitter/tree-sitter@v0.26.3:LICENSE",
+     "url": "https://raw.githubusercontent.com/tree-sitter/tree-sitter/v0.26.3/LICENSE",
+     "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    }
+   ],
+   "unresolved": "binary built from a semgrep-pro/semgrep-proprietary tree (runpath/install name); correspondence to the public pin not verifiable (no reproducible build)",
+   "vulnerabilities": []
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libunwind.so.8",
+   "sha256": "5c82cb252136b475bcb68f78ff61575538a36a43161b276df8a774f1899c4596",
+   "upstream_project": "libunwind",
+   "f3_version_heuristic": null,
+   "f3_licence_expected_unverified": "MIT",
+   "build_id": "08f1726ca63b90ee720ae91725fbab47e3b66f7c",
+   "debuglink": "libunwind.so.8.1.0-1.8.0-4.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libunwind-1.8.0-4.el9",
+   "source_rpm": "libunwind-1.8.0-4.el9.src.rpm",
+   "vendor": "Fedora Project",
+   "rpm_url": "https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/libunwind-1.8.0-4.el9.x86_64.rpm",
+   "rpm_sha256": "405f133a3a532c0bef2b2788663a2718a1ca2411d119f9c028e0c6a9c92427d9",
+   "rpm_member": "usr/lib64/libunwind.so.8.1.0",
+   "rpm_member_sha256": "e7d89a0259ec83ccaddeac9b1494c551c1b8f13af31704b46acd0104ec57c293",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.8.0-4.el9 (package build; upstream base 1.8.0 with distribution backports)",
+   "licence_declared_by_packager": "MIT",
+   "upstream_url": "http://savannah.nongnu.org/projects/libunwind",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libunwind/COPYING",
+     "sha256": "6a0dbbdaec2b3136b7bf045586f4212bdf74e7af688bf9dfe9154607cf5ec156"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "FF8AD1344597106ECE813B918A3872BF3228467C"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libz.so.1",
+   "sha256": "18fed02c1fd62a46482150b38fb2ca93cd36d17c7a660dd79c8012251a5d941c",
+   "upstream_project": "zlib",
+   "f3_version_heuristic": "1.2.11",
+   "f3_licence_expected_unverified": "Zlib",
+   "build_id": "7f1ac10c5f9af6a8503f8edd8fb908de3027f208",
+   "debuglink": "libz.so.1.2.11-1.2.11-40.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "zlib-1.2.11-40.el9",
+   "source_rpm": "zlib-1.2.11-40.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/zlib-1.2.11-40.el9.x86_64.rpm",
+   "rpm_sha256": "90d7d5d145c6d397645ffefdff40e3d2783e3bf3bfa7b6c1f089c2cad81a3191",
+   "rpm_member": "usr/lib64/libz.so.1.2.11",
+   "rpm_member_sha256": "4d3dac7a48e8f147507f818eda0c5afafd0846d163b997ad24b3e2e4c791f039",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.2.11-40.el9 (package build; upstream base 1.2.11 with distribution backports)",
+   "licence_declared_by_packager": "zlib and Boost",
+   "upstream_url": "https://www.zlib.net/",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/zlib/README",
+     "sha256": "7960b6b1cc63e619abb77acaea5427159605afee8c8b362664f4effc7d7f7d15"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Linux-x86_64",
+   "file": "libzstd.so.1",
+   "sha256": "75b4f41a07135b9ab5e94ee660f8efddd8037f7350e7c952a04c06d26f2a29dc",
+   "upstream_project": "Zstandard",
+   "f3_version_heuristic": "1.5.5",
+   "f3_licence_expected_unverified": "BSD-3-Clause OR GPL-2.0-only",
+   "build_id": "b2ada8f5ed5090be91c04407e1efc2f069d2fe80",
+   "debuglink": "libzstd.so.1.5.5-1.5.5-1.el9.x86_64.debug",
+   "provenance": "CONFIRMED",
+   "provenance_method": "GNU build-id and debuglink match; .text/.rodata/.data/.eh_frame byte-identical; RPM header RSA/SHA-256 signature verified with official key; file digest in signed header matches",
+   "package": "libzstd-1.5.5-1.el9",
+   "source_rpm": "zstd-1.5.5-1.el9.src.rpm",
+   "vendor": "AlmaLinux",
+   "rpm_url": "https://repo.almalinux.org/almalinux/9/BaseOS/x86_64/os/Packages/libzstd-1.5.5-1.el9.x86_64.rpm",
+   "rpm_sha256": "33006cb9736d17f74c7a30cf9375438a9228023639239bf69c84b2530ad97462",
+   "rpm_member": "usr/lib64/libzstd.so.1.5.5",
+   "rpm_member_sha256": "82d8f7e09de63bfc2a31b76483ab91ec66a58974ed2f81dd604769a8e6ab76f0",
+   "wheel_differs_only_in": [
+    ".dynamic",
+    ".dynstr",
+    ".dynsym"
+   ],
+   "version_confirmed": "1.5.5-1.el9 (package build; upstream base 1.5.5 with distribution backports)",
+   "licence_declared_by_packager": "BSD and GPLv2",
+   "upstream_url": "https://github.com/facebook/zstd",
+   "licence_texts": [
+    {
+     "path": "/usr/share/licenses/libzstd/COPYING",
+     "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+    },
+    {
+     "path": "/usr/share/licenses/libzstd/LICENSE",
+     "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+    }
+   ],
+   "superseded_in_repository": false,
+   "vulnerabilities": [],
+   "signer_openpgp_fingerprint": "BF18AC2876178908D6E71267D36CB86CB86B3716"
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libdwarf.2.dylib",
+   "sha256": "343f2a479048e8d41cd5c3e52310a5c3a2de4f1133c74579c5c06c5939b3a355",
+   "upstream_project": "libdwarf",
+   "f3_version_heuristic": "dylib current 6.3.0",
+   "f3_licence_expected_unverified": "LGPL-2.1-only",
+   "provenance": "CONFIRMED",
+   "provenance_method": "Mach-O LC_UUID match and __TEXT,__text byte-identical with Homebrew bottle; bottle blob sha256 equals its GHCR OCI digest",
+   "uuid": "B800A003-F629-30A2-8ECE-5B6DDC1BB4CA",
+   "homebrew_formula": "dwarfutils",
+   "bottle": "2.3.3.arm64_sequoia",
+   "bottle_blob": "sha256:a91d9cadb172a23300b9e1fb1db1eec35fc3886991f6f1dda0ac8812cfcc5f38",
+   "bottle_url": "https://ghcr.io/v2/homebrew/core/dwarfutils/blobs/sha256:a91d9cadb172a23300b9e1fb1db1eec35fc3886991f6f1dda0ac8812cfcc5f38",
+   "bottle_member": "dwarfutils/2.3.3/lib/libdwarf.2.dylib",
+   "version_confirmed": "2.3.3",
+   "licence_declared_by_packager": "BSD-2-Clause AND LGPL-2.1-or-later AND GPL-2.0-or-later",
+   "packager_licence_source": "https://formulae.brew.sh/api/formula/dwarfutils.json (current formula)",
+   "upstream_source": "https://www.prevanders.net/libdwarf-2.3.3.tar.xz",
+   "licence_texts": [
+    {
+     "path": "dwarfutils/2.3.3/COPYING",
+     "sha256": "ec11b68103f6c30e627f937e1c4ea2fc7bac8a812d6966ae9c64d0671bd3cf25"
+    }
+   ],
+   "upstream_licence_text": {
+    "url": "https://raw.githubusercontent.com/davea42/libdwarf-code/v2.3.3/src/lib/libdwarf/LIBDWARFCOPYRIGHT",
+    "sha256": "6b668e7b5bb30628a9f722a4842f45d32fcfb124d9b0260effcb3d7f8b751b0b",
+    "states": "version 2.1 of the GNU LGPL (no 'or later' wording); some files BSD-2-Clause"
+   },
+   "vulnerabilities": [
+    {
+     "id": "CVE-2026-116732",
+     "cves": [
+      "CVE-2026-116732"
+     ],
+     "vendor_severity": "CVSS 4.0 AV:L/UI:P low impact",
+     "fixed_in": "upstream commit 71f04013ddc2 (no release; Homebrew still 2.3.3)",
+     "component": "dwarf_debug_addr_table on crafted object files",
+     "reachable_in_offline_scan": "unlikely: libdwarf reads semgrep-core's own debug data, not scanned sources"
+    }
+   ]
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libev.4.dylib",
+   "sha256": "862bcbbb7c273170fe4864990efbb074f429eca11794b701a2f1b9a8a5d960d7",
+   "upstream_project": "libev",
+   "f3_version_heuristic": "dylib current 5.0.0",
+   "f3_licence_expected_unverified": "BSD-2-Clause OR GPL-2.0-or-later",
+   "provenance": "CONFIRMED",
+   "provenance_method": "Mach-O LC_UUID match and __TEXT,__text byte-identical with Homebrew bottle; bottle blob sha256 equals its GHCR OCI digest",
+   "uuid": "CF75F7C5-DF58-3C59-A869-6DD33783A3C5",
+   "homebrew_formula": "libev",
+   "bottle": "4.33.arm64_sequoia",
+   "bottle_blob": "sha256:67740e5ba01e82c140ceadc512aa26a3990bfadaef0f4b545ba7f9aaf24c50bf",
+   "bottle_url": "https://ghcr.io/v2/homebrew/core/libev/blobs/sha256:67740e5ba01e82c140ceadc512aa26a3990bfadaef0f4b545ba7f9aaf24c50bf",
+   "bottle_member": "libev/4.33/lib/libev.4.dylib",
+   "version_confirmed": "4.33",
+   "licence_declared_by_packager": "BSD-2-Clause OR GPL-2.0-or-later",
+   "packager_licence_source": "https://formulae.brew.sh/api/formula/libev.json (current formula)",
+   "upstream_source": "https://dist.schmorp.de/libev/Attic/libev-4.33.tar.gz",
+   "licence_texts": [
+    {
+     "path": "libev/4.33/LICENSE",
+     "sha256": "c4dd1a5bc38b041a320b93c5d6c08f5c41a63f2ce718ee16cfcb757fad448199"
+    }
+   ],
+   "vulnerabilities": []
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libgmp.10.dylib",
+   "sha256": "bc6145edbeca608b4fecd4440dbbd7b27cacd55cbfd2b552b8bc333febe43b35",
+   "upstream_project": "GMP",
+   "f3_version_heuristic": "dylib current 16.0.0",
+   "f3_licence_expected_unverified": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+   "provenance": "CONFIRMED",
+   "provenance_method": "Mach-O LC_UUID match and __TEXT,__text byte-identical with Homebrew bottle; bottle blob sha256 equals its GHCR OCI digest",
+   "uuid": "90556AA3-2210-35A5-8BEB-0F6610A44116",
+   "homebrew_formula": "gmp",
+   "bottle": "6.3.0.arm64_sequoia",
+   "bottle_blob": "sha256:6683d73d6677d28e1e8d1b92d6ebfbc068c1d33e19b79114a22a648a99ba5991",
+   "bottle_url": "https://ghcr.io/v2/homebrew/core/gmp/blobs/sha256:6683d73d6677d28e1e8d1b92d6ebfbc068c1d33e19b79114a22a648a99ba5991",
+   "bottle_member": "gmp/6.3.0/lib/libgmp.10.dylib",
+   "version_confirmed": "6.3.0",
+   "licence_declared_by_packager": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+   "packager_licence_source": "https://formulae.brew.sh/api/formula/gmp.json (current formula)",
+   "upstream_source": "https://ftpmirror.gnu.org/gmp/gmp-6.3.0.tar.xz",
+   "licence_texts": [
+    {
+     "path": "gmp/6.3.0/COPYING",
+     "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+     "path": "gmp/6.3.0/COPYING.LESSERv3",
+     "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+    }
+   ],
+   "vulnerabilities": []
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libpcre2-8.0.dylib",
+   "sha256": "b473d326a1dc8863e527c5fbeb155b8ea1183d0eb92d9d68fbc45568cb14fc81",
+   "upstream_project": "PCRE2",
+   "f3_version_heuristic": "dylib current 16.0.0",
+   "f3_licence_expected_unverified": "BSD-3-Clause WITH PCRE2-exception",
+   "provenance": "CONFIRMED",
+   "provenance_method": "Mach-O LC_UUID match and __TEXT,__text byte-identical with Homebrew bottle; bottle blob sha256 equals its GHCR OCI digest",
+   "uuid": "A3B936D6-4FB9-3878-9595-AA9965261546",
+   "homebrew_formula": "pcre2",
+   "bottle": "10.47.arm64_sequoia",
+   "bottle_blob": "sha256:603fb4c2e2d04c59cb75525a47758abbab20027f3f2296cc170fba64f9fb4b9a",
+   "bottle_url": "https://ghcr.io/v2/homebrew/core/pcre2/blobs/sha256:603fb4c2e2d04c59cb75525a47758abbab20027f3f2296cc170fba64f9fb4b9a",
+   "bottle_member": "pcre2/10.47/lib/libpcre2-8.0.dylib",
+   "version_confirmed": "10.47",
+   "licence_declared_by_packager": "BSD-3-Clause",
+   "packager_licence_source": "https://formulae.brew.sh/api/formula/pcre2.json (current formula)",
+   "upstream_source": "older version; see Homebrew formula history",
+   "licence_texts": [
+    {
+     "path": "pcre2/10.47/COPYING",
+     "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507"
+    },
+    {
+     "path": "pcre2/10.47/LICENCE.md",
+     "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811"
+    }
+   ],
+   "vulnerabilities": [
+    {
+     "id": "OSV-2026-343",
+     "cves": [],
+     "vendor_severity": "unrated (OSS-Fuzz heap overflow)",
+     "fixed_in": "upstream commit e19e76ad8e5b",
+     "component": "pcre2_compile_32 (32-bit code unit library; not bundled)",
+     "reachable_in_offline_scan": "applicability to the bundled 8-bit library unconfirmed; patterns are compiled from the repository's own reviewed rules"
+    }
+   ]
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libtree-sitter.0.26.dylib",
+   "sha256": "573cc70ecaed2dfe7504ae729561ff556b0b7a2e8163d40ffdf4a130029169ff",
+   "upstream_project": "tree-sitter",
+   "f3_version_heuristic": "soname 0.26",
+   "f3_licence_expected_unverified": "MIT",
+   "provenance": "INFERRED",
+   "provenance_method": "Semgrep-built (install name in semgrep-proprietary CI build dir); libtree-sitter.dylib and libtree-sitter.0.26.dylib are byte-identical",
+   "uuid": "9824A74F-AE6E-3E21-8D17-CDE6F260CA74",
+   "version_inferred": "0.26.3 (public pin, as Linux)",
+   "licence_upstream_at_inferred_version": "MIT",
+   "licence_texts": [
+    {
+     "path": "upstream tree-sitter/tree-sitter@v0.26.3:LICENSE",
+     "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    }
+   ],
+   "unresolved": "built from a non-public tree; correspondence to the public pin not verifiable",
+   "vulnerabilities": []
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libtree-sitter.dylib",
+   "sha256": "573cc70ecaed2dfe7504ae729561ff556b0b7a2e8163d40ffdf4a130029169ff",
+   "upstream_project": "tree-sitter",
+   "f3_version_heuristic": "soname 0.26",
+   "f3_licence_expected_unverified": "MIT",
+   "provenance": "INFERRED",
+   "provenance_method": "Semgrep-built (install name in semgrep-proprietary CI build dir); libtree-sitter.dylib and libtree-sitter.0.26.dylib are byte-identical",
+   "uuid": "9824A74F-AE6E-3E21-8D17-CDE6F260CA74",
+   "version_inferred": "0.26.3 (public pin, as Linux)",
+   "licence_upstream_at_inferred_version": "MIT",
+   "licence_texts": [
+    {
+     "path": "upstream tree-sitter/tree-sitter@v0.26.3:LICENSE",
+     "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    }
+   ],
+   "unresolved": "built from a non-public tree; correspondence to the public pin not verifiable",
+   "vulnerabilities": []
+  },
+  {
+   "platform": "Darwin-arm64",
+   "file": "libzstd.1.dylib",
+   "sha256": "40cde10ac8415f73144109a6e4f80a403ca0a3259e5fd227158277bab146e6d8",
+   "upstream_project": "Zstandard",
+   "f3_version_heuristic": "dylib current 1.5.7",
+   "f3_licence_expected_unverified": "BSD-3-Clause OR GPL-2.0-only",
+   "provenance": "CONFIRMED",
+   "provenance_method": "Mach-O LC_UUID match and __TEXT,__text byte-identical with Homebrew bottle; bottle blob sha256 equals its GHCR OCI digest",
+   "uuid": "DACB053D-F62B-353F-A767-ED728BEA6A42",
+   "homebrew_formula": "zstd",
+   "bottle": "1.5.7_1.arm64_sequoia",
+   "bottle_blob": "sha256:d72adf48460a8384b256f88061cd7b9df4977df7fa2e0794051d427db754a565",
+   "bottle_url": "https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:d72adf48460a8384b256f88061cd7b9df4977df7fa2e0794051d427db754a565",
+   "bottle_member": "zstd/1.5.7_1/lib/libzstd.1.5.7.dylib",
+   "version_confirmed": "1.5.7_1",
+   "licence_declared_by_packager": "(BSD-3-Clause OR GPL-2.0-only) AND BSD-2-Clause AND MIT",
+   "packager_licence_source": "https://formulae.brew.sh/api/formula/zstd.json (current formula)",
+   "upstream_source": "https://github.com/facebook/zstd/archive/refs/tags/v1.5.7.tar.gz",
+   "licence_texts": [
+    {
+     "path": "zstd/1.5.7_1/COPYING",
+     "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+    },
+    {
+     "path": "zstd/1.5.7_1/LICENSE",
+     "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+    }
+   ],
+   "vulnerabilities": []
+  }
+ ],
+ "not_in_inventory": {
+  "semgrep-core static components": "strings indicate libyaml, SQLite and Mbed TLS code and OCaml libraries linked statically into semgrep-core (Linux 266 MB, macOS 219 MB); not inventoried, no notices; ocaml-tree-sitter binding is LGPL with OCaml linking exception",
+  "host-provided": {
+   "Linux": [
+    "libc.so.6",
+    "ld-linux-x86-64.so.2"
+   ],
+   "macOS": [
+    "/usr/lib/libcurl.4.dylib",
+    "/usr/lib/libc++.1.dylib",
+    "/usr/lib/libSystem.B.dylib",
+    "/usr/lib/libz.1.dylib (via libdwarf)"
+   ]
+  },
+  "semgrep_own_licence": "LGPL-2.1 (Semgrep); macOS wheel ships dist-info/licenses/LICENSE; Linux wheel ships none (F3)"
+ },
+ "vulnerability_sources": {
+  "osv_almalinux_query_utc": "2026-11-17T09:54:01Z",
+  "method": "OSV querybatch AlmaLinux:9 with exact package EVR; OSV GIT commit queries for tree-sitter v0.26.3, pcre2-10.47, zstd v1.5.7, libdwarf v2.3.3, libunwind v1.8.0",
+  "coverage_gaps": [
+   "EPEL libunwind has no OSV distribution ecosystem (upstream commit query only)",
+   "GMP and libev have no OSV git coverage",
+   "absence of an OSV record is not evidence of no vulnerability"
+  ]
+ },
+ "obligations": {
+  "local_use": "Running unmodified copies obtained from PyPI. GPL/LGPL conditions attach to conveying/distribution (GPL-3.0 s2, LGPL-2.1 s0: running is not restricted); permissive licences' notice conditions attach to copies/redistribution made by the distributor. No project obligation identified; not a legal opinion",
+  "ci_use": "Same as local while the runner downloads from PyPI and only the six allowlisted JSON files are uploaded (no cache, image push or binary artifact). Any upload/cache/push of the venv, wheelhouse or image would be redistribution",
+  "redistribution": "Not permitted by this assessment. Would require: licence texts and copyright notices for all components (including Semgrep and statically linked code); LGPL corresponding source or written offer and relinking ability for GMP, elfutils, keyutils, glibc libm/libresolv, libdwarf, Semgrep and the ocaml-tree-sitter binding; GPL runtime-exception texts for libgcc/libstdc++; Apache-2.0 for OpenSSL; corresponding source for semgrep-core itself (built from a non-public tree)"
+ },
+ "issues": [
+  {
+   "id": "G5-1",
+   "issue": "Wheels ship no third-party notices or SBOM (upstream distribution gap)",
+   "recommendation": "OWNER REVIEW (use); REMEDIATE before any redistribution; optionally report upstream"
+  },
+  {
+   "id": "G5-2",
+   "issue": "No project SBOM for the scanner toolchain",
+   "recommendation": "REMEDIATE: generate SPDX/CycloneDX from this evidence (needs authorisation for a repository file)"
+  },
+  {
+   "id": "G5-3",
+   "issue": "libtree-sitter (3 files) provenance/version inferred; built from non-public tree",
+   "recommendation": "OWNER REVIEW"
+  },
+  {
+   "id": "G5-4",
+   "issue": "Statically linked components inside semgrep-core not inventoried",
+   "recommendation": "REMEDIATE (inventory) before redistribution or mandatory CI; OWNER REVIEW for current use"
+  },
+  {
+   "id": "G5-5",
+   "issue": "LGPL corresponding source for semgrep-core not verifiable (non-public build tree)",
+   "recommendation": "BLOCK redistribution; not applicable to local/CI use"
+  },
+  {
+   "id": "G5-6",
+   "issue": "Six Moderate AlmaLinux advisories against bundled Linux builds; fixed builds exist but only Semgrep can rebuild the wheel",
+   "recommendation": "OWNER REVIEW (network/loader paths unreachable offline; libstdc++ and liblzma reachability not determined); REMEDIATE via upstream Semgrep release"
+  },
+  {
+   "id": "G5-7",
+   "issue": "macOS libdwarf CVE-2026-116732 (no fixed release) and PCRE2 OSV-2026-343 (32-bit, applicability unconfirmed)",
+   "recommendation": "OWNER REVIEW"
+  },
+  {
+   "id": "G5-8",
+   "issue": "Advisory coverage gaps (EPEL libunwind, GMP, libev, statically linked code)",
+   "recommendation": "OWNER REVIEW (monitoring on each Semgrep release)"
+  }
+ ],
+ "recommendation": {
+  "local_use": "GO (no licence blocker identified; subject to owner review)",
+  "non_blocking_ci_trial": "GO with the no-redistribution conditions",
+  "mandatory_ci_E04": "NO-GO until owner decides G5-3/4/6/7/8 (with G2)",
+  "redistribution": "NO-GO (BLOCK) until G5-1/2/4/5 are remediated"
+ },
+ "limits": [
+  "Licence conclusions are packager and upstream declarations, not legal advice",
+  "Homebrew licence metadata is the current formula; versions match except pcre2 (10.47 vs 10.49) and zstd revision (1.5.7_1)",
+  "Build-ID/UUID and section equality prove identical code, not build-environment integrity",
+  "No hosted re-verification; macOS and Linux wheels only (other platforms not assessed)",
+  "Static components identified by strings only"
+ ],
+ "changed_files": [
+  "docs/evidence/m4c-c5-g5-native-library-assessment.md",
+  "docs/evidence/m4c-c5-g5-native-library-assessment.json",
+  "README.md",
+  "AGENTS.md",
+  "docs/capability-status.md",
+  "docs/milestones/m4c-c5-sast-plan.md"
+ ],
+ "licence_declaration_discrepancies": [
+  {
+   "file": "libdwarf.2.dylib",
+   "finding": "Homebrew formula expression says LGPL-2.1-or-later for the package; upstream libdwarf/LIBDWARFCOPYRIGHT at v2.3.3 grants 'version 2.1' with no or-later wording",
+   "treatment": "conservatively LGPL-2.1-only (matches F3); owner/counsel to confirm"
+  },
+  {
+   "file": "libpcre2-8.so.0",
+   "finding": "RPM tag 'BSD' (legacy Fedora short name); upstream LICENCE at pcre2-10.40 is BSD-3-Clause with the binary library-like package exemption (SPDX BSD-3-Clause WITH PCRE2-exception)",
+   "treatment": "upstream text governs"
+  },
+  {
+   "file": "libbz2.so.1",
+   "finding": "RPM tag 'BSD'; shipped LICENSE is the bzip2 BSD-style licence (SPDX bzip2-1.0.6)",
+   "treatment": "shipped text governs"
+  },
+  {
+   "file": "libkeyutils.so.1",
+   "finding": "RPM tag 'GPLv2+ and LGPLv2+' covers the whole source package; the -libs subpackage ships only LICENCE.LGPL",
+   "treatment": "library LGPL-2.1 per shipped text; or-later wording not verified in source headers"
+  },
+  {
+   "file": "libz.so.1",
+   "finding": "RPM tag 'zlib and Boost'; Boost-licensed part not attributed to libz.so",
+   "treatment": "zlib licence for libz.so per shipped README; Boost scope not verified"
+  },
+  {
+   "file": "libzstd.so.1",
+   "finding": "RPM tag 'BSD and GPLv2' vs upstream dual BSD-3-Clause OR GPL-2.0-only",
+   "treatment": "shipped LICENSE/COPYING govern (dual)"
+  },
+  {
+   "file": "libgcc_s.so.1, libstdc++.so.6, libev.so.4, libgmp.so.10",
+   "finding": "legacy non-SPDX RPM expressions",
+   "treatment": "upstream SPDX equivalents recorded in F3 inventory remain consistent; not re-derived"
+  }
+ ],
+ "owner_decision_g5d": {
+  "date_utc": "2026-11-17",
+  "accepted_findings": [
+   "V7: ALSA-2026:92907, ALSA-2026:98484, ALSA-2026:95618, ALSA-2026:98512, ALSA-2026:98524, ALSA-2026:98486",
+   "V8: CVE-2026-116732"
+  ],
+  "scope": [
+   "local trusted-repository scans",
+   "separately authorised non-blocking trials"
+  ],
+  "expiry": "2026-12-17",
+  "conditions": "G5D early-stop conditions and mandatory controls",
+  "status": "G5 OPEN; not waived",
+  "redistribution": "NO-GO (prohibited)",
+  "mandatory_ci_release": "NO-GO"
+ }
+}

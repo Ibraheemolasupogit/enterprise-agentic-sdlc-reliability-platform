@@ -1,0 +1,313 @@
+{
+  "milestone": "M4C-C5-G2",
+  "status": "conditionally accepted (G5D, 2026-11-17) for local trusted-repository scans and separately authorised non-blocking trials until 2026-12-17; OPEN for mandatory CI; not waived",
+  "date_utc": "2026-11-17",
+  "base_commit": "2b050a1",
+  "authority": "owner direction: read-only G2 investigation; evidence/status documentation only",
+  "recommendation": "ACCEPT FOR OWNER REVIEW (tool-only, time-bound, conditional); REMEDIATE on first upstream Semgrep release clearing both pins; BLOCK if a condition fails",
+  "residual_risk": "Low for local and dispatch-only non-blocking use",
+  "sources": {
+    "osv_fetched_utc": "2026-11-17T08:22:37Z",
+    "pypi": "semgrep, mcp, opentelemetry-* JSON metadata",
+    "upstream_read": "semgrep/semgrep PR 12057 (open, review required), 12020 (closed), 12080 (open), issue 12018 (open)"
+  },
+  "installed_versions": {
+    "semgrep": "1.185.0",
+    "mcp": "1.29.0",
+    "opentelemetry-api": "1.37.0",
+    "opentelemetry-sdk": "1.37.0"
+  },
+  "advisories": [
+    {
+      "id": "GHSA-5h93-6whr-6q8j",
+      "cve": "CVE-2026-116685",
+      "package": "mcp",
+      "pinned": "1.29.0",
+      "affected": ">=1.8.0,<1.30.0; >=2.0.0,<2.2.0",
+      "fixed": [
+        "1.30.0",
+        "2.2.0"
+      ],
+      "severity": "MODERATE",
+      "cvss31": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cwe": [
+        "CWE-200"
+      ],
+      "component": "MCP HTTP client transports follow cross-origin redirects",
+      "reachable_in_scan": false,
+      "reason": "no MCP HTTP client created; egress denied"
+    },
+    {
+      "id": "GHSA-84m7-p3x7-pcfv",
+      "cve": "CVE-2026-59951",
+      "package": "mcp",
+      "pinned": "1.29.0",
+      "affected": ">=1.8.0,<1.30.0; >=2.0.0,<2.2.0",
+      "fixed": [
+        "1.30.0",
+        "2.2.0"
+      ],
+      "severity": "MODERATE",
+      "cvss31": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "cwe": [
+        "CWE-400",
+        "CWE-770",
+        "CWE-772"
+      ],
+      "component": "Streamable HTTP server unbounded sessions",
+      "reachable_in_scan": false,
+      "reason": "no MCP server started; no listening socket"
+    },
+    {
+      "id": "GHSA-rwrf-2pqf-9j8j",
+      "cve": "CVE-2026-116686",
+      "package": "mcp",
+      "pinned": "1.29.0",
+      "affected": ">=1.10.0,<1.30.0; >=2.0.0,<2.2.0",
+      "fixed": [
+        "1.30.0",
+        "2.2.0"
+      ],
+      "severity": "MODERATE",
+      "cvss31": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "cwe": [
+        "CWE-918"
+      ],
+      "component": "Client fetches server-chosen $ref URLs during tool-result validation",
+      "reachable_in_scan": false,
+      "reason": "no ClientSession created; no tool calls"
+    },
+    {
+      "id": "GHSA-w4fh-qvv9-3v23",
+      "cve": "CVE-2026-116684",
+      "package": "mcp",
+      "pinned": "1.29.0",
+      "affected": ">=1.10.0,<1.30.0; >=2.0.0,<2.2.0",
+      "fixed": [
+        "1.30.0 + validate_token_resource opt-in",
+        "2.2.0 + opt-in"
+      ],
+      "severity": "MODERATE",
+      "cvss31": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N",
+      "cwe": [
+        "CWE-863"
+      ],
+      "component": "Server bearer auth lacks audience check",
+      "reachable_in_scan": false,
+      "reason": "no MCP HTTP server or bearer auth"
+    },
+    {
+      "id": "GHSA-xcq7-p3pf-p88h",
+      "cve": "CVE-2026-114603",
+      "package": "opentelemetry-api",
+      "pinned": "1.37.0",
+      "affected": ">=0,<1.45.1",
+      "fixed": [
+        "1.45.1"
+      ],
+      "severity": "MODERATE",
+      "cvss31": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "cwe": [
+        "CWE-1333",
+        "CWE-400"
+      ],
+      "component": "TraceState.from_header quadratic regex on tracestate",
+      "reachable_in_scan": false,
+      "reason": "no inbound headers; tracer no-op (--no-trace); Semgrep's only extract() carrier contains traceparent only"
+    }
+  ],
+  "reachability": {
+    "engine_path": "semgrep scan -> osemgrep -> pysemgrep fallback; semgrep/cli.py:25 imports semgrep.commands.mcp eagerly; 1401 modules imported",
+    "method": "sys.monitoring PY_START + audit hook tracer; harness FLAGS; both rule files; apps/scripts/tests (75 files); disposable repo copy",
+    "tracer_sha256": "268b876295458fad7e46ce8a4d32b76e7a661879ffc14b13a94acb22d1b82ef6",
+    "platforms": {
+      "macos-arm64-sandbox-deny-network": {
+        "mcp_modules_imported": 84,
+        "otel_modules_imported": 98,
+        "advisory_relevant_class_bodies_defined": 47,
+        "mcp_functions_called": {
+          "mcp/server/fastmcp/utilities/logging.py:get_logger": 5
+        },
+        "otel_distinct_functions_called": 59,
+        "vulnerable_functions_called": [],
+        "not_called": [
+          "TraceState.from_header",
+          "opentelemetry.propagate.extract",
+          "TraceContextTextMapPropagator.extract",
+          "create_mcp_http_client",
+          "ClientSession",
+          "StreamableHTTPTransport",
+          "BearerAuthBackend",
+          "StreamableHTTPSessionManager",
+          "FastMCP.__init__",
+          "OTLPSpanExporter.__init__",
+          "OTLPLogExporter.__init__"
+        ],
+        "network_audit_events": {
+          "socket.bind ('::1', 0)": "urllib3 import-time IPv6 probe (urllib3/util/connection.py:137); no connect/DNS/HTTP"
+        },
+        "child_processes": {
+          "git": 2,
+          "semgrep-core": 8
+        }
+      },
+      "linux-x86_64-hardened-container-network-none": {
+        "identical_to_macos": true
+      }
+    },
+    "positive_control": {
+      "recorded": [
+        "TraceState.from_header",
+        "propagate.extract",
+        "TraceContextTextMapPropagator.extract",
+        "create_mcp_http_client"
+      ],
+      "network_io": false
+    }
+  },
+  "compatibility": {
+    "semgrep_latest": "1.185.0 (2026-11-10)",
+    "semgrep_requires": [
+      "mcp==1.29.0",
+      "opentelemetry-api~=1.37.0",
+      "opentelemetry-sdk~=1.37.0",
+      "opentelemetry-exporter-otlp-proto-http~=1.37.0",
+      "opentelemetry-instrumentation-requests~=0.58b0",
+      "opentelemetry-instrumentation-threading~=0.58b0"
+    ],
+    "opentelemetry_sdk_1_37_requires": "opentelemetry-api==1.37.0",
+    "mcp_1_30_dependency_delta": "none",
+    "downgrade": "semgrep 1.100-1.130 require opentelemetry-api~=1.25.0 (still affected by GHSA-xcq7); not viable",
+    "override": "would violate Semgrep pins and fail the fatal pip check; not attempted"
+  },
+  "controls": [
+    "fixed scan subcommand with --no-trace/--metrics=off/--disable-version-check/--oss-only",
+    "explicit environment allowlist (E03 M14 verified)",
+    "verified network isolation (sandbox/namespace/--network none)",
+    "hardened container",
+    "hash-locked offline install, RECORD, engine hash, fatal pip check",
+    "tool not shipped with application"
+  ],
+  "gaps": [
+    "closed: regression guard tests/security/sast/test_g2_mitigation_guard.py pins flags/environment (section 6)"
+  ],
+  "acceptance_conditions_proposed": [
+    "scope: local + dispatch-only non-blocking trial at current configuration",
+    "re-run OSV/upstream check before each dispatch and on each Semgrep release; new HIGH/CRITICAL or reachable path ends acceptance",
+    "remediate on first upstream release clearing both pins",
+    "add flag/environment pinning test before any E04 decision",
+    "separate explicit G2 decision for E04 mandatory CI"
+  ],
+  "owner_decisions_required": [
+    "accept, reject or block the tool-only residual risk for current use",
+    "whether G2 must close before E04 or may be accepted with conditions",
+    "authorise the flag/environment pinning test",
+    "set review cadence/expiry"
+  ],
+  "limits": [
+    "only the harness scan invocation was traced",
+    "Linux emulated under Rosetta, not hosted",
+    "upstream status is point-in-time public data",
+    "G5 native libraries out of scope"
+  ],
+  "changed_files": [
+    "docs/evidence/m4c-c5-g2-dependency-assessment.md",
+    "docs/evidence/m4c-c5-g2-dependency-assessment.json",
+    "tests/security/sast/test_g2_mitigation_guard.py",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ],
+  "unchanged": [
+    "dependency versions",
+    "locks",
+    "toolchain",
+    "rules",
+    "harness",
+    "driver",
+    "workflows",
+    "existing tests",
+    "application",
+    "F4R and E03 files"
+  ],
+  "owner_decision": {
+    "date_utc": "2026-11-17",
+    "decision": "conditional acceptance",
+    "scope": [
+      "local development",
+      "existing non-blocking dispatch-only hosted trial"
+    ],
+    "expiry": "2026-12-17",
+    "on_expiry_without_renewal": "lapses; treated as BLOCK for any use",
+    "mandatory_ci_E04": "G2 OPEN; separate owner decision required",
+    "early_termination": [
+      "new HIGH/CRITICAL advisory in pinned set",
+      "vulnerable path shown reachable",
+      "regression guard fails",
+      "harness flags/environment/isolation changed without new owner review"
+    ],
+    "obligations": [
+      "re-run OSV and upstream check before each dispatch and on each Semgrep release",
+      "remediate on first Semgrep release clearing both pins (re-lock + full re-verification)"
+    ],
+    "recorded_by": "owner alone (reviewer independence remains C5-A2 gap)"
+  },
+  "regression_guard": {
+    "file": "tests/security/sast/test_g2_mitigation_guard.py",
+    "ci_discovery": false,
+    "engine_required": false,
+    "method": "real run_engine/tool_env/argparse/container_run with subprocess intercepted; exact-equality policy",
+    "pinned": [
+      "exact FLAGS tuple incl. scan, --oss-only, --metrics=off, --disable-version-check, --no-trace",
+      "forbidden args (mcp, login, ci, --trace*, --metrics=on/auto, --pro*, --secrets, --supply-chain, registry/URL/auto configs)",
+      "configs = two catalogued local rule files; targets after final --",
+      "venv interpreter with -I; allowed isolation wrappers only",
+      "engine env exactly 15 keys, fixed values, HOME/settings/XDG inside per-run scratch home",
+      "tool env exactly 9 keys",
+      "hostile caller environment never reaches engine",
+      "no CLI flag/env passthrough (argparse exit 2)",
+      "driver forwards exactly CONTEXT_KEYS + TRIAL_AUTHORIZATION_REFERENCE + C5_TRIAL_NONCE by name; fixed in-container command"
+    ],
+    "negative": {
+      "source_mutations_on_disposable_copy": 17,
+      "synthetic_overrides": 20,
+      "all_rejected": true,
+      "sandbox_profile_mutation": "macOS only"
+    },
+    "results": {
+      "guard_macos": "8/8",
+      "guard_linux_hardened_container": "8/8 (unshare path exercised; separator bug found and fixed in test before acceptance)",
+      "sast_suite_macos_real_engine": "60/60",
+      "sast_suite_without_engine": "32 pass, 28 skipped",
+      "delivery": "22/22",
+      "check_trial_workflow": "PASS",
+      "actionlint": "pass"
+    },
+    "environment_limit": "Linux container lacks PyYAML: test_trial_workflow and test_container_trial cannot import there (pass on macOS); unrelated to G2",
+    "does_not_prove": [
+      "Semgrep internal behaviour (covered by section 2 trace)",
+      "same-change tampering of harness and test (C5-A2)"
+    ]
+  },
+  "owner_decision_g5d": {
+    "date_utc": "2026-11-17",
+    "decision": "conditional acceptance (supersedes owner_decision scope)",
+    "advisories": [
+      "GHSA-5h93-6whr-6q8j",
+      "GHSA-84m7-p3x7-pcfv",
+      "GHSA-rwrf-2pqf-9j8j",
+      "GHSA-w4fh-qvv9-3v23",
+      "GHSA-xcq7-p3pf-p88h",
+      "GHSA-mf5v-w3w3-f6cg"
+    ],
+    "scope": [
+      "local trusted-repository scans",
+      "separately authorised non-blocking trials"
+    ],
+    "expiry": "2026-12-17",
+    "conditions": "G5D early-stop conditions and mandatory controls (docs/evidence/m4c-c5-g5d-security-risk-decision.md sections 2, 4, 6)",
+    "status": "G2 OPEN; advisories visible; not waived",
+    "mandatory_ci_release_redistribution": "NO-GO"
+  }
+}

@@ -27,6 +27,16 @@ REQUIRED_HARDENING = (("--network", "none"), ("--user", "1001:1001"), ("--cap-dr
                       ("--security-opt", "no-new-privileges=true"), ("--pull", "never"),
                       ("--platform", "linux/amd64"), ("--ipc", "none"))
 REQUIRED_FLAGS = ("--rm", "--read-only")
+# C5-G4H: host-side TypeScript gate prerequisites (pinned Node + lock-verified compiler) before any container.
+NODE_VERSION_FILE = ROOT / "apps/octocat-supply/.node-version"
+APP_DIR = "apps/octocat-supply"
+NPM_INSTALL = "npm ci --ignore-scripts"
+PINNED_NODE_ARG = '--node "$(command -v node)"'
+NPM_ENV = {"NPM_CONFIG_AUDIT", "NPM_CONFIG_FUND", "NPM_CONFIG_UPDATE_NOTIFIER"}
+# The upload allowlist is exactly these six evidence files (never raw reports, attestations or node_modules).
+UPLOADS = ["artifacts/sast/hosted-runner-facts.json", "artifacts/sast/container-image.json",
+           "artifacts/sast/container-install.json", "artifacts/sast/container-run.json",
+           "artifacts/sast/hosted-trial.json", "artifacts/sast/c5-summary.json"]
 FORBIDDEN_DOCKER = ("--privileged", "--cap-add", "--network=host", "host", "--pid", "--userns", "unconfined",
                     "--device", "docker.sock", "--volume", "-v", "--security-opt=seccomp", "apparmor")
 
@@ -44,7 +54,7 @@ def ci_action_pins(ci: dict) -> set[str]:
     return {step["uses"] for job in ci["jobs"].values() for step in job.get("steps", []) if "uses" in step}
 
 
-def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str) -> None:
+def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_version: str | None = None) -> None:
     require(set(trial) <= {"name", "on", "permissions", "concurrency", "jobs"}, "Unexpected top-level key")
     require(set(trial["on"]) == {"workflow_dispatch"}, "Trial must be workflow_dispatch only")
     inputs = trial["on"]["workflow_dispatch"].get("inputs", {})
@@ -55,7 +65,8 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str) -> None:
     require("concurrency" in trial, "Trial must serialize runs")
     for forbidden in ("secrets.", "id-token", "pull_request_target", "security-events", "GITHUB_TOKEN",
                       "continue-on-error", "environment:", "sudo ", "curl ", "wget ", "--privileged",
-                      "unshare", "sysctl", "apparmor_parser", "setpriv", "nsenter"):
+                      "unshare", "sysctl", "apparmor_parser", "setpriv", "nsenter", "GITHUB_PATH", "GITHUB_ENV",
+                      "npx ", "yarn", "pnpm", "npm install", "npm exec", "npm run", "npm i "):
         require(forbidden not in trial_text, f"Forbidden construct in trial: {forbidden.strip()}")
     require(list(trial["jobs"]) == ["hosted-sast-trial"], "Exactly one trial job expected")
     job = trial["jobs"]["hosted-sast-trial"]
@@ -95,6 +106,23 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str) -> None:
     sequence = [index(" -m pip download"), index("hosted_trial.py container-build"),
                 index("hosted_trial.py container-install"), index("hosted_trial.py container-run")]
     require(sequence == sorted(sequence), "Steps must run download -> build -> install -> scan")
+    # C5-G4H: pinned Node, integrity-verified lockfile install and the TypeScript preflight precede any container.
+    want_node = node_version if node_version is not None else NODE_VERSION_FILE.read_text().strip()
+    require(re.fullmatch(r"\d+\.\d+\.\d+", want_node), "apps/octocat-supply/.node-version must be an exact version")
+    setup = [i for i, s in enumerate(steps) if s.get("uses", "").startswith("actions/setup-node@")]
+    require(len(setup) == 1, "Exactly one pinned actions/setup-node step expected")
+    require(steps[setup[0]].get("with") == {"node-version": want_node},
+            "setup-node must set only node-version equal to apps/octocat-supply/.node-version (no cache/registry/token)")
+    npm_lines = [line.strip() for r in runs for line in r.splitlines() if re.search(r"(^|[\s;&|(])npm\b", line)]
+    require(npm_lines == [NPM_INSTALL], "The only npm command allowed is a single `npm ci --ignore-scripts`")
+    install = index(NPM_INSTALL)
+    require(steps[install].get("working-directory") == APP_DIR, "npm ci must run from the application lockfile directory")
+    require(set(steps[install].get("env", {})) <= NPM_ENV, "npm ci may only set reviewed NPM_CONFIG_* switches")
+    preflight = index("hosted_trial.py typescript-preflight")
+    require(PINNED_NODE_ARG in runs[preflight], "TypeScript preflight must use the provisioned node")
+    require(PINNED_NODE_ARG in runs[sequence[3]], "container-run must pass the provisioned node to the host gate")
+    order = [setup[0], install, preflight, *sequence]
+    require(order == sorted(order), "Steps must run setup-node -> npm ci -> TypeScript preflight -> download -> build -> install -> scan")
     require(not any("hosted_trial.py run " in r for r in runs), "Harness must not run outside the container")
     require("--isolation" not in " ".join(runs), "Isolation mode is fixed by the container driver")
     summary = steps[index("hosted_trial.py summarize")]
@@ -105,6 +133,7 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str) -> None:
     require(paths and all(p.startswith("artifacts/sast/") and p.endswith(".json") and "*" not in p for p in paths),
             "Upload must list explicit artifacts/sast/*.json files only")
     require(not any("private" in p for p in paths), "Raw/private reports must never be uploaded")
+    require(paths == UPLOADS, "Upload allowlist must be exactly the six reviewed evidence files")
     require(int(upload[0]["with"].get("retention-days", 999)) <= 7, "Evidence retention must be <= 7 days")
     # Non-blocking: the existing release gate is untouched and never depends on the trial.
     require(ci["jobs"]["required"]["needs"] == REQUIRED_NEEDS, "ci.yml required gate changed")

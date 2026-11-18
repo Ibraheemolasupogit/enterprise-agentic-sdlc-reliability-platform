@@ -1,0 +1,99 @@
+{
+ "milestone": "M4C-C5-G4H",
+ "date_utc": "2026-11-17",
+ "base_commit": "2b050a1",
+ "status": "prepared, not dispatched; hosted verification requires owner commit and dispatch",
+ "workflow_changes": {
+  "file": ".github/workflows/c5-sast-hosted-trial.yml",
+  "added_steps_in_order": [
+   "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 with node-version 24.22.2 (== apps/octocat-supply/.node-version)",
+   "npm ci --ignore-scripts (working-directory apps/octocat-supply; env NPM_CONFIG_AUDIT/FUND/UPDATE_NOTIFIER=false)",
+   "python3 -I scripts/sast/hosted_trial.py typescript-preflight --node \"$(command -v node)\""
+  ],
+  "position": "after runner facts, before wheel download / image build / install / container-run",
+  "container_run": "adds --node \"$(command -v node)\"",
+  "unchanged": [
+   "workflow_dispatch only",
+   "contents: read",
+   "confirmation guard",
+   "hash-locked download",
+   "hardened --network none container, no Node in image",
+   "summary always()",
+   "exact six-file upload allowlist",
+   "not referenced by ci.yml"
+  ]
+ },
+ "driver": {
+  "pinned_node": "absolute executable reporting exactly v + .node-version, else exit 2",
+  "typescript-preflight": "pinned_node + host gate (fresh nonce); exit 2/3/4 pass through, other gate exits -> 3; no container",
+  "container_run_node": "checked before the gate, Docker and image-id read"
+ },
+ "policy": [
+  "exactly one pinned setup-node; with == {node-version: .node-version}",
+  "only npm command: single npm ci --ignore-scripts from apps/octocat-supply; env subset of NPM_CONFIG_AUDIT/FUND/UPDATE_NOTIFIER",
+  "preflight and container-run pass --node \"$(command -v node)\"",
+  "order setup-node < npm ci < preflight < download < build < install < scan",
+  "forbidden: GITHUB_PATH, GITHUB_ENV, npx, yarn, pnpm, npm install, npm exec, npm run",
+  "upload paths == exact six reviewed files"
+ ],
+ "results": {
+  "actionlint": "pass",
+  "check_trial_workflow": "PASS",
+  "workflow_tests": "22/22 (7 new G4H)",
+  "driver_tests": "14/14 (3 new G4H)",
+  "sast_suite_real_engine_macos": "87/87",
+  "sast_suite_without_engine": "57 pass, 30 skipped",
+  "delivery_tests": "OK",
+  "repository_checks": "PASS",
+  "preflight_real_repo_local_node": "exit 2 (v22.17.1 differs from pinned v24.22.2); relative path exit 2",
+  "simulated_positive_copy_pinned_to_local_node": "preflight exit 0 (49/5); container-run with hardened Linux container exit 0 clean"
+ },
+ "not_verified_locally": [
+  "Node 24.22.2 (official binary download blocked by the permission system; not worked around)",
+  "npm ci --ignore-scripts (registry access)"
+ ],
+ "hosted_procedure": [
+  "owner reviews and commits",
+  "dispatch with confirm=run-c5-f4-hosted-trial and a new authorization_reference",
+  "expect setup-node v24.22.2, npm ci success, preflight ok 49/5 with node v24.22.2, container-run host gate pass then in-container host-attestation pass, exit 0",
+  "artifact: exactly six files; container-run.json typescript_gate.exit 0; c5-summary.json typescript_syntax_gate mode host-attestation, typescript 6.0.3, node v24.22.2, accepted 49, rejected_controls 5, compiler_sha256 569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39; input hashes match commit; no sast-private",
+  "preflight failure stops before any image/container; summary reports missing evidence (exit 7): record as fail-closed",
+  "on success record G4 hosted verification (TypeScript); JavaScript out of scope; E04 still needs lint/typecheck needs:"
+ ],
+ "unchanged_sha256_prefix": {
+  ".github/workflows/ci.yml": "26e08322d3782a78",
+  "apps/octocat-supply/package-lock.json": "811c6683412ec606",
+  "apps/octocat-supply/package.json": "f88f146c429368bd",
+  "apps/octocat-supply/.node-version": "9185b9f67843cabf",
+  "requirements-sast-linux.txt": "8d7d13b691f4df78",
+  "security/sast/typescript-gate.json": "3f46c454ed43917c",
+  "scripts/sast/feasibility.py": "78ae1f5d4d65eb0e",
+  "scripts/sast/ts_syntax_gate.mjs": "a91e8b91fbd7ee89",
+  "security/sast/container/Dockerfile": "58d355494b33afa8"
+ },
+ "file_sha256": {
+  ".github/workflows/c5-sast-hosted-trial.yml": "0fc6f22dafec175426ff4dff1d910077dbbe182a86dfc155c60300cdf7fabb4b",
+  "scripts/sast/hosted_trial.py": "6dde3e0d6fd665cc761379ba62aa8c68339b2641755178ba71c5cfd7d537d66a",
+  "scripts/sast/check_trial_workflow.py": "587a54ed099f5f11ab3a97609070e5b93b87c40806b7ffeb3ef53ef50d0ea6d0",
+  "tests/security/sast/test_trial_workflow.py": "5059309ec4bfbf6a20166e5479963bd3b5328f8734b7be30c4993928845dc2c9",
+  "tests/security/sast/test_container_trial.py": "bc6120d6e61bb06777955b746e8b63be6ac541e9ba9c00b47430a0d2f3e31c7c"
+ },
+ "risk_acceptance": "G2/G5 unchanged; E04, E05, E06 and release NO-GO",
+ "changed_files": {
+  "modified": [
+   ".github/workflows/c5-sast-hosted-trial.yml",
+   "scripts/sast/hosted_trial.py",
+   "scripts/sast/check_trial_workflow.py",
+   "tests/security/sast/test_trial_workflow.py",
+   "tests/security/sast/test_container_trial.py",
+   "README.md",
+   "AGENTS.md",
+   "docs/capability-status.md",
+   "docs/milestones/m4c-c5-sast-plan.md"
+  ],
+  "new": [
+   "docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md",
+   "docs/evidence/m4c-c5-g4h-hosted-gate-preparation.json"
+  ]
+ }
+}

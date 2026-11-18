@@ -9,13 +9,21 @@ denial, then validates every report independently of the engine exit code:
              hashes and expected cases, plus malformed and parser-gap controls;
 * source:    every repository file classified; unknown or unsupported
              executable extensions are rejected before scanning.
+* syntax:    Python targets parse with `ast`; every TypeScript file given to Semgrep
+             parses with the lock-pinned TypeScript compiler before Semgrep runs
+             (C5-G4; malformed TypeScript controls must be rejected), and is
+             re-hashed after the scan. Container mode verifies a nonce-bound host
+             attestation instead (no Node in the scan image).
 
 Exit codes (stable contract):
   0 clean      controls verified, no source findings
   1 findings   controls verified, source findings reported
-  2 config     manifest/catalogue/rule/lock/install/inventory/classification error
+  2 config     manifest/catalogue/rule/lock/install/inventory/classification error;
+               TypeScript compiler/node unavailable or not matching the lock; bad attestation
   3 tool       engine timeout/crash/malformed or incomplete report, parse error
-  4 control    a control expectation failed (missed, false positive, drift)
+               (including TypeScript gate syntax errors and post-validation changes)
+  4 control    a control expectation failed (missed, false positive, drift; TypeScript
+               gate accepting a malformed control)
   5 isolation  OS network isolation unavailable or ineffective (no sudo is used)
 
 Raw engine JSON stays in artifacts/sast-private/ (0600). Only an allowlisted
@@ -77,6 +85,15 @@ GENERATED_DIRS = {".git", "node_modules", "dist", "coverage", "artifacts", "__py
 GENERATED_PATHS = ("apps/octocat-supply/data/",)
 MAX_TARGET_BYTES = 1048576
 PROCESS_DEADLINE = 120
+# C5-G4 TypeScript syntax gate: Semgrep's parser recovery accepts some malformed TypeScript, so every
+# TypeScript file given to Semgrep is first parsed by the lock-pinned TypeScript compiler.
+TS_SUFFIXES = {".ts", ".tsx"}
+TS_GATE = ROOT / "scripts/sast/ts_syntax_gate.mjs"
+TS_MANIFEST = ROOT / "security/sast/typescript-gate.json"
+TS_ATTESTATION = ROOT / "artifacts/sast/ts-syntax-gate.json"
+NODE_CANDIDATES = ("/opt/homebrew/bin/node", "/usr/local/bin/node", "/usr/bin/node")
+TS_GATE_DEADLINE = 120
+NONCE = re.compile(r"[0-9a-f]{32}")
 ANNOTATION = re.compile(r"^\s*(?://|#)\s*(ruleid|ok|todoruleid):\s*([\w.-]+)\s*$")
 CLASSES = [  # Ordered: first matching prefix wins.
     ("runtime-api", "apps/octocat-supply/api/src/"),
@@ -205,6 +222,180 @@ def python_syntax(inv: dict[str, tuple[str, str]]) -> int:
                 raise Stop(EXIT_TOOL, f"python syntax error (ast.parse): {rel}") from exc
             checked += 1
     return checked
+
+
+# ---------------------------------------------------------------- TypeScript syntax gate (C5-G4)
+def typescript_sets(inv: dict[str, tuple[str, str]]) -> tuple[list[str], list[str]]:
+    """Exactly the TypeScript files given to Semgrep. Source targets and annotated control fixtures must
+    parse; malformed and parser-gap TypeScript fixtures must be rejected (runtime self-test of the gate)."""
+    accept, reject = [], []
+    for rel, (_, mode) in sorted(inv.items()):
+        if Path(rel).suffix.lower() not in TS_SUFFIXES:
+            continue
+        if mode == "source":
+            accept.append(rel)
+        elif mode == "controls":
+            kind = fixture_kind(rel)
+            if kind == "annotated":
+                accept.append(rel)
+            elif kind in ("malformed", "parser-gap"):
+                reject.append(rel)
+    if not accept or not reject:
+        raise Stop(EXIT_CONFIG, "typescript gate: empty accept or reject set")
+    return accept, reject
+
+
+def typescript_manifest() -> dict:
+    """The compiler pin must equal the application lockfile entry (version, resolved URL, sha512 integrity)."""
+    manifest = load_json(TS_MANIFEST, "typescript gate manifest")
+    lock_rel = manifest.get("lock")
+    if not isinstance(lock_rel, str) or lock_rel.startswith("/") or ".." in lock_rel.split("/"):
+        raise Stop(EXIT_CONFIG, "typescript gate manifest: unsafe lock path")
+    entry = (load_json(ROOT / lock_rel, "typescript lockfile").get("packages") or {}).get(manifest.get("lock_key"))
+    if not isinstance(entry, dict) or any(entry.get(k) != manifest.get(k) for k in ("version", "resolved", "integrity")):
+        raise Stop(EXIT_CONFIG, "typescript gate: compiler pin does not match the application lockfile")
+    files = manifest.get("files_sha256")
+    if not isinstance(files, dict) or "lib/typescript.js" not in files or not isinstance(manifest.get("default_dir"), str):
+        raise Stop(EXIT_CONFIG, "typescript gate manifest: unexpected shape")
+    for rel in (*files, manifest["default_dir"]):
+        if not isinstance(rel, str) or not rel or rel.startswith("/") or ".." in rel.split("/"):
+            raise Stop(EXIT_CONFIG, "typescript gate manifest: unsafe path")
+    return manifest
+
+
+def typescript_compiler(manifest: dict, directory: Path | None) -> Path:
+    """Verify the installed compiler against the pinned hashes; return the verified lib/typescript.js."""
+    tdir = (directory if directory is not None else ROOT / manifest["default_dir"]).absolute()
+    for rel in ("", *manifest["files_sha256"]):
+        path = tdir / rel if rel else tdir
+        if path.is_symlink() or not path.exists():
+            raise Stop(EXIT_CONFIG, "typescript gate: pinned compiler unavailable (install the application lockfile)")
+    try:
+        package = json.loads((tdir / "package.json").read_text())
+    except (OSError, ValueError, UnicodeError) as exc:
+        raise Stop(EXIT_CONFIG, "typescript gate: compiler package.json unreadable") from exc
+    if package.get("name") != manifest["package"] or package.get("version") != manifest["version"]:
+        raise Stop(EXIT_CONFIG, "typescript gate: installed compiler version differs from the lockfile")
+    for rel, want in manifest["files_sha256"].items():
+        if sha256(tdir / rel) != want:
+            raise Stop(EXIT_CONFIG, f"typescript gate: compiler file hash mismatch ({rel})")
+    return tdir / "lib/typescript.js"
+
+
+def find_node(explicit: Path | None, home: Path, manifest: dict) -> tuple[Path, str]:
+    candidates = [explicit] if explicit is not None else [Path(c) for c in NODE_CANDIDATES]
+    node = next((c.absolute() for c in candidates if c.is_file() and os.access(c, os.X_OK)), None)
+    if node is None:
+        raise Stop(EXIT_CONFIG, "typescript gate: node runtime unavailable")
+    try:
+        proc = subprocess.run([str(node), "--version"], env=tool_env(home), capture_output=True, text=True,
+                              timeout=30, check=False)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise Stop(EXIT_CONFIG, "typescript gate: node runtime did not start") from exc
+    match = re.fullmatch(r"v(\d+)\.\d+\.\d+", proc.stdout.strip())
+    if proc.returncode != 0 or not match or int(match.group(1)) < int(manifest.get("minimum_node_major", 99)):
+        raise Stop(EXIT_CONFIG, "typescript gate: node runtime missing or older than the supported minimum")
+    return node, proc.stdout.strip()
+
+
+def run_typescript_gate(inv: dict, home: Path, node_arg: Path | None, ts_dir: Path | None,
+                        wrapper: list[str]) -> dict:
+    """Parse every TypeScript target with the pinned compiler before Semgrep is launched (fail closed)."""
+    manifest = typescript_manifest()
+    compiler = typescript_compiler(manifest, ts_dir)
+    accept, reject = typescript_sets(inv)
+    node, node_version = find_node(node_arg, home, manifest)
+    before = {rel: sha256(ROOT / rel) for rel in accept + reject}
+    request = home / "ts-gate-request.json"
+    request.write_text(json.dumps({"root": str(ROOT), "compiler": str(compiler), "version": manifest["version"],
+                                   "compiler_sha256": manifest["files_sha256"]["lib/typescript.js"],
+                                   "files": accept + reject}))
+    argv = [*wrapper, str(node), "--no-addons", "--disallow-code-generation-from-strings", str(TS_GATE), str(request)]
+    try:
+        proc = subprocess.run(argv, cwd=ROOT, env=tool_env(home), capture_output=True, timeout=TS_GATE_DEADLINE,
+                              check=False)
+    except subprocess.TimeoutExpired as exc:
+        raise Stop(EXIT_TOOL, f"typescript gate exceeded {TS_GATE_DEADLINE}s") from exc
+    try:
+        result = json.loads(proc.stdout)
+    except (ValueError, UnicodeError) as exc:
+        raise Stop(EXIT_TOOL, f"typescript gate: malformed output (exit {proc.returncode})") from exc
+    if not isinstance(result, dict) or proc.returncode != 0 or result.get("error"):
+        reason = result.get("error") if isinstance(result, dict) and isinstance(result.get("error"), str) else "no result"
+        raise Stop(EXIT_TOOL, f"typescript gate failed (exit {proc.returncode}): {reason[:80]}")
+    if (result.get("typescript_version") != manifest["version"]
+            or result.get("compiler_sha256") != manifest["files_sha256"]["lib/typescript.js"]):
+        raise Stop(EXIT_TOOL, "typescript gate: result does not come from the pinned compiler")
+    files = result.get("files")
+    if not isinstance(files, dict) or set(files) != set(before):
+        raise Stop(EXIT_TOOL, "typescript gate: result covers a different file set")
+    counts = {}
+    for rel, row in files.items():
+        if not isinstance(row, dict) or row.get("sha256") != before[rel] or not isinstance(row.get("diagnostic_count"), int):
+            raise Stop(EXIT_TOOL, f"typescript gate: target changed during validation or bad result: {rel}")
+        counts[rel] = row["diagnostic_count"]
+    bad = [rel for rel in accept if counts[rel]]
+    if bad:
+        first = files[bad[0]].get("diagnostics") or [[0, 0, 0]]
+        try:
+            code, line, col = (int(v) for v in first[0])
+        except (TypeError, ValueError):
+            code = line = col = 0
+        more = f"; {len(bad) - 1} more file(s)" if len(bad) > 1 else ""
+        raise Stop(EXIT_TOOL, f"typescript syntax error: {bad[0]} (TS{code} at {line}:{col}){more}")
+    unrejected = [rel for rel in reject if not counts[rel]]
+    if unrejected:
+        raise Stop(EXIT_CONTROL, f"typescript gate self-test failed: malformed control accepted: {unrejected[0]}")
+    return {"status": "pass", "mode": "harness", "typescript": manifest["version"],
+            "compiler_sha256": manifest["files_sha256"]["lib/typescript.js"], "node": node_version,
+            "accepted": len(accept), "rejected_controls": len(reject), "hashes": before,
+            "gate_sha256": sha256(TS_GATE), "manifest_sha256": sha256(TS_MANIFEST)}
+
+
+def write_typescript_attestation(gate: dict, nonce: str | None) -> None:
+    """Host-side record consumed by the in-container harness (container mode has no Node)."""
+    if not NONCE.fullmatch(nonce or ""):
+        raise Stop(EXIT_CONFIG, "typescript gate: nonce missing or malformed")
+    record = {"schema": "c5-ts-syntax-gate-attestation/1", "nonce": nonce,
+              **{k: gate[k] for k in ("status", "typescript", "compiler_sha256", "node", "accepted",
+                                      "rejected_controls", "hashes", "gate_sha256", "manifest_sha256")}}
+    TS_ATTESTATION.parent.mkdir(parents=True, exist_ok=True)
+    TS_ATTESTATION.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+
+
+def verify_typescript_attestation(inv: dict, nonce: str | None) -> dict:
+    """Container mode: accept only a host attestation for this run covering exactly the current targets."""
+    if not NONCE.fullmatch(nonce or ""):
+        raise Stop(EXIT_CONFIG, "typescript gate: nonce missing or malformed")
+    data = load_json(TS_ATTESTATION, "typescript gate attestation")
+    if data.get("schema") != "c5-ts-syntax-gate-attestation/1" or data.get("status") != "pass":
+        raise Stop(EXIT_CONFIG, "typescript gate attestation: unexpected schema or status")
+    if data.get("nonce") != nonce:
+        raise Stop(EXIT_CONFIG, "typescript gate attestation is stale or foreign (nonce mismatch)")
+    manifest = typescript_manifest()
+    if (data.get("manifest_sha256") != sha256(TS_MANIFEST) or data.get("gate_sha256") != sha256(TS_GATE)
+            or data.get("typescript") != manifest["version"]
+            or data.get("compiler_sha256") != manifest["files_sha256"]["lib/typescript.js"]):
+        raise Stop(EXIT_CONFIG, "typescript gate attestation: compiler, manifest or gate script differs")
+    accept, reject = typescript_sets(inv)
+    hashes = data.get("hashes")
+    if (not isinstance(hashes, dict) or set(hashes) != set(accept + reject)
+            or data.get("accepted") != len(accept) or data.get("rejected_controls") != len(reject)):
+        raise Stop(EXIT_CONFIG, "typescript gate attestation covers a different TypeScript target set")
+    changed = [rel for rel in accept + reject if sha256(ROOT / rel) != hashes[rel]]
+    if changed:
+        raise Stop(EXIT_TOOL, f"typescript target changed after host validation: {changed[0]}")
+    return {**{k: data[k] for k in ("status", "typescript", "compiler_sha256", "node", "accepted",
+                                    "rejected_controls", "hashes", "gate_sha256", "manifest_sha256")},
+            "mode": "host-attestation"}
+
+
+def recheck_typescript(gate: dict) -> None:
+    """Close the validation-to-scan window: every validated file must still hold the validated bytes."""
+    changed = [rel for rel, digest in sorted(gate["hashes"].items())
+               if not (ROOT / rel).is_file() or (ROOT / rel).is_symlink() or sha256(ROOT / rel) != digest]
+    if changed:
+        raise Stop(EXIT_TOOL, f"typescript target changed between validation and scan: {changed[0]}")
 
 
 # ---------------------------------------------------------------- toolchain
@@ -493,6 +684,19 @@ def validate_complete(result: dict, targets: list[str], expected_ids: list[str],
     ran = sorted({r if isinstance(r, str) else r.get("id") for r in report["time"].get("rules", [])})
     if ran != expected_ids:
         raise Stop(EXIT_TOOL, f"{label}: executed rule catalog differs from manifest")
+    # E03/M12/M14: every result must reference a scanned target, a catalogued rule and a real line, so a
+    # forged report can neither invent findings nor smuggle arbitrary text into console/summary output.
+    allowed_paths, allowed_rules = set(targets), set(expected_ids)
+    for item in report.get("results") or []:
+        if not isinstance(item, dict):
+            raise Stop(EXIT_TOOL, f"{label}: malformed result entry")
+        line = (item.get("start") or {}).get("line") if isinstance(item.get("start"), dict) else None
+        if item.get("path") not in allowed_paths:
+            raise Stop(EXIT_TOOL, f"{label}: result references a path outside the targets")
+        if item.get("check_id") not in allowed_rules:
+            raise Stop(EXIT_TOOL, f"{label}: result references a rule outside the catalogue")
+        if not isinstance(line, int) or isinstance(line, bool) or line < 1:
+            raise Stop(EXIT_TOOL, f"{label}: result has an invalid line")
     if result["exit"] not in (0, 1) or (result["exit"] == 1) != bool(report.get("results")):
         raise Stop(EXIT_TOOL, f"{label}: engine exit {result['exit']} contradicts report findings")
 
@@ -676,6 +880,16 @@ def summarise(inv: dict) -> dict:
 
 
 def main() -> int:
+    """Map any unexpected internal failure to a tool error (3), never Python's default exit 1 (= findings).
+    Only the exception type is printed; messages may contain report or source text."""
+    try:
+        return _main()
+    except Exception as exc:  # noqa: BLE001 - deliberate fail-closed classification
+        print(f"STOP [{EXIT_TOOL} {EXIT_NAMES[EXIT_TOOL]}]: unexpected internal error ({type(exc).__name__})")
+        return EXIT_TOOL
+
+
+def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--semgrep", type=Path, help="semgrep entry point in the verified venv")
     parser.add_argument("--repeat", type=int, default=3, help="source scan repetitions for timing")
@@ -684,6 +898,14 @@ def main() -> int:
                              "--network none container instead (never falls back)")
     parser.add_argument("--emit-catalogue", action="store_true",
                         help="print a candidate controls catalogue for human review and exit (writes nothing)")
+    parser.add_argument("--node", type=Path, help="node runtime for the TypeScript syntax gate (auto mode)")
+    parser.add_argument("--typescript-dir", type=Path,
+                        help="installed typescript package (default from security/sast/typescript-gate.json); "
+                             "always verified against the lock-pinned hashes")
+    parser.add_argument("--typescript-gate-only", action="store_true",
+                        help="host side of a container trial: run only the TypeScript gate and write the "
+                             "attestation for --ts-nonce (no Semgrep)")
+    parser.add_argument("--ts-nonce", help="run nonce binding the host TypeScript attestation (container mode)")
     args = parser.parse_args()
     global ISOLATION_MODE
     ISOLATION_MODE = args.isolation
@@ -691,6 +913,21 @@ def main() -> int:
         if args.emit_catalogue:
             print(json.dumps(build_catalogue(inventory()), indent=2))
             return EXIT_CLEAN
+        if args.typescript_gate_only:
+            if args.isolation != "auto" or args.semgrep is not None:
+                raise Stop(EXIT_CONFIG, "--typescript-gate-only runs on the host without Semgrep")
+            with tempfile.TemporaryDirectory(prefix="ts-gate-home-") as tmp:
+                gate = run_typescript_gate(inventory(), Path(tmp), args.node, args.typescript_dir, [])
+                write_typescript_attestation(gate, args.ts_nonce)
+            print(f"typescript gate: pass ({gate['accepted']} files parsed, {gate['rejected_controls']} malformed "
+                  f"controls rejected; typescript {gate['typescript']}, node {gate['node']}); attestation written")
+            return EXIT_CLEAN
+        if ISOLATION_MODE == "container" and (args.node is not None or args.typescript_dir is not None):
+            raise Stop(EXIT_CONFIG, "container mode verifies the host TypeScript attestation; no node is used")
+        if ISOLATION_MODE == "container" and not args.ts_nonce:
+            raise Stop(EXIT_CONFIG, "container mode requires --ts-nonce (host TypeScript attestation)")
+        if ISOLATION_MODE == "auto" and args.ts_nonce:
+            raise Stop(EXIT_CONFIG, "auto mode runs the TypeScript gate itself; --ts-nonce is not accepted")
         if args.semgrep is None:
             raise Stop(EXIT_CONFIG, "--semgrep is required")
         semgrep = args.semgrep.absolute()
@@ -702,6 +939,10 @@ def main() -> int:
             inv = inventory()
             cat = verify_catalogue(inv, pre["expected_rule_ids"])
             py_checked = python_syntax(inv)
+            if ISOLATION_MODE == "container":
+                ts_gate = verify_typescript_attestation(inv, args.ts_nonce)
+            else:
+                ts_gate = run_typescript_gate(inv, home, args.node, args.typescript_dir, isolation_wrapper()[0])
             isolation = verify_isolation(home)
             controls = run_controls(semgrep, home, pre, cat)
             if controls["status"] != "pass":
@@ -710,6 +951,7 @@ def main() -> int:
             else:
                 source = run_source(semgrep, home, pre, inv, max(1, args.repeat))
                 code = EXIT_CLEAN if source["status"] == "clean" else EXIT_FINDINGS
+            recheck_typescript(ts_gate)
     except Stop as stop:
         print(f"STOP [{stop.code} {EXIT_NAMES[stop.code]}]: {stop}")
         return stop.code
@@ -720,7 +962,10 @@ def main() -> int:
         "toolchain": {"lock": pre["lock"], "distributions_match_lock": pre["distributions"], "pip_check": "pass",
                       "record_files_verified": pre["record_files_verified"]},
         "isolation": isolation, "isolation_mode": ISOLATION_MODE, "flags": FLAGS, "inventory": summarise(inv),
-        "python_ast_syntax_gate": {"checked": py_checked, "status": "pass"}, "controls": controls, "source": source,
+        "python_ast_syntax_gate": {"checked": py_checked, "status": "pass"},
+        "typescript_syntax_gate": {k: ts_gate[k] for k in ("status", "mode", "typescript", "compiler_sha256", "node",
+                                                           "accepted", "rejected_controls", "gate_sha256")},
+        "controls": controls, "source": source,
     }
     SUMMARY.parent.mkdir(parents=True, exist_ok=True)
     SUMMARY.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
@@ -730,6 +975,9 @@ def main() -> int:
     print(f"toolchain: {pre['distributions']} distributions match {pre['lock']}; pip check pass; "
           f"{pre['record_files_verified']} installed files match RECORD hashes")
     print(f"inventory: {summary['inventory']['total_files']} files classified; ast gate {py_checked} python files")
+    print(f"typescript gate: {ts_gate['status']} ({ts_gate['mode']}; {ts_gate['accepted']} files parsed, "
+          f"{ts_gate['rejected_controls']} malformed controls rejected; typescript {ts_gate['typescript']}, "
+          f"node {ts_gate['node']}; re-verified after scan)")
     print(f"controls: {controls['status']} ({passed}/{len(controls['cases'])} as expected, {misses} known misses, "
           f"{controls['fixtures']} catalogued fixtures, malformed rejected={controls['malformed']['all_rejected']}, "
           f"parser-gap drift={len(controls['parser_gap_drift'])})")

@@ -6,6 +6,10 @@ name: C5-F4R hosted SAST feasibility trial (Docker network isolation, non-blocki
 # C5-F4R: no privilege escalation or host namespace tools. Install and scan run in a digest-pinned Ubuntu 24.04
 # container with --network none, uid 1001, all capabilities dropped,
 # no-new-privileges and a read-only root (scripts/sast/hosted_trial.py).
+# C5-G4H: the TypeScript syntax gate runs on the host with the pinned Node (exact
+# apps/octocat-supply/.node-version) and the lock-verified compiler from `npm ci --ignore-scripts`;
+# any setup or compiler failure stops the job before an image is built or a container starts.
+# The scan image stays Node-free and network-less.
 on:
   workflow_dispatch:
     inputs:
@@ -54,6 +58,22 @@ jobs:
           TRIAL_AUTHORIZATION_REFERENCE: ${{ inputs.authorization_reference }}
         run: python3 -I scripts/sast/hosted_trial.py facts
 
+      - name: Provision pinned Node for the C5-G4 TypeScript gate (exact .node-version)
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.22.2"
+
+      - name: Install the application lockfile (integrity-verified; no lifecycle scripts)
+        working-directory: apps/octocat-supply
+        env:
+          NPM_CONFIG_AUDIT: "false"
+          NPM_CONFIG_FUND: "false"
+          NPM_CONFIG_UPDATE_NOTIFIER: "false"
+        run: npm ci --ignore-scripts
+
+      - name: C5-G4 TypeScript gate preflight (pinned node + lock-verified compiler; stops before any container)
+        run: python3 -I scripts/sast/hosted_trial.py typescript-preflight --node "$(command -v node)"
+
       - name: Download hash-locked Linux wheels (no install, no execution)
         run: |
           python3 -m venv "$RUNNER_TEMP/c5-download"
@@ -68,7 +88,7 @@ jobs:
       - name: Run hardened harness in network-less container (fails closed; exits 0-7)
         env:
           TRIAL_AUTHORIZATION_REFERENCE: ${{ inputs.authorization_reference }}
-        run: python3 -I scripts/sast/hosted_trial.py container-run --image-id-file "$RUNNER_TEMP/c5-image.iid" --venv "$RUNNER_TEMP/c5-sast" --repeat 5
+        run: python3 -I scripts/sast/hosted_trial.py container-run --image-id-file "$RUNNER_TEMP/c5-image.iid" --venv "$RUNNER_TEMP/c5-sast" --repeat 5 --node "$(command -v node)"
 
       - name: Summarize evidence (reports missing evidence as exit 7)
         if: always()

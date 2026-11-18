@@ -6,8 +6,12 @@ Subcommands (all stdlib; run with `python3 -I`; never invokes sudo):
                      signed APT only), record its package/licence inventory.
   container-install  In a hardened --network none container, create the venv and install
                      the hash-locked wheels offline; `pip check` is fatal.
-  container-run      In a hardened --network none container, run `run --isolation
-                     container`; verify the evidence written for this exact run.
+  container-run      Run the C5-G4 TypeScript syntax gate on the host (pinned compiler; writes a
+                     nonce-bound attestation), then in a hardened --network none container run
+                     `run --isolation container`; verify the evidence written for this exact run.
+  typescript-preflight  Before any image build or container: require the pinned Node (exact
+                     .node-version) and run the C5-G4 TypeScript gate on the host (lock-verified
+                     compiler); failure stops the job before container launch.
   run                Execute the F3 harness, measure it, write allowlisted evidence.
   summarize          Report all evidence to the job summary.
 
@@ -57,7 +61,13 @@ CONTEXT_KEYS = ("GITHUB_RUN_ID", "GITHUB_RUN_ATTEMPT", "GITHUB_SHA", "GITHUB_REF
 AUTH_PATTERN = re.compile(r"^[A-Za-z0-9._:/ -]{8,80}$")
 INPUT_HASHES = ("scripts/sast/feasibility.py", "scripts/sast/hosted_trial.py", "security/sast/toolchain.json",
                 "security/sast/controls.json", "security/sast/rules/typescript.yml", "security/sast/rules/python.yml",
-                LOCK, "security/sast/container/Dockerfile", ".github/workflows/c5-sast-hosted-trial.yml")
+                LOCK, "security/sast/container/Dockerfile", ".github/workflows/c5-sast-hosted-trial.yml",
+                "scripts/sast/ts_syntax_gate.mjs", "security/sast/typescript-gate.json")
+# C5-G4: the scan image has no Node, so the TypeScript syntax gate runs on the host before any container
+# starts and writes a nonce-bound attestation that the in-container harness verifies (exact targets, hashes).
+TS_GATE_EXITS = (2, 3, 4)
+# C5-G4H: on hosted runners the pinned Node comes from actions/setup-node (tool cache), not the image's own node.
+NODE_VERSION_FILE = ROOT / "apps/octocat-supply/.node-version"
 # Every container this driver starts gets exactly these restrictions.
 HARDENING = ("--rm", "--platform", "linux/amd64", "--pull", "never", "--network", "none", "--user", "1001:1001",
              "--read-only", "--cap-drop", "ALL", "--security-opt", "no-new-privileges=true", "--ipc", "none",
@@ -126,11 +136,15 @@ def write_json(path: Path, data: dict) -> None:
 
 
 # ---------------------------------------------------------------- harness (inside or outside a container)
-def run(semgrep: Path, repeat: int, isolation: str) -> int:
+def run(semgrep: Path, repeat: int, isolation: str, gate_args: tuple[str, ...] = ()) -> int:
     started = time.monotonic()
-    proc = subprocess.run([sys.executable, "-I", str(HARNESS), "--semgrep", str(semgrep), "--repeat", str(repeat),
-                           "--isolation", isolation], cwd=ROOT, capture_output=True, text=True, timeout=1500,
-                          check=False)
+    argv = [sys.executable, "-I", str(HARNESS), "--semgrep", str(semgrep), "--repeat", str(repeat),
+            "--isolation", isolation]
+    if isolation == "container":  # the harness verifies the host TypeScript attestation for this run's nonce
+        argv += ["--ts-nonce", os.environ.get("C5_TRIAL_NONCE", "")]
+    else:  # auto: the harness runs the TypeScript gate itself (optional explicit node / compiler location)
+        argv += list(gate_args)
+    proc = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True, timeout=1500, check=False)
     wall = round(time.monotonic() - started, 2)
     rss_kib = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
     code = proc.returncode if proc.returncode in range(6) else 3
@@ -152,6 +166,7 @@ def run(semgrep: Path, repeat: int, isolation: str) -> int:
                                             "UNEXPECTEDLY-DETECTED")},
             "source": {k: source.get(k) for k in ("status", "targets", "findings", "wall_seconds",
                                                    "max_memory_bytes", "total_bytes")},
+            "typescript_syntax_gate": data.get("typescript_syntax_gate"),
         }
     nonce = os.environ.get("C5_TRIAL_NONCE", "")
     record = {
@@ -302,17 +317,65 @@ def container_install(iidfile: str, wheels: str, venv: str) -> int:
     return code
 
 
-def container_run(iidfile: str, venv: str, repeat: int) -> int:
+def pinned_node(raw: str | None) -> Path | None:
+    """C5-G4H: an explicit node must be an absolute executable reporting exactly apps/octocat-supply/.node-version."""
+    if raw is None:
+        return None
+    node = Path(raw)
+    if not node.is_absolute() or not node.is_file() or not os.access(node, os.X_OK):
+        raise Fail(2, "pinned node runtime missing or not an absolute executable path")
+    try:
+        want = "v" + NODE_VERSION_FILE.read_text().strip()
+        got = subprocess.run([str(node), "--version"], capture_output=True, text=True, timeout=30, check=False).stdout.strip()
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise Fail(2, "pinned node runtime did not start") from exc
+    if not re.fullmatch(r"v\d+\.\d+\.\d+", want) or got != want:
+        raise Fail(2, f"node runtime {got[:20] or 'unknown'} differs from pinned {want[:20]}")
+    return node
+
+
+def typescript_gate(nonce: str, node: Path | None = None) -> dict:
+    """Host-side C5-G4 gate before any container starts; failures keep their harness code (2/3/4)."""
+    argv = [sys.executable, "-I", str(HARNESS), "--typescript-gate-only", "--ts-nonce", nonce]
+    if node is not None:
+        argv += ["--node", str(node)]
+    try:
+        proc = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True, timeout=300, check=False)
+    except subprocess.TimeoutExpired as exc:
+        raise Fail(3, "host TypeScript syntax gate timed out") from exc
+    result = {"exit": proc.returncode, "last": last_line(proc.stdout)}
+    print(result["last"])
+    if proc.returncode != 0:
+        code = proc.returncode if proc.returncode in TS_GATE_EXITS else 3
+        raise Fail(code, f"host TypeScript syntax gate failed before the container started: {result['last']}")
+    return result
+
+
+def typescript_preflight(node_raw: str) -> int:
+    """C5-G4H: fail before any image build or container if Node or the lock-pinned compiler is wrong."""
+    try:
+        node = pinned_node(node_raw)
+        result = typescript_gate(secrets.token_hex(16), node)
+        print(f"typescript-preflight: ok (node {NODE_VERSION_FILE.read_text().strip()}; {result['last']})")
+        return 0
+    except Fail as fail:
+        print(f"typescript-preflight: exit {fail.code} ({EXIT_NAMES[fail.code]}) - {fail}")
+        return fail.code
+
+
+def container_run(iidfile: str, venv: str, repeat: int, node_raw: str | None = None) -> int:
     started = time.monotonic()
     nonce = secrets.token_hex(16)
     record = {"schema": "c5-f4r-container-run/1", "hardening": list(HARDENING), "nonce": nonce}
     try:
+        node = pinned_node(node_raw)
         image = image_id(iidfile)
         venv_dir = checked_dir(venv, "venv directory")
         artifacts = ROOT / "artifacts"
         artifacts.mkdir(exist_ok=True)
         (artifacts / "sast").mkdir(exist_ok=True)
         mounts = [(ROOT, "/repo", True), (artifacts, "/repo/artifacts", False), (venv_dir, "/opt/sast", True)]
+        record["typescript_gate"] = typescript_gate(nonce, node)
         name = f"c5f4r-scan-{secrets.token_hex(4)}"
         env = {**os.environ, "C5_TRIAL_NONCE": nonce}
         argv = hardened(image, mounts, ["python3", "-I", "/repo/scripts/sast/hosted_trial.py", "run",
@@ -322,6 +385,8 @@ def container_run(iidfile: str, venv: str, repeat: int) -> int:
         proc = docker_call(argv, 1800, name, env)
         print(proc.stdout.rstrip())
         record["docker_exit"] = proc.returncode
+        if proc.returncode == 7:
+            raise Fail(7, "in-container driver could not produce evidence")
         if proc.returncode not in range(6):
             raise Fail(6, f"container runtime error {proc.returncode}: {last_line(proc.stderr)}")
         try:
@@ -364,6 +429,16 @@ def summarize() -> int:
 
 
 def main() -> int:
+    """Any unexpected driver failure means evidence could not be produced: exit 7, never Python's
+    default exit 1 (= findings). Only the exception type is printed."""
+    try:
+        return _main()
+    except Exception as exc:  # noqa: BLE001 - deliberate fail-closed classification
+        print(f"driver: exit 7 (evidence-missing) - unexpected internal error ({type(exc).__name__})")
+        return 7
+
+
+def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("facts")
@@ -372,6 +447,8 @@ def main() -> int:
     runner.add_argument("--semgrep", required=True, type=Path)
     runner.add_argument("--repeat", type=int, default=5)
     runner.add_argument("--isolation", choices=("auto", "container"), default="auto")
+    runner.add_argument("--node", help="auto mode only: node runtime for the TypeScript gate")
+    runner.add_argument("--typescript-dir", help="auto mode only: installed typescript (hash-verified)")
     build = sub.add_parser("container-build")
     build.add_argument("--iidfile", required=True)
     install = sub.add_parser("container-install")
@@ -382,6 +459,9 @@ def main() -> int:
     scan.add_argument("--image-id-file", required=True)
     scan.add_argument("--venv", required=True)
     scan.add_argument("--repeat", type=int, default=5)
+    scan.add_argument("--node", help="absolute path of the pinned node (exact .node-version) for the host TypeScript gate")
+    pre = sub.add_parser("typescript-preflight")
+    pre.add_argument("--node", required=True, help="absolute path of the pinned node (exact .node-version)")
     args = parser.parse_args()
     if args.command == "facts":
         data = facts()
@@ -393,12 +473,19 @@ def main() -> int:
     if args.command == "summarize":
         return summarize()
     if args.command == "run":
-        return run(args.semgrep.absolute(), max(1, min(args.repeat, 10)), args.isolation)
+        gate_args = tuple(a for flag, value in (("--node", args.node), ("--typescript-dir", args.typescript_dir))
+                          if value for a in (flag, value))
+        if gate_args and args.isolation == "container":
+            print("driver: --node/--typescript-dir apply to auto mode only")
+            return 2
+        return run(args.semgrep.absolute(), max(1, min(args.repeat, 10)), args.isolation, gate_args)
     if args.command == "container-build":
         return container_build(args.iidfile)
     if args.command == "container-install":
         return container_install(args.image_id_file, args.wheels, args.venv)
-    return container_run(args.image_id_file, args.venv, max(1, min(args.repeat, 10)))
+    if args.command == "typescript-preflight":
+        return typescript_preflight(args.node)
+    return container_run(args.image_id_file, args.venv, max(1, min(args.repeat, 10)), args.node)
 
 
 if __name__ == "__main__":

@@ -19,6 +19,7 @@ import check_trial_workflow as policy  # noqa: E402
 import hosted_trial as driver  # noqa: E402
 
 DOCKERFILE = policy.DOCKERFILE.read_text()
+REAL_RUN = subprocess.run  # captured before any test patches driver.subprocess.run
 IMAGE = "sha256:" + "a" * 64
 
 
@@ -141,10 +142,14 @@ class DriverExitCodes(unittest.TestCase):
         self.iid.write_text(IMAGE)
         self.assertEqual(driver.container_install(str(self.iid), str(self.wheels / "missing"), str(self.venv / "n")), 2)
 
-    def scan(self, docker_exit, write=None, timeout=False):
+    def scan(self, docker_exit, write=None, timeout=False, gate=None):
         self.venv.mkdir(exist_ok=True)
+        self.calls = []
 
         def fake(argv, **kwargs):
+            self.calls.append(argv)
+            if "--typescript-gate-only" in argv:  # C5-G4 host-side gate before any container
+                return gate(argv) if gate else proc(0, "typescript gate: pass (attestation written)")
             if argv[1] == "kill":
                 return proc()
             if timeout:
@@ -172,6 +177,122 @@ class DriverExitCodes(unittest.TestCase):
         self.assertEqual(self.scan(1, good(0)), 7)  # exit/evidence disagreement
         record = json.loads((self.out / "container-run.json").read_text())
         self.assertEqual(record["result"], "evidence-missing")
+
+    def test_e03_driver_failures_are_evidence_missing_not_findings(self):
+        self.assertEqual(self.scan(7), 7)  # in-container driver could not produce evidence
+        record = json.loads((self.out / "container-run.json").read_text())
+        self.assertIn("could not produce evidence", record["reason"])
+        out = []
+        with mock.patch.object(driver, "_main", side_effect=PermissionError("secret C5CANARY")), \
+                mock.patch("builtins.print", side_effect=out.append):
+            self.assertEqual(driver.main(), 7)
+        self.assertIn("PermissionError", out[0])
+        self.assertNotIn("C5CANARY", out[0])
+
+    def test_g4_host_typescript_gate_runs_first_and_fails_closed(self):
+        good = lambda nonce: {"nonce": nonce, "harness_exit": 0}  # noqa: E731
+        self.assertEqual(self.scan(0, good), 0)
+        gate_argv, docker_argv = self.calls[0], self.calls[1]
+        self.assertIn("--typescript-gate-only", gate_argv)
+        nonce = gate_argv[gate_argv.index("--ts-nonce") + 1]
+        self.assertRegex(nonce, r"^[0-9a-f]{32}$")
+        self.assertEqual(json.loads((self.out / "container-run.json").read_text())["nonce"], nonce)
+        self.assertEqual(docker_argv[1], "run")
+        self.assertIn("--network", docker_argv)
+        self.assertEqual(docker_argv[docker_argv.index("--network") + 1], "none")
+        self.assertNotIn("--typescript-gate-only", docker_argv)
+        for harness_code, expected in ((2, 2), (3, 3), (4, 4), (1, 3), (5, 3), (137, 3)):
+            with self.subTest(gate_exit=harness_code):
+                self.assertEqual(self.scan(0, good, gate=lambda argv, c=harness_code: proc(c, "typescript gate: STOP")), expected)
+                self.assertEqual(len(self.calls), 1, "no container may start after a failed TypeScript gate")
+                record = json.loads((self.out / "container-run.json").read_text())
+                self.assertIn("TypeScript syntax gate failed", record["reason"])
+
+        def slow(argv):
+            raise subprocess.TimeoutExpired(argv, 300)
+        self.assertEqual(self.scan(0, good, gate=slow), 3)
+        self.assertEqual(len(self.calls), 1)
+
+    def test_g4_in_container_run_passes_the_run_nonce(self):
+        captured = {}
+
+        def fake(argv, **kwargs):
+            captured["argv"] = argv
+            return proc(4)
+        with mock.patch.object(driver.subprocess, "run", side_effect=fake), \
+                mock.patch.dict(driver.os.environ, {"C5_TRIAL_NONCE": "ab" * 16}):
+            driver.run(Path("/opt/sast/bin/semgrep"), 1, "container")
+        self.assertEqual(captured["argv"][-2:], ["--ts-nonce", "ab" * 16])
+        with mock.patch.object(driver.subprocess, "run", side_effect=fake):
+            driver.run(Path("/opt/sast/bin/semgrep"), 1, "auto")
+        self.assertNotIn("--ts-nonce", captured["argv"])
+
+    def fake_node(self, version_output):
+        node = Path(self.tmp.name) / f"node-{len(version_output)}"
+        node.write_text("#!/bin/sh\necho '%s'\n" % version_output)
+        node.chmod(0o755)
+        return node
+
+    def test_g4h_pinned_node_must_match_node_version_file(self):
+        want = "v" + driver.NODE_VERSION_FILE.read_text().strip()
+        self.assertEqual(driver.pinned_node(None), None)
+        self.assertEqual(driver.pinned_node(str(self.fake_node(want))), self.fake_node(want))
+        for bad in (self.fake_node("v22.17.1"), self.fake_node(want + "-rc"), self.fake_node("")):
+            with self.subTest(node=bad.name), self.assertRaises(driver.Fail) as ctx:
+                driver.pinned_node(str(bad))
+            self.assertEqual(ctx.exception.code, 2)
+        for raw in ("node", "relative/node", str(Path(self.tmp.name) / "missing")):
+            with self.subTest(raw=raw), self.assertRaises(driver.Fail):
+                driver.pinned_node(raw)
+
+    def test_g4h_preflight_stops_before_any_container(self):
+        want = "v" + driver.NODE_VERSION_FILE.read_text().strip()
+        calls = []
+
+        def fake(argv, **kwargs):
+            calls.append(argv)
+            if argv[-1] == "--version":
+                return REAL_RUN(argv, capture_output=True, text=True, check=False)
+            return proc(self.gate_code, "typescript gate: STOP" if self.gate_code else "typescript gate: pass")
+        with mock.patch.object(driver.subprocess, "run", side_effect=fake):
+            self.gate_code = 0
+            self.assertEqual(driver.typescript_preflight(str(self.fake_node(want))), 0)
+            gate = calls[-1]
+            self.assertIn("--typescript-gate-only", gate)
+            self.assertEqual(gate[gate.index("--node") + 1], str(self.fake_node(want)))
+            self.assertRegex(gate[gate.index("--ts-nonce") + 1], r"^[0-9a-f]{32}$")
+            for code, expected in ((2, 2), (3, 3), (4, 4), (9, 3)):
+                with self.subTest(gate_exit=code):
+                    self.gate_code = code
+                    self.assertEqual(driver.typescript_preflight(str(self.fake_node(want))), expected)
+            calls.clear()
+            self.assertEqual(driver.typescript_preflight(str(self.fake_node("v20.0.0"))), 2)
+            self.assertFalse(any("--typescript-gate-only" in c for c in calls), "no gate with an unpinned node")
+        self.assertFalse(any(c and c[0].endswith("docker") for c in calls))
+
+    def test_g4h_container_run_requires_pinned_node_before_gate_and_docker(self):
+        want = "v" + driver.NODE_VERSION_FILE.read_text().strip()
+        self.venv.mkdir(exist_ok=True)
+        calls = []
+
+        def fake(argv, **kwargs):
+            calls.append(argv)
+            if argv[-1] == "--version":
+                return REAL_RUN(argv, capture_output=True, text=True, check=False)
+            if "--typescript-gate-only" in argv:
+                return proc(0, "typescript gate: pass")
+            if argv[1] == "run":
+                self.out.mkdir(parents=True, exist_ok=True)
+                (self.out / "hosted-trial.json").write_text(json.dumps({"nonce": kwargs["env"]["C5_TRIAL_NONCE"],
+                                                                          "harness_exit": 0}))
+            return proc(0)
+        with mock.patch.object(driver.subprocess, "run", side_effect=fake), \
+                mock.patch.object(driver, "ROOT", Path(self.tmp.name)):
+            self.assertEqual(driver.container_run(str(self.iid), str(self.venv), 1, str(self.fake_node("v20.0.0"))), 2)
+            self.assertEqual([c for c in calls if c[-1] != "--version"], [], "nothing may run with an unpinned node")
+            self.assertEqual(driver.container_run(str(self.iid), str(self.venv), 1, str(self.fake_node(want))), 0)
+        gate = next(c for c in calls if "--typescript-gate-only" in c)
+        self.assertEqual(gate[gate.index("--node") + 1], str(self.fake_node(want)))
 
     def test_scan_argv_is_hardened_and_never_leaks_values(self):
         captured = {}

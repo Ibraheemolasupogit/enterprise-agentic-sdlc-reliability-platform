@@ -4,9 +4,18 @@ An Azure-first engineering portfolio demonstrating agent-assisted SDLC, DevSecOp
 observability, SRE incident diagnosis, controlled remediation, recovery, and GitHub
 engineering handoffs.
 
-**Current stage: M4C-C5-F4R — network-isolated Docker SAST trial prepared and locally
-validated (not dispatched) after hosted run 43432851816 failed closed on Ubuntu 24.04
-AppArmor userns restriction. Mandatory SAST CI and deployment NO-GO.**
+**Current stage: M4C-C5-F4R closed out — hosted Docker SAST trial run 43478654843 at
+`2b050a1` passed (exit 0, 69 targets, 0 findings, controls as catalogued); hosted SAST
+feasibility accepted; [E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) met locally;
+per the [G5D owner decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) (2026-11-17),
+[G2](docs/evidence/m4c-c5-g2-dependency-assessment.md) (incl. GHSA-mf5v) and
+[G5](docs/evidence/m4c-c5-g5-native-library-assessment.md)/[G5C](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md)
+findings V3–V8 are conditionally accepted for local trusted-repository scans and separately authorised
+non-blocking trials until 2026-12-17 (G2/G5 OPEN, not waived); schema-valid SBOM v2 is the assessment baseline
+([G5B](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) v1 frozen);
+[G4 TypeScript syntax gate](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) implemented and verified locally
+([G4H](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md): trial workflow prepared with pinned Node + `npm ci` preflight, not dispatched; G4 open).
+Mandatory SAST CI (E04), release, redistribution, C5 acceptance and deployment remain NO-GO.**
 C1/C3 local acceptance and C4 static validation are preserved. Read-only checks
 confirm C4 commit `e9b5704`, hosted run 43407086701: policy/application/containers/
 required passed, CodeQL skipped. CodeQL's opt-in flag is absent; private eligibility
@@ -23,7 +32,8 @@ CI remains NO-GO. [C5-F4](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md) a
 dispatch-only, read-only, non-blocking trial workflow; its first hosted run failed closed on
 AppArmor user-namespace restriction ([diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md)).
 [C5-F4R](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md) moves install and scan into a
-digest-pinned `--network none` hardened container; a second dispatch awaits owner authorization. C5 acceptance and C2/C6/C7/C8 remain open; no live
+digest-pinned `--network none` hardened container; its hosted run succeeded and is reviewed in the
+[execution evidence](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md). G2/G4/G5 and governance remain open. C5 acceptance and C2/C6/C7/C8 remain open; no live
 network/SQL/provider/identity enforcement or Azure readiness follows from CI.
 Azure session/permission/quota checks remain blocked. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
@@ -47,6 +57,16 @@ Agents, cloud deployment and release execution remain planned.
 | [C5-F4 hosted trial preparation](docs/evidence/m4c-c5-f4-hosted-trial-preparation.md) | Dispatch-only trial workflow, validator/mutations, local Ubuntu simulation, G2/G5 risk register and owner run steps (not executed) |
 | [C5-F4 hosted run diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md) | Run 43432851816 exit 5 cause (AppArmor userns restriction), runner facts vs expectations, alternatives and proposed C5-F4R plan |
 | [C5-F4R Docker trial preparation](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md) | Pinned Ubuntu 24.04 runtime image, hardened network-less containers, in-container isolation proof, exit codes 0–7, provenance/licences, local results and owner steps (not dispatched) |
+| [C5-F4R hosted trial execution](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md) | Run 43478654843 identity/integrity, isolation controls, results vs local expectations, feasibility GO and remaining G2/G4/G5/governance blockers |
+| [C5 E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) | M11 failure handling, M12 forged reports, M14 canary capture with real engine on both platforms; four harness/driver gaps fixed; 34-case matrix preserved |
+| [C5 G2 dependency assessment](docs/evidence/m4c-c5-g2-dependency-assessment.md) | Five MODERATE `mcp`/`opentelemetry-api` advisories verified; traced as not reached during scans; no compatible fix; owner conditional acceptance (local/trial only, expires 2026-12-17; open for mandatory CI; not waived); regression guard for flags/environment |
+| [C5 G4H hosted gate preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md) | Trial workflow: pinned setup-node 24.22.2, `npm ci --ignore-scripts`, TypeScript preflight before any container, exact six-file allowlist; validator + 22 workflow and 14 driver tests; hosted verification procedure (not dispatched) |
+| [C5 G4 TypeScript syntax-gate implementation](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) | Pinned typescript 6.0.3 gate before Semgrep (lockfile-verified compiler, self-test, post-scan re-hash; host attestation for container trials); 77/77 SAST tests, 34/34 matrix (T03 now exit 3), 5 real-Docker scenarios; E04 lint/typecheck dependency recorded |
+| [C5 G4 TypeScript syntax-gate assessment](docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) | Semgrep silently accepted 188/755 malformed TS mutants and all 4 G4 cases; TypeScript syntax-only and ESLint parser caught all with 0 false positives; esbuild missed 2; recommends pinned typescript 6.0.3 gate plus CI ordering (not implemented) |
+| [C5 G5D security-risk decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) | Owner decision recorded 2026-11-17 (G2 incl. GHSA-mf5v and V3–V8 conditionally accepted for local trusted-repository scans and authorised non-blocking trials until 2026-12-17; SBOM v2 baseline); confirmed vulnerabilities, reachability, controls, gaps, early-stop conditions, minimum pre-E04 remediation; SBOM schema validation |
+| [C5 G5C vulnerability assessment](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md) | Online OSV/upstream research on the SBOM: OCaml 5.4.0 fork (public; lacks OSEC fixes), OpenSSL 4.0.3 in cryptography (6 CVEs), new opentelemetry-api GHSA; libyaml corrected to 0.2.5; 229 locked opam and 147 Rust crates clean; none shown reachable; v2 SBOM candidate; G5 not closable |
+| [C5 G5B SBOM and static inventory](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) | CycloneDX 1.6 toolchain SBOM (418 components, classed confirmed/build-metadata/inferred/claim/unknown); semgrep-core static inventory from DWARF and symbols (OCaml 5.4.0 Semgrep fork, 84 opam packages, libyaml 0.1.7 claim, 34 grammars; SQLite/Mbed TLS not linked); tree-sitter runtime reassessed |
+| [C5 G5 native library assessment](docs/evidence/m4c-c5-g5-native-library-assessment.md) | 33 bundled native libraries: 30 traced to signed AlmaLinux/EPEL RPMs or Homebrew bottles, licences and texts recorded, tree-sitter/static code unresolved, Moderate advisories, obligations by use; local/trial GO, mandatory CI and redistribution NO-GO |
 | [C5 proposed implementation plan](docs/milestones/m4c-c5-sast-plan.md) | Unexecuted local SAST pilot, fail-closed controls, adversarial cases and independent-governance acceptance gates |
 | [C4 infrastructure evidence](docs/evidence/m4c-c4-infrastructure.md) | Eight local Bicep contracts, parameter/redaction/security mutations, regression results, costs and open integration gates |
 | [M4B local evidence](docs/evidence/m4b-local-preparation.md) | Executed local checks, SQL simulation limits and remaining NO-GO gates |
@@ -91,7 +111,7 @@ links, and checks text hygiene. It does not contact cloud services.
 ## Working boundaries
 
 Claims Processing is a separate project and has no code, data, credentials, or
-delivery dependency here. Current authorization stopped after C5-F4R preparation (not dispatched); CI wiring and other C5 work need new direction.
+delivery dependency here. Current authorization stopped after the C5 G4H hosted gate preparation (not dispatched); CI wiring and other C5 work need new direction.
 Azure sign-in, credential refresh, GitHub setting changes, credentials, agents, provisioning/deployment, paid inference,
 commits and pushes are outside this task.
 The owner performs Git commits and pushes manually.

@@ -1,0 +1,21 @@
+{
+  "schema": "c5-typescript-gate/1",
+  "purpose": "C5-G4 pinned TypeScript syntax gate: compiler identity checked before any parse. Values must equal the application lockfile entry; file hashes come from the registry tarball whose sha512 equals that lock integrity.",
+  "lock": "apps/octocat-supply/package-lock.json",
+  "lock_key": "node_modules/typescript",
+  "default_dir": "apps/octocat-supply/node_modules/typescript",
+  "package": "typescript",
+  "version": "6.0.3",
+  "resolved": "https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz",
+  "integrity": "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==",
+  "files_sha256": {
+    "package.json": "9332e97c30d3e53ed54910b89207ed657fb444066484df6e5b6965bf130865e9",
+    "lib/typescript.js": "569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39"
+  },
+  "provenance": {
+    "tarball_sha256": "33cd0ee1beaa8c9e9d15a9da836c62ddea4c34a42d7c2d349dbc80d94165d22a",
+    "verified_utc": "2026-11-17",
+    "method": "registry tarball sha512 equal to lock integrity; all 140 tarball files byte-identical to the installed package"
+  },
+  "minimum_node_major": 20
+}

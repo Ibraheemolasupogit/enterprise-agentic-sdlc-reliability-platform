@@ -1,0 +1,651 @@
+{
+ "milestone": "M4C-C5-G5B",
+ "date_utc": "2026-11-17",
+ "base_commit": "2b050a1",
+ "status": "SBOM produced; static inventory complete to the limits of offline evidence; G5 open; not waived",
+ "authority": "owner direction: offline/static investigation of existing verified artifacts; SBOM and evidence documentation",
+ "owner_decisions_in_force": {
+  "local_development": "conditionally accepted",
+  "non_blocking_trial": "conditionally accepted",
+  "redistribution": "prohibited",
+  "mandatory_sast_ci": "NO-GO",
+  "waivers": "none"
+ },
+ "offline": "no network access in G5B; all inputs are artifacts verified in F1-G5 (lock-verified wheels, extracted binaries, G5 RPM/bottle evidence)",
+ "inputs": {
+  "wheels_lock_verified": {
+   "Darwin-arm64": "67/67",
+   "Linux-x86_64": "67/67"
+  },
+  "semgrep_core_sha256": {
+   "Linux-x86_64": "38fd08794fa488263b4a324f1b71eb6c0817f0ddaff372d46fe3629b3f78672d",
+   "Darwin-arm64": "4bfb5ad15e695ea54cab9c9d507ff476815d52d891a36e3741a139cb496fe9f5"
+  },
+  "g5_evidence": "docs/evidence/m4c-c5-g5-native-library-assessment.json",
+  "g2_advisories": "security/sast/toolchain.json advisories_osv_2026_11_13"
+ },
+ "analysis_tools_scratch_sha256": {
+  "g5_elf.py": "41f771098fa23b81d9fa87c5162155990078f65b8243239636ff0f184a89a009",
+  "g5b_dwarf_cu.py": "3b61865fa1ea2e51aba2d061775da2b0cbb5633eeae1afd268b68616492f8202",
+  "g5b_sbom.py": "659fb17c99abb184b2803ab4ccdf1852381139b593d36a15f2e0fd481fe1c294"
+ },
+ "sbom": {
+  "path": "security/sast/sbom/semgrep-toolchain-1.185.0.cdx.json",
+  "sha256": "499477a22a78fe309b83fa289acf47cb93140fdd192f7a3509ecb4953ac93d81",
+  "format": "CycloneDX 1.6 JSON",
+  "components": 418,
+  "vulnerabilities": 13,
+  "validation": "offline structural checks (unique bom-refs, all dependency/vulnerability/composition refs resolve, SHA-256 hash format, licence entry form, no local paths); official JSON schema not fetched (offline)",
+  "classes": {
+   "confirmed_cross_verified": 109,
+   "build_metadata": 86,
+   "inferred": 89,
+   "version_claim_only": 3,
+   "presence_confirmed_version_unknown": 78,
+   "unknown": 53
+  }
+ },
+ "semgrep_core_static_inventory": {
+  "method": "Linux: DWARF .debug_info compile units (2070; name, comp_dir, producer), .debug_line_str/.debug_str, full .symtab (601392 symbols); macOS: Mach-O symbol table (596247), no DWARF; composition inferred from symbol parity",
+  "compilers": {
+   "Linux": "GCC 11.5.0 20240719 (Red Hat 11.5.0-14); GNU AS 2.35.2",
+   "macOS": "not recorded (no DWARF)"
+  },
+  "ocaml_runtime": {
+   "version": "5.4.0+semgrep-fork@4046c817ed2ed5c2431300902d1bd306230bf3dd",
+   "evidence": "embedded string on both platforms; Linux DWARF ocaml-variants.5.4.0 (345 units)",
+   "class": "build-metadata",
+   "source_availability": "UNKNOWN: Semgrep fork commit, not verifiable offline"
+  },
+  "opam_packages_linux": {
+   "ANSITerminal.0.8.5": 3,
+   "alcotest.1.9.1": 1,
+   "angstrom.0.16.1": 5,
+   "asn1-combinators.0.3.3": 9,
+   "astring.0.8.5": 6,
+   "base.v0.17.3": 6,
+   "base64.3.5.2": 1,
+   "bigstringaf.0.10.0": 1,
+   "biniou.1.2.2": 4,
+   "bos.0.3.0": 12,
+   "ca-certs.1.0.3": 3,
+   "calendar.3.0.0": 3,
+   "cmdliner.2.1.1": 12,
+   "conduit-lwt-unix.8.0.0": 6,
+   "conduit-lwt.8.0.0": 1,
+   "conduit.8.0.0": 3,
+   "cstruct.6.3.0": 1,
+   "ctypes.0.24.0": 7,
+   "curl.0.10.0": 1,
+   "digestif.1.4.1": 23,
+   "domain-name.0.5.0": 1,
+   "eio.1.2": 2,
+   "eio_linux.1.2": 1,
+   "eio_posix.1.2": 1,
+   "encore.0.8.1": 4,
+   "eqaf.0.10": 2,
+   "fileutils.0.6.6": 27,
+   "fmt.0.11.0": 2,
+   "fpath.0.7.3": 1,
+   "git.3.18.0": 8,
+   "gmap.0.3.0": 1,
+   "hex.1.5.0": 1,
+   "hmap.0.8.1": 1,
+   "integers.0.8.0": 3,
+   "iomux.0.4": 1,
+   "ipaddr-sexp.5.6.2": 1,
+   "ipaddr.5.6.2": 2,
+   "kdf.1.1.2": 2,
+   "logs.0.10.0": 3,
+   "lwt-dllist.1.1.0": 1,
+   "lwt.6.1.2": 107,
+   "macaddr.5.6.2": 1,
+   "menhirLib.20230608": 1,
+   "mirage-crypto-ec.2.4.1": 8,
+   "mirage-crypto-pk.2.4.1": 5,
+   "mirage-crypto-rng.2.4.1": 9,
+   "mirage-crypto.2.4.1": 19,
+   "mtime.2.2.0": 3,
+   "obackward.dev": 3,
+   "ocaml_intrinsics_kernel.v0.17.2": 2,
+   "ocolor.1.3.1": 9,
+   "ocplib-endian.1.2": 1,
+   "ohex.0.2.0": 1,
+   "optint.0.3.0": 4,
+   "parmap.1.2.5": 5,
+   "pbrt.4.1": 2,
+   "pbrt_yojson.4.1": 1,
+   "pcre2.dev": 1,
+   "ppx_derivers.1.2.1": 1,
+   "ppx_deriving.6.2.0": 1,
+   "ppx_deriving_yojson.3.10.0": 2,
+   "psq.0.2.1": 1,
+   "ptime.1.2.0": 3,
+   "rresult.0.7.0": 1,
+   "semver.0.2.1": 1,
+   "stringext.1.6.0": 1,
+   "terminal_size.0.2.0": 2,
+   "thread-local-storage.0.2": 1,
+   "time_now.v0.17.0": 1,
+   "timedesc-tzdb.3.1.2": 1,
+   "timedesc-tzlocal.3.1.2": 2,
+   "timedesc.3.1.2": 29,
+   "uri-sexp.4.4.0": 1,
+   "uri.4.4.0": 2,
+   "uring.0.9": 1,
+   "uucp.18.0.0": 5,
+   "uuidm.0.9.10": 1,
+   "uutf.1.0.4": 1,
+   "visitors.20260520": 1,
+   "x509.1.2.0": 19,
+   "xmlm.1.4.0": 1,
+   "yaml.3.2.0": 10,
+   "yojson.3.0.0": 6,
+   "zarith.1.14": 1
+  },
+  "opam_package_count": 84,
+  "dev_pins": [
+   "obackward.dev",
+   "pcre2.dev"
+  ],
+  "workspace_built_units": {
+   "OSS": 18,
+   "ast": 6,
+   "astlib": 44,
+   "atdgen-runtime": 4,
+   "camlinternalFormat.ml": 1,
+   "camlinternalMod.ml": 1,
+   "camlinternalOO.ml": 3,
+   "cohttp": 18,
+   "cohttp-eio": 2,
+   "cohttp-lwt": 6,
+   "cohttp-lwt-unix": 3,
+   "config": 1,
+   "core": 9,
+   "curl.ml": 1,
+   "diff": 2,
+   "ephemeron.ml": 1,
+   "hashtbl.ml": 1,
+   "http": 3,
+   "int.ml": 1,
+   "jsonrpc": 2,
+   "lib": 57,
+   "lib_eio": 45,
+   "lib_eio_linux": 5,
+   "lib_eio_posix": 10,
+   "lib_main": 4,
+   "list.ml": 4,
+   "lsp": 12,
+   "lwt": 2,
+   "map.ml": 7,
+   "ppx_yojson_conv_lib.ml": 1,
+   "print-diff": 1,
+   "runtime-lib": 1,
+   "src": 256,
+   "stdppx": 1,
+   "string.ml": 1,
+   "traverse_builtins": 1,
+   "unix.ml": 1,
+   "util": 13,
+   "yojson_conv.ml": 1,
+   "yojson_conv_error.ml": 1
+  },
+  "workspace_note": "dune /workspace_root units: Semgrep's own OCaml (src, lib, core, ...) plus vendored libraries (cohttp*, http, lsp, jsonrpc, astlib (ppxlib), atdgen-runtime, lib_eio*, diff); versions unknown",
+  "libraries_by_symbol_only": [
+   "Re",
+   "Sexplib/Sexplib0",
+   "Ppxlib runtime",
+   "Tls (+ Tls_eio, Tls_lwt)",
+   "Opentelemetry (+ client/proto)",
+   "Memtrace",
+   "Testo",
+   "Ppx_inline_test_lib",
+   "Ppx_yojson_conv_lib",
+   "Str/Unix (OCaml distribution)"
+  ],
+  "ocaml_module_parity": {
+   "linux": 1032,
+   "macos": 1030,
+   "linux_only": [
+    "Eio_linux",
+    "Uring"
+   ]
+  },
+  "libyaml": {
+   "present": true,
+   "evidence": "36 defined yaml_* functions (both platforms); C sources have no DWARF",
+   "version_claim": "0.1.7 (yaml_get_version = 0,1,7; yaml_get_version_string -> '0.1.7'; compile-time constants)",
+   "linked_via": "yaml.3.2.0 (ocaml-yaml)",
+   "class": "version claim only"
+  },
+  "sqlite": {
+   "present": false,
+   "evidence": "no sqlite3_* symbols on either platform; 'SQLite format 3' is a magic-bytes entry next to 'GIF89a' and 'gimp xcf' in binary-file detection"
+  },
+  "mbed_tls": {
+   "present": false,
+   "evidence": "no mbedtls_* symbols on either platform; 'MBEDTLS' occurs only as CURLSSLBACKEND_MBEDTLS (curl binding enum)"
+  },
+  "tls_stack_in_ocaml": {
+   "present": true,
+   "components": [
+    "tls (version unknown)",
+    "x509.1.2.0",
+    "mirage-crypto.2.4.1",
+    "mirage-crypto-ec.2.4.1",
+    "mirage-crypto-pk.2.4.1",
+    "mirage-crypto-rng.2.4.1",
+    "asn1-combinators.0.3.3",
+    "ca-certs.1.0.3",
+    "digestif.1.4.1",
+    "kdf.1.1.2"
+   ]
+  },
+  "cxx": {
+   "linux": "one C++ unit (backward.cpp, obackward.dev); 561 weak libstdc++ template instantiations from GCC 11 headers; libstdc++.so.6 dynamic",
+   "macos": "712 defined std:: symbols (Apple libc++ header templates); /usr/lib/libc++.1.dylib dynamic",
+   "g5_alsa_2026_98524": "no std::from_chars or parallel-mode symbols; fully inlined use cannot be excluded"
+  },
+  "dynamically_resolved": "tree-sitter runtime, PCRE2, GMP, curl, zstd, libev, libdw/libelf, bz2, z, lzma, unwind, stdc++, m, gcc_s (Linux DT_NEEDED) are imported, not static",
+  "semgrep_own_static": [
+   "OSS/libs/murmur3",
+   "OSS/libs/process_limits",
+   "OSS/libs/ocaml-tree-sitter-semgrep/core"
+  ],
+  "tree_sitter_grammars": [
+   {
+    "symbol": "tree_sitter_bash",
+    "abi_version": 15,
+    "symbol_count": 291,
+    "name": "bash",
+    "metadata_version": "0.0.0"
+   },
+   {
+    "symbol": "tree_sitter_c_sharp",
+    "abi_version": 14,
+    "symbol_count": 529,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_cairo",
+    "abi_version": 14,
+    "symbol_count": 153,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_circom",
+    "abi_version": 14,
+    "symbol_count": 146,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_clojure",
+    "abi_version": 14,
+    "symbol_count": 73,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_cpp",
+    "abi_version": 14,
+    "symbol_count": 549,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_dart",
+    "abi_version": 14,
+    "symbol_count": 537,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_dockerfile",
+    "abi_version": 14,
+    "symbol_count": 168,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_fga",
+    "abi_version": 14,
+    "symbol_count": 109,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_go",
+    "abi_version": 15,
+    "symbol_count": 213,
+    "name": "go",
+    "metadata_version": "0.0.0"
+   },
+   {
+    "symbol": "tree_sitter_hack",
+    "abi_version": 14,
+    "symbol_count": 375,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_hcl",
+    "abi_version": 14,
+    "symbol_count": 130,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_html",
+    "abi_version": 14,
+    "symbol_count": 50,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_java",
+    "abi_version": 14,
+    "symbol_count": 332,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_jsonnet",
+    "abi_version": 14,
+    "symbol_count": 105,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_julia",
+    "abi_version": 15,
+    "symbol_count": 244,
+    "name": "julia",
+    "metadata_version": "0.0.0"
+   },
+   {
+    "symbol": "tree_sitter_kotlin",
+    "abi_version": 14,
+    "symbol_count": 377,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_lua",
+    "abi_version": 14,
+    "symbol_count": 148,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_move_on_aptos",
+    "abi_version": 14,
+    "symbol_count": 333,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_move_on_sui",
+    "abi_version": 14,
+    "symbol_count": 315,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_objc",
+    "abi_version": 14,
+    "symbol_count": 593,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_ocaml",
+    "abi_version": 14,
+    "symbol_count": 431,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_php",
+    "abi_version": 14,
+    "symbol_count": 434,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_promql",
+    "abi_version": 14,
+    "symbol_count": 93,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_proto",
+    "abi_version": 14,
+    "symbol_count": 119,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_python",
+    "abi_version": 14,
+    "symbol_count": 273,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_r",
+    "abi_version": 14,
+    "symbol_count": 138,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_ruby",
+    "abi_version": 14,
+    "symbol_count": 355,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_rust",
+    "abi_version": 14,
+    "symbol_count": 359,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_scala",
+    "abi_version": 14,
+    "symbol_count": 368,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_solidity",
+    "abi_version": 15,
+    "symbol_count": 533,
+    "name": "solidity",
+    "metadata_version": "0.0.0"
+   },
+   {
+    "symbol": "tree_sitter_swift",
+    "abi_version": 15,
+    "symbol_count": 534,
+    "name": "swift",
+    "metadata_version": "0.0.0"
+   },
+   {
+    "symbol": "tree_sitter_tsx",
+    "abi_version": 14,
+    "symbol_count": 405,
+    "name": null,
+    "metadata_version": null
+   },
+   {
+    "symbol": "tree_sitter_typescript",
+    "abi_version": 14,
+    "symbol_count": 388,
+    "name": null,
+    "metadata_version": null
+   }
+  ],
+  "grammar_summary": {
+   "entry_points": 34,
+   "language_dirs": 33,
+   "abi14": 29,
+   "abi15": 5,
+   "with_external_scanner": 23,
+   "versions": "UNKNOWN (ABI 14 has no version field; ABI 15 grammars embed 0.0.0)",
+   "licences": "UNKNOWN offline"
+  }
+ },
+ "tree_sitter_runtime_assessment": {
+  "files": [
+   "Linux libtree-sitter.so.0.26",
+   "macOS libtree-sitter.0.26.dylib",
+   "macOS libtree-sitter.dylib (byte-identical copy)"
+  ],
+  "confirmed": [
+   "tree-sitter runtime identity (149 exported ts_* functions, identical set on both platforms)",
+   "0.25+ API (ts_language_abi_version/name/metadata present)",
+   "0.26 series (soname/install name)",
+   "all 31 runtime functions imported by semgrep-core are exported"
+  ],
+  "inferred": "patch 0.26.3 (public pin libs/ocaml-tree-sitter-semgrep/core/tree-sitter-version at 9240f708, observed in G5)",
+  "unresolved": "built in Semgrep's non-public tree; no reproducible build offline; licence MIT per upstream at inferred tag",
+  "recommendation": "OWNER REVIEW (identity and licence adequate for local/trial use; exact source correspondence unverifiable)"
+ },
+ "wheel_internal_static": [
+  {
+   "wheel": "cryptography 50.0.2",
+   "component": "OpenSSL",
+   "evidence": "string 'OpenSSL 4.0.3 29 Sep 2026' in _rust.abi3.so (both platforms)",
+   "class": "version claim only",
+   "notice": "wheel ships LICENSE/LICENSE.APACHE/LICENSE.BSD for cryptography; no OpenSSL licence text"
+  },
+  {
+   "wheel": "cryptography, pydantic-core 2.50.4, rpds-py 2026.9.1",
+   "component": "Rust crates",
+   "evidence": "no cargo-auditable section",
+   "class": "unknown"
+  },
+  {
+   "wheel": "ruamel.yaml.clib 0.2.15",
+   "component": "libyaml-derived C code",
+   "class": "inferred",
+   "notice": "wheel LICENSE MIT (Ruamel); no libyaml notice"
+  },
+  {
+   "wheel": "protobuf 6.33.6",
+   "component": "upb runtime",
+   "class": "inferred"
+  },
+  {
+   "wheel": "tomli 2.4.1, charset-normalizer 3.5.2",
+   "component": "mypyc-compiled modules",
+   "class": "first-party compiled code"
+  },
+  {
+   "wheel": "cffi 2.1.1, wrapt 1.17.3",
+   "component": "first-party C extensions",
+   "class": "first-party compiled code"
+  }
+ ],
+ "licences_and_notices": {
+  "confirmed": "67 Python distributions (wheel metadata and shipped licence files, F1); 30 native libraries (packager declaration and shipped texts, G5)",
+  "not_verified_offline": "OCaml runtime fork, 84 opam packages, workspace-vendored libraries, libyaml, backward-cpp, 34 grammars, Rust crates, OpenSSL in cryptography, upb",
+  "notices_present_in_distribution": "none for any statically linked component in semgrep-core; none for OpenSSL in cryptography",
+  "source_availability": {
+   "third-party native libraries": "AlmaLinux/EPEL SRPMs and Homebrew source URLs (G5)",
+   "opam packages": "public opam repository archives expected; not verified offline",
+   "OCaml fork, semgrep-core, workspace-vendored code, grammars, tree-sitter build": "non-public build tree; correspondence unverifiable"
+  }
+ },
+ "vulnerabilities": {
+  "carried_forward": "5 G2 advisories (mcp, opentelemetry-api) and 8 G5 records (6 AlmaLinux ALSA, libdwarf CVE-2026-116732, PCRE2 OSV-2026-343); all analysis.state in_triage in the SBOM; none waived",
+  "new_static_components": "NOT QUERIED (offline restriction): libyaml 0.1.7 claim, OCaml 5.4.0 fork, 84 opam packages incl. the OCaml TLS/crypto stack, OpenSSL 4.0.3 claim in cryptography, Rust crates, grammars",
+  "observations": [
+   "the embedded libyaml version claim (0.1.7) is far older than the current libyaml 0.2.x line; real source revision unknown",
+   "a full OCaml TLS/X.509/crypto stack and OpenSSL inside cryptography are linked but not used by offline scans (network denied); reachability not traced"
+  ]
+ },
+ "blocked_by_non_public_sources": [
+  "semgrep-core binary-to-source correspondence (LGPL-2.1 corresponding source) - G5-5",
+  "OCaml runtime fork 4046c817 source",
+  "workspace-vendored OCaml libraries and their versions",
+  "tree-sitter runtime and 34 grammar versions/licences",
+  "reproducible rebuild of any Semgrep-built binary"
+ ],
+ "issues": [
+  {
+   "id": "G5B-1",
+   "issue": "SBOM produced but incomplete for statically linked code (53 unknown, 78 version-unknown, 3 version-claim components)",
+   "recommendation": "OWNER REVIEW"
+  },
+  {
+   "id": "G5B-2",
+   "issue": "Advisory lookup not performed for newly inventoried static components (offline)",
+   "recommendation": "REMEDIATE: authorise an online OSV/NVD lookup against this SBOM"
+  },
+  {
+   "id": "G5B-3",
+   "issue": "Embedded libyaml version claim 0.1.7 (vendored by ocaml-yaml 3.2.0)",
+   "recommendation": "OWNER REVIEW; REMEDIATE (upstream report) if confirmed old"
+  },
+  {
+   "id": "G5B-4",
+   "issue": "OCaml runtime is a Semgrep fork (4046c817); source not verifiable offline",
+   "recommendation": "OWNER REVIEW; BLOCK redistribution"
+  },
+  {
+   "id": "G5B-5",
+   "issue": "No notices for any static component in semgrep-core or for OpenSSL in cryptography",
+   "recommendation": "OWNER REVIEW for use; BLOCK redistribution"
+  },
+  {
+   "id": "G5B-6",
+   "issue": "Rust crate inventory unavailable (no cargo-auditable)",
+   "recommendation": "OWNER REVIEW"
+  },
+  {
+   "id": "G5B-7",
+   "issue": "SQLite and Mbed TLS suspected in G5",
+   "recommendation": "CLOSED: not linked (evidence above)"
+  }
+ ],
+ "recommendation": {
+  "local_development": "GO (unchanged conditional acceptance)",
+  "non_blocking_trial": "GO (unchanged; no redistribution)",
+  "mandatory_sast_ci": "NO-GO (unchanged; G2, G5, G5B-1..6)",
+  "redistribution": "NO-GO (prohibited; G5-5, G5B-4, G5B-5)"
+ },
+ "limits": [
+  "offline: no new advisory, licence or source lookups",
+  "macOS composition inferred from symbol parity (no DWARF)",
+  "opam versions are build-directory metadata, not cross-verified against source archives",
+  "SBOM validated structurally, not against the official CycloneDX schema",
+  "string/symbol evidence can show presence, not absence of fully inlined code",
+  "container runtime image and host system libraries are out of SBOM scope"
+ ],
+ "changed_files": [
+  "security/sast/sbom/semgrep-toolchain-1.185.0.cdx.json",
+  "docs/evidence/m4c-c5-g5b-sbom-static-inventory.md",
+  "docs/evidence/m4c-c5-g5b-sbom-static-inventory.json",
+  "README.md",
+  "AGENTS.md",
+  "docs/capability-status.md",
+  "docs/milestones/m4c-c5-sast-plan.md"
+ ],
+ "owner_decision_g5d": {
+  "date_utc": "2026-11-17",
+  "sbom_v1": "frozen, unchanged (499477a22a78fe309b83fa289acf47cb93140fdd192f7a3509ecb4953ac93d81)",
+  "current_assessment_baseline": {
+   "path": "security/sast/sbom/semgrep-toolchain-1.185.0.v2-candidate.cdx.json",
+   "sha256": "70a38b40fddcb7a460d96b5e1b5170927d2f695f4128cf50ba0c8eab5d668fe7"
+  },
+  "g5b_issues": "open"
+ }
+}

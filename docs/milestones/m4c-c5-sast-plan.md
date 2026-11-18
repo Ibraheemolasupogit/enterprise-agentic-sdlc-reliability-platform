@@ -30,7 +30,28 @@ authorization. Owner run 43432851816 failed closed with exit 5 on Ubuntu 24.04's
 restriction on unprivileged user namespaces. See the
 [diagnosis](../evidence/m4c-c5-f4-hosted-run-diagnosis.md). The owner then selected Option B: see
 [C5-F4R](../evidence/m4c-c5-f4r-docker-trial-preparation.md) (Docker `--network none`, prepared and
-locally validated, not dispatched).
+locally validated). Owner run 43478654843 at `2b050a1` passed. The
+[execution evidence](../evidence/m4c-c5-f4r-hosted-trial-execution.md) accepts hosted feasibility
+(E02 met, E03 partly met). [E03 robustness](../evidence/m4c-c5-e03-robustness.md) later met E03 locally
+(M11/M12/M14 with the real engine on both platforms); E04–E06, C5-A1/A2 and G2/G4/G5 remain open.
+Per the [G2 assessment](../evidence/m4c-c5-g2-dependency-assessment.md) (advisories not reached in scans;
+no Semgrep-compatible fix), the owner conditionally accepted G2 with a mitigation regression guard; the scope
+was later narrowed and extended by G5D (below). G2 stays OPEN for mandatory CI (E04).
+The [G5 assessment](../evidence/m4c-c5-g5-native-library-assessment.md) recommends local/trial GO, mandatory CI
+NO-GO (owner decisions since recorded in G5D), and redistribution NO-GO; G5 stays open. [G5B](../evidence/m4c-c5-g5b-sbom-static-inventory.md)
+added the project toolchain SBOM and semgrep-core static inventory; mandatory CI remains NO-GO.
+[G5C](../evidence/m4c-c5-g5c-vulnerability-assessment.md) assessed the SBOM online: G5 cannot close yet; mandatory CI
+and release remain NO-GO; its findings and the v2 SBOM candidate were decided in G5D.
+[G5D](../evidence/m4c-c5-g5d-security-risk-decision.md) records the owner decision (2026-11-17): G2 incl. GHSA-mf5v
+and G5 V3–V8 conditionally accepted for local trusted-repository scans and separately authorised non-blocking
+trials until 2026-12-17 under its early-stop conditions and controls; SBOM v2 adopted as assessment baseline
+(v1 frozen); G2/G5 OPEN; E04, release and redistribution NO-GO until its minimum remediation is met.
+The [G4 assessment](../evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) recommends a syntax-only gate using the
+pinned typescript 6.0.3 plus CI ordering on lint/typecheck. The [G4 implementation](../evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md)
+adds that gate to the harness (host attestation for container trials) and is verified locally. **E04 requirement:** the SAST
+job must hard-depend (`needs:`) on the mandatory lint/typecheck job and provide the lock-pinned compiler. G4 stays open
+until hosted verification, which [G4H](../evidence/m4c-c5-g4h-hosted-gate-preparation.md) prepares (trial workflow only;
+not dispatched). E04–E06 and release remain NO-GO.
 
 ## Entry decision and bounded scope
 

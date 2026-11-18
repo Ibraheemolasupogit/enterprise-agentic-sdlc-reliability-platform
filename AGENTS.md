@@ -17,8 +17,40 @@
   [diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md); no sudo/root isolation,
   workflow change or rerun without explicit authorization. C5-F4R prepared (not
   dispatched) the Docker `--network none` trial per
-  [F4R evidence](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md); dispatching it,
-  CI release-gate integration and later C5 work need new owner direction.
+  [F4R evidence](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md). Owner run
+  43478654843 at `2b050a1` passed and was closed out in
+  [F4R execution evidence](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md): hosted
+  SAST feasibility accepted; C5-A1/A2, mandatory CI, G2/G4/G5 and governance remain open.
+  [E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) is met locally (M11/M12/M14 with the
+  real engine; harness/driver fail-closed fixes, verified post-hosted-run only locally).
+  [G2 assessment](docs/evidence/m4c-c5-g2-dependency-assessment.md): advisories confirmed, not reached
+  in scans, no compatible fix. G2 (six advisories incl. GHSA-mf5v) is conditionally accepted per G5D
+  below; G2 stays OPEN and is not waived.
+  `tests/security/sast/test_g2_mitigation_guard.py` pins the flags/environment; keep it passing.
+  [G5 assessment](docs/evidence/m4c-c5-g5-native-library-assessment.md): 30/33 native libraries traced
+  to signed AlmaLinux/EPEL packages or Homebrew bottles (tree-sitter inferred); G5 open, not waived.
+  Never redistribute the wheels, venv, wheelhouse or container image; mandatory CI is NO-GO.
+  [G5B](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md): project SBOM at
+  `security/sast/sbom/semgrep-toolchain-1.185.0.cdx.json` (incomplete static code marked); SQLite/Mbed TLS
+  not linked; libyaml 0.1.7 claim and OCaml 5.4.0 Semgrep fork recorded. [G5C](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md)
+  found affected OCaml fork (OSEC) and OpenSSL-in-cryptography versions present (not shown reachable) and a new
+  opentelemetry-api GHSA (GHSA-mf5v). Owner decision recorded in
+  [G5D](docs/evidence/m4c-c5-g5d-security-risk-decision.md) (2026-11-17): G2 incl. GHSA-mf5v and G5 V3–V8
+  conditionally accepted ONLY for local trusted-repository scans and separately authorised non-blocking trials,
+  expiring 2026-12-17; G5D early-stop conditions and mandatory controls apply (stop scanning if any trips or on
+  lapse). SBOM v2 (`security/sast/sbom/semgrep-toolchain-1.185.0.v2-candidate.cdx.json`, CycloneDX 1.6.2
+  schema-valid) is the current assessment baseline; never modify frozen v1. G2/G5 OPEN, advisories visible,
+  nothing waived; E04, release and redistribution NO-GO.
+  [G4 assessment](docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) (not implemented): recommends a
+  syntax-only gate with the pinned typescript 6.0.3 plus CI ordering on lint/typecheck.
+  [G4 implementation](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md): harness gate before Semgrep
+  (compiler pinned by security/sast/typescript-gate.json to the app lockfile; host-side gate + nonce-bound attestation
+  for container trials; no Node in the scan image). Keep tests/security/sast/test_typescript_gate.py passing. The
+  trial workflow now provisions pinned Node 24.22.2 + `npm ci --ignore-scripts` and a TypeScript preflight before any
+  container ([G4H preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md); not dispatched; keep
+  check_trial_workflow.py and its tests passing). E04
+  requirement: SAST job must hard-depend on lint/typecheck. G4 open pending hosted verification.
+  Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned
   libraries/P01–P15 simulated-provider tests.

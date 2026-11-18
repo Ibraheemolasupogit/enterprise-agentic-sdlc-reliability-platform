@@ -1,0 +1,237 @@
+{
+ "milestone": "M4C-C5-G4",
+ "date_utc": "2026-11-17",
+ "base_commit": "2b050a1",
+ "status": "assessed; not implemented; G4 open",
+ "authority": "owner direction: assessment only; no implementation, dependency, lockfile, harness, driver, workflow, settings or Azure change",
+ "pinned_tools": {
+  "typescript": {
+   "version": "6.0.3",
+   "licence": "Apache-2.0",
+   "dependency_closure": 1,
+   "install_scripts": 0,
+   "in_mandatory_ci": "npm run typecheck"
+  },
+  "eslint+typescript-eslint": {
+   "versions": "eslint 10.14.0, typescript-eslint 8.72.1 (parser uses TypeScript's parser)",
+   "dependency_closure": 95,
+   "licences": [
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BlueOak-1.0.0",
+    "ISC",
+    "MIT"
+   ],
+   "install_scripts": 0,
+   "in_mandatory_ci": "npm run lint"
+  },
+  "esbuild": {
+   "version": "0.28.2",
+   "licence": "MIT",
+   "install_scripts": [
+    "esbuild"
+   ],
+   "native_platform_packages_in_lock": 26,
+   "role": "transitive (vite)"
+  },
+  "lockfile": "apps/octocat-supply/package-lock.json; all entries carry sha512 integrity",
+  "node": {
+   "pinned": "24.22.2 (.node-version, engines)",
+   "used_in_assessment": "v22.17.1 (local)"
+  }
+ },
+ "coverage": {
+  "semgrep_ts_targets_app": 42,
+  "in_a_tsc_project": 42,
+  "linted_with_typescript_eslint_parser": 42,
+  "excluded_by_harness": [
+   "apps/octocat-supply/scripts/verify-auth-capture.d.mts (type-declaration-outside-ce-claim)"
+  ],
+  "fixtures": "12 TS files under tests/security/sast are harness controls (classified separately)"
+ },
+ "experiment": {
+  "corpus": {
+   "originals": 42,
+   "g4_cases": [
+    "double-comma.ts",
+    "unclosed-condition.ts",
+    "unclosed-parameters.ts",
+    "F3 T03 broken.ts"
+   ],
+   "mutants": 792,
+   "generator": "TypeScript scanner-located token mutations, 11 operators x 2 positions per file, LCG seed 20261117"
+  },
+  "offline": "all candidate runs and Semgrep inside macOS sandbox-exec deny-network",
+  "versions": {
+   "typescript": "6.0.3",
+   "eslint": "10.14.0",
+   "tsParser": "8.72.1",
+   "esbuild": "0.28.2",
+   "node": "v22.17.1"
+  },
+  "timing_ms_838_files": {
+   "tsc_ms": 443,
+   "eslint_ms": 573,
+   "esbuild_ms": 258,
+   "tsc_grammar_ms": 1785
+  },
+  "results": {
+   "false_positives_on_originals": {
+    "tsc": 0,
+    "eslint": 0,
+    "esbuild": 0,
+    "semgrep": 0
+   },
+   "g4_cases_detected": {
+    "tsc": 4,
+    "eslint": 4,
+    "esbuild": 4,
+    "semgrep": 0
+   },
+   "mutants_invalid_per_typescript_parser": 755,
+   "detected_among_invalid": {
+    "tsc": 755,
+    "eslint": 755,
+    "esbuild": 753,
+    "semgrep": 567
+   },
+   "semgrep_silently_accepted": 188,
+   "per_operator": {
+    "arrow_to_eq": {
+     "invalid": 54,
+     "semgrep_missed": 1,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "colon_to_semicolon": {
+     "invalid": 64,
+     "semgrep_missed": 3,
+     "eslint_missed": 0,
+     "esbuild_missed": 2
+    },
+    "del_close_brace": {
+     "invalid": 83,
+     "semgrep_missed": 36,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "del_close_bracket": {
+     "invalid": 68,
+     "semgrep_missed": 38,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "del_close_paren": {
+     "invalid": 84,
+     "semgrep_missed": 54,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "del_greater_than_tsx": {
+     "invalid": 9,
+     "semgrep_missed": 3,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "del_open_paren": {
+     "invalid": 83,
+     "semgrep_missed": 0,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "del_string_quote": {
+     "invalid": 84,
+     "semgrep_missed": 5,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "dup_comma": {
+     "invalid": 72,
+     "semgrep_missed": 48,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "keyword_typo": {
+     "invalid": 70,
+     "semgrep_missed": 0,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    },
+    "stray_token": {
+     "invalid": 84,
+     "semgrep_missed": 0,
+     "eslint_missed": 0,
+     "esbuild_missed": 0
+    }
+   },
+   "tsc_syntax_clean_mutants": {
+    "count": 37,
+    "checker_grammar_TS1xxx_found": 1,
+    "esbuild_flagged": 7,
+    "interpretation": "mostly still-valid syntax (array elisions, type literals, type references); esbuild-only flags are ECMAScript early errors (TS2364 invalid assignment target, TS1155 uninitialised const) reported by the full typecheck"
+   },
+   "esbuild_missed_typescript_parse_errors": 2
+  }
+ },
+ "options": {
+  "A_typescript_syntax_only": {
+   "accuracy": "reference TypeScript parser; 4/4 G4; 755/755 by definition; 0 false positives",
+   "offline": "yes (pure JS, pinned, no network)",
+   "platforms": "pure JS; macOS verified here; Linux via existing CI typecheck job",
+   "supply_chain": "1 package, Apache-2.0, no install script, already pinned",
+   "fail_closed": "explicit file list, per-file diagnostics, version/hash pin, missing-node or missing-file = failure",
+   "effort": "small harness preflight (Node script + Python wrapper); container mode needs Node in image or a host-side preflight",
+   "recommendation": "RECOMMENDED"
+  },
+  "B_eslint_parser_only": {
+   "accuracy": "identical to A (755/755, 0 disagreements; 4/4 G4)",
+   "offline": "yes",
+   "platforms": "pure JS",
+   "supply_chain": "95 packages, 6 licence types",
+   "fail_closed": "risk: config ignores or unmatched globs silently skip files (warnIgnored); must force explicit config",
+   "effort": "similar to A, more moving parts",
+   "recommendation": "acceptable alternative; no accuracy gain"
+  },
+  "C_esbuild": {
+   "accuracy": "not a TypeScript reference parser: missed 2 TS parse errors; adds early-error checks also caught by typecheck",
+   "offline": "yes once installed",
+   "platforms": "per-platform native binary (26 optional packages)",
+   "supply_chain": "install script + native binaries",
+   "fail_closed": "throws on first error only",
+   "effort": "small",
+   "recommendation": "not recommended"
+  },
+  "D_existing_ci_ordering_only": {
+   "accuracy": "full typecheck + lint cover all 42 targets; catches syntax and early errors",
+   "offline": "CI only",
+   "platforms": "Linux CI (run 43477343929 application job success)",
+   "supply_chain": "none new",
+   "fail_closed": "only if the SAST job hard-depends on the job (needs:) and is skipped on its failure; does not protect local harness scans",
+   "effort": "minimal (workflow dependency) - workflow change requires authorisation",
+   "recommendation": "use in addition to A for E04"
+  }
+ },
+ "recommendation": "A (TypeScript compiler syntax-only gate in the harness, using the already-pinned typescript 6.0.3) plus D (SAST job hard-depends on the existing lint/typecheck job) when E04 is reconsidered",
+ "limits": [
+  "assessment ran on macOS with Node 22.17.1, not the pinned 24.22.2; Linux evidence is the existing CI job, not this corpus",
+  "oracle is TypeScript's own parser; ESLint is not independent of it; esbuild is the only independent parser",
+  "mutation corpus is synthetic (single-token edits); multi-edit or adversarial inputs not covered",
+  "type-aware rules or Semgrep misanalysis of valid code are out of scope"
+ ],
+ "scratch_hashes": {
+  "gen.mjs": "4ec2bf566122e74866f513b1ff2d6f85b956581dd4195941ee6faef17e809d5e",
+  "check.mjs": "1c27a4a67ceb769c2fd0ba16cedbd20eaab177a1bb0169dbdd94eadb4c88df20",
+  "grammar.mjs": "f1f6c2b2150b01be92c7986f2929e9c8bda5e318fd0542d9e84670191fff9c3f",
+  "manifest.json": "30b342d007743761bc0a0eea61948d6cab9305fb5e77b26c6fb8bc5b16f691ea",
+  "results.json": "8bdcfd3bb7b676dc8fa5d0d9fc6f5c4b9fe5f2cc5ef49376ee3425311752fd25"
+ },
+ "changed_files": [
+  "docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md",
+  "docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.json",
+  "README.md",
+  "AGENTS.md",
+  "docs/capability-status.md",
+  "docs/milestones/m4c-c5-sast-plan.md"
+ ]
+}

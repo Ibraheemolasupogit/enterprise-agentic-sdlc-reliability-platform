@@ -1,0 +1,190 @@
+{
+ "milestone": "M4C-C5-G4",
+ "date_utc": "2026-11-17",
+ "base_commit": "2b050a1",
+ "status": "implemented and verified locally (macOS native; Linux hardened container for the attestation path); hosted trial not yet able to run the host gate (workflow provides no compiler) - fails closed; G4 open pending hosted verification",
+ "authority": "owner direction: implement C5-G4 with the pinned TypeScript 6.0.3; no ci.yml, dependency, settings, Azure, dispatch, commit or push",
+ "design": {
+  "targets": "exactly the .ts/.tsx files given to Semgrep: source targets + annotated control fixtures must parse (49); malformed + parser-gap TypeScript fixtures must be rejected (5) as a runtime self-test",
+  "order": "preflight -> inventory -> catalogue -> Python ast gate -> TypeScript gate -> isolation -> controls -> source scan -> post-scan re-hash",
+  "compiler_pin": {
+   "manifest": "security/sast/typescript-gate.json",
+   "lock_entry": "apps/octocat-supply/package-lock.json node_modules/typescript (version, resolved, sha512 integrity must equal manifest)",
+   "file_hashes": {
+    "package.json": "9332e97c30d3e53ed54910b89207ed657fb444066484df6e5b6965bf130865e9",
+    "lib/typescript.js": "569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39"
+   },
+   "provenance": "registry tarball sha512 == lock integrity; 140/140 tarball files byte-identical to installed package (tarball sha256 33cd0ee1...d22a)"
+  },
+  "node_script": "scripts/sast/ts_syntax_gate.mjs loads the compiler from the exact bytes it hashes, parses each file from the exact bytes it hashes (strict UTF-8, no symlinks, no path escape), syntax-only (noResolve, noLib, noEmit), prints TS codes and positions only",
+  "node_runtime": "--node or first of /opt/homebrew/bin/node, /usr/local/bin/node, /usr/bin/node; major >= 20; flags --no-addons --disallow-code-generation-from-strings; env = tool_env (exact allowlist)",
+  "isolation": "auto mode: inside the harness network-isolation wrapper (macOS sandbox-exec / Linux unshare --net); host-side gate for container trials: no wrapper (hosted runners lack unprivileged user namespaces)",
+  "container_mode": "driver container-run runs `feasibility.py --typescript-gate-only --ts-nonce <run nonce>` on the host before any container; attestation artifacts/sast/ts-syntax-gate.json (not uploaded); in-container harness requires --ts-nonce and verifies nonce, manifest/gate/compiler hashes, exact target set and per-file hashes; no Node in the image",
+  "race": "per-file SHA-256 bound at validation (Python before node, node of parsed bytes), re-verified before the scan in container mode, and re-hashed after all Semgrep runs in both modes; residual: a change reverted before the post-scan re-hash (A->B->A within the scan) is not detectable",
+  "exit_codes": {
+   "2": "compiler/node unavailable, lock/manifest/compiler mismatch, bad/stale/foreign attestation, attestation target-set mismatch, CLI mode misuse",
+   "3": "TypeScript syntax error (path, TS code, position), gate crash/timeout/malformed or inconsistent output, file changed during or after validation",
+   "4": "gate self-test: a malformed TypeScript control accepted"
+  }
+ },
+ "results": {
+  "macos_full_suite_real_engine": "77/77 (15 workflow, 11 container/driver incl. 2 new G4, 8 G2 guard, 14 new G4 gate incl. end-to-end, 29 E03 incl. new TypeScript-gate canary class)",
+  "macos_suite_without_engine": "47 pass, 30 explicitly skipped",
+  "g4_gate_tests": "14/14: positive (repository passes, exact target set, sandbox wrapper), 4 G4 cases + TSX/test files rejected, 210-mutant regression (42 files x 5 invalid tails, 0 misses, 0 false positives), compiler tamper/version/symlink/absence, lock version/integrity/resolved drift, manifest unsafe/missing, node missing/too old/garbage/error, 7 forged-result cases incl. self-test (exit 4), race recheck, attestation round-trip + 9 tamper cases, CLI mode rules, end-to-end: malformed TS stops the real harness with exit 3 and zero Semgrep processes",
+  "f3_matrix_macos": {
+   "expected": "34/34",
+   "T03": {
+    "id": "T03",
+    "want": 3,
+    "got": 3,
+    "case": "engine-accepted malformed TS (G4 closed: TypeScript gate rejects before Semgrep)",
+    "line": "STOP [3 tool-error]: typescript syntax error: apps/octocat-supply/api/src/broken.ts (TS1136 at 1:25)"
+   },
+   "T02": {
+    "id": "T02",
+    "want": 3,
+    "got": 3,
+    "case": "malformed production TS (engine error)",
+    "line": "STOP [3 tool-error]: typescript syntax error: apps/octocat-supply/api/src/broken.ts (TS1005 at 1:29)"
+   }
+  },
+  "linux_hardened_container_real_docker": [
+   {
+    "scenario": "positive",
+    "exit": 0,
+    "result": "clean",
+    "reason": null,
+    "host_gate": {
+     "exit": 0,
+     "last": "typescript gate: pass (49 files parsed, 5 malformed controls rejected; typescript 6.0.3, node v22.17.1); attestation written"
+    },
+    "docker_exit": 0,
+    "in_container_gate": {
+     "accepted": 49,
+     "compiler_sha256": "569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39",
+     "gate_sha256": "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29",
+     "mode": "host-attestation",
+     "node": "v22.17.1",
+     "rejected_controls": 5,
+     "status": "pass",
+     "typescript": "6.0.3"
+    }
+   },
+   {
+    "scenario": "malformed-ts",
+    "exit": 3,
+    "result": "tool-error",
+    "reason": "host TypeScript syntax gate failed before the container started: STOP [3 tool-error]: typescript syntax error: apps/octocat-supply/api/src/broken.ts (TS1136 at 1:25)",
+    "host_gate": null,
+    "docker_exit": null,
+    "in_container_gate": null
+   },
+   {
+    "scenario": "no-compiler",
+    "exit": 2,
+    "result": "configuration-error",
+    "reason": "host TypeScript syntax gate failed before the container started: STOP [2 configuration-error]: typescript gate: pinned compiler unavailable (install the application lockfile)",
+    "host_gate": null,
+    "docker_exit": null,
+    "in_container_gate": null
+   },
+   {
+    "scenario": "changed-after-host-gate",
+    "exit": 3,
+    "result": "tool-error",
+    "reason": null,
+    "host_gate": {
+     "exit": 0,
+     "last": "typescript gate: pass (49 files parsed, 5 malformed controls rejected; typescript 6.0.3, node v22.17.1); attestation written"
+    },
+    "docker_exit": 3,
+    "in_container_gate": null
+   },
+   {
+    "scenario": "foreign-nonce",
+    "exit": 2,
+    "result": "configuration-error",
+    "reason": null,
+    "host_gate": {
+     "exit": 0,
+     "last": "typescript gate: pass (49 files parsed, 5 malformed controls rejected; typescript 6.0.3, node v22.17.1); attestation written"
+    },
+    "docker_exit": 2,
+    "in_container_gate": null
+   }
+  ],
+  "g2_guard": "8/8 macOS and 8/8 inside the hardened Linux container (unchanged test file)",
+  "harness_real_repository_macos": "exit 0; 49 TypeScript files parsed, 5 malformed controls rejected; controls pass; 73 source targets, 0 findings",
+  "other_checks": [
+   "check_repository.py PASS",
+   "git diff --check",
+   "untracked whitespace",
+   "check_trial_workflow PASS",
+   "actionlint 1.7.12",
+   "delivery tests OK",
+   "node --check",
+   "gitleaks no leaks"
+  ]
+ },
+ "e03_adaptations": [
+  "run_harness passes --typescript-dir/--node (auto) or installs C5_TS_ATTESTATION and --ts-nonce (container)",
+  "CanaryInParseErrors uses a malformed .jsx canary (Semgrep parse-error path, not TypeScript-gated)",
+  "new CanaryInTypeScriptGate: malformed .tsx canary stops before Semgrep, canary absent from console and all artifacts",
+  "trial-driver canary test passes gate arguments"
+ ],
+ "e04_requirement": "Before any mandatory SAST CI (E04): the SAST job must hard-depend (needs:) on the existing mandatory lint/typecheck job and be skipped or failed when it fails; and the job must provide the lock-pinned compiler (npm ci from the application lockfile) for the host-side gate. Not implemented; ci.yml unchanged.",
+ "hosted_trial_impact": "The dispatch-only trial workflow does not install the application lockfile, so the host gate will fail closed with exit 2 (pinned compiler unavailable) before any container starts. Running the trial again needs an owner-authorised workflow step (pinned setup-node + npm ci --ignore-scripts from apps/octocat-supply/package-lock.json) or an equivalent.",
+ "limits": [
+  "Node gate itself verified on macOS (Node 22.17.1) only; no local Linux Node image and none pulled; the pinned Node is 24.22.2",
+  "Linux verification covers the host-attestation path through the hardened container (5 real-Docker scenarios), not a Linux-hosted Node gate",
+  "E03 container-mode suite and Linux 34-case matrix not re-run (container mode now needs per-case host attestations)",
+  "JavaScript (.js/.jsx/.mjs/.cjs) is not syntax-gated; .d.mts/.d.cts remain excluded",
+  "syntax only: type errors and early errors stay with the CI typecheck (E04 requirement)",
+  "A->B->A modification within the scan window is undetectable",
+  "host-side gate for container trials runs without network isolation"
+ ],
+ "file_sha256": {
+  "scripts/sast/feasibility.py": "78ae1f5d4d65eb0e63ea754b916b6cd331d3379873d9e780b779e60382416e6f",
+  "scripts/sast/hosted_trial.py": "3f965f3e0973776339220be9fb49777ab6ce1fcca5b7280b9e7c398d3e9ed606",
+  "scripts/sast/ts_syntax_gate.mjs": "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29",
+  "security/sast/typescript-gate.json": "3f46c454ed43917cd9dcab185acb3cc01c5c045bd9247441166f92a008d4db67",
+  "tests/security/sast/test_typescript_gate.py": "61ad9eeef4ffb8104182c723e59d25c526193949a5cc430d2a174ba11192481b",
+  "tests/security/sast/test_robustness_e03.py": "afe2d9ccaaca7030a63bc02641b39547eb7b0dce2ce6a11d8c526b7b1c279cb0",
+  "tests/security/sast/test_container_trial.py": "ecaba97249a969f2041ea98dff9a3badc54ee4ed34f1eb65cd22a1ca13b361c5",
+  "tests/security/sast/test_g2_mitigation_guard.py": "6d883cd85e500be944590660813415441704e1dcd54ec4ee4a148bd53e1f4d27"
+ },
+ "unchanged_sha256_prefix": {
+  ".github/workflows/ci.yml": "26e08322d3782a78",
+  ".github/workflows/c5-sast-hosted-trial.yml": "dd9cfc73531f0cb2",
+  "apps/octocat-supply/package-lock.json": "811c6683412ec606",
+  "apps/octocat-supply/package.json": "f88f146c429368bd",
+  "requirements-sast-linux.txt": "8d7d13b691f4df78",
+  "requirements-sast-macos.txt": "ca6756ce9ce3aeb8",
+  "security/sast/container/Dockerfile": "58d355494b33afa8",
+  "security/sast/toolchain.json": "6f78e663eac723cd",
+  "security/sast/controls.json": "ee61fedf3b6afce9"
+ },
+ "scratch": {
+  "docker_scenarios_sha256": "e61122bd463a5ca56dc074f3c9c56c390f0685ff3ca39e49a1dc6870e47c47cf",
+  "matrix_runner_g4_sha256": "bd0f88e09f46c7e8eaa82e4da44199e481f1c23a24accabaa1232cbe64323007"
+ },
+ "changed_files": {
+  "new": [
+   "scripts/sast/ts_syntax_gate.mjs",
+   "security/sast/typescript-gate.json",
+   "tests/security/sast/test_typescript_gate.py",
+   "docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md",
+   "docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.json"
+  ],
+  "modified": [
+   "scripts/sast/feasibility.py",
+   "scripts/sast/hosted_trial.py",
+   "tests/security/sast/test_container_trial.py",
+   "tests/security/sast/test_robustness_e03.py",
+   "README.md",
+   "AGENTS.md",
+   "docs/capability-status.md",
+   "docs/milestones/m4c-c5-sast-plan.md"
+  ]
+ }
+}

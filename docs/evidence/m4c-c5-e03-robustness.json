@@ -1,0 +1,108 @@
+{
+  "milestone": "M4C-C5 E03",
+  "status": "met locally (macOS native; Linux x86_64 in hardened --network none container, emulated)",
+  "date_utc": "2026-11-13",
+  "base_commit": "2b050a1",
+  "decision": {
+    "E03": "GO (met locally)",
+    "E04": "NO-GO",
+    "E05": "blocked",
+    "E06": "blocked",
+    "C5_A1": "NO-GO",
+    "C5_A2": "NO-GO",
+    "release_azure": "NO-GO"
+  },
+  "outstanding_before": {
+    "M11": "mocked only",
+    "M12": "mocked only",
+    "M14": "not exercised"
+  },
+  "red_phase": {
+    "failing_tests": [
+      "test_m11_unexpected_internal_error_is_a_tool_error",
+      "test_m12_forged_result_outside_targets",
+      "test_m12_forged_result_unknown_rule_or_line"
+    ],
+    "observed": [
+      "forged unknown rule accepted, exit 1, canary rule id printed/published",
+      "forged out-of-target path -> uncaught KeyError",
+      "unexpected internal error uncaught (subprocess exit 1 = findings)",
+      "driver could not write its evidence -> traceback exit 1"
+    ]
+  },
+  "fixes": {
+    "feasibility.py": [
+      "results must reference scanned targets, catalogued rules and positive lines (exit 3)",
+      "unexpected internal exceptions -> exit 3, type name only"
+    ],
+    "hosted_trial.py": [
+      "unexpected driver exceptions -> exit 7, type name only",
+      "container-run passes in-container exit 7 through"
+    ]
+  },
+  "tests": {
+    "e03_macos": {
+      "ok": 28,
+      "failed": 0,
+      "summary": "OK"
+    },
+    "e03_linux_container": {
+      "ok": 28,
+      "failed": 0,
+      "summary": "OK"
+    },
+    "sast_suite_macos_real_engine": {
+      "ok": 52,
+      "failed": 0,
+      "summary": "OK"
+    }
+  },
+  "docker_evidence_checks": {
+    "blocked_evidence_path": 7,
+    "stale_readonly_record": 7,
+    "host_cannot_record": 7,
+    "clean_positive": "0 (70 targets, 0 findings)"
+  },
+  "mutation_matrix": {
+    "results-repo-venv-darwin.json": "34/34",
+    "results-repo-venv-linux.json": "34/34"
+  },
+  "limits": [
+    "consistent full engine-output forgery undetectable (mitigated by core hash, RECORD, offline hash-locked install, same-run controls)",
+    "kill/timeout/crash simulated by intercepting real engine results",
+    "file paths published by design (now bounded to targets)",
+    "Linux emulated; hosted acceptance used pre-E03 harness/driver hashes"
+  ],
+  "open_blockers": [
+    "G2",
+    "G4",
+    "G5",
+    "governance (C5-A2/E06)",
+    "E04",
+    "E05"
+  ],
+  "preserved_files_unchanged": 221,
+  "changed_files": [
+    "tests/security/sast/test_robustness_e03.py",
+    "scripts/sast/feasibility.py",
+    "scripts/sast/hosted_trial.py",
+    "tests/security/sast/test_container_trial.py",
+    "docs/evidence/m4c-c5-e03-robustness.md",
+    "docs/evidence/m4c-c5-e03-robustness.json",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ],
+  "changed_file_sha256sum": [
+    "fcf4d10ea629c8920e0756f5341d2bef7233b5a538e697d3a1ddfa3580534b34  tests/security/sast/test_robustness_e03.py",
+    "772f9f0d0dea63992659eaaa6eaddf7c319113bb73668dc685bbc3c9cc15e26c  scripts/sast/feasibility.py",
+    "6c18361b9531089690ffc3d281d3de7f8bbe16d49b3b5817f24bb3a4f8b6e262  scripts/sast/hosted_trial.py",
+    "5bc4211cc261c94f64d72ca1f14754a124a338a2818d6982be1bcebfbce57782  tests/security/sast/test_container_trial.py",
+    "c2174e06defe5a117e4ec4817ac29c15e434c05689282dd2d8aa6c1c4c4f8b26  docs/evidence/m4c-c5-e03-robustness.md",
+    "72bac84050e61e7dba1be0cab464a694868f5b39baf8e70f0196a91c3e96e0a2  README.md",
+    "eebe6297b8163055ccdc7b5238a6b6fb7cd5d2e32935ca5ced20b8d57ff34014  AGENTS.md",
+    "726cca38a60c21c5c1f29f49eb9f28a0cf22f71b03e7367109e7c7a2fb286873  docs/capability-status.md",
+    "55d3f8be546af42b356c65c3d586f5e3f7c490143d18b588376caa3b3fb0f724  docs/milestones/m4c-c5-sast-plan.md"
+  ]
+}

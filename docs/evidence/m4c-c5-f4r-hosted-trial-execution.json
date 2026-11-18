@@ -1,0 +1,240 @@
+{
+  "milestone": "M4C-C5-F4R",
+  "record": "hosted trial execution evidence and closeout",
+  "date_utc": "2026-11-13",
+  "decisions": {
+    "hosted_sast_feasibility": "GO - formally accepted as feasibility evidence (single run, scoped)",
+    "E02_feasibility": "met",
+    "E03_robustness": "partly met (M11/M12 mocked only; M14 not exercised)",
+    "E04_mandatory_ci": "NO-GO (not implemented/authorized)",
+    "E05_coverage_review": "blocked",
+    "E06_governance": "blocked",
+    "C5_A1": "NO-GO",
+    "C5_A2": "NO-GO",
+    "release_and_azure": "NO-GO"
+  },
+  "run": {
+    "id": 43478654843,
+    "attempt": 1,
+    "event": "workflow_dispatch",
+    "branch": "main",
+    "head_sha": "2b050a140ae558bc11e6e5b7c252cdb3fbbfb6f0",
+    "conclusion": "success",
+    "created": "2026-11-13T18:02:17Z",
+    "updated": "2026-11-13T18:04:03Z",
+    "steps_all_success": true,
+    "token_permissions": [
+      "Contents: read",
+      "Metadata: read"
+    ],
+    "runner_image": "ubuntu-24.04 20261111.127.1",
+    "authorization_reference": "C5-F4R owner approval 2026-11-13"
+  },
+  "mandatory_ci_same_commit": {
+    "run": 43477343929,
+    "event": "push",
+    "application": "success",
+    "policy": "success",
+    "containers": "success",
+    "required": "success",
+    "codeql": "skipped"
+  },
+  "artifact": {
+    "id": 14064591168,
+    "name": "c5-f4r-hosted-sast-trial-43478654843-1",
+    "size_bytes": 11698,
+    "github_digest": "sha256:a86a60262cc22c4e9b04d49c1739fa191f27e074725df3d57e77063bf862afa2",
+    "zip_sha256_matches_digest": true,
+    "provided_copy_identical_to_zip_and_fresh_download": true,
+    "files": {
+      "c5-summary.json": "96739ec34a171c11c1eccd82f30e9b717358d5c9cb46d9fa6e727f519fe202fa",
+      "container-image.json": "fc313b7aa33536ca0a2e0ebeda473da45dc99b37afe1b035d495a699e4039dae",
+      "container-install.json": "3d750496bdf953cc8fa5af2c34b52553b9e2d70cafa6197ee4cff263a56bf8f7",
+      "container-run.json": "0b191fcccad1481fd9fa417c65608505dce68b4499438773e81464f7ae0b6b93",
+      "hosted-runner-facts.json": "f0c89eec5a7bf981098b420affabfbbdb2c7e313a45a04c5e55d1dd43bed90ab",
+      "hosted-trial.json": "159d9dd870bdc2d3eff6a68e1845a65c226be15a4c013edb4eda7344d4ce6654"
+    },
+    "gitleaks": "no leaks"
+  },
+  "inputs_match_commit": [
+    "d84a7c3aa8cfc2b9bcfe288b13433713d839137fd45c55492bbe895763af3579  scripts/sast/feasibility.py",
+    "de11bf975bd0f7c49a7fc8a2454cab21ef3fde7ebfe56ee00cc407332d2e586e  scripts/sast/hosted_trial.py",
+    "6f78e663eac723cd347c1bad0c426ce257f3aadb3e3615b579718bbc6bc6dc72  security/sast/toolchain.json",
+    "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6  security/sast/controls.json",
+    "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c  security/sast/rules/typescript.yml",
+    "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73  security/sast/rules/python.yml",
+    "8d7d13b691f4df781c9730b40344441fcf30ff59d3ac3d9ad495ee791a8b8b15  requirements-sast-linux.txt",
+    "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae  security/sast/container/Dockerfile",
+    "dd9cfc73531f0cb25408153fa98612f952df55695a16dccbe992e4f9549c3c63  .github/workflows/c5-sast-hosted-trial.yml"
+  ],
+  "host_facts": {
+    "kernel": "7.0.0-1014-aws",
+    "cpu_model": "Intel(R) Xeon(R) 6975P-C",
+    "cpu_count": 2,
+    "mem_total": "7962904 kB",
+    "libc": "glibc 2.39",
+    "python": "3.12.3",
+    "euid": 1001,
+    "seccomp_mode": "0",
+    "userns": {
+      "max_user_namespaces": "25941",
+      "unprivileged_userns_clone": "1",
+      "apparmor_restrict_unprivileged_userns": "1"
+    },
+    "apparmor_enabled": "Y",
+    "docker_present": true
+  },
+  "container_facts": {
+    "kernel": "7.0.0-1014-aws",
+    "euid": 1001,
+    "seccomp_mode": "2",
+    "apparmor_enabled": "Y",
+    "python": "3.12.3"
+  },
+  "image": {
+    "base_image": "ubuntu@sha256:77eb101c607d6e3d4f5ad0c8a02c2136c689b98aba1f359e6502ba517e5c57ec",
+    "dockerfile_sha256": "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae",
+    "image_id": "sha256:27d6877f7a7537684e8ad74d97bd2b6fec5525d916dc45140f00f5f8ef4b44c4",
+    "architecture": "amd64",
+    "user": "1001:1001",
+    "package_count": 112,
+    "copyright_missing": [],
+    "python": "Python 3.12.3",
+    "seconds": 50.14
+  },
+  "install": {
+    "exit": 0,
+    "seconds": 9.69,
+    "stages": {
+      "venv": 0,
+      "pip-install": 0,
+      "pip-check": 0
+    },
+    "hardening": [
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--pull",
+      "never",
+      "--network",
+      "none",
+      "--user",
+      "1001:1001",
+      "--read-only",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges=true",
+      "--ipc",
+      "none",
+      "--pids-limit",
+      "512",
+      "--memory",
+      "3g",
+      "--memory-swap",
+      "3g",
+      "--cpus",
+      "2",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,noexec,size=512m",
+      "--workdir",
+      "/repo"
+    ]
+  },
+  "scan": {
+    "exit": 0,
+    "docker_exit": 0,
+    "seconds": 19.68,
+    "nonce_bound": true,
+    "harness_exit": 0,
+    "harness_wall_seconds": 19.53,
+    "peak_child_rss_kib": 288952,
+    "isolation": "docker --network none verified: only lo up (kernel fallback tunnels down), non-local IPv4/IPv6 unreachable, DNS fails, non-root, no capabilities, NoNewPrivs, seccomp filter, read-only root",
+    "isolation_mode": "container",
+    "toolchain": {
+      "distributions_match_lock": 67,
+      "lock": "requirements-sast-linux.txt",
+      "pip_check": "pass",
+      "record_files_verified": 3310
+    },
+    "inventory_total": 226,
+    "excluded": [
+      "apps/octocat-supply/frontend/start.sh",
+      "apps/octocat-supply/scripts/verify-auth-capture.d.mts"
+    ],
+    "controls": {
+      "status": "pass",
+      "fixtures": 23,
+      "outcomes": {
+        "detected": 40,
+        "clean": 19,
+        "known-miss": 5,
+        "MISSED": 0,
+        "FALSE-POSITIVE": 0,
+        "UNEXPECTEDLY-DETECTED": 0
+      },
+      "seconds": 1.533
+    },
+    "source": {
+      "status": "clean",
+      "targets": 69,
+      "findings": [],
+      "wall_seconds": [
+        2.762,
+        2.762,
+        2.784,
+        2.749,
+        2.765
+      ],
+      "max_memory_bytes": 164209856,
+      "total_bytes": 420218
+    },
+    "semgrep_core_sha256": "38fd08794fa488263b4a324f1b71eb6c0817f0ddaff372d46fe3629b3f78672d",
+    "rules_sha256": {
+      "security/sast/rules/python.yml": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73",
+      "security/sast/rules/typescript.yml": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c"
+    },
+    "catalogue_sha256": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+    "source_hashes_match_commit": true
+  },
+  "comparison_with_f4r_local": {
+    "matches": [
+      "isolation proof",
+      "67 distributions / 3310 RECORD",
+      "controls 40/19/5",
+      "69 targets 0 findings",
+      "RSS and engine memory"
+    ],
+    "explained_differences": {
+      "inventory": "226 hosted = tracked files at 2b050a1; local 223/224 copies predated F4R evidence/test files",
+      "image_id": "non-reproducible by design",
+      "timing": "native faster (build 50.1s vs 178s; scan 2.75s vs 3.7-4.5s)",
+      "fleet": "F4 run Azure kernel/AMD; F4R run AWS kernel/Intel; restriction present on both"
+    },
+    "log_warnings": [
+      "git default-branch hint during checkout (benign)"
+    ]
+  },
+  "limits": [
+    "single sample on one runner image version",
+    "container AppArmor profile name not recorded",
+    "non-blocking: feasibility not enforcement",
+    "15 single-function rules, 5 known blind spots; no independent coverage review",
+    "host-side hash-pinned download before isolation; docker root-equivalent"
+  ],
+  "blockers": {
+    "G2": "open: 5 MODERATE advisories (mcp 1.29.0 x4, opentelemetry-api 1.37.0); not waived",
+    "G4": "open: engine-accepted malformed TS; needs tsc/ESLint ordering",
+    "G5": "open: 26 bundled native libs without notices/SBOM; image licence NOASSERTION SBOM, 21 non-machine-readable copyright files, Trivy DS-0026 LOW",
+    "governance": "blocked: per C5 readiness assessment main unprotected, no environments/independent reviewer; CodeQL skipped",
+    "E04_E05": "mandatory source-security job and independent review not started"
+  },
+  "changed_files": [
+    "docs/evidence/m4c-c5-f4r-hosted-trial-execution.md",
+    "docs/evidence/m4c-c5-f4r-hosted-trial-execution.json",
+    "README.md",
+    "AGENTS.md",
+    "docs/capability-status.md",
+    "docs/milestones/m4c-c5-sast-plan.md"
+  ]
+}
