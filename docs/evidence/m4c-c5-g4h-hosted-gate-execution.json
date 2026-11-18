@@ -1,0 +1,209 @@
+{
+  "milestone": "M4C-C5-G4H execution and G4 closeout",
+  "date_utc": "2026-11-18",
+  "commit": "2e0bd258a6b217572e86355a460d86dc5b479ce2",
+  "authorisation": "C5-G4H U1E run-1 2026-11-18",
+  "owner_decision": "G4 CLOSED for TypeScript only (2026-11-18); JavaScript out of scope",
+  "result": "PASS (clean, exit 0)",
+  "pre_dispatch": {
+    "utc": "2026-11-18T20:38:46Z",
+    "head_equals_origin_main": true,
+    "clean": true,
+    "consistency": "237/237",
+    "osv": {
+      "queries": 335,
+      "ids": 6,
+      "severity": "MODERATE",
+      "new": 0,
+      "high_or_critical": 0
+    },
+    "kev": {
+      "catalog": "2026.11.18",
+      "hits": 0
+    },
+    "semgrep_latest": "1.186.0",
+    "stop_conditions_triggered": [],
+    "expiry": "2026-12-17"
+  },
+  "run": {
+    "id": 44393309563,
+    "attempt": 1,
+    "dispatched_utc": "2026-11-18T20:39:24Z",
+    "job": "2026-11-18T20:39:30Z/2026-11-18T20:41:26Z",
+    "steps_succeeded": 13,
+    "ref": "refs/heads/main",
+    "event": "workflow_dispatch",
+    "runner": {
+      "os": "Ubuntu 24.04.5 LTS",
+      "image": "ubuntu24/20261111.370",
+      "kernel": "7.0.0-1017-azure",
+      "arch": "x86_64"
+    },
+    "token_permissions": [
+      "contents: read",
+      "metadata: read"
+    ]
+  },
+  "artifact": {
+    "name": "c5-f4r-hosted-sast-trial-44393309563-1",
+    "id": 14469048127,
+    "bytes": 12466,
+    "github_digest": "sha256:388dc3baca1ba774e1a708514791aed36b45fca9d10ce0928af60c4cdf4e0cf8",
+    "download_sha256_equal": true,
+    "files": 6,
+    "retention_days": 7,
+    "file_sha256": {
+      "c5-summary.json": "f343efe652f4db5b6c2d8a102224e11f616f7f9ddfe7e7b78956c6f9e9f40359",
+      "container-image.json": "64bbc00d169ad60aa118d41d5fdcecc63b137c32e7f70126836c27049790457a",
+      "container-install.json": "a1997ab55ccea66703164ac188ac0e253c5289076c3d9968c966ff54f9a4d628",
+      "container-run.json": "06d39d53e7a79bd0904dbed6498ce20058d49f161404aa883da518ab84db2b2b",
+      "hosted-runner-facts.json": "a854182614f79ceadc6d0c9c0da076725ac545708e7be6ddd97b0b48395a65c2",
+      "hosted-trial.json": "6ea5a9d3088984f05b228adba75fb01538558693fcf322b40686a7ef75e06556"
+    },
+    "job_log_sha256": "3bed9cb1a754258ad4f8f01f8724b004bfa5589303b3d1122aca454d8cf2470c"
+  },
+  "checks": {
+    "input_sha256sum_equals_expected": true,
+    "input_files": 11,
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "npm_ci_packages": 367,
+    "preflight": "pass 49/5",
+    "ts_gate": {
+      "mode": "host-attestation",
+      "accepted": 49,
+      "rejected_controls": 5,
+      "typescript": "6.0.3",
+      "node": "v24.22.2",
+      "compiler_sha256": "569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39"
+    },
+    "semgrep_version": "1.186.0",
+    "semgrep_core_sha256": "dcaa53ef689d5e0145e6d418016ed40561a11ad6fa2c9472a760ed8131131e68",
+    "toolchain": {
+      "distributions": 67,
+      "pip_check": "pass",
+      "record_files": 3310
+    },
+    "image_id": "sha256:6221d76302a56767277dd03f1b2dad574134b967f639c901818bd3c6fe413b99",
+    "isolation": "docker --network none verified (only lo; no non-local IPv4/IPv6; DNS fails; non-root; no caps; NoNewPrivs; seccomp; read-only root)",
+    "controls": {
+      "as_expected": "59/64",
+      "known_miss": 5,
+      "missed": 0,
+      "parser_gap_drift": 0
+    },
+    "source": {
+      "targets": 73,
+      "findings": 0,
+      "repeat": 5
+    },
+    "non_blocking": true,
+    "sensitive_content": "none",
+    "actions_caches_after_run": 0
+  },
+  "g4_closeout": {
+    "status": "CLOSED (TypeScript only)",
+    "out_of_scope": [
+      "JavaScript (.js, .jsx, .mjs, .cjs)",
+      ".d.mts/.d.cts"
+    ],
+    "e04_requirement_unchanged": "SAST job must hard-depend on lint/typecheck",
+    "documented_race": "A->B->A within scan window not detectable"
+  },
+  "limitations": [
+    "single hosted run",
+    "Node from runner image tool cache (version verified)",
+    "host-side gate without network isolation (local parsing only)",
+    "Run 1 used setup-node's implicit package-manager-cache default (not engaged); explicit false applied afterwards, not yet hosted-verified",
+    "mandatory CI green at 2e0bd25 due to advisory withdrawal (GHSA-fc5q-39xc-vjpf withdrawn 2026-11-18T15:38:56Z); 9 moderate minimatch remain below threshold, not waived",
+    "G2/G5 open under U1E until 2026-12-17; G5D section 7 unmet",
+    "artifact retention 7 days"
+  ],
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "CLOSED (TypeScript only)",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO",
+    "U1E": "unchanged",
+    "G5D_D1_D6": "unchanged"
+  },
+  "hardening": {
+    "applied": true,
+    "patch_sha256": "9f4c690133379736d499c40699d3acea04bece32e31f6d1972ea5450ba7b7241",
+    "changes": [
+      "workflow: setup-node with package-manager-cache: false",
+      "validator: with == {node-version, package-manager-cache: 'false'}",
+      "tests: expect new with; reject removal and values true/''/'False '/'0'/'npm'"
+    ],
+    "prototype_validation": {
+      "actionlint": "pass",
+      "validator": "pass",
+      "trial_workflow_tests": "pass",
+      "engine_free_suite": "88 run, 58 pass, 30 skipped",
+      "hardened_validator_vs_current_workflow": "rejected",
+      "current_validator_vs_hardened_workflow": "rejected"
+    },
+    "hash_effects": {
+      ".github/workflows/c5-sast-hosted-trial.yml": [
+        "0fc6f22dafec175426ff4dff1d910077dbbe182a86dfc155c60300cdf7fabb4b",
+        "d445ce5c19e76e54226bb57db7d4fbbac5002384c48a0a1687b4b6b9342bf684"
+      ],
+      "scripts/sast/check_trial_workflow.py": [
+        "587a54ed099f5f11ab3a97609070e5b93b87c40806b7ffeb3ef53ef50d0ea6d0",
+        "cb9c134b8faa6edb7c0618d57d5c1c088017ec9356527db576f046c7e9e887b4"
+      ],
+      "tests/security/sast/test_trial_workflow.py": [
+        "5059309ec4bfbf6a20166e5479963bd3b5328f8734b7be30c4993928845dc2c9",
+        "aa9a71a36e97d11c96118c3c293dd062ca5749ee0133067acd67a0ffae59f0a5"
+      ]
+    },
+    "binding_review": "no live binding breaks (not in U1E section 3 or consistency checks); historical records unchanged; next trial expected input_sha256sum changes (workflow entry d445ce5c)",
+    "another_hosted_trial": "not required for G4 closure; recommended (not required) confirmation at the next owner-authorised trial",
+    "applied_date": "2026-11-18",
+    "approved_by": "owner",
+    "applied_hashes_equal_prototype": true,
+    "next_run_expected_input_sha256sum": [
+      "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0  scripts/sast/feasibility.py",
+      "6dde3e0d6fd665cc761379ba62aa8c68339b2641755178ba71c5cfd7d537d66a  scripts/sast/hosted_trial.py",
+      "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d  security/sast/toolchain.json",
+      "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6  security/sast/controls.json",
+      "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c  security/sast/rules/typescript.yml",
+      "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73  security/sast/rules/python.yml",
+      "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25  requirements-sast-linux.txt",
+      "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae  security/sast/container/Dockerfile",
+      "d445ce5c19e76e54226bb57db7d4fbbac5002384c48a0a1687b4b6b9342bf684  .github/workflows/c5-sast-hosted-trial.yml",
+      "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29  scripts/sast/ts_syntax_gate.mjs",
+      "3f46c454ed43917cd9dcab185acb3cc01c5c045bd9247441166f92a008d4db67  security/sast/typescript-gate.json"
+    ],
+    "next_run_input_changes_vs_run1": [
+      ".github/workflows/c5-sast-hosted-trial.yml: 0fc6f22d... -> d445ce5c..."
+    ]
+  },
+  "configurations": {
+    "run1_verified": {
+      "commit": "2e0bd25",
+      "setup_node_with": {
+        "node-version": "24.22.2"
+      },
+      "workflow_sha256": "0fc6f22dafec175426ff4dff1d910077dbbe182a86dfc155c60300cdf7fabb4b",
+      "validator_sha256": "587a54ed099f5f11ab3a97609070e5b93b87c40806b7ffeb3ef53ef50d0ea6d0",
+      "workflow_tests_sha256": "5059309ec4bfbf6a20166e5479963bd3b5328f8734b7be30c4993928845dc2c9",
+      "hosted_verified": true
+    },
+    "hardened": {
+      "setup_node_with": {
+        "node-version": "24.22.2",
+        "package-manager-cache": "false"
+      },
+      "workflow_sha256": "d445ce5c19e76e54226bb57db7d4fbbac5002384c48a0a1687b4b6b9342bf684",
+      "validator_sha256": "cb9c134b8faa6edb7c0618d57d5c1c088017ec9356527db576f046c7e9e887b4",
+      "workflow_tests_sha256": "aa9a71a36e97d11c96118c3c293dd062ca5749ee0133067acd67a0ffae59f0a5",
+      "hosted_verified": false,
+      "committed": false
+    }
+  }
+}

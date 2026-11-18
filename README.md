@@ -10,14 +10,16 @@ feasibility accepted; [E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) m
 the [G5D owner decision](docs/evidence/m4c-c5-g5d-security-risk-decision.md) (2026-11-17) covered the now-retired 1.185.0 toolchain
 ([G2](docs/evidence/m4c-c5-g2-dependency-assessment.md), [G5](docs/evidence/m4c-c5-g5-native-library-assessment.md)/[G5C](docs/evidence/m4c-c5-g5c-vulnerability-assessment.md); SBOM v2, [G5B](docs/evidence/m4c-c5-g5b-sbom-static-inventory.md) v1 frozen);
 [G4 TypeScript syntax gate](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) implemented and verified locally
-([G4H](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md): trial workflow prepared with pinned Node + `npm ci` preflight, not dispatched; G4 open).
+([G4H](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md) workflow; hosted Run 1 44393309563 at `2e0bd25` passed per [G4H execution](docs/evidence/m4c-c5-g4h-hosted-gate-execution.md);
+G4 CLOSED for TypeScript only; JavaScript out of scope).
 [G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475); path B chosen, exception X1 WITHDRAWN (never used).
 **Semgrep CE 1.186.0 is ADOPTED** per the owner-approved [U1E decision](docs/evidence/m4c-c5-u1e-adoption-decision.md) (2026-11-18), based on
 [C5-U1](docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md), [U1B](docs/evidence/m4c-c5-u1b-pre-execution-assurance.md) (17/17 rebuilt libraries verified),
 [U1C](docs/evidence/m4c-c5-u1c-lt-u1-execution.md) and [U1D](docs/evidence/m4c-c5-u1d-lt-u1-verification.md) (LT-U1 S0–S8 passed): G2 V1/V2 and G5 V3–V6/V8 are
 conditionally accepted only for local trusted-repository scans and separately authorised non-blocking trials, scoped to the U1E hashes,
 until 2026-12-17 under the G5D/U1E stop conditions; schema-valid SBOM v3 is the baseline (G2/G5 OPEN, not waived).
-Mandatory CI is red on picomatch GHSA-fc5q-39xc-vjpf (dev-only, no fixed release), not waived; hosted G4H on 1.186.0 not yet dispatched.
+Mandatory CI at `2e0bd25` passed (run 44380044262) after GitHub withdrew picomatch GHSA-fc5q-39xc-vjpf; 9 moderate minimatch findings remain below the
+unchanged high threshold, not waived. G4H Run 1 on 1.186.0 passed (clean, 0 findings); owner-approved setup-node `package-manager-cache: false` hardening applied afterwards (not yet hosted-verified).
 Mandatory SAST CI (E04), release, redistribution, C5 acceptance and deployment remain NO-GO.**
 C1/C3 local acceptance and C4 static validation are preserved. Read-only checks
 confirm C4 commit `e9b5704`, hosted run 43407086701: policy/application/containers/
@@ -36,7 +38,7 @@ dispatch-only, read-only, non-blocking trial workflow; its first hosted run fail
 AppArmor user-namespace restriction ([diagnosis](docs/evidence/m4c-c5-f4-hosted-run-diagnosis.md)).
 [C5-F4R](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md) moves install and scan into a
 digest-pinned `--network none` hardened container; its hosted run succeeded and is reviewed in the
-[execution evidence](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md). G2/G4/G5 and governance remain open. C5 acceptance and C2/C6/C7/C8 remain open; no live
+[execution evidence](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md). G2/G5 and governance remain open (G4 closed for TypeScript only). C5 acceptance and C2/C6/C7/C8 remain open; no live
 network/SQL/provider/identity enforcement or Azure readiness follows from CI.
 Azure session/permission/quota checks remain blocked. Morrow Supply is
 an independently implemented React/TypeScript, TypeScript API and local SQLite
@@ -63,6 +65,7 @@ Agents, cloud deployment and release execution remain planned.
 | [C5-F4R hosted trial execution](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md) | Run 43478654843 identity/integrity, isolation controls, results vs local expectations, feasibility GO and remaining G2/G4/G5/governance blockers |
 | [C5 E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) | M11 failure handling, M12 forged reports, M14 canary capture with real engine on both platforms; four harness/driver gaps fixed; 34-case matrix preserved |
 | [C5 G2 dependency assessment](docs/evidence/m4c-c5-g2-dependency-assessment.md) | Five MODERATE `mcp`/`opentelemetry-api` advisories verified; traced as not reached during scans; no compatible fix; owner conditional acceptance (local/trial only, expires 2026-12-17; open for mandatory CI; not waived); regression guard for flags/environment |
+| [C5 G4H hosted gate execution](docs/evidence/m4c-c5-g4h-hosted-gate-execution.md) | Run 44393309563 at `2e0bd25`: artifact digest verified, 6 files, 11 input hashes, Node 24.22.2, host-attestation 49/5, Semgrep 1.186.0, isolation, 59/64 controls, 0 findings; G4 closed for TypeScript only; Run 1 vs hardened configuration (setup-node `package-manager-cache: false` applied after Run 1, new hashes, binding review) |
 | [C5 G4H hosted gate preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md) | Trial workflow: pinned setup-node 24.22.2, `npm ci --ignore-scripts`, TypeScript preflight before any container, exact six-file allowlist; validator + 22 workflow and 14 driver tests; hosted verification procedure (not dispatched) |
 | [C5 G4 TypeScript syntax-gate implementation](docs/evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md) | Pinned typescript 6.0.3 gate before Semgrep (lockfile-verified compiler, self-test, post-scan re-hash; host attestation for container trials); 77/77 SAST tests, 34/34 matrix (T03 now exit 3), 5 real-Docker scenarios; E04 lint/typecheck dependency recorded |
 | [C5 G4 TypeScript syntax-gate assessment](docs/evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) | Semgrep silently accepted 188/755 malformed TS mutants and all 4 G4 cases; TypeScript syntax-only and ESLint parser caught all with 0 false positives; esbuild missed 2; recommends pinned typescript 6.0.3 gate plus CI ordering (not implemented) |

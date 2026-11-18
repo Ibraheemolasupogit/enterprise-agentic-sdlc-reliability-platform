@@ -20,7 +20,7 @@
   [F4R evidence](docs/evidence/m4c-c5-f4r-docker-trial-preparation.md). Owner run
   43478654843 at `2b050a1` passed and was closed out in
   [F4R execution evidence](docs/evidence/m4c-c5-f4r-hosted-trial-execution.md): hosted
-  SAST feasibility accepted; C5-A1/A2, mandatory CI, G2/G4/G5 and governance remain open.
+  SAST feasibility accepted; C5-A1/A2, mandatory CI, G2/G5 and governance remain open (G4 closed for TypeScript only, below).
   [E03 robustness](docs/evidence/m4c-c5-e03-robustness.md) is met locally (M11/M12/M14 with the
   real engine; harness/driver fail-closed fixes, verified post-hosted-run only locally).
   [G2 assessment](docs/evidence/m4c-c5-g2-dependency-assessment.md): advisories confirmed, not reached
@@ -47,12 +47,16 @@
   (compiler pinned by security/sast/typescript-gate.json to the app lockfile; host-side gate + nonce-bound attestation
   for container trials; no Node in the scan image). Keep tests/security/sast/test_typescript_gate.py passing. The
   trial workflow now provisions pinned Node 24.22.2 + `npm ci --ignore-scripts` and a TypeScript preflight before any
-  container ([G4H preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md); not dispatched; keep
+  container ([G4H preparation](docs/evidence/m4c-c5-g4h-hosted-gate-preparation.md); owner-authorised Run 1 44393309563 at `2e0bd25`
+  passed per [G4H execution](docs/evidence/m4c-c5-g4h-hosted-gate-execution.md); keep
   check_trial_workflow.py and its tests passing). E04
-  requirement: SAST job must hard-depend on lint/typecheck. G4 open pending hosted verification.
+  requirement: SAST job must hard-depend on lint/typecheck. G4 is CLOSED for TypeScript only (owner, 2026-11-18); JavaScript
+  (.js/.jsx/.mjs/.cjs) remains out of scope. The owner-approved setup-node `package-manager-cache: false` hardening is applied after
+  Run 1 (validator requires it; not yet hosted-verified); the next trial's workflow input hash is `d445ce5c…`.
   [G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475); the owner chose
-  path B on 2026-11-18 and exception X1 is WITHDRAWN (never approved or used). Mandatory CI is red (picomatch GHSA-fc5q-39xc-vjpf,
-  dev-only, no fixed release); never waive it or change the audit gate or CI thresholds without owner direction.
+  path B on 2026-11-18 and exception X1 is WITHDRAWN (never approved or used). Mandatory CI at `2e0bd25` passed (run 44380044262) only because GitHub
+  withdrew GHSA-fc5q-39xc-vjpf; 9 moderate minimatch findings remain below the high threshold; never waive findings or change
+  the audit gate or CI thresholds without owner direction.
   Semgrep CE 1.186.0 is ADOPTED per the owner-approved [U1E decision](docs/evidence/m4c-c5-u1e-adoption-decision.md) (2026-11-18),
   based on [C5-U1](docs/evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md),
   [U1B](docs/evidence/m4c-c5-u1b-pre-execution-assurance.md) (17/17 rebuilt libraries verified; never accept inferred identities),
@@ -60,7 +64,7 @@
   G2 V1/V2 and G5 V3–V6/V8 are conditionally accepted ONLY for local trusted-repository scans through the hardened harness and
   separately authorised non-blocking trials, scoped to the U1E section 3 hashes, expiring 2026-12-17; G5D section 6 and U1E E5 stop
   conditions apply (stop scanning if any trips, any pinned hash changes, or on lapse). SBOM v3
-  (`security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json`) is the current baseline. G2/G4/G5 OPEN, nothing waived;
+  (`security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json`) is the current baseline. G2/G5 OPEN (G4 closed for TypeScript only), nothing waived;
   E04, release and redistribution NO-GO. Hosted dispatch needs owner commit/push, a same-day recheck and per-run authorisation;
   keep tests/security/sast/test_g2_mitigation_guard.py passing in normal and `env -i` environments.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.

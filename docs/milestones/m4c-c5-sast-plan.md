@@ -33,7 +33,8 @@ restriction on unprivileged user namespaces. See the
 locally validated). Owner run 43478654843 at `2b050a1` passed. The
 [execution evidence](../evidence/m4c-c5-f4r-hosted-trial-execution.md) accepts hosted feasibility
 (E02 met, E03 partly met). [E03 robustness](../evidence/m4c-c5-e03-robustness.md) later met E03 locally
-(M11/M12/M14 with the real engine on both platforms); E04–E06, C5-A1/A2 and G2/G4/G5 remain open.
+(M11/M12/M14 with the real engine on both platforms); E04–E06, C5-A1/A2 and G2/G5 remain open (G4 later closed
+for TypeScript only, below).
 Per the [G2 assessment](../evidence/m4c-c5-g2-dependency-assessment.md) (advisories not reached in scans;
 no Semgrep-compatible fix), the owner conditionally accepted G2 with a mitigation regression guard; the scope
 was later narrowed and extended by G5D (below). G2 stays OPEN for mandatory CI (E04).
@@ -49,14 +50,15 @@ trials until 2026-12-17 under its early-stop conditions and controls; SBOM v2 ad
 The [G4 assessment](../evidence/m4c-c5-g4-typescript-syntax-gate-assessment.md) recommends a syntax-only gate using the
 pinned typescript 6.0.3 plus CI ordering on lint/typecheck. The [G4 implementation](../evidence/m4c-c5-g4-typescript-syntax-gate-implementation.md)
 adds that gate to the harness (host attestation for container trials) and is verified locally. **E04 requirement:** the SAST
-job must hard-depend (`needs:`) on the mandatory lint/typecheck job and provide the lock-pinned compiler. G4 stays open
-until hosted verification, which [G4H](../evidence/m4c-c5-g4h-hosted-gate-preparation.md) prepares (trial workflow only;
-not dispatched). [G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
+job must hard-depend (`needs:`) on the mandatory lint/typecheck job and provide the lock-pinned compiler. Hosted verification
+prepared in [G4H](../evidence/m4c-c5-g4h-hosted-gate-preparation.md) passed in Run 44393309563 at `2e0bd25`
+([G4H execution](../evidence/m4c-c5-g4h-hosted-gate-execution.md)); G4 is CLOSED for TypeScript only (JavaScript out of scope); the workflow then gained an explicit
+setup-node `package-manager-cache: false`, enforced by the validator (not yet hosted-verified). [G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
 waived); the owner chose path B and exception X1 is withdrawn. [C5-U1](../evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md) prepared Semgrep 1.186.0,
 [U1B](../evidence/m4c-c5-u1b-pre-execution-assurance.md) verified all 17 rebuilt libraries, [U1C](../evidence/m4c-c5-u1c-lt-u1-execution.md) and
 [U1D](../evidence/m4c-c5-u1d-lt-u1-verification.md) record LT-U1 (S0–S8 passed), and the owner-approved [U1E](../evidence/m4c-c5-u1e-adoption-decision.md)
 (2026-11-18) adopts 1.186.0 with SBOM v3 as baseline and G2 V1/V2 + G5 V3–V6/V8 conditionally accepted for local scans and authorised
-non-blocking trials until 2026-12-17 (G2/G4/G5 OPEN). E04–E06 and release remain NO-GO.
+non-blocking trials until 2026-12-17 (G2/G5 OPEN; G4 closed for TypeScript only). E04–E06 and release remain NO-GO.
 
 ## Entry decision and bounded scope
 
