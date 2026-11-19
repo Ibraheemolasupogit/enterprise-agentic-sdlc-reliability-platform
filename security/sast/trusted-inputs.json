@@ -1,0 +1,11 @@
+{
+  "schema": "c5-trusted-inputs/1",
+  "purpose": "C5 R2(a) P1: hosted SAST driver steps run only for owner-dispatched workflow_dispatch on refs/heads/main of this repository. Numeric IDs are pinned because names can be reused and, in a fork, the forker is the repository owner.",
+  "repository_id": 1439889276,
+  "repository_owner_id": 181765037,
+  "ref": "refs/heads/main",
+  "events": [
+    "workflow_dispatch"
+  ],
+  "require_private": true
+}

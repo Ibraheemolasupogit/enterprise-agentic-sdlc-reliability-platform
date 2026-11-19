@@ -71,6 +71,8 @@
   V8/PCRE2 recorded as macOS-only (still OPEN); platform-wrapper guard test strengthened and its U1E section 3 hash rebound by
   [U1E addendum 1](docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md) (owner-approved 2026-11-19; consistency 237/237). R2(a) (owner-controlled `main` only, no PR/fork
   scanning) is a PROPOSAL, not approved; any further change to a U1E section 3 hash triggers E5(a) again.
+  [R2(a) P1](docs/evidence/m4c-c5-r2a-p1-trusted-input.md): hosted_trial.py now fails closed (exit 2) unless an owner workflow_dispatch on refs/heads/main of the pinned
+  repository (security/sast/trusted-inputs.json); keep tests/security/sast/test_trusted_input.py passing; P2-P6 not implemented.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned

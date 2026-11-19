@@ -12,6 +12,10 @@ Subcommands (all stdlib; run with `python3 -I`; never invokes sudo):
   typescript-preflight  Before any image build or container: require the pinned Node (exact
                      .node-version) and run the C5-G4 TypeScript gate on the host (lock-verified
                      compiler); failure stops the job before container launch.
+  trust-check        C5 R2(a): fail closed (exit 2) unless the hosted context is an owner-dispatched
+                     workflow_dispatch on refs/heads/main of the pinned repository (numeric IDs);
+                     typescript-preflight, container-build, container-install and container-run apply
+                     the same check before any download, Docker call or Semgrep execution.
   run                Execute the F3 harness, measure it, write allowlisted evidence.
   summarize          Report all evidence to the job summary.
 
@@ -75,12 +79,131 @@ HARDENING = ("--rm", "--platform", "linux/amd64", "--pull", "never", "--network"
              "--tmpfs", "/tmp:rw,nosuid,nodev,noexec,size=512m", "--workdir", "/repo")
 PIP_ENV = ("HOME=/tmp", "PIP_NO_CACHE_DIR=1", "PIP_DISABLE_PIP_VERSION_CHECK=1", "PIP_NO_INPUT=1",
            "PIP_CONFIG_FILE=/dev/null")
+# C5 R2(a) P1: trusted-input pins. Hosted driver steps run only for an owner-dispatched workflow_dispatch on
+# refs/heads/main of the pinned repository (numeric IDs: names can be reused and a forker owns their fork).
+TRUSTED_INPUTS = ROOT / "security/sast/trusted-inputs.json"
+TRUSTED_KEYS = {"schema", "purpose", "repository_id", "repository_owner_id", "ref", "events", "require_private"}
+# Any of these means a GitHub Actions job context (GitHub does not let workflows overwrite GITHUB_*/RUNNER_*).
+# ACTIONS_* tokens are deliberately not markers: they never establish trust and are absent from local shells.
+HOSTED_MARKERS = ("GITHUB_ACTIONS", "GITHUB_RUN_ID", "GITHUB_EVENT_NAME", "GITHUB_EVENT_PATH",
+                  "GITHUB_WORKFLOW_REF", "RUNNER_ENVIRONMENT")
+HOSTED_REQUIRED = ("GITHUB_RUN_ID", "GITHUB_EVENT_NAME", "GITHUB_EVENT_PATH", "GITHUB_REF", "GITHUB_REPOSITORY_ID",
+                   "GITHUB_REPOSITORY_OWNER", "GITHUB_REPOSITORY_OWNER_ID", "GITHUB_ACTOR", "GITHUB_ACTOR_ID",
+                   "GITHUB_TRIGGERING_ACTOR")
+NUMERIC_ID = re.compile(r"^[1-9][0-9]{0,19}$")
+LOGIN = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$")
+MAX_EVENT_BYTES = 1 << 20
 
 
 class Fail(Exception):
     def __init__(self, code: int, reason: str):
         super().__init__(reason)
         self.code = code
+
+
+def _is_id(value) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value > 0
+
+
+def load_trusted_inputs(path: Path | None = None) -> dict:
+    """The pinned trust configuration; anything unexpected is a configuration error (exit 2)."""
+    path = TRUSTED_INPUTS if path is None else path
+    try:
+        if path.is_symlink() or not path.is_file():
+            raise Fail(2, "trusted-input configuration missing or a symlink")
+        pins = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, ValueError) as exc:
+        raise Fail(2, "trusted-input configuration unreadable or malformed") from exc
+    if not isinstance(pins, dict) or set(pins) != TRUSTED_KEYS or pins.get("schema") != "c5-trusted-inputs/1":
+        raise Fail(2, "trusted-input configuration has an unexpected schema")
+    if not (_is_id(pins["repository_id"]) and _is_id(pins["repository_owner_id"])
+            and pins["ref"] == "refs/heads/main" and pins["events"] == ["workflow_dispatch"]
+            and pins["require_private"] is True):
+        raise Fail(2, "trusted-input configuration values are not the reviewed pins")
+    return pins
+
+
+def _read_event(raw: str) -> dict:
+    path = Path(raw)
+    try:
+        if not path.is_absolute() or path.is_symlink() or not path.is_file():
+            raise Fail(2, "hosted event payload missing, relative or a symlink")
+        if path.stat().st_size > MAX_EVENT_BYTES:
+            raise Fail(2, "hosted event payload too large")
+        payload = json.loads(path.read_bytes().decode("utf-8"))
+    except (OSError, UnicodeDecodeError, ValueError) as exc:
+        raise Fail(2, "hosted event payload unreadable or malformed") from exc
+    if not isinstance(payload, dict):
+        raise Fail(2, "hosted event payload malformed")
+    return payload
+
+
+def trusted_context(env=None, pins_path: Path | None = None) -> dict:
+    """C5 R2(a) P1 fail-closed trusted-input check (exit 2 on any doubt). Without any GitHub Actions marker the
+    caller is a local developer workstation (owner-controlled) and nothing is required; with any marker, the full
+    owner-dispatched workflow_dispatch-on-main context must be present, well formed, pinned and self-consistent."""
+    env = os.environ if env is None else env
+    present = [k for k in HOSTED_MARKERS if k in env]
+    if not present:
+        return {"mode": "local", "trusted": True}
+    pins = load_trusted_inputs(pins_path)
+    if env.get("GITHUB_ACTIONS") != "true":
+        raise Fail(2, f"hosted context markers {present[:3]} present but GITHUB_ACTIONS is not 'true' (contradictory)")
+    missing = [k for k in HOSTED_REQUIRED if not env.get(k)]
+    if missing:
+        raise Fail(2, f"hosted context incomplete (missing {missing[:4]})")
+    event, ref = env["GITHUB_EVENT_NAME"], env["GITHUB_REF"]
+    if event not in pins["events"]:
+        raise Fail(2, f"untrusted event {event[:40]!r}: only {pins['events']} is allowed")
+    if ref != pins["ref"]:
+        raise Fail(2, f"untrusted ref {ref[:60]!r}: only {pins['ref']} is allowed")
+    ids = {k: env[k] for k in ("GITHUB_REPOSITORY_ID", "GITHUB_REPOSITORY_OWNER_ID", "GITHUB_ACTOR_ID")}
+    if not all(NUMERIC_ID.fullmatch(v) for v in ids.values()):
+        raise Fail(2, "hosted context has a malformed numeric ID")
+    if int(ids["GITHUB_REPOSITORY_ID"]) != pins["repository_id"]:
+        raise Fail(2, "untrusted repository (GITHUB_REPOSITORY_ID differs from the pin)")
+    if int(ids["GITHUB_REPOSITORY_OWNER_ID"]) != pins["repository_owner_id"]:
+        raise Fail(2, "untrusted repository owner (GITHUB_REPOSITORY_OWNER_ID differs from the pin)")
+    if int(ids["GITHUB_ACTOR_ID"]) != pins["repository_owner_id"]:
+        raise Fail(2, "untrusted actor (GITHUB_ACTOR_ID is not the repository owner)")
+    owner, actor, triggering = env["GITHUB_REPOSITORY_OWNER"], env["GITHUB_ACTOR"], env["GITHUB_TRIGGERING_ACTOR"]
+    if not all(LOGIN.fullmatch(v) for v in (owner, actor, triggering)):
+        raise Fail(2, "hosted context has a malformed login")
+    if actor != owner:
+        raise Fail(2, "untrusted actor (GITHUB_ACTOR is not the repository owner)")
+    if triggering != owner:
+        raise Fail(2, "untrusted triggering actor (re-run or dispatch by someone other than the owner)")
+    payload = _read_event(env["GITHUB_EVENT_PATH"])
+    repo, sender = payload.get("repository"), payload.get("sender")
+    owner_obj = repo.get("owner") if isinstance(repo, dict) else None
+    if not (isinstance(repo, dict) and isinstance(sender, dict) and isinstance(owner_obj, dict)
+            and "inputs" in payload and isinstance(payload.get("workflow"), str) and isinstance(payload.get("ref"), str)):
+        raise Fail(2, "hosted event payload is not a workflow_dispatch payload")
+    if payload["ref"] != ref:
+        raise Fail(2, "event payload ref contradicts GITHUB_REF")
+    if not _is_id(repo.get("id")) or repo["id"] != pins["repository_id"]:
+        raise Fail(2, "event payload repository differs from the pinned repository")
+    if repo.get("fork") is not False:
+        raise Fail(2, "event payload repository is a fork (or fork flag missing)")
+    if pins["require_private"] and repo.get("private") is not True:
+        raise Fail(2, "event payload repository is not private (or private flag missing)")
+    if not _is_id(owner_obj.get("id")) or owner_obj["id"] != pins["repository_owner_id"] or owner_obj.get("login") != owner:
+        raise Fail(2, "event payload repository owner contradicts the pin or GITHUB_REPOSITORY_OWNER")
+    if not _is_id(sender.get("id")) or sender["id"] != pins["repository_owner_id"] or sender.get("login") != triggering:
+        raise Fail(2, "event payload sender is not the repository owner")
+    return {"mode": "hosted", "trusted": True, "event": event, "ref": ref, "repository_id": pins["repository_id"],
+            "actor_id": pins["repository_owner_id"]}
+
+
+def trust_check() -> int:
+    try:
+        ctx = trusted_context()
+    except Fail as fail:
+        print(f"trust-check: exit {fail.code} ({EXIT_NAMES[fail.code]}) - {fail}")
+        return fail.code
+    detail = "no hosted CI context" if ctx["mode"] == "local" else f"{ctx['event']} on {ctx['ref']} by the repository owner"
+    print(f"trust-check: ok ({ctx['mode']}: {detail})")
+    return 0
 
 
 def read(path: str) -> str | None:
@@ -242,6 +365,7 @@ def container_build(iidfile: str) -> int:
     record = {"schema": "c5-f4r-container-image/1", "base_image": BASE_IMAGE,
               "dockerfile_sha256": sha("security/sast/container/Dockerfile")}
     try:
+        record["trusted_input"] = trusted_context()  # C5 R2(a): before any build or download
         text = DOCKERFILE.read_text()
         froms = [l.split()[1] for l in text.splitlines() if l.startswith("FROM ")]
         if froms != [BASE_IMAGE] or re.search(r"^\s*(ADD|COPY)\b", text, re.M):
@@ -284,6 +408,7 @@ def container_install(iidfile: str, wheels: str, venv: str) -> int:
     started = time.monotonic()
     record = {"schema": "c5-f4r-container-install/1", "hardening": list(HARDENING)}
     try:
+        record["trusted_input"] = trusted_context()  # C5 R2(a): before any container
         image = image_id(iidfile)
         wheel_dir = checked_dir(wheels, "wheelhouse")
         venv_dir = checked_dir(venv, "venv directory", must_exist=False)
@@ -354,6 +479,7 @@ def typescript_gate(nonce: str, node: Path | None = None) -> dict:
 def typescript_preflight(node_raw: str) -> int:
     """C5-G4H: fail before any image build or container if Node or the lock-pinned compiler is wrong."""
     try:
+        trusted_context()  # C5 R2(a): before Node or the compiler is executed
         node = pinned_node(node_raw)
         result = typescript_gate(secrets.token_hex(16), node)
         print(f"typescript-preflight: ok (node {NODE_VERSION_FILE.read_text().strip()}; {result['last']})")
@@ -368,6 +494,7 @@ def container_run(iidfile: str, venv: str, repeat: int, node_raw: str | None = N
     nonce = secrets.token_hex(16)
     record = {"schema": "c5-f4r-container-run/1", "hardening": list(HARDENING), "nonce": nonce}
     try:
+        record["trusted_input"] = trusted_context()  # C5 R2(a): before the host gate, Docker or Semgrep
         node = pinned_node(node_raw)
         image = image_id(iidfile)
         venv_dir = checked_dir(venv, "venv directory")
@@ -462,7 +589,10 @@ def _main() -> int:
     scan.add_argument("--node", help="absolute path of the pinned node (exact .node-version) for the host TypeScript gate")
     pre = sub.add_parser("typescript-preflight")
     pre.add_argument("--node", required=True, help="absolute path of the pinned node (exact .node-version)")
+    sub.add_parser("trust-check")
     args = parser.parse_args()
+    if args.command == "trust-check":
+        return trust_check()
     if args.command == "facts":
         data = facts()
         write_json(FACTS, data)

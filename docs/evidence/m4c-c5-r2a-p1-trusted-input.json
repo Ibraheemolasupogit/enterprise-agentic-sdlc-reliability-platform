@@ -1,0 +1,137 @@
+{
+  "milestone": "M4C-C5 R2(a) P1 trusted-input runtime enforcement",
+  "date_utc": "2026-11-19",
+  "baseline_commit": "3274090c06e76cecc689c507c81cf14b5b3c1f42",
+  "ci_baseline": {
+    "run": 44434808986,
+    "conclusion": "success"
+  },
+  "scope": "P1 only; P2-P6 not implemented; R2(a) not approved",
+  "basis": {
+    "github_variables_doc": "https://docs.github.com/en/actions/reference/workflows-and-actions/variables",
+    "default_variables_not_overwritable": "GITHUB_* and RUNNER_*",
+    "workflow_dispatch_schema": "octokit/webhooks payload-schemas/api.github.com/workflow_dispatch/event.schema.json",
+    "payload_required": [
+      "inputs",
+      "ref",
+      "repository",
+      "sender",
+      "workflow"
+    ],
+    "repository_required": [
+      "id",
+      "fork",
+      "private",
+      "owner"
+    ],
+    "user_required": [
+      "id",
+      "login"
+    ]
+  },
+  "pins": {
+    "repository_id": 1439889276,
+    "repository_owner_id": 181765037,
+    "ref": "refs/heads/main",
+    "events": [
+      "workflow_dispatch"
+    ],
+    "require_private": true
+  },
+  "files": {
+    "security/sast/trusted-inputs.json": {
+      "status": "new",
+      "sha256": "1f067b0a9b99039e7548c54778e76e9d77d3289f361395a3c4f040a8e82c840a"
+    },
+    "scripts/sast/hosted_trial.py": {
+      "status": "modified (additive: +120/-0)",
+      "previous_sha256": "6dde3e0d6fd665cc761379ba62aa8c68339b2641755178ba71c5cfd7d537d66a",
+      "sha256": "a4f29c12e98665ae5e0969aaa7c9d727d587a89e05f6292cd0873b19c3c9d7d2"
+    },
+    "tests/security/sast/test_trusted_input.py": {
+      "status": "new",
+      "sha256": "44127e6e9a9d9633245d2f7bb87fca41e6447132e559c01103d5378e612344cd"
+    }
+  },
+  "unchanged_constants": [
+    "CONTEXT_KEYS",
+    "HARDENING",
+    "INPUT_HASHES",
+    "PIP_ENV"
+  ],
+  "hosted_markers": [
+    "GITHUB_ACTIONS",
+    "GITHUB_RUN_ID",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_EVENT_PATH",
+    "GITHUB_WORKFLOW_REF",
+    "RUNNER_ENVIRONMENT"
+  ],
+  "gated_entry_points": [
+    "typescript-preflight",
+    "container-build",
+    "container-install",
+    "container-run",
+    "trust-check (new)"
+  ],
+  "rejection_exit": 2,
+  "verification": {
+    "new_tests": "16/16",
+    "entry_points_fail_closed": "4 x 6 untrusted contexts: exit 2, no subprocess.run/Popen, evidence exit 2 with reason",
+    "mutation_checks": {
+      "always_trusted": 133,
+      "no_container_run_gate": 6,
+      "no_actor_id_check": 6
+    },
+    "existing_driver_tests": "14/14",
+    "g2_guard": "9/9 (normal, env -i); file unchanged 42672fd9",
+    "sast_suite": "104 run, 74 pass, 30 skipped (normal, env -i)",
+    "actionlint": "pass",
+    "validator": "pass",
+    "consistency": "237/237",
+    "u1e_adopted_inputs": "unchanged",
+    "local_trust_check": "ok (local), exit 0"
+  },
+  "binding_consequences": {
+    "u1e": "none",
+    "next_hosted_trial_expected_input_sha256sum": [
+      "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0  scripts/sast/feasibility.py",
+      "a4f29c12e98665ae5e0969aaa7c9d727d587a89e05f6292cd0873b19c3c9d7d2  scripts/sast/hosted_trial.py",
+      "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d  security/sast/toolchain.json",
+      "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6  security/sast/controls.json",
+      "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c  security/sast/rules/typescript.yml",
+      "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73  security/sast/rules/python.yml",
+      "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25  requirements-sast-linux.txt",
+      "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae  security/sast/container/Dockerfile",
+      "d445ce5c19e76e54226bb57db7d4fbbac5002384c48a0a1687b4b6b9342bf684  .github/workflows/c5-sast-hosted-trial.yml",
+      "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29  scripts/sast/ts_syntax_gate.mjs",
+      "3f46c454ed43917cd9dcab185acb3cc01c5c045bd9247441166f92a008d4db67  security/sast/typescript-gate.json"
+    ],
+    "changed_vs_previous_expected": [
+      "scripts/sast/hosted_trial.py"
+    ]
+  },
+  "limitations": [
+    "workflow unchanged: on hosted runs checkout, facts, setup-node and npm ci precede the first driver gate (typescript-preflight); dedicated trust step and job if: are P2",
+    "in-container run subcommand not gated (reached only via gated container-run; G2-pinned container env unchanged)",
+    "hosted positive path unverified until P5; hosted negatives offline only",
+    "no platform enforcement without branch protection; changes detectable post-push via input hashes (P3) and owner review"
+  ],
+  "recommendation": {
+    "P1": "GO (owner commit)",
+    "P2_P6": "NO-GO pending owner direction",
+    "R2a_approval": "NO-GO",
+    "hosted_dispatch": "NO-GO",
+    "E04": "NO-GO"
+  },
+  "status_preserved": {
+    "G2": "OPEN",
+    "G4": "CLOSED (TypeScript only)",
+    "G5": "OPEN",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO"
+  }
+}
