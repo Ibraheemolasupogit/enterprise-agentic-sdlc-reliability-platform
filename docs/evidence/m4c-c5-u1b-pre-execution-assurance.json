@@ -554,7 +554,7 @@
     "requirements-sast-macos.txt": "c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2",
     "security/sast/toolchain.json": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d",
     "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
-    "tests/security/sast/test_g2_mitigation_guard.py": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "tests/security/sast/test_g2_mitigation_guard.py": "42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79",
     "scratch_u1_sbom_v3.py": "5e9f0f7692659323b95b1ae04d1693f49231ec3b938722c60ded42611a3b4591",
     "scratch_u1_native.py": "3afd3e3d81df1d15fa79c0dc1012ad47af5bfb8395811de80d1e46ef89f1a64e",
     "scratch_f3_matrix_g4.py": "bd0f88e09f46c7e8eaa82e4da44199e481f1c23a24accabaa1232cbe64323007"
@@ -633,6 +633,7 @@
   "notes": [
     "2026-11-18: G2 guard hash updated for the U1C test-design fix (see m4c-c5-u1c-lt-u1-execution.md)",
     "2026-11-18: G2 guard hash updated for the U1C container-mode caller-PATH follow-up",
-    "2026-11-18 (U1E post-approval): toolchain.json changed status-only (engine.platforms.*.status); LT-U1-tested hash was 32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357; current 91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d; harness preflight results identical (U1E section 9)"
+    "2026-11-18 (U1E post-approval): toolchain.json changed status-only (engine.platforms.*.status); LT-U1-tested hash was 32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357; current 91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d; harness preflight results identical (U1E section 9)",
+    "2026-11-19 (U1E addendum 1): G2 guard binding 0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286 -> 42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79 (R1 platform-wrapper strengthening); LT-U1 executed 0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286"
   ]
 }

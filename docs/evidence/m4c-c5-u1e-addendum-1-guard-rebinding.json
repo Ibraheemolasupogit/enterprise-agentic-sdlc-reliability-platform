@@ -1,0 +1,56 @@
+{
+  "milestone": "M4C-C5 U1E addendum 1 (guard-hash rebinding)",
+  "date_utc": "2026-11-19",
+  "baseline_commit": "9e4bedb24eab7060e75c90bccf7ce97110ba6578",
+  "status": "APPROVED by owner 2026-11-19 (narrow rebinding only)",
+  "unchanged": [
+    "U1E E1-E8",
+    "scope",
+    "expiry 2026-12-17",
+    "stop conditions"
+  ],
+  "rebinding": {
+    "file": "tests/security/sast/test_g2_mitigation_guard.py",
+    "previous_sha256": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "sha256": "42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79",
+    "lt_u1_executed": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "reason": "R1 strengthened PositivePolicy.test_engine_invocation_platform_wrapper",
+    "weakening": "none (one line replaced by strict superset; no assertion removed or relaxed)",
+    "effect": {
+      "unchanged_harness": "pass (normal, env -i)",
+      "pin_removed_copy": "fails (normal, env -i)",
+      "guard_tests_detecting_pin_removal_env_i": 6
+    }
+  },
+  "e5a": "applied while unbound; no scan planned or run; cleared for this file once consistency verifies 237/237",
+  "other_adopted_inputs_unchanged": [
+    "requirements-sast-linux.txt",
+    "requirements-sast-macos.txt",
+    "security/sast/toolchain.json",
+    "security/sast/native-libraries-1.186.0.json",
+    "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json",
+    "scripts/sast/feasibility.py",
+    "security/sast/controls.json",
+    "security/sast/rules/python.yml",
+    "security/sast/rules/typescript.yml",
+    "wheel_linux",
+    "wheel_macos",
+    "semgrep_core_linux",
+    "semgrep_core_macos"
+  ],
+  "bindings_updated": [
+    "U1E section 3 row + JSON toolchain_hashes (annotated with previous hash)",
+    "U1B artifacts_sha256 entry + table row (consistency reference; annotated)"
+  ],
+  "historical_preserved": [
+    "U1",
+    "U1C",
+    "U1D (LT-U1)",
+    "LT-U1 scratch outputs",
+    "G5D",
+    "G4H records"
+  ],
+  "verification": {
+    "consistency": "237/237"
+  }
+}

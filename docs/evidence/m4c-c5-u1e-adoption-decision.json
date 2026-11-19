@@ -17,7 +17,7 @@
     "security/sast/native-libraries-1.186.0.json": "2e7cb87088dca3d9c5068fd1b53a35fa91c4b02ba04ff8b601a22dd9cac2ceaa",
     "security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json": "7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca",
     "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
-    "tests/security/sast/test_g2_mitigation_guard.py": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "tests/security/sast/test_g2_mitigation_guard.py": "42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79",
     "security/sast/controls.json": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
     "security/sast/rules/python.yml": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73",
     "security/sast/rules/typescript.yml": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c",
@@ -166,5 +166,17 @@
       "status lines: replace A1/X1 and U1 'never run engine' rules with E1/E3/E5; SBOM v3 baseline",
       "U1E marked APPROVED"
     ]
-  }
+  },
+  "rebindings": [
+    {
+      "addendum": "docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md",
+      "date": "2026-11-19",
+      "approved_by": "owner",
+      "file": "tests/security/sast/test_g2_mitigation_guard.py",
+      "previous_sha256": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+      "sha256": "42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79",
+      "reason": "R1 strengthened test_engine_invocation_platform_wrapper (deterministic caller env, pinned-PATH assertions); no weakening",
+      "lt_u1_executed": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286"
+    }
+  ]
 }

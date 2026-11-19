@@ -67,6 +67,10 @@
   (`security/sast/sbom/semgrep-toolchain-1.186.0.v3-candidate.cdx.json`) is the current baseline. G2/G5 OPEN (G4 closed for TypeScript only), nothing waived;
   E04, release and redistribution NO-GO. Hosted dispatch needs owner commit/push, a same-day recheck and per-run authorisation;
   keep tests/security/sast/test_g2_mitigation_guard.py passing in normal and `env -i` environments.
+  [G2/G5 R1](docs/evidence/m4c-c5-g2g5-r1-remediation.md) (2026-11-18): G5D s7 item 4 recorded for the hosted trial (no redistribution, caching off, six-file allowlist);
+  V8/PCRE2 recorded as macOS-only (still OPEN); platform-wrapper guard test strengthened and its U1E section 3 hash rebound by
+  [U1E addendum 1](docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md) (owner-approved 2026-11-19; consistency 237/237). R2(a) (owner-controlled `main` only, no PR/fork
+  scanning) is a PROPOSAL, not approved; any further change to a U1E section 3 hash triggers E5(a) again.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned

@@ -213,13 +213,19 @@ class PositivePolicy(unittest.TestCase):
         check_engine(argv, env, harness.ROOT, home, semgrep)
 
     def test_engine_invocation_platform_wrapper(self):
+        # Deterministic caller environment (C5 R1): with an inherited caller PATH equal to the pin, a harness that
+        # forwards the caller's PATH would be indistinguishable from one that pins it.
+        self.assertNotEqual(CALLER_PATH, TOOL_ENV["PATH"])
         harness = load_harness(tag="auto")
         try:
-            argv, env, home, semgrep, _ = capture_engine(harness, isolation="auto")
+            argv, env, home, semgrep, tool = capture_engine(harness, isolation="auto", environ=MUTATION_CALLER_ENV)
         except harness.Stop as exc:  # unsupported OS: harness refuses to scan (fail closed)
             self.assertEqual(exc.code, harness.EXIT_ISOLATION)
             return
+        self.assertEqual(tool["PATH"], TOOL_ENV["PATH"])
+        self.assertEqual(env["PATH"], TOOL_ENV["PATH"])
         check_engine(argv, env, harness.ROOT, home, semgrep)
+        check_tool_env(tool, home)
         self.assertNotEqual(tuple(argv[:argv.index(str(semgrep.parent / "python"))]), ())
 
     def test_hostile_caller_environment_never_reaches_engine(self):

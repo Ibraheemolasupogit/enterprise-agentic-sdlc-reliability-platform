@@ -180,7 +180,7 @@ record has been updated to match.
 | `requirements-sast-macos.txt` | `c7381523700084a16ffa3cc9f51de277d72c490e83046cb510ec2630e21e74f2` |
 | `security/sast/toolchain.json` | `91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d` (U1E status-only edit; the LT-U1-tested file was `32eaef70…6357`) |
 | `scripts/sast/feasibility.py` | `f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0` |
-| `tests/security/sast/test_g2_mitigation_guard.py` | `0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286` (U1C test-design fixes; was `c03a7302…eab9f`) |
+| `tests/security/sast/test_g2_mitigation_guard.py` | `42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79` (U1E [addendum 1](m4c-c5-u1e-addendum-1-guard-rebinding.md), 2026-11-19; the LT-U1-executed version was `0ac3de5d…f286` after the U1C fixes; originally `c03a7302…eab9f`) |
 
 **SBOM v3 identities:**
 

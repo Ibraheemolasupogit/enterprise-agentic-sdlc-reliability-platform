@@ -1,0 +1,168 @@
+{
+  "milestone": "M4C-C5 G2/G5 remediation R1",
+  "date_utc": "2026-11-18",
+  "baseline_commit": "9e4bedb24eab7060e75c90bccf7ce97110ba6578",
+  "ci_baseline": {
+    "run": 44418461737,
+    "conclusion": "success",
+    "npm_audit": "9 moderate (minimatch GHSA-g3hv-75wg-m249), below high threshold, not waived"
+  },
+  "scope": "R1 only; no waiver, dismissal or re-rating",
+  "status_preserved": {
+    "G2": "OPEN",
+    "G5": "OPEN",
+    "G4": "CLOSED (TypeScript only)",
+    "E04": "NO-GO",
+    "E05": "NO-GO",
+    "E06": "NO-GO",
+    "release": "NO-GO",
+    "redistribution": "NO-GO"
+  },
+  "g5d_s7_item4": {
+    "status": "SATISFIED for the hosted trial (recorded)",
+    "controls": {
+      "toolchain_per_run": "wheels to $RUNNER_TEMP via pip download --require-hashes; venv in $RUNNER_TEMP via offline install in --network none container",
+      "image_not_published": "docker build/run(--pull never)/image inspect only; no push/login/tag/save/registry",
+      "caching_disabled": "setup-node package-manager-cache: false (validator-enforced); unreviewed actions rejected; repository Actions caches: 0",
+      "artifact_allowlist": "exactly six JSON evidence files; retention <= 7 days; Run 1: 6 JSON files, 40812 bytes uncompressed",
+      "permissions": "contents: read; default workflow permissions read; persist-credentials false"
+    },
+    "not_authorised": "E04; redistribution remains NO-GO"
+  },
+  "macos_specific_findings": [
+    {
+      "id": "CVE-2026-116732",
+      "group": "G5 V8",
+      "component": "libdwarf.2.dylib 2.3.3 (macOS wheel)",
+      "status": "OPEN in_triage",
+      "upstream_fix": "71f04013 not in any release (ahead of v2.3.3)"
+    },
+    {
+      "id": "OSV-2026-343",
+      "group": "G5",
+      "component": "libpcre2-8.0.dylib 10.47 (macOS wheel)",
+      "status": "OPEN in_triage",
+      "note": "affects pcre2_compile_32; bundled 8-bit library; applicability unconfirmed",
+      "upstream_fix": "e19e76ad not an ancestor of any release (10.49 diverged)"
+    }
+  ],
+  "macos_scope_meaning": "absent from a Linux (manylinux_2_34_x86_64) CI job; remain open for local macOS use under U1E until 2026-12-17; analysis state unchanged",
+  "guard_strengthening": {
+    "file": "tests/security/sast/test_g2_mitigation_guard.py",
+    "previous_sha256": "0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286",
+    "sha256": "42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79",
+    "test": "PositivePolicy.test_engine_invocation_platform_wrapper",
+    "changes": [
+      "MUTATION_CALLER_ENV",
+      "assert CALLER_PATH != pinned PATH",
+      "assert tool and engine PATH == pinned",
+      "check_tool_env added"
+    ],
+    "removed_or_relaxed": [],
+    "validation": {
+      "unchanged_harness": "pass (normal, env -i)",
+      "pin_removed_copy": "fails (normal, env -i)",
+      "guard_tests_detecting_pin_removal_env_i": 6
+    }
+  },
+  "binding_implication": {
+    "u1e_section3_hash_changed": "tests/security/sast/test_g2_mitigation_guard.py",
+    "u1e_e5a": "stop condition applies until owner rebinding; no scans planned or authorised",
+    "records_not_edited": [
+      "U1E",
+      "U1B",
+      "U1C"
+    ],
+    "consistency": "236/237 (single expected failure: evidence hash tests/security/sast/test_g2_mitigation_guard.py)",
+    "proposed_rebinding": "owner-approved U1E addendum: guard hash 0ac3de5d... -> 42672fd9...; update U1B binding; consistency returns to 237/237",
+    "status": "RESOLVED 2026-11-19 by U1E addendum 1 (owner-approved); consistency 237/237; E5(a) cleared for the guard",
+    "resolution": "docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md"
+  },
+  "r2a_draft": {
+    "status": "REFINED 2026-11-19; PROPOSED, NOT APPROVED",
+    "observed": {
+      "visibility": "private",
+      "collaborators": 1,
+      "default_branch": "main",
+      "default_workflow_permissions": "read",
+      "fork_pr_workflows": {
+        "run": false,
+        "write_tokens": false,
+        "secrets": false
+      },
+      "allow_forking": true,
+      "allowed_actions": "all",
+      "branch_protection_rulesets": "unavailable on current plan (HTTP 403)",
+      "codeowners": false,
+      "ci_triggers": [
+        "pull_request to main",
+        "push to main",
+        "workflow_dispatch"
+      ],
+      "ci_runs_trial_validator_or_sast_tests": false
+    },
+    "scope": {
+      "S1": "only commits on refs/heads/main of this repository pushed or dispatched by the repository owner",
+      "S2": "triggers exactly push(branches:[main]) and workflow_dispatch on main",
+      "S3": "no PR or fork scanning: never pull_request, pull_request_target, merge_group, workflow_run, schedule, repository_dispatch; PR content unscanned before merge",
+      "S4": "contents: read; no secrets; non-blocking until E04; existing G5D/U1E controls apply"
+    },
+    "enforcement_without_branch_protection": {
+      "C1": "validator: exact on-keys, job if: ref==main && actor==repository_owner && triggering_actor==repository_owner; reject excluded triggers, contents: write, secrets",
+      "C2": "driver fail-closed (exit 2) before any download/container unless event push/workflow_dispatch, ref main, expected repository, actor and triggering actor == owner; recorded in evidence",
+      "C3": "read-only governance precondition before each run and weekly: collaborators == owner, private, fork-PR workflows disabled, default permissions read; drift stops scanning",
+      "C4": "owner-only commits to SAST-relevant paths; local validator + engine-free tests before commit; approved hash binding; post-run input_sha256sum comparison; mismatch invalidates result (G5D stop 4); CODEOWNERS advisory",
+      "C5": "post-run verification: artifact digest, six files, headSha on main, event/actor match, C2 decision present",
+      "C6": "optional: run validator and engine-free SAST tests in mandatory policy job (ci.yml change; E04-level direction)"
+    },
+    "residual": [
+      "platform cannot prevent owner or compromised-owner pushes; C1/C2 removable by such a change, detected only after the push by C4/C5",
+      "no required status checks",
+      "PR code not scanned before merge",
+      "plan upgrade / allowed_actions=selected not authorised"
+    ],
+    "effect": "would satisfy G5D section 7 item 3 by scope; not item 1; E04 stays NO-GO; C1-C6 need separate implementation approval"
+  },
+  "upstream_blockers": {
+    "G2_V1_mcp": "Semgrep pins mcp==1.29.0 (develop too); PR #12057 open, blocked, 0 reviews; fix >= 1.30.0",
+    "G2_V2_otel": "Semgrep pins ~=1.37.0; PR #12057 bumps to 1.45.1 only; GHSA-mf5v needs >= 1.45.2",
+    "G5_V3_V5_ocaml": "fork 4046c817 (5.4.0); develop lockfile 5.4.0; fixes in 5.4.1/5.5.1/5.5.2",
+    "G5_V6_openssl": "fix commits in no OpenSSL release (ahead of 4.0.3/4.1.0); cryptography 51.0.0 unreleased; lock-only bump possible when released",
+    "G5_V8_libdwarf_and_pcre2_macos": "no release with fixes; Semgrep macOS rebuild needed",
+    "G5_licensing": "only needed for redistribution (NO-GO)"
+  },
+  "expiry": {
+    "u1e_acceptance": "2026-12-17",
+    "days_remaining_at_record": 29,
+    "on_lapse": "every use other than local development BLOCKED"
+  },
+  "verification": {
+    "g2_guard": "9/9 (normal, env -i)",
+    "sast_suite": "88 run, 58 pass, 30 skipped (normal, env -i)",
+    "actionlint": "pass",
+    "validator": "pass",
+    "consistency": "236/237 at R1 time; 237/237 after U1E addendum 1",
+    "docs_security": "see final report"
+  },
+  "changed_files": {
+    "modified": [
+      "tests/security/sast/test_g2_mitigation_guard.py",
+      "AGENTS.md",
+      "README.md",
+      "docs/capability-status.md",
+      "docs/milestones/m4c-c5-sast-plan.md"
+    ],
+    "new": [
+      "docs/evidence/m4c-c5-g2g5-r1-remediation.md",
+      "docs/evidence/m4c-c5-g2g5-r1-remediation.json"
+    ],
+    "follow_up_2026_11_19": [
+      "docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md",
+      "docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.json",
+      "docs/evidence/m4c-c5-u1e-adoption-decision.md",
+      "docs/evidence/m4c-c5-u1e-adoption-decision.json",
+      "docs/evidence/m4c-c5-u1b-pre-execution-assurance.md",
+      "docs/evidence/m4c-c5-u1b-pre-execution-assurance.json"
+    ]
+  }
+}

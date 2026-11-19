@@ -5,7 +5,8 @@ This extends the [G5D decision](m4c-c5-g5d-security-risk-decision.md) and does
 **not** edit it. Machine-readable record:
 [JSON](m4c-c5-u1e-adoption-decision.json).
 
-**Status: APPROVED by the owner on 2026-11-18** (decisions E1–E8, subject to
+**Status: APPROVED by the owner on 2026-11-18.** [Addendum 1](m4c-c5-u1e-addendum-1-guard-rebinding.md) (2026-11-19) rebinds the G2 guard hash only.
+**Original decision:** (decisions E1–E8, subject to
 the documented scope, expiry and stop conditions).
 
 * The section 4 follow-up edits are **applied**; section 9 documents the
@@ -63,7 +64,7 @@ the documented scope, expiry and stop conditions).
 | `security/sast/native-libraries-1.186.0.json` | `2e7cb87088dca3d9c5068fd1b53a35fa91c4b02ba04ff8b601a22dd9cac2ceaa` |
 | SBOM v3 | `7d534e90ad6fe45e2cd664ee786f56cc780a0f235566aec4e7ae7696d63424ca` |
 | `scripts/sast/feasibility.py` | `f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0` |
-| `tests/security/sast/test_g2_mitigation_guard.py` | `0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286` |
+| `tests/security/sast/test_g2_mitigation_guard.py` | **`42672fd941fde28e387d4dd461e3b5d216e64597c0cc7bb20549f37ca6b04a79`** (rebound by [addendum 1](m4c-c5-u1e-addendum-1-guard-rebinding.md), 2026-11-19; was `0ac3de5d0016ff3fab094d5bf4463cf2994d39c4b719e0c7aa19ea9aa513f286`, the version LT-U1 executed) |
 | `security/sast/controls.json` (unchanged) | `ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6` |
 | Rules (unchanged) | `python.yml` `526c3e7f…1f73`; `typescript.yml` `b0383617…fc7c` |
 | `security/sast/toolchain.json` | **`91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d`** (bound by this decision; the status-only edit is in section 9). The LT-U1-tested version was `32eaef70c5438a7ded01eff0e0d938be10f11bf846de87ef24095d93b3456357` |
