@@ -1,0 +1,218 @@
+{
+  "title": "Frontend image nginx 1.30.7 security remediation",
+  "date_utc": "2026-11-20",
+  "baseline_commit": "73db9b491990a71f26399eecd9c83618aff11bde",
+  "trigger": {
+    "ci_run": 44635482434,
+    "job": "containers",
+    "step": "scripts/delivery/scan_images.py",
+    "previous_green_run": 44434808986,
+    "cause": "new vulnerability intelligence (CVEs published 2026-11-18); image inventory unchanged; unrelated to 73db9b4"
+  },
+  "cves_remediated": {
+    "CVE-2026-113425": "CRITICAL",
+    "CVE-2026-121810": "CRITICAL",
+    "CVE-2026-123007": "CRITICAL",
+    "CVE-2026-123633": "CRITICAL",
+    "CVE-2026-118899": "HIGH",
+    "CVE-2026-123634": "HIGH"
+  },
+  "also_fixed_upstream_not_in_trivy": [
+    "CVE-2026-125283"
+  ],
+  "change": {
+    "file": "apps/octocat-supply/frontend/Dockerfile",
+    "diff": "+7/-0",
+    "previous_sha256": "a08099f83bda7b0e6c59d4164d62b04c3b6784da30a15841de9d086431e744d2",
+    "sha256": "8e57a59d07ad93b88e97fbe9e80350705b5ae9ef05bea763b067cc1a1b1e6d97",
+    "packages": {
+      "nginx": "1.30.7-r1",
+      "nginx-module-geoip": "1.30.7-r1",
+      "nginx-module-image-filter": "1.30.7-r1",
+      "nginx-module-njs": "1.30.7.1.0.2-r1",
+      "nginx-module-xslt": "1.30.7-r1"
+    },
+    "repository": "https://nginx.org/packages/alpine/v3.24/main (single invocation; not persisted)",
+    "unchanged": [
+      "base digest f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03",
+      "build stage",
+      "USER 101",
+      "EXPOSE 8080",
+      "entrypoint",
+      "copied files",
+      "nginx configuration",
+      "existing Alpine patch pins"
+    ]
+  },
+  "trust": {
+    "index_signature": "accepted on x86_64 and aarch64",
+    "apk_verify": {
+      "x86_64": "OK x5",
+      "aarch64": "OK x5"
+    },
+    "apk_tools": "3.0.8",
+    "nginx_signer_pubfile_sha256": "ff7cf138acc09f2a5029300ab713fe6a1440605fca72e2bab76a4da9206fec87",
+    "image_signer_pubfile_equals_published": true,
+    "negative_signer_removed": {
+      "apk_verify": "UNTRUSTED signature (exit 5)",
+      "apk_add": "index UNTRUSTED; unable to select packages (exit 5)"
+    },
+    "packages_fetched": {
+      "x86_64": [
+        {
+          "file": "nginx-1.30.7-r1.apk",
+          "sha256": "1113c37494eea2acc208b4e1c84210555aa8092616ef0368d3af2765e0170e7b"
+        },
+        {
+          "file": "nginx-module-geoip-1.30.7-r1.apk",
+          "sha256": "231e993f3e86edee509237c9dab71d67aedfa3e8d739b40d8fb4bf52b41f8ec8"
+        },
+        {
+          "file": "nginx-module-image-filter-1.30.7-r1.apk",
+          "sha256": "692b15afe043be7ff15ebb09c76e769750dfb491d4c0465dfa52ce1867b7960a"
+        },
+        {
+          "file": "nginx-module-njs-1.30.7.1.0.2-r1.apk",
+          "sha256": "b10ab85287fd42959f8178c99f4e9f0028fabbcf04174a8194e5aaca8cdba6ec"
+        },
+        {
+          "file": "nginx-module-xslt-1.30.7-r1.apk",
+          "sha256": "1f97d4ff76df9f6fa4a01d0234ccd75c38446acbf49ea31ae64fdc4b47aa4928"
+        }
+      ],
+      "aarch64": [
+        {
+          "file": "nginx-1.30.7-r1.apk",
+          "sha256": "7119131b55c1f0d80132eafb8225e34e711905ffa02475ed431d8c5ba7d446a6"
+        },
+        {
+          "file": "nginx-module-geoip-1.30.7-r1.apk",
+          "sha256": "2c1467f4577ff3870b2fee43eeade680e03de958cc9d528fc9fa81ff665e7dab"
+        },
+        {
+          "file": "nginx-module-image-filter-1.30.7-r1.apk",
+          "sha256": "ec6ac9c7ad0d5029d7373d3c56cbe75e76da05ba3ecfc1a3e7e913c2b76c6c81"
+        },
+        {
+          "file": "nginx-module-njs-1.30.7.1.0.2-r1.apk",
+          "sha256": "f33eef3a475f097d83a5aef3a21446d8dadfad385f4a13c52777c059517c1ffd"
+        },
+        {
+          "file": "nginx-module-xslt-1.30.7-r1.apk",
+          "sha256": "003dad0f6e3d0ebe8903cfbaf25fd6b8fe26b554dda5276a53f98f835e3ee4e6"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "tools": {
+      "trivy": "0.72.0",
+      "bicep": "0.48.1",
+      "actionlint": "1.7.12",
+      "gitleaks": "8.30.1",
+      "install": "SHA-256 verified"
+    },
+    "verify_containers": "PASS (fixtures, discount total, non-root/read-only/cap-drop, loopback 8080, persistence, 3/3 e2e)",
+    "verify_proxy": "PASS",
+    "scan_images": {
+      "exit": 0,
+      "frontend_high_critical": 0,
+      "api_high_critical": 0
+    },
+    "six_cves_absent": true,
+    "nginx_findings_any_severity": 0,
+    "amd64_frontend": {
+      "arch": "x86_64",
+      "uid": 101,
+      "nginx": "1.30.7",
+      "high_critical": 0,
+      "gate_exit": 0
+    },
+    "validate_infra": "PASS",
+    "scan_config": {
+      "exit": 0,
+      "frontend_dockerfile_high_critical": 0,
+      "api_dockerfile_high_critical": 0
+    },
+    "provenance": "PASS",
+    "built_image_arm64": {
+      "id": "sha256:982b242a213d36df7d7667a7fdfe2ce9db8bcfe7c7b6e3c55df69e4c99e36dff",
+      "nginx": "1.30.7",
+      "all_five_upgraded_together": true,
+      "user": "101",
+      "exposed": "8080/tcp",
+      "entrypoint": [
+        "/bin/sh",
+        "/app/start.sh"
+      ],
+      "modules_identical_to_base": true,
+      "apk_repositories_unchanged": true
+    },
+    "trivy_db": {
+      "version": 2,
+      "updated_at": "2026-11-19T19:04:59Z"
+    },
+    "evidence_files": [
+      {
+        "file": "frontend-vulnerabilities.json",
+        "sha256": "164659df1c16df809d5faa31d292393e1bdcc19a71d1a36edee4e772d5e37c81"
+      },
+      {
+        "file": "api-vulnerabilities.json",
+        "sha256": "e4eb1a6d12a2dbb6eac2d5010f841729dae5bc398cd1747c103b017331db4c86"
+      },
+      {
+        "file": "frontend-sbom.cdx.json",
+        "sha256": "c4549312f27c963fb9ed00a5e8ae34dcae8cd016ef98bd9923b57563eec895a7"
+      },
+      {
+        "file": "api-sbom.cdx.json",
+        "sha256": "a11ce44874dc338cdbbdf66884e84ca44ece6853b7fcfaa883ea2addc799b187"
+      },
+      {
+        "file": "container-smoke.json",
+        "sha256": "0b7e0c42903ea07ea201c2569fe8dec582c6f00eadd4aedfcc8e6f9355487e1a"
+      },
+      {
+        "file": "provenance.json",
+        "sha256": "a1fb73bb84584e8bf491f34d063fa74eff12ab03f7a920c6a27c2ff829f588f2"
+      },
+      {
+        "file": "frontend-configuration.json",
+        "sha256": "f5618ce279d4a84e3acaaf2e0ca6421dc68ea33e35a03f441025921a8f64a48e"
+      }
+    ]
+  },
+  "residual_risks": [
+    "10 MEDIUM OpenSSL findings (libcrypto3/libssl3 3.5.9-r0: CVE-2026-107496/-88822/-88823/-95691/-95692; fixed 3.5.9-r1) from the Alpine base, below gate, not changed",
+    "mixed package sources until the nginx-unprivileged base ships >= 1.30.7; remove the five pins then",
+    "build-time dependency on nginx.org availability (fails closed on mismatch)",
+    "local validation arm64 plus amd64 frontend build/scan; CI amd64 run is authoritative",
+    "exposure context: resolver and try_files/alias used; HTTP/2, HTTP/3, TLS and mail not enabled"
+  ],
+  "no_waivers": {
+    "thresholds_changed": false,
+    "exceptions_json": "[] unchanged",
+    "ignore_unfixed": false
+  },
+  "changed_files": {
+    "modified": [
+      "apps/octocat-supply/frontend/Dockerfile"
+    ],
+    "new": [
+      "docs/evidence/m4c-frontend-nginx-1.30.7-remediation.md",
+      "docs/evidence/m4c-frontend-nginx-1.30.7-remediation.json"
+    ]
+  },
+  "bindings": {
+    "u1e_section3_repository_files_checked": 10,
+    "u1e_mismatches": [],
+    "c5_consistency": "237/237",
+    "engine_free_sast_suite": "OK (30 engine tests skipped; Semgrep not executed)",
+    "delivery_unittests": "OK",
+    "check_repository": "PASS",
+    "gitleaks_dir_and_git": "no leaks",
+    "actionlint": "PASS",
+    "dockerfile_previous_hash_references": "historical point-in-time evidence only (C3, C4, C5 readiness); no live gate binds it"
+  }
+}
