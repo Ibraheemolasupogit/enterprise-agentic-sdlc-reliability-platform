@@ -19,6 +19,22 @@ TRIAL = ROOT / ".github/workflows/c5-sast-hosted-trial.yml"
 CI = ROOT / ".github/workflows/ci.yml"
 TRIAL_NAME = "c5-sast-hosted-trial"
 CONFIRM_PHRASE = "run-c5-f4-hosted-trial"
+CONFIRM_ENV = {"CONFIRM": "${{ inputs.confirm }}", "AUTH_REF": "${{ inputs.authorization_reference }}"}
+CONFIRM_RUN = f"""\
+if [ "$CONFIRM" != "{CONFIRM_PHRASE}" ]; then
+  echo "::error title=C5-F4 not confirmed::confirmation phrase mismatch; nothing executed"
+  exit 2
+fi
+if ! printf '%s' "$AUTH_REF" | grep -Eqx '[A-Za-z0-9._:/ -]{{8,80}}'; then
+  echo "::error title=C5-F4 not authorized::authorization_reference missing or malformed"
+  exit 2
+fi
+echo "C5-F4 hosted trial confirmed; non-blocking; no release, deployment or acceptance authority."
+"""
+TRUST_RUN = "python3 -I scripts/sast/hosted_trial.py trust-check"
+FACTS_RUN = "python3 -I scripts/sast/hosted_trial.py facts"
+SUMMARY_RUN = "python3 -I scripts/sast/hosted_trial.py summarize"
+AUTH_REF_ENV = {"TRIAL_AUTHORIZATION_REFERENCE": "${{ inputs.authorization_reference }}"}
 REQUIRED_NEEDS = ["application", "policy", "containers", "codeql"]
 LOCK = "requirements-sast-linux.txt"
 DOCKERFILE = ROOT / "security/sast/container/Dockerfile"
@@ -32,7 +48,7 @@ NODE_VERSION_FILE = ROOT / "apps/octocat-supply/.node-version"
 APP_DIR = "apps/octocat-supply"
 NPM_INSTALL = "npm ci --ignore-scripts"
 PINNED_NODE_ARG = '--node "$(command -v node)"'
-NPM_ENV = {"NPM_CONFIG_AUDIT", "NPM_CONFIG_FUND", "NPM_CONFIG_UPDATE_NOTIFIER"}
+NPM_ENV = dict.fromkeys(("NPM_CONFIG_AUDIT", "NPM_CONFIG_FUND", "NPM_CONFIG_UPDATE_NOTIFIER"), "false")
 # The upload allowlist is exactly these six evidence files (never raw reports, attestations or node_modules).
 UPLOADS = ["artifacts/sast/hosted-runner-facts.json", "artifacts/sast/container-image.json",
            "artifacts/sast/container-install.json", "artifacts/sast/container-run.json",
@@ -45,6 +61,15 @@ class Violation(Exception):
     pass
 
 
+class TrialLoader(yaml.BaseLoader):
+    """Keep Actions keys as strings and reject ambiguous YAML mappings."""
+
+    def construct_mapping(self, node, deep=False):
+        mapping = super().construct_mapping(node, deep=deep)
+        require(len(mapping) == len(node.value), "Duplicate YAML mapping key in trial")
+        return mapping
+
+
 def require(condition, message):
     if not condition:
         raise Violation(message)
@@ -54,39 +79,84 @@ def ci_action_pins(ci: dict) -> set[str]:
     return {step["uses"] for job in ci["jobs"].values() for step in job.get("steps", []) if "uses" in step}
 
 
+def trusted_job_condition() -> str:
+    driver = load_driver()
+    try:
+        pins = driver.load_trusted_inputs()
+    except driver.Fail as exc:
+        raise Violation(str(exc)) from exc
+    return (
+        "${{ github.event_name == 'workflow_dispatch' && "
+        f"github.ref == '{pins['ref']}' && "
+        f"github.repository_id == '{pins['repository_id']}' && "
+        f"github.repository_owner_id == '{pins['repository_owner_id']}' && "
+        "github.actor_id == github.repository_owner_id && "
+        "github.actor == github.repository_owner && "
+        "github.triggering_actor == github.repository_owner && "
+        "github.event.repository.private == true }}"
+    )
+
+
 def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_version: str | None = None) -> None:
     require(set(trial) <= {"name", "on", "permissions", "concurrency", "jobs"}, "Unexpected top-level key")
     require(set(trial["on"]) == {"workflow_dispatch"}, "Trial must be workflow_dispatch only")
-    inputs = trial["on"]["workflow_dispatch"].get("inputs", {})
+    dispatch = trial["on"]["workflow_dispatch"]
+    require(set(dispatch) == {"inputs"}, "Only reviewed workflow_dispatch inputs are allowed")
+    inputs = dispatch["inputs"]
     require(set(inputs) == {"confirm", "authorization_reference"}, "Unexpected dispatch inputs")
     require(all(i.get("required") == "true" and i.get("type") == "string" for i in inputs.values()),
             "Dispatch inputs must be required strings")
     require(trial["permissions"] == {"contents": "read"}, "Trial permissions must be contents: read only")
     require("concurrency" in trial, "Trial must serialize runs")
-    for forbidden in ("secrets.", "id-token", "pull_request_target", "security-events", "GITHUB_TOKEN",
+    require(not re.search(r"\bsecrets\s*[.\[]", trial_text, re.I), "Secret references are forbidden in the trial")
+    for forbidden in ("id-token", "pull_request_target", "security-events", "GITHUB_TOKEN",
                       "continue-on-error", "environment:", "sudo ", "curl ", "wget ", "--privileged",
                       "unshare", "sysctl", "apparmor_parser", "setpriv", "nsenter", "GITHUB_PATH", "GITHUB_ENV",
                       "npx ", "yarn", "pnpm", "npm install", "npm exec", "npm run", "npm i "):
         require(forbidden not in trial_text, f"Forbidden construct in trial: {forbidden.strip()}")
     require(list(trial["jobs"]) == ["hosted-sast-trial"], "Exactly one trial job expected")
     job = trial["jobs"]["hosted-sast-trial"]
-    require(set(job) <= {"runs-on", "timeout-minutes", "steps"}, "Unexpected job key (permissions/if/needs/container/...)")
+    require(set(job) <= {"if", "runs-on", "timeout-minutes", "steps"}, "Unexpected job key (permissions/env/needs/...)")
+    require(" ".join(job.get("if", "").split()) == trusted_job_condition(),
+            "Trial job must require dispatch on main of the pinned private repository by the original and triggering owner")
     require(job["runs-on"] == "ubuntu-24.04", "Trial must use the ubuntu-24.04 hosted runner")
     require(1 <= int(job["timeout-minutes"]) <= 30, "Trial needs a bounded timeout")
     steps = job["steps"]
+    require(len(steps) >= 3, "Expected owner confirmation, checkout and trust-check as the first three steps")
+    guard, checkout, trust = steps[:3]
+    require(set(guard) <= {"name", "env", "run"} and guard.get("run") == CONFIRM_RUN,
+            "First step must only enforce the owner confirmation phrase and authorization reference")
+    require(checkout.get("uses", "").startswith("actions/checkout@") and
+            set(checkout) <= {"name", "uses", "with"} and checkout.get("with") == {"persist-credentials": "false"},
+            "Second step must check out the dispatch commit with credentials disabled and no overrides")
+    require(trust.get("run") == TRUST_RUN and set(trust) <= {"name", "run"},
+            "Unconditional trust-check must run immediately after checkout without env, shell or directory overrides")
     pins = ci_action_pins(ci)
-    for step in steps:
+    for position, step in enumerate(steps):
+        run = step.get("run", "")
+        action = step.get("uses", "")
+        evidence_step = run == SUMMARY_RUN or action.startswith("actions/upload-artifact@")
+        allowed_keys = {"name", "uses", "with"} if "uses" in step else {"name", "run", "env"}
+        if run == NPM_INSTALL:
+            allowed_keys.add("working-directory")
+        if evidence_step:
+            allowed_keys.add("if")
+        require(set(step) <= allowed_keys, "Unexpected step key or conditional bypass of trust-check")
+        if position == 0:
+            expected_env = CONFIRM_ENV
+        elif run == NPM_INSTALL:
+            expected_env = NPM_ENV
+        elif run == FACTS_RUN or run.startswith("python3 -I scripts/sast/hosted_trial.py container-run "):
+            expected_env = AUTH_REF_ENV
+        else:
+            expected_env = {}
+        require(step.get("env", {}) == expected_env, "Step environment must match the reviewed inputs and switches")
         if "uses" in step:
-            require(re.fullmatch(r"[\w./-]+@[a-f0-9]{40}", step["uses"]), "Unpinned action")
-            require(step["uses"] in pins, "Action/SHA not already reviewed in ci.yml")
-            if step["uses"].startswith("actions/checkout@"):
-                require(step.get("with", {}).get("persist-credentials") == "false", "Checkout must not persist credentials")
-        if "run" in step:
-            require("${{" not in step["run"], "Expressions must reach scripts via env only (injection)")
-    guard = steps[0]
-    require("run" in guard and CONFIRM_PHRASE in guard["run"] and "exit 2" in guard["run"],
-            "First step must enforce the owner confirmation phrase")
-    require(guard.get("env", {}).get("CONFIRM") == "${{ inputs.confirm }}", "Confirmation must arrive via env")
+            require(re.fullmatch(r"[\w./-]+@[a-f0-9]{40}", action), "Unpinned action")
+            require(action in pins, "Action/SHA not already reviewed in ci.yml")
+            if action.startswith("actions/checkout@"):
+                require(position == 1, "Checkout must occur exactly once before trust-check")
+        require("${{" not in run, "Expressions must reach scripts via env only (injection)")
     runs = [s.get("run", "") for s in steps]
     for run in runs:
         for word in ("sudo", "unshare", "sysctl", "apparmor_parser", "setpriv", "nsenter", "--privileged",
@@ -105,6 +175,7 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_vers
         return hits[0]
     sequence = [index(" -m pip download"), index("hosted_trial.py container-build"),
                 index("hosted_trial.py container-install"), index("hosted_trial.py container-run")]
+    index("hosted_trial.py trust-check")
     require(sequence == sorted(sequence), "Steps must run download -> build -> install -> scan")
     # C5-G4H: pinned Node, integrity-verified lockfile install and the TypeScript preflight precede any container.
     want_node = node_version if node_version is not None else NODE_VERSION_FILE.read_text().strip()
@@ -118,7 +189,6 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_vers
     require(npm_lines == [NPM_INSTALL], "The only npm command allowed is a single `npm ci --ignore-scripts`")
     install = index(NPM_INSTALL)
     require(steps[install].get("working-directory") == APP_DIR, "npm ci must run from the application lockfile directory")
-    require(set(steps[install].get("env", {})) <= NPM_ENV, "npm ci may only set reviewed NPM_CONFIG_* switches")
     preflight = index("hosted_trial.py typescript-preflight")
     require(PINNED_NODE_ARG in runs[preflight], "TypeScript preflight must use the provisioned node")
     require(PINNED_NODE_ARG in runs[sequence[3]], "container-run must pass the provisioned node to the host gate")
@@ -126,10 +196,12 @@ def trial_policy(trial: dict, trial_text: str, ci: dict, ci_text: str, node_vers
     require(order == sorted(order), "Steps must run setup-node -> npm ci -> TypeScript preflight -> download -> build -> install -> scan")
     require(not any("hosted_trial.py run " in r for r in runs), "Harness must not run outside the container")
     require("--isolation" not in " ".join(runs), "Isolation mode is fixed by the container driver")
-    summary = steps[index("hosted_trial.py summarize")]
+    summary_index = index("hosted_trial.py summarize")
+    summary = steps[summary_index]
     require(summary.get("if") == "always()", "Evidence summary must always run")
     upload = [s for s in steps if s.get("uses", "").startswith("actions/upload-artifact@")]
     require(len(upload) == 1 and upload[0].get("if") == "always()", "Evidence upload must always run once")
+    require(sequence[-1] < summary_index < steps.index(upload[0]), "Evidence steps must follow the scan step")
     paths = [p.strip() for p in upload[0]["with"]["path"].splitlines() if p.strip()]
     require(paths and all(p.startswith("artifacts/sast/") and p.endswith(".json") and "*" not in p for p in paths),
             "Upload must list explicit artifacts/sast/*.json files only")
@@ -173,7 +245,9 @@ def container_policy(dockerfile_text: str, hardening: tuple, base: str) -> None:
 
 
 def load_driver():
-    sys.path.insert(0, str(ROOT / "scripts/sast"))
+    driver_dir = str(ROOT / "scripts/sast")
+    if driver_dir not in sys.path:
+        sys.path.insert(0, driver_dir)
     import hosted_trial  # noqa: PLC0415
     return hosted_trial
 
@@ -181,14 +255,14 @@ def load_driver():
 def main() -> int:
     trial_text, ci_text = TRIAL.read_text(), CI.read_text()
     try:
-        trial_policy(yaml.load(trial_text, Loader=yaml.BaseLoader), trial_text,
+        trial_policy(yaml.load(trial_text, Loader=TrialLoader), trial_text,
                      yaml.load(ci_text, Loader=yaml.BaseLoader), ci_text)
         driver = load_driver()
         container_policy(DOCKERFILE.read_text(), tuple(driver.HARDENING), driver.BASE_IMAGE)
-    except (Violation, yaml.YAMLError, KeyError, TypeError, ValueError, StopIteration) as exc:
+    except (Violation, yaml.YAMLError, AttributeError, KeyError, TypeError, ValueError, StopIteration) as exc:
         print(f"FAIL: C5-F4 trial workflow policy: {exc}")
         return 1
-    print("PASS: C5-F4R trial workflow is dispatch-only, read-only, pinned, injection-safe, hash-locked, "
+    print("PASS: C5-F4R trial workflow is owner-dispatched on pinned main, read-only, injection-safe, hash-locked, "
           "container-isolated (network none, uid 1001, no caps, no-new-privileges, read-only root), "
           "fail-closed, allowlisted and non-blocking")
     return 0

@@ -1,0 +1,93 @@
+{
+  "milestone": "M4C-C5 R2(a) P2",
+  "date_utc": "2026-11-21",
+  "baseline": "8f89d4125a1546ad01b2dfd2af4731ae128d1c4e",
+  "authorization": "Owner-directed P2 only",
+  "status": "Implemented and locally verified on macOS arm64",
+  "controls": {
+    "trigger": "workflow_dispatch",
+    "ref": "refs/heads/main",
+    "repository_id": 1439889276,
+    "repository_owner_id": 181765037,
+    "private_repository_required": true,
+    "original_actor": "Owner login and numeric ID",
+    "triggering_actor": "Owner login",
+    "permissions": {
+      "contents": "read"
+    },
+    "third_step": "python3 -I scripts/sast/hosted_trial.py trust-check",
+    "artifact_allowlist_count": 6
+  },
+  "verification": {
+    "actionlint_1_7_12": "PASS",
+    "trial_workflow_validator": "PASS",
+    "workflow_tests": {
+      "passed": 27
+    },
+    "runtime_trust_tests": {
+      "passed": 16
+    },
+    "g2_guard": {
+      "normal_passed": 9,
+      "cleared_environment_passed": 9
+    },
+    "engine_free_sast": {
+      "normal": {
+        "passed": 79,
+        "engine_tests_skipped": 30
+      },
+      "cleared_environment": {
+        "passed": 79,
+        "engine_tests_skipped": 30
+      },
+      "environment_note": "Local sandbox-exec initially failed under the Codex sandbox. Final runs outside the outer sandbox passed with the harness sandbox enabled."
+    },
+    "u1_consistency": {
+      "passed": 237,
+      "failed": 0
+    },
+    "u1e_section_3": "All bindings preserved",
+    "delivery_policy_tests": {
+      "passed": 22
+    },
+    "git_integrity": "PASS",
+    "repository_documentation_json_and_whitespace": "PASS",
+    "gitleaks_redacted_history_and_source": "PASS"
+  },
+  "binding_consequences": {
+    "u1e_rebinding_required": false,
+    "next_hosted_trial_expected_input_sha256sum": [
+      "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0  scripts/sast/feasibility.py",
+      "a4f29c12e98665ae5e0969aaa7c9d727d587a89e05f6292cd0873b19c3c9d7d2  scripts/sast/hosted_trial.py",
+      "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d  security/sast/toolchain.json",
+      "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6  security/sast/controls.json",
+      "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c  security/sast/rules/typescript.yml",
+      "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73  security/sast/rules/python.yml",
+      "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25  requirements-sast-linux.txt",
+      "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae  security/sast/container/Dockerfile",
+      "005f7781edd50a5a6d86fd90785ecbb985635fcb174e02cf3c5f7ac621e334f3  .github/workflows/c5-sast-hosted-trial.yml",
+      "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29  scripts/sast/ts_syntax_gate.mjs",
+      "3f46c454ed43917cd9dcab185acb3cc01c5c045bd9247441166f92a008d4db67  security/sast/typescript-gate.json"
+    ],
+    "changed_vs_p1_expected": [
+      ".github/workflows/c5-sast-hosted-trial.yml"
+    ],
+    "review_only_sha256": {
+      "security/sast/trusted-inputs.json": "1f067b0a9b99039e7548c54778e76e9d77d3289f361395a3c4f040a8e82c840a",
+      "scripts/sast/check_trial_workflow.py": "1ad0677f2baa9c1b4ff3d7dd28cff5f5ad996e122c81b1a7c4235f519b51da25",
+      "tests/security/sast/test_trial_workflow.py": "8ed803bb3a1950007f382d7c3af84ae1986b05f6b64b771316cdcef54d5e0fd1"
+    }
+  },
+  "recommendation": {
+    "p2_owner_review": "GO",
+    "p3_through_p6": "NO-GO pending separate owner direction",
+    "hosted_dispatch": "NO-GO",
+    "r2a_approval": "NO-GO",
+    "e04_release_redistribution": "NO-GO"
+  },
+  "verification_limits": [
+    "The job predicate and native hosted payload path have local evidence only.",
+    "Main remains unprotected.",
+    "No Semgrep invocation, hosted run or same-day advisory recheck was performed for P2."
+  ]
+}

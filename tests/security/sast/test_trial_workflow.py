@@ -1,6 +1,5 @@
 """Mutation tests for the C5-F4 hosted trial workflow policy (local; not in CI discovery)."""
 
-import copy
 import sys
 import unittest
 from pathlib import Path
@@ -20,7 +19,7 @@ def load(text):
 
 
 def check(trial_text=TRIAL_TEXT, ci_text=CI_TEXT, mutate=None, mutate_ci=None):
-    trial, ci = load(trial_text), load(ci_text)
+    trial, ci = yaml.load(trial_text, Loader=policy.TrialLoader), load(ci_text)
     if mutate:
         mutate(trial)
     if mutate_ci:
@@ -29,7 +28,17 @@ def check(trial_text=TRIAL_TEXT, ci_text=CI_TEXT, mutate=None, mutate_ci=None):
 
 
 def steps(trial):
-    return trial["jobs"]["hosted-sast-trial"]["steps"]
+    return job(trial)["steps"]
+
+
+def job(trial):
+    return trial["jobs"]["hosted-sast-trial"]
+
+
+def move_after(trial, fragment, after):
+    trial_steps = steps(trial)
+    step = trial_steps.pop(find(trial, fragment))
+    trial_steps.insert(find(trial, after) + 1, step)
 
 
 def find(trial, fragment):
@@ -48,13 +57,80 @@ class TrialWorkflowPolicy(unittest.TestCase):
             check(**kwargs)
 
     def test_rejects_automatic_triggers(self):
-        for event in ("push", "pull_request", "pull_request_target", "schedule", "workflow_run"):
-            self.rejects(mutate=lambda t, e=event: t["on"].update({e: {}}))
+        for event in ("push", "pull_request", "pull_request_target", "merge_group",
+                      "schedule", "workflow_run", "repository_dispatch", "workflow_call"):
+            with self.subTest(event=event):
+                self.rejects(mutate=lambda t, e=event: t["on"].update({e: {"branches": ["main"]}}))
+        self.rejects(mutate=lambda t: t["on"].pop("workflow_dispatch"))
 
     def test_rejects_permission_escalation(self):
         self.rejects(mutate=lambda t: t.update(permissions={"contents": "write"}))
+        self.rejects(mutate=lambda t: t.pop("permissions"))
         self.rejects(mutate=lambda t: t["permissions"].update({"id-token": "write"}))
-        self.rejects(mutate=lambda t: t["jobs"]["hosted-sast-trial"].update(permissions={"security-events": "write"}))
+        self.rejects(mutate=lambda t: job(t).update(permissions={"security-events": "write"}))
+        self.rejects(mutate=lambda t: job(t).update(permissions={"contents": "write"}))
+
+    def test_rejects_weakened_trusted_job_condition(self):
+        self.rejects(mutate=lambda t: job(t).pop("if"))
+        for original, replacement in (
+            ("'workflow_dispatch'", "'push'"),
+            ("'refs/heads/main'", "'refs/tags/main'"),
+            ("'refs/heads/main'", "'refs/heads/topic'"),
+            ("'1439889276'", "'1439889277'"),
+            ("'181765037'", "'181765038'"),
+            ("github.actor_id == github.repository_owner_id &&", ""),
+            ("github.actor == github.repository_owner &&", ""),
+            ("github.triggering_actor == github.repository_owner &&", ""),
+            ("github.event.repository.private == true", "true"),
+            ("&&", "||"),
+        ):
+            with self.subTest(original=original, replacement=replacement):
+                self.rejects(mutate=lambda t, a=original, b=replacement: job(t).update(
+                    {"if": job(t)["if"].replace(a, b, 1)}))
+        self.rejects(mutate=lambda t: job(t).update({"if": "${{ always() }}"}))
+        self.rejects(trial_text=TRIAL_TEXT.replace("    runs-on: ubuntu-24.04",
+                                                   "    if: ${{ always() }}\n    runs-on: ubuntu-24.04"))
+
+    def test_rejects_checkout_target_overrides(self):
+        for key, value in (("ref", "refs/heads/topic"), ("repository", "other/repository"),
+                           ("path", "elsewhere"), ("token", "injected")):
+            with self.subTest(key=key):
+                self.rejects(mutate=lambda t, k=key, v=value: steps(t)[1]["with"].update({k: v}))
+        self.rejects(mutate=lambda t: steps(t).append(dict(steps(t)[1])))
+
+    def test_rejects_missing_conditional_or_replaced_trust_step(self):
+        self.rejects(mutate=lambda t: steps(t).pop(2))
+        self.rejects(mutate=lambda t: steps(t).append(dict(steps(t)[2])))
+        for fields in ({"if": "false"}, {"continue-on-error": "true"}, {"shell": "bash"},
+                       {"working-directory": "elsewhere"}, {"run": "echo trust-check"},
+                       {"run": policy.TRUST_RUN + " || true"}):
+            with self.subTest(fields=fields):
+                self.rejects(mutate=lambda t, f=fields: steps(t)[2].update(f))
+
+    def test_rejects_work_before_trust_or_after_rejection(self):
+        for fragment in ("hosted_trial.py facts", "actions/setup-node@", "npm ci --ignore-scripts",
+                         " -m pip download", "hosted_trial.py container-build", "hosted_trial.py container-install",
+                         "hosted_trial.py container-run"):
+            with self.subTest(fragment=fragment):
+                self.rejects(mutate=lambda t, f=fragment: move_after(t, "hosted_trial.py trust-check", f))
+        self.rejects(mutate=lambda t: steps(t).insert(2, {"run": "echo before trust"}))
+        self.rejects(mutate=lambda t: steps(t)[0].update(run="echo before trust\n" + steps(t)[0]["run"]))
+        for fragment in ("actions/setup-node@", "npm ci --ignore-scripts", " -m pip download",
+                         "hosted_trial.py container-build", "hosted_trial.py container-run"):
+            with self.subTest(fragment=fragment, conditional="always"):
+                self.rejects(mutate=lambda t, f=fragment: steps(t)[find(t, f)].update({"if": "always()"}))
+
+    def test_rejects_trust_environment_overrides(self):
+        for key in ("GITHUB_ACTIONS", "GITHUB_EVENT_NAME", "GITHUB_EVENT_PATH", "GITHUB_REF",
+                    "GITHUB_REPOSITORY_ID", "GITHUB_REPOSITORY_OWNER_ID", "GITHUB_ACTOR_ID",
+                    "GITHUB_TRIGGERING_ACTOR", "RUNNER_ENVIRONMENT", "PATH", "BASH_ENV", "LD_PRELOAD"):
+            with self.subTest(key=key):
+                self.rejects(mutate=lambda t, k=key: t.update(env={k: "override"}))
+                self.rejects(mutate=lambda t, k=key: job(t).update(env={k: "override"}))
+                self.rejects(mutate=lambda t, k=key: steps(t)[2].update(env={k: "override"}))
+                self.rejects(mutate=lambda t, k=key: steps(t)[0]["env"].update({k: "override"}))
+                self.rejects(mutate=lambda t, k=key: steps(t)[find(t, "hosted_trial.py container-run")]["env"].update(
+                    {k: "override"}))
 
     def test_rejects_unpinned_or_unreviewed_actions(self):
         self.rejects(mutate=lambda t: steps(t)[1].update(uses="actions/checkout@v6"))
@@ -87,12 +163,15 @@ class TrialWorkflowPolicy(unittest.TestCase):
     def test_rejects_wrong_container_step_order_or_host_harness(self):
         def swap(t):
             s = steps(t)
-            s[4], s[5] = s[5], s[4]  # install before build
+            build, install = find(t, "hosted_trial.py container-build"), find(t, "hosted_trial.py container-install")
+            s[build], s[install] = s[install], s[build]
         self.rejects(mutate=swap)
         self.rejects(mutate=lambda t: steps(t).insert(7, {"run": "python3 -I scripts/sast/hosted_trial.py run --semgrep x"}))
-        self.rejects(mutate=lambda t: steps(t)[6].update(run=steps(t)[6]["run"] + " --isolation auto"))
-        self.rejects(mutate=lambda t: steps(t)[7].pop("if"))
-        self.rejects(mutate=lambda t: steps(t).pop(5))
+        def override_isolation(t):
+            steps(t)[find(t, "hosted_trial.py container-run")]["run"] += " --isolation auto"
+        self.rejects(mutate=override_isolation)
+        self.rejects(mutate=lambda t: steps(t)[find(t, "hosted_trial.py summarize")].pop("if"))
+        self.rejects(mutate=lambda t: steps(t).pop(find(t, "hosted_trial.py container-install")))
 
     def test_rejects_privilege_network_tools_and_soft_failure(self):
         for addition in ("sudo true", "curl -fsSL https://example.invalid", "wget https://example.invalid"):
@@ -106,7 +185,8 @@ class TrialWorkflowPolicy(unittest.TestCase):
         self.rejects(mutate=lambda t: t["jobs"]["hosted-sast-trial"].update(container={"image": "x"}))
         self.rejects(mutate=lambda t: t["jobs"]["hosted-sast-trial"].update(needs="other"))
         self.rejects(mutate=lambda t: t["jobs"].update(extra={"runs-on": "ubuntu-24.04", "steps": []}))
-        self.rejects(trial_text=TRIAL_TEXT.replace("${{ inputs.confirm }}", "${{ secrets.TRIAL }}"))
+        for reference in ("${{ secrets.TRIAL }}", "${{ SeCrEtS['TRIAL'] }}"):
+            self.rejects(trial_text=TRIAL_TEXT.replace("${{ inputs.confirm }}", reference))
 
     def test_rejects_private_or_broad_uploads(self):
         for path in ("artifacts/sast-private/c5/source-1.json", "artifacts/sast/", "artifacts/**", "artifacts/m3/x.json"):
@@ -202,14 +282,10 @@ class HostedTypeScriptGatePolicy(unittest.TestCase):
             {"continue-on-error": "true"}), trial_text=TRIAL_TEXT + "\n# continue-on-error: true\n")
 
     def test_rejects_any_reordering_after_container_work_starts(self):
-        def move(t, fragment, before):
-            s = steps(t)
-            step = s.pop(find(t, fragment))
-            s.insert(find(t, before) + 1, step)
         for fragment in ("actions/setup-node@", "npm ci --ignore-scripts", "hosted_trial.py typescript-preflight"):
             for after in (" -m pip download", "hosted_trial.py container-build", "hosted_trial.py container-run"):
                 with self.subTest(step=fragment, after=after):
-                    self.rejects(mutate=lambda t, f=fragment, a=after: move(t, f, a))
+                    self.rejects(mutate=lambda t, f=fragment, a=after: move_after(t, f, a))
 
         def preflight_before_install(t):
             s = steps(t)

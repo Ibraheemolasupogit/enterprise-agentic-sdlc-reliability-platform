@@ -52,7 +52,7 @@
   check_trial_workflow.py and its tests passing). E04
   requirement: SAST job must hard-depend on lint/typecheck. G4 is CLOSED for TypeScript only (owner, 2026-11-18); JavaScript
   (.js/.jsx/.mjs/.cjs) remains out of scope. The owner-approved setup-node `package-manager-cache: false` hardening is applied after
-  Run 1 (validator requires it; not yet hosted-verified); the next trial's workflow input hash is `d445ce5c…`.
+  Run 1 (validator requires it; not yet hosted-verified); the next trial's workflow input hash is `005f7781…` after P2.
   [G5D addendum A1](docs/evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475); the owner chose
   path B on 2026-11-18 and exception X1 is WITHDRAWN (never approved or used). Mandatory CI at `2e0bd25` passed (run 44380044262) only because GitHub
   withdrew GHSA-fc5q-39xc-vjpf; 9 moderate minimatch findings remain below the high threshold; never waive findings or change
@@ -72,7 +72,9 @@
   [U1E addendum 1](docs/evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md) (owner-approved 2026-11-19; consistency 237/237). R2(a) (owner-controlled `main` only, no PR/fork
   scanning) is a PROPOSAL, not approved; any further change to a U1E section 3 hash triggers E5(a) again.
   [R2(a) P1](docs/evidence/m4c-c5-r2a-p1-trusted-input.md): hosted_trial.py now fails closed (exit 2) unless an owner workflow_dispatch on refs/heads/main of the pinned
-  repository (security/sast/trusted-inputs.json); keep tests/security/sast/test_trusted_input.py passing; P2-P6 not implemented.
+  repository (security/sast/trusted-inputs.json); keep tests/security/sast/test_trusted_input.py passing.
+  [R2(a) P2](docs/evidence/m4c-c5-r2a-p2-workflow-trust.md) adds the job predicate and immediate post-checkout
+  trust-check to the dispatch-only trial, verified locally. P3–P6 require separate owner direction.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned

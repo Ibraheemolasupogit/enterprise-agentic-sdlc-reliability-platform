@@ -58,7 +58,9 @@ setup-node `package-manager-cache: false`, enforced by the validator (not yet ho
 a strengthened guard test (rebound by [U1E addendum 1](../evidence/m4c-c5-u1e-addendum-1-guard-rebinding.md)) and an R2(a) owner-controlled-`main`-only
 proposal (not approved).
 [R2(a) P1](../evidence/m4c-c5-r2a-p1-trusted-input.md) adds the driver's offline fail-closed trusted-input check (workflow_dispatch on main by the
-pinned owner/repository only); P2–P6 are not implemented. [G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
+pinned owner/repository only). [R2(a) P2](../evidence/m4c-c5-r2a-p2-workflow-trust.md) adds the job predicate and
+post-checkout trust-check to the dispatch-only trial and extends the local validator. P3–P6 remain pending.
+[G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
 waived); the owner chose path B and exception X1 is withdrawn. [C5-U1](../evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md) prepared Semgrep 1.186.0,
 [U1B](../evidence/m4c-c5-u1b-pre-execution-assurance.md) verified all 17 rebuilt libraries, [U1C](../evidence/m4c-c5-u1c-lt-u1-execution.md) and
 [U1D](../evidence/m4c-c5-u1d-lt-u1-verification.md) record LT-U1 (S0–S8 passed), and the owner-approved [U1E](../evidence/m4c-c5-u1e-adoption-decision.md)

@@ -31,6 +31,16 @@ concurrency:
 
 jobs:
   hosted-sast-trial:
+    # R2(a) P2: match the P1 repository and owner IDs before allocating a runner.
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch' &&
+          github.ref == 'refs/heads/main' &&
+          github.repository_id == '1439889276' &&
+          github.repository_owner_id == '181765037' &&
+          github.actor_id == github.repository_owner_id &&
+          github.actor == github.repository_owner &&
+          github.triggering_actor == github.repository_owner &&
+          github.event.repository.private == true }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -52,6 +62,9 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+
+      - name: Verify trusted trial input (R2(a) P2)
+        run: python3 -I scripts/sast/hosted_trial.py trust-check
 
       - name: Record runner facts (read-only)
         env:
