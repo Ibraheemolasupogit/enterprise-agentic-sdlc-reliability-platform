@@ -1,0 +1,18 @@
+{
+  "schema": "c5-approved-trial-inputs/1",
+  "baseline_commit": "cde7b64f11c0ce7b4a67a603156ab7f221219527",
+  "inputs": {
+    ".github/workflows/c5-sast-hosted-trial.yml": "005f7781edd50a5a6d86fd90785ecbb985635fcb174e02cf3c5f7ac621e334f3",
+    "requirements-sast-linux.txt": "a6472b7823e8e1c6442a05516b99c198be2244340867c410723bc41c9d42fc25",
+    "scripts/sast/feasibility.py": "f7690a9aceadbe8e8be00b55ba105f8922c21bca26a7f66719432737a67bc3d0",
+    "scripts/sast/hosted_trial.py": "a4f29c12e98665ae5e0969aaa7c9d727d587a89e05f6292cd0873b19c3c9d7d2",
+    "scripts/sast/ts_syntax_gate.mjs": "a91e8b91fbd7ee89317c6d0cb56723918c5c0bc1edb0bb885a0cd99695001e29",
+    "security/sast/container/Dockerfile": "58d355494b33afa832789114e90ee124ec423e67d9cb6219189ea0e0eec2b2ae",
+    "security/sast/controls.json": "ee61fedf3b6afce976189227cd7c41c48402082562cc368d291683b34d05dbe6",
+    "security/sast/rules/python.yml": "526c3e7f56a9da409f491c088ea4e4104317bdae54bcbb017b1bc650799b1f73",
+    "security/sast/rules/typescript.yml": "b03836178aa25b08201495f7cec0337cda14f55a42cfe964c8ef004b1709fc7c",
+    "security/sast/toolchain.json": "91f9a3d0f31781c35911c7136b244b3c42f378f72ac19971f6676422d3d6603d",
+    "security/sast/typescript-gate.json": "3f46c454ed43917cd9dcab185acb3cc01c5c045bd9247441166f92a008d4db67"
+  },
+  "trusted_inputs_sha256": "1f067b0a9b99039e7548c54778e76e9d77d3289f361395a3c4f040a8e82c840a"
+}

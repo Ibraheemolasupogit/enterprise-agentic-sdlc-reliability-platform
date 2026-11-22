@@ -74,7 +74,10 @@
   [R2(a) P1](docs/evidence/m4c-c5-r2a-p1-trusted-input.md): hosted_trial.py now fails closed (exit 2) unless an owner workflow_dispatch on refs/heads/main of the pinned
   repository (security/sast/trusted-inputs.json); keep tests/security/sast/test_trusted_input.py passing.
   [R2(a) P2](docs/evidence/m4c-c5-r2a-p2-workflow-trust.md) adds the job predicate and immediate post-checkout
-  trust-check to the dispatch-only trial, verified locally. P3–P6 require separate owner direction.
+  trust-check to the dispatch-only trial, verified locally.
+  [R2(a) P3](docs/evidence/m4c-c5-r2a-p3-artifact-verification.md) binds the approved trial inputs and adds offline
+  verification of the six-file artifact against independent GitHub metadata and main history. Historical Run 1
+  establishes evidence integrity only. P4–P6 require separate owner direction.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned
