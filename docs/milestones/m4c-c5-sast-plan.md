@@ -62,7 +62,8 @@ pinned owner/repository only). [R2(a) P2](../evidence/m4c-c5-r2a-p2-workflow-tru
 post-checkout trust-check to the dispatch-only trial and extends the local validator.
 [R2(a) P3](../evidence/m4c-c5-r2a-p3-artifact-verification.md) adds the approved input manifest and offline artifact
 verification against independent GitHub run metadata and Git main history. Historical Run 1 is verified for integrity
-only. P4–P6 remain pending.
+only. [R2(a) P4](../evidence/m4c-c5-r2a-p4-governance-check.md) adds the read-only governance checker and
+offline fixtures. The live check and P5–P6 remain pending.
 [G5D addendum A1](../evidence/m4c-c5-g5d-addendum-a1.md) is the historical 1.185.0 record (ALSA-2026:98475, picomatch HIGH, red mandatory CI not
 waived); the owner chose path B and exception X1 is withdrawn. [C5-U1](../evidence/m4c-c5-u1-semgrep-1.186.0-upgrade-preparation.md) prepared Semgrep 1.186.0,
 [U1B](../evidence/m4c-c5-u1b-pre-execution-assurance.md) verified all 17 rebuilt libraries, [U1C](../evidence/m4c-c5-u1c-lt-u1-execution.md) and

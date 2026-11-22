@@ -77,7 +77,9 @@
   trust-check to the dispatch-only trial, verified locally.
   [R2(a) P3](docs/evidence/m4c-c5-r2a-p3-artifact-verification.md) binds the approved trial inputs and adds offline
   verification of the six-file artifact against independent GitHub metadata and main history. Historical Run 1
-  establishes evidence integrity only. P4–P6 require separate owner direction.
+  establishes evidence integrity only.
+  [R2(a) P4](docs/evidence/m4c-c5-r2a-p4-governance-check.md) adds a read-only governance checker with
+  offline fixture coverage. The live check and P5–P6 require separate owner direction.
   Further dispatches, CI release-gate integration and later C5 work need new owner direction.
   Do not wire SAST into CI, implement other C5 steps, or modify application
   code/CI workflows without new owner direction. Preserve completed C1/C3/C4 and pinned
