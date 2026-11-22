@@ -9,7 +9,7 @@ FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28
 USER root
 # Exact security patch versions; no blanket scanner ignores or ignore-unfixed gate.
 RUN apk add --no-cache brotli-libs=1.2.1-r0 curl=8.23.0-r0 libcurl=8.23.0-r0 \
-    libexpat=2.10.0-r0 libxslt=1.1.43-r4 musl=1.2.6-r3 musl-utils=1.2.6-r3 zlib=1.4-r0
+    libexpat=2.10.0-r0 libxml2=2.13.9-r3 libxslt=1.1.43-r4 musl=1.2.6-r3 musl-utils=1.2.6-r3 zlib=1.4-r0
 # nginx 1.30.7 security release (CVE-2026-113425/-118899/-121810/-123007/-123633/-123634; also -125283).
 # All five installed nginx.org packages move together, from nginx.org's signed Alpine 3.24 repository. apk verifies
 # them with the nginx signing key already shipped in the pinned base and refuses untrusted signatures. Remove these
